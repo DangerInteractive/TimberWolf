@@ -1,2 +1,2 @@
 # TimberWolf
-A cross-platform game engine based on C++, OpenGL, and GLFW.
+A high-performance 3D focused cross-platform game engine based on C++, OpenGL, Vulkan and GLFW.
