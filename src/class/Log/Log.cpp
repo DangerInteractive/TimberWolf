@@ -12,48 +12,6 @@ void Log::setFilterLevel (const LogLevel filterLevel) {
 
 }
 
-void Log::log (const std::string message, const LogLevel messageType) {
-
-    if (messageType == LogLevel::UNDEFINED || messageType >= m_filterLevel) {
-
-        std::string out = Log::formatMessage(message, messageType);
-
-        std::lock_guard<std::mutex> lock_out(Log::mutex_out);
-
-        if (messageType == LogLevel::ERROR) {
-            std::cerr << out << std::endl;
-        } else {
-            std::cout << out << std::endl;
-        }
-
-    }
-
-}
-
-void Log::verbose (const std::string message) {
-
-    Log::log(message, LogLevel::VERBOSE);
-
-}
-
-void Log::notice (const std::string message) {
-
-    Log::log(message, LogLevel::NOTICE);
-
-}
-
-void Log::warning (const std::string message) {
-
-    Log::log(message, LogLevel::WARNING);
-
-}
-
-void Log::error (const std::string message) {
-
-    Log::log(message, LogLevel::ERROR);
-
-}
-
 void Log::bindCallbacks () {
 
     glfwSetErrorCallback(glfwError);
@@ -93,7 +51,7 @@ void Log::glewError (GLenum glewStatus) {
 
 }
 
-std::string Log::formatMessage (const std::string message, LogLevel messageType) {
+std::string Log::formatMessage (LogLevel messageType, const std::string& message) {
 
     auto time = std::time(nullptr);
     auto localtime = *std::localtime(&time);
@@ -134,4 +92,5 @@ std::string Log::formatMessage (const std::string message, LogLevel messageType)
 
 LogLevel Log::m_filterLevel = LogLevel::VERBOSE;
 
-std::mutex Log::mutex_out;
+std::mutex Log::mutex_stdout;
+std::mutex Log::mutex_stderr;
