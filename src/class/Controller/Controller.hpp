@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <sstream>
+#include <functional>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "../Log/Log.hpp"
@@ -13,6 +14,16 @@
 class Controller {
 
 public:
+
+    typedef std::function<void(double,double)> CursorCallback;
+    typedef std::function<void()> CursorInCallback;
+    typedef std::function<void()> CursorOutCallback;
+    typedef std::function<void()> FocusCallback;
+    typedef std::function<void()> UnfocusCallback;
+    typedef std::function<void(int,int)> MouseButtonPressCallback;
+    typedef std::function<void(int,int)> MouseButtonReleaseCallback;
+    typedef std::function<void(double,double)> ScrollCallback;
+    typedef std::function<void(int,int)> ResizeCallback;
 
     Controller ();
     ~Controller () = default;
@@ -51,6 +62,16 @@ public:
 private:
 
     std::vector<Keybinding> m_keybindings;
+
+    std::vector<CursorCallback> m_cursorCallback;
+    std::vector<CursorInCallback> m_cursorInCallbacks;
+    std::vector<CursorOutCallback> m_cursorOutCallback;
+    std::vector<FocusCallback> m_focusCallbacks;
+    std::vector<UnfocusCallback> m_unfocusCallbacks;
+    std::vector<MouseButtonPressCallback> m_mouseButtonPressCallbacks;
+    std::vector<MouseButtonReleaseCallback> m_mouseButtonReleaseCallbacks;
+    std::vector<ScrollCallback> m_scrollCallbacks;
+    std::vector<ResizeCallback> m_resizeCallbacks;
 
 };
 

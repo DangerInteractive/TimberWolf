@@ -7,6 +7,9 @@ void Controller::onKey (int action, int mod, int key, int scanCode) {
     for (int i = 0; i < m_keybindings.size(); ++i) {
         m_keybindings[i].process(action, mod, key, scanCode);
     }
+    std::ostringstream oss;
+    oss << "Key " << action << " " << mod << " " << key << " " << scanCode;
+    Log::verbose(oss.str());
 
 }
 
