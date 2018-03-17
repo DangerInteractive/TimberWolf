@@ -7,17 +7,13 @@ void Controller::onKey (int action, int mod, int key, int scanCode) {
     for (int i = 0; i < m_keybindings.size(); ++i) {
         m_keybindings[i].process(action, mod, key, scanCode);
     }
-    std::ostringstream oss;
-    oss << "Key " << action << " " << mod << " " << key << " " << scanCode;
-    Log::verbose(oss.str());
+    Log::verbose("Key ", action, " ", mod, " ", key, " ", scanCode);
 
 }
 
 void Controller::onCursor (double xPos, double yPos) {
 
-    std::ostringstream oss;
-    oss << "Mouse " << xPos << " " << yPos;
-    Log::verbose(oss.str());
+    Log::verbose("Mouse ", xPos, " ", yPos);
 
 }
 
@@ -35,25 +31,19 @@ void Controller::onCursorOut () {
 
 void Controller::onMouseButton (int action, int mod, int button) {
 
-    std::ostringstream oss;
-    oss << "Mouse Button " << action << " " << mod << " " << button;
-    Log::verbose(oss.str());
+    Log::verbose("Mouse Button ", action, " ", mod, " ", button);
 
 }
 
 void Controller::onScroll (double xOffset, double yOffset) {
 
-    std::ostringstream oss;
-    oss << "Scroll " << xOffset << " " << yOffset;
-    Log::verbose(oss.str());
+    Log::verbose("Scroll ", xOffset, " ", yOffset);
 
 }
 
 void Controller::onDrop (int count, const char** paths) {
 
-    std::ostringstream oss;
-    oss << "Drop " << count << " " << *paths;
-    Log::verbose(oss.str());
+    Log::verbose("Drop ", count, " ", *paths);
 
 }
 
@@ -134,9 +124,37 @@ std::vector<Keybinding> Controller::getKeybindingsByKeyMod (KeyMod mod) {
 
 }
 
+std::vector<Keybinding> Controller::getKeybindingsByScanCode (int scanCode) {
+
+    std::vector<Keybinding> out;
+
+    for (int i = 0; i < m_keybindings.size(); ++i) {
+
+        if (scanCode == m_keybindings[i].m_scanCode) {
+            out.push_back(m_keybindings[i]);
+        }
+
+    }
+
+    return out;
+
+}
+
+void Controller::setKeybindings (const std::vector<Keybinding>& keybindings) {
+
+    m_keybindings = keybindings;
+
+}
+
+void Controller::addKeybinding (const Keybinding& keybinding) {
+
+    m_keybindings.push_back(keybinding);
+
+}
+
 void Controller::clearKeybindings () {
 
-    m_keybindings = std::vector<Keybinding>();
+    m_keybindings = {};
 
 }
 
@@ -212,14 +230,218 @@ void Controller::removeKeybindingsByScanCode (int scanCode) {
 
 }
 
-void Controller::setKeybindings (std::vector<Keybinding> keybindings) {
+std::vector<Controller::CursorCallback> Controller::getCursorCallbacks () {
 
-    m_keybindings = keybindings;
+    return m_cursorCallbacks;
 
 }
 
-void Controller::addKeybinding (Keybinding keybinding) {
+void Controller::setCursorCallbacks (const std::vector<Controller::CursorCallback>& cursorCallbacks) {
 
-    m_keybindings.push_back(keybinding);
+    m_cursorCallbacks = cursorCallbacks;
+
+}
+
+void Controller::addCursorCallback (const Controller::CursorCallback& cursorCallback) {
+
+    m_cursorCallbacks.push_back(cursorCallback);
+
+}
+
+void Controller::clearCursorCallbacks () {
+
+    m_cursorCallbacks = {};
+
+}
+
+std::vector<Controller::CursorInCallback> Controller::getCursorInCallbacks () {
+
+    return m_cursorInCallbacks;
+
+}
+
+void Controller::setCursorInCallbacks (const std::vector<Controller::CursorInCallback>& cursorInCallbacks) {
+
+    m_cursorInCallbacks = cursorInCallbacks;
+
+}
+
+void Controller::addCursorInCallback (const Controller::CursorInCallback& cursorInCallback) {
+
+    m_cursorInCallbacks.push_back(cursorInCallback);
+
+}
+
+void Controller::clearCursorInCallbacks () {
+
+    m_cursorInCallbacks = {};
+
+}
+
+std::vector<Controller::CursorOutCallback> Controller::getCursorOutCallbacks () {
+
+    return m_cursorOutCallbacks;
+
+}
+
+void Controller::setCursorOutCallbacks (const std::vector<Controller::CursorOutCallback>& cursorOutCallbacks) {
+
+    m_cursorOutCallbacks = cursorOutCallbacks;
+
+}
+
+void Controller::addCursorOutCallback (const Controller::CursorOutCallback& cursorOutCallback) {
+
+    m_cursorOutCallbacks.push_back(cursorOutCallback);
+
+}
+
+void Controller::clearCursorOutCallbacks () {
+
+    m_cursorOutCallbacks = {};
+
+}
+
+std::vector<Controller::FocusCallback> Controller::getFocusCallbacks () {
+
+    return m_focusCallbacks;
+
+}
+
+void Controller::setFocusCallbacks (const std::vector<Controller::FocusCallback>& focusCallbacks) {
+
+    m_focusCallbacks = focusCallbacks;
+
+}
+
+void Controller::addFocusCallback (const Controller::FocusCallback& focusCallback) {
+
+    m_focusCallbacks.push_back(focusCallback);
+
+}
+
+void Controller::clearFocusCallbacks () {
+
+    m_focusCallbacks = {};
+
+}
+
+std::vector<Controller::UnfocusCallback> Controller::getUnfocusCallbacks () {
+
+    return m_unfocusCallbacks;
+
+}
+
+void Controller::setUnfocusCallbacks (const std::vector<Controller::UnfocusCallback>& unfocusCallbacks) {
+
+    m_unfocusCallbacks = unfocusCallbacks;
+
+}
+
+void Controller::addUnfocusCallback (const Controller::UnfocusCallback& unfocusCallback) {
+
+    m_unfocusCallbacks.push_back(unfocusCallback);
+
+}
+
+void Controller::clearUnfocusCallbacks () {
+
+    m_unfocusCallbacks = {};
+
+}
+
+std::vector<Controller::MouseButtonPressCallback> Controller::getMouseButtonPressCallbacks () {
+
+    return m_mouseButtonPressCallbacks;
+
+}
+
+void Controller::setMouseButtonPressCallbacks (const std::vector<Controller::MouseButtonPressCallback>& mouseButtonPressCallbacks) {
+
+    m_mouseButtonPressCallbacks = mouseButtonPressCallbacks;
+
+}
+
+void Controller::addMouseButtonPressCallback (const Controller::MouseButtonPressCallback& mouseButtonPressCallback) {
+
+    m_mouseButtonPressCallbacks.push_back(mouseButtonPressCallback);
+
+}
+
+void Controller::clearMouseButtonPressCallbacks () {
+
+    m_mouseButtonPressCallbacks = {};
+
+}
+
+std::vector<Controller::MouseButtonReleaseCallback> Controller::getMouseButtonReleaseCallbacks () {
+
+    return m_mouseButtonReleaseCallbacks;
+
+}
+
+void Controller::setMouseButtonReleaseCallbacks (const std::vector<Controller::MouseButtonReleaseCallback>& mouseButtonReleaseCallbacks) {
+
+    m_mouseButtonReleaseCallbacks = mouseButtonReleaseCallbacks;
+
+}
+
+void Controller::addMouseButtonReleaseCallback (const Controller::MouseButtonReleaseCallback& mouseButtonReleaseCallback) {
+
+    m_mouseButtonReleaseCallbacks.push_back(mouseButtonReleaseCallback);
+
+}
+
+void Controller::clearMouseButtonReleaseCallbacks () {
+
+    m_mouseButtonReleaseCallbacks = {};
+
+}
+
+std::vector<Controller::ScrollCallback> Controller::getScrollCallbacks () {
+
+    return m_scrollCallbacks;
+
+}
+
+void Controller::setScrollCallbacks (const std::vector<Controller::ScrollCallback>& scrollCallbacks) {
+
+    m_scrollCallbacks = scrollCallbacks;
+
+}
+
+void Controller::addScrollCallback (const Controller::ScrollCallback& scrollCallback) {
+
+    m_scrollCallbacks.push_back(scrollCallback);
+
+}
+
+void Controller::clearScrollCallbacks () {
+
+    m_scrollCallbacks = {};
+
+}
+
+std::vector<Controller::ResizeCallback> Controller::getResizeCallbacks () {
+
+    return m_resizeCallbacks;
+
+}
+
+void Controller::setResizeCallbacks (const std::vector<Controller::ResizeCallback>& resizeCallbacks) {
+
+    m_resizeCallbacks = resizeCallbacks;
+
+}
+
+void Controller::addResizeCallback (const Controller::ResizeCallback& resizeCallback) {
+
+    m_resizeCallbacks.push_back(resizeCallback);
+
+}
+
+void Controller::clearResizeCallbacks () {
+
+    m_resizeCallbacks = {};
 
 }

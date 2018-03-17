@@ -48,7 +48,8 @@ public:
     std::vector<Keybinding> getKeybindingsByKeyType (KeyType);
     std::vector<Keybinding> getKeybindingsByKeyMod (KeyMod);
     std::vector<Keybinding> getKeybindingsByScanCode (int);
-
+    void setKeybindings (const std::vector<Keybinding>&);
+    void addKeybinding (const Keybinding&);
     void clearKeybindings ();
     void removeKeybindings (KeyAction, KeyMod, KeyType, int = 0);
     void removeKeybindingsByKeyAction (KeyAction);
@@ -56,16 +57,58 @@ public:
     void removeKeybindingsByKeyMod (KeyMod);
     void removeKeybindingsByScanCode (int);
 
-    void setKeybindings (std::vector<Keybinding>);
-    void addKeybinding (Keybinding);
+    std::vector<CursorCallback> getCursorCallbacks ();
+    void setCursorCallbacks (const std::vector<CursorCallback>&);
+    void addCursorCallback (const CursorCallback&);
+    void clearCursorCallbacks ();
+
+    std::vector<CursorInCallback> getCursorInCallbacks ();
+    void setCursorInCallbacks (const std::vector<CursorInCallback>&);
+    void addCursorInCallback (const CursorInCallback&);
+    void clearCursorInCallbacks ();
+
+    std::vector<CursorOutCallback> getCursorOutCallbacks ();
+    void setCursorOutCallbacks (const std::vector<CursorOutCallback>&);
+    void addCursorOutCallback (const CursorOutCallback&);
+    void clearCursorOutCallbacks ();
+
+    std::vector<FocusCallback> getFocusCallbacks ();
+    void setFocusCallbacks (const std::vector<FocusCallback>&);
+    void addFocusCallback (const FocusCallback&);
+    void clearFocusCallbacks ();
+
+    std::vector<UnfocusCallback> getUnfocusCallbacks ();
+    void setUnfocusCallbacks (const std::vector<UnfocusCallback>&);
+    void addUnfocusCallback (const UnfocusCallback&);
+    void clearUnfocusCallbacks ();
+
+    std::vector<MouseButtonPressCallback> getMouseButtonPressCallbacks ();
+    void setMouseButtonPressCallbacks (const std::vector<MouseButtonPressCallback>&);
+    void addMouseButtonPressCallback (const MouseButtonPressCallback&);
+    void clearMouseButtonPressCallbacks ();
+
+    std::vector<MouseButtonReleaseCallback> getMouseButtonReleaseCallbacks ();
+    void setMouseButtonReleaseCallbacks (const std::vector<MouseButtonReleaseCallback>&);
+    void addMouseButtonReleaseCallback (const MouseButtonReleaseCallback&);
+    void clearMouseButtonReleaseCallbacks ();
+
+    std::vector<ScrollCallback> getScrollCallbacks ();
+    void setScrollCallbacks (const std::vector<ScrollCallback>&);
+    void addScrollCallback (const ScrollCallback&);
+    void clearScrollCallbacks ();
+
+    std::vector<ResizeCallback> getResizeCallbacks ();
+    void setResizeCallbacks (const std::vector<ResizeCallback>&);
+    void addResizeCallback (const ResizeCallback&);
+    void clearResizeCallbacks ();
 
 private:
 
     std::vector<Keybinding> m_keybindings;
 
-    std::vector<CursorCallback> m_cursorCallback;
+    std::vector<CursorCallback> m_cursorCallbacks;
     std::vector<CursorInCallback> m_cursorInCallbacks;
-    std::vector<CursorOutCallback> m_cursorOutCallback;
+    std::vector<CursorOutCallback> m_cursorOutCallbacks;
     std::vector<FocusCallback> m_focusCallbacks;
     std::vector<UnfocusCallback> m_unfocusCallbacks;
     std::vector<MouseButtonPressCallback> m_mouseButtonPressCallbacks;
