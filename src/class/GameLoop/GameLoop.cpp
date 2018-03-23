@@ -1,13 +1,13 @@
 #include "GameLoop.hpp"
 
-void GameLoop::setRenderFrameRate (int framesPerSecond) {
+void GameLoop::setRenderFrameRate (unsigned int framesPerSecond) {
 
     m_renderFrameRate = framesPerSecond;
     m_renderSeconds = 1.0 / framesPerSecond;
 
 }
 
-void GameLoop::setUpdateTickRate (int ticksPerSecond) {
+void GameLoop::setUpdateTickRate (unsigned int ticksPerSecond) {
 
     m_updateTickRate = ticksPerSecond;
     m_updateSeconds = 1.0 / ticksPerSecond;
@@ -104,7 +104,7 @@ void GameLoop::render (double deltaTime) {
 }
 
 void GameLoop::update (
-    int& updateTickRate,
+    unsigned int& updateTickRate,
     double& updateSeconds,
     bool& windowOpen,
     bool& isRunning,
@@ -146,8 +146,8 @@ void GameLoop::update (
 
 }
 
-int GameLoop::m_renderFrameRate = 60;
-int GameLoop::m_updateTickRate = 40;
+unsigned int GameLoop::m_renderFrameRate = 60;
+unsigned int GameLoop::m_updateTickRate = 40;
 
 double GameLoop::m_renderSeconds = 1.0 / 60.0;
 double GameLoop::m_updateSeconds = 1.0 / 40.0;

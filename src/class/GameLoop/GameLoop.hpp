@@ -40,8 +40,8 @@ private:
     static void render (double);
     static void input ();
 
-    static int m_renderFrameRate;
-    static int m_updateTickRate;
+    static unsigned int m_renderFrameRate;
+    static unsigned int m_updateTickRate;
 
     static double m_renderSeconds;
     static double m_updateSeconds;

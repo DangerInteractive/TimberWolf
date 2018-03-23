@@ -13,7 +13,6 @@ std::chrono::time_point<std::chrono::high_resolution_clock> Clock::getResetTime 
 double Clock::getElapsedSeconds () const {
 
     std::chrono::duration<double> duration = std::chrono::high_resolution_clock::now() - m_resetTime;
-    duration = std::chrono::duration_cast<std::chrono::seconds>(duration);
 
     return duration.count();
 
@@ -21,8 +20,10 @@ double Clock::getElapsedSeconds () const {
 
 long long Clock::getElapsedMilliseconds () const {
 
-    std::chrono::duration<long long> duration = std::chrono::high_resolution_clock::now() - m_resetTime;
-    duration = std::chrono::duration_cast<std::chrono::milliseconds>(duration);
+    std::chrono::duration<long long, std::milli> duration =
+        std::chrono::duration_cast<std::chrono::milliseconds>(
+            std::chrono::high_resolution_clock::now() - m_resetTime
+        );
 
     return duration.count();
 
@@ -30,8 +31,10 @@ long long Clock::getElapsedMilliseconds () const {
 
 long long Clock::getElapsedMicroseconds () const {
 
-    std::chrono::duration<long long> duration = std::chrono::high_resolution_clock::now() - m_resetTime;
-    duration = std::chrono::duration_cast<std::chrono::microseconds>(duration);
+    std::chrono::duration<long long, std::micro> duration =
+        std::chrono::duration_cast<std::chrono::microseconds>(
+            std::chrono::high_resolution_clock::now() - m_resetTime
+        );
 
     return duration.count();
 
@@ -39,8 +42,10 @@ long long Clock::getElapsedMicroseconds () const {
 
 long long Clock::getElapsedNanoseconds () const {
 
-    std::chrono::duration<long long> duration = std::chrono::high_resolution_clock::now() - m_resetTime;
-    duration = std::chrono::duration_cast<std::chrono::nanoseconds>(duration);
+    std::chrono::duration<long long, std::nano> duration =
+        std::chrono::duration_cast<std::chrono::nanoseconds>(
+            std::chrono::high_resolution_clock::now() - m_resetTime
+        );
 
     return duration.count();
 
