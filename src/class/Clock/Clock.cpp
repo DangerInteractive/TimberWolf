@@ -50,3 +50,9 @@ long long Clock::getElapsedNanoseconds () const {
     return duration.count();
 
 }
+
+void Clock::reset () {
+
+    m_resetTime = std::chrono::high_resolution_clock::now();
+
+}

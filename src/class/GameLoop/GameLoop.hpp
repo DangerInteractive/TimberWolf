@@ -9,6 +9,7 @@
 #include "../Log/Log.hpp"
 #include "../GameStateManager/GameStateManager.hpp"
 #include "../Window/Window.hpp"
+#include "../Clock/Clock.hpp"
 
 class GameLoop {
 
@@ -35,7 +36,7 @@ public:
 
 private:
 
-    static void update (unsigned int&, double&, bool&, bool&, bool&);
+    static void update (Clock&, unsigned int&, double&, bool&, bool&, bool&);
 
     static void render (double);
     static void input ();
@@ -45,6 +46,9 @@ private:
 
     static double m_renderSeconds;
     static double m_updateSeconds;
+
+    static Clock m_renderLoopClock;
+    static Clock m_updateLoopClock;
 
     static bool m_windowOpen;
     static bool m_isRunning;

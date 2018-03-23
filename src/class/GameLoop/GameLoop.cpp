@@ -22,6 +22,7 @@ void GameLoop::run () {
     if (!m_updateLoopRunning) {
         m_updateThread = std::thread(
             update,
+            std::ref(m_updateLoopClock),
             std::ref(m_updateTickRate),
             std::ref(m_updateSeconds),
             std::ref(m_windowOpen),
@@ -46,9 +47,9 @@ void GameLoop::run () {
 
         while (!glfwWindowShouldClose(context)) {
 
-            double deltaTime = m_renderSeconds;
+            m_renderLoopClock.reset();
 
-            auto startTime = std::chrono::high_resolution_clock::now();
+            auto deltaTime = m_updateLoopClock.getElapsedSeconds();
 
             if (m_isRunning) {
 
@@ -62,17 +63,13 @@ void GameLoop::run () {
 
             }
 
-            auto endTime = std::chrono::high_resolution_clock::now();
+            auto elapsedTime = m_renderLoopClock.getElapsedSeconds();
 
-            std::chrono::duration<double> elapsedTime = endTime - startTime;
-
-            if (elapsedTime.count() < m_renderSeconds) {
-                std::this_thread::sleep_for(std::chrono::duration<double>(m_renderSeconds - elapsedTime.count()));
+            if (elapsedTime < m_renderSeconds) {
+                std::this_thread::sleep_for(std::chrono::duration<double>(m_renderSeconds - elapsedTime));
             }
 
-            auto finalTime = std::chrono::high_resolution_clock::now();
-            std::chrono::duration<double> finalElapsedTime = finalTime - startTime;
-            deltaTime = finalElapsedTime.count();
+            m_renderLoopClock.reset();
 
         }
 
@@ -104,6 +101,7 @@ void GameLoop::render (double deltaTime) {
 }
 
 void GameLoop::update (
+    Clock& updateLoopClock,
     unsigned int& updateTickRate,
     double& updateSeconds,
     bool& windowOpen,
@@ -113,11 +111,10 @@ void GameLoop::update (
 
     updateLoopRunning = true;
 
+    double deltaTime = updateSeconds;
     while (windowOpen) {
 
-        double deltaTime = updateSeconds;
-
-        auto startTime = std::chrono::high_resolution_clock::now();
+        auto startTime = updateLoopClock.getElapsedSeconds();
 
         if (isRunning) {
 
@@ -128,17 +125,13 @@ void GameLoop::update (
 
         }
 
-        auto endTime = std::chrono::high_resolution_clock::now();
-
-        std::chrono::duration<double> elapsedTime = endTime - startTime;
-
-        if (elapsedTime.count() < updateSeconds) {
-            std::this_thread::sleep_for(std::chrono::duration<double>(updateSeconds - elapsedTime.count()));
+        auto elapsedTime = updateLoopClock.getElapsedSeconds();
+        if (elapsedTime < updateSeconds) {
+            std::this_thread::sleep_for(std::chrono::duration<double>(updateSeconds - elapsedTime));
         }
 
-        auto finalTime = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> finalElapsedTime = finalTime - startTime;
-        deltaTime = finalElapsedTime.count();
+        deltaTime = updateLoopClock.getElapsedSeconds() - startTime;
+        updateLoopClock.reset();
 
     }
 
@@ -151,6 +144,9 @@ unsigned int GameLoop::m_updateTickRate = 40;
 
 double GameLoop::m_renderSeconds = 1.0 / 60.0;
 double GameLoop::m_updateSeconds = 1.0 / 40.0;
+
+Clock GameLoop::m_renderLoopClock;
+Clock GameLoop::m_updateLoopClock;
 
 bool GameLoop::m_windowOpen = false;
 bool GameLoop::m_isRunning = false;
