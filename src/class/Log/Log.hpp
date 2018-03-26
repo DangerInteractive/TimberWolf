@@ -77,10 +77,10 @@ public:
 private:
 
     template<typename ...T>
-    static std::string concatMessage (T&&... messageRight) {
+    static std::string concatMessage (T&&... message) {
 
         std::ostringstream oss;
-        (oss << ... << std::forward<T>(messageRight));
+        (oss << ... << std::forward<T>(message));
         return oss.str();
 
     }
