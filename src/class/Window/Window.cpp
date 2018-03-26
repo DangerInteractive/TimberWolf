@@ -2,7 +2,19 @@
 
 void Window::init () {
 
-    Log::bindCallbacks();
+    glfwSetErrorCallback([](int error, const char* description){
+
+        Log::error(
+            std::showbase,
+            std::internal,
+            std::setfill('0'),
+            "GLFW Error: ",
+            std::dec, error, ' ',
+            std::hex, std::setw(10), ERROR, ": ", std::dec,
+            description
+        );
+
+    });
 
     if (!glfwInit()) {
         exit(EXIT_FAILURE);
@@ -62,7 +74,10 @@ void Window::open () {
     GLenum glewStatus = glewInit();
 
     if (glewStatus != GLEW_OK) {
-        Log::glewError(glewStatus);
+        Log::error(
+            "GLEW Error: ",
+            glewGetErrorString(glewStatus)
+        );
     }
 
     Log::verbose("GLEW initialized.");

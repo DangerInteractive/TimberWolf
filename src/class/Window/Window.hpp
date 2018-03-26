@@ -2,7 +2,6 @@
 #define H_CLASS_WINDOW
 
 #include <string>
-#include <sstream>
 #include <exception>
 #include <stdexcept>
 #include <GL/glew.h>

@@ -9,8 +9,6 @@
 #include <mutex>
 #include <exception>
 #include <cstdlib>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include "../../enum/LogLevel/LogLevel.hpp"
 
 class Log {
@@ -68,11 +66,8 @@ public:
         Log::log(LogLevel::ERROR, std::forward<T>(message)...);
     }
 
-    static void bindCallbacks ();
-
+    static void bindUnhandledException ();
     static void unhandledException ();
-    static void glfwError (int, const char*);
-    static void glewError (GLenum);
 
 private:
 

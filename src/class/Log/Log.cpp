@@ -12,9 +12,8 @@ void Log::setFilterLevel (const LogLevel filterLevel) {
 
 }
 
-void Log::bindCallbacks () {
+void Log::bindUnhandledException () {
 
-    glfwSetErrorCallback(glfwError);
     std::set_terminate(unhandledException);
 
 }
@@ -23,31 +22,6 @@ void Log::unhandledException () {
 
     Log::error("Unhandled exception.");
     std::abort();
-
-}
-
-void Log::glfwError (int error, const char* description) {
-
-    std::ostringstream oss;
-    oss << std::showbase
-        << std::internal
-        << std::setfill('0');
-    oss << "GLFW Error: "
-        << std::dec << error << ' '
-        << std::hex << std::setw(10) << error << ": " << std::dec
-        << description;
-
-    Log::error(oss.str());
-
-}
-
-void Log::glewError (GLenum glewStatus) {
-
-    std::ostringstream oss;
-    oss << "GLEW Error: "
-        << glewGetErrorString(glewStatus);
-
-    Log::error(oss.str());
 
 }
 
