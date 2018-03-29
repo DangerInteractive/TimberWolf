@@ -58,6 +58,8 @@ public:
             )
         ) {
             out = Log::formatMessage(messageType, Log::concatMessage(std::forward<T>(message)...));
+        } else {
+            return;
         }
 
         if (m_cliOutputEnabled) {
