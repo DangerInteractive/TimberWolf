@@ -1,14 +1,88 @@
 #include "Log.hpp"
 
-LogLevel Log::getFilterLevel () {
+bool Log::cliOutputEnabled () {
 
-    return m_filterLevel;
+    return m_cliOutputEnabled;
 
 }
 
-void Log::setFilterLevel (const LogLevel filterLevel) {
+void Log::enableCliOutput () {
 
-    m_filterLevel = filterLevel;
+    m_cliOutputEnabled = true;
+
+}
+
+void Log::disableCliOutput () {
+
+    m_cliOutputEnabled = false;
+
+}
+
+LogLevel Log::getCliFilterLevel () {
+
+    return m_cliFilterLevel;
+
+}
+
+void Log::setCliFilterLevel (LogLevel filterLevel) {
+
+    m_cliFilterLevel = filterLevel;
+
+}
+
+bool Log::fileOpen () {
+
+    return m_file.is_open();
+
+}
+
+bool Log::openFile (const std::string& filename) {
+
+    if (fileOpen()) {
+        closeFile();
+    }
+
+    m_file.open(filename, std::ios::out | std::ios::app);
+
+    return fileOpen();
+
+}
+
+void Log::closeFile () {
+
+    if (fileOpen()) {
+        m_file.close();
+    }
+
+}
+
+bool Log::fileOutputEnabled () {
+
+    return m_fileOutputEnabled;
+
+}
+
+void Log::enableFileOutput () {
+
+    m_fileOutputEnabled = true;
+
+}
+
+void Log::disableFileOutput () {
+
+    m_fileOutputEnabled = false;
+
+}
+
+LogLevel Log::getFileFilterLevel () {
+
+    return m_fileFilterLevel;
+
+}
+
+void Log::setFileFilterLevel (LogLevel filterLevel) {
+
+    m_fileFilterLevel = filterLevel;
 
 }
 
@@ -64,7 +138,14 @@ std::string Log::formatMessage (LogLevel messageType, const std::string& message
 
 }
 
-LogLevel Log::m_filterLevel = LogLevel::VERBOSE;
+std::atomic<bool> Log::m_cliOutputEnabled {true};
+std::atomic<bool> Log::m_fileOutputEnabled {false};
+
+std::atomic<LogLevel> Log::m_cliFilterLevel {LogLevel::VERBOSE};
+std::atomic<LogLevel> Log::m_fileFilterLevel {LogLevel::VERBOSE};
+
+std::ofstream Log::m_file;
 
 std::mutex Log::mutex_stdout;
 std::mutex Log::mutex_stderr;
+std::mutex Log::mutex_file;
