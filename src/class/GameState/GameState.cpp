@@ -1,5 +1,13 @@
 #include "GameState.hpp"
 
+void GameState::clearWindow () {
+
+    if (m_clearWindow) {
+        Window::clear(m_clearColor);
+    }
+
+}
+
 Controller& GameState::getController () {
 
     return m_controller;

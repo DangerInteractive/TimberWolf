@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "../Color/Color.hpp"
 #include "../Log/Log.hpp"
 
 class Window {
@@ -39,6 +40,10 @@ public:
     static void close ();
     static void destroy ();
 
+    static void clear ();
+    static void clear (const Color&);
+    static void clear (float, float, float, float);
+
     static int getWidth ();
     static int getHeight ();
     static void setWidth (const int);
@@ -46,7 +51,7 @@ public:
     static void setSize (const int, const int);
 
     static std::string getTitle ();
-    static void setTitle (const std::string);
+    static void setTitle (const std::string&);
 
     static int getGlVersionMajor ();
     static int getGlVersionMinor ();
@@ -74,6 +79,9 @@ private:
     static int m_glVersionMajor;
     static int m_glVersionMinor;
     static std::mutex mutex_glVersion;
+
+    static Color m_lastClearColor;
+    static const Color m_defaultClearColor;
 
 };
 

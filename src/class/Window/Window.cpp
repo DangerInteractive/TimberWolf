@@ -101,6 +101,61 @@ void Window::destroy () {
 
 }
 
+void Window::clear () {
+
+    if (isOpen()) {
+        if (m_lastClearColor != m_defaultClearColor) {
+            glClearColor(
+                m_defaultClearColor.getR(),
+                m_defaultClearColor.getG(),
+                m_defaultClearColor.getB(),
+                m_defaultClearColor.getA()
+            );
+            m_lastClearColor = m_defaultClearColor;
+        }
+        glClear(GL_COLOR_BUFFER_BIT);
+    }
+
+}
+
+void Window::clear (const Color& color) {
+
+    if (isOpen()) {
+        if (m_lastClearColor != color) {
+            glClearColor(
+                color.getR(),
+                color.getG(),
+                color.getB(),
+                color.getA()
+            );
+            m_lastClearColor = color;
+        }
+        glClear(GL_COLOR_BUFFER_BIT);
+    }
+
+}
+
+void Window::clear (float r, float g, float b, float a) {
+
+    if (isOpen()) {
+
+        Color color {r, g, b, a};
+
+        if (m_lastClearColor != color) {
+            glClearColor(
+                color.getR(),
+                color.getG(),
+                color.getB(),
+                color.getA()
+            );
+            m_lastClearColor = color;
+        }
+        glClear(GL_COLOR_BUFFER_BIT);
+
+    }
+
+}
+
 int Window::getWidth () {
 
     return m_width;
@@ -147,7 +202,7 @@ std::string Window::getTitle () {
 
 }
 
-void Window::setTitle (const std::string title) {
+void Window::setTitle (const std::string& title) {
 
     std::unique_lock<std::mutex> lock_title(mutex_title);
 
@@ -241,3 +296,6 @@ std::mutex Window::mutex_title;
 int Window::m_glVersionMajor = 2;
 int Window::m_glVersionMinor = 1;
 std::mutex Window::mutex_glVersion;
+
+Color Window::m_lastClearColor {0.f, 0.f, 0.f, 1.f};
+const Color Window::m_defaultClearColor {0.f, 0.f, 0.f, 1.f};

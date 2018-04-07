@@ -2,6 +2,8 @@
 #define H_CLASS_GameState
 
 #include "../Controller/Controller.hpp"
+#include "../Window/Window.hpp"
+#include "../Color/Color.hpp"
 class GameStateManager;
 
 class GameState {
@@ -17,9 +19,11 @@ public:
     GameState () = default;
     virtual ~GameState () = default;
 
+    // move operations
     GameState (GameState&&) = default;
     GameState& operator = (GameState&&) = default;
 
+    // copy operations
     GameState (const GameState&) = default;
     GameState& operator = (const GameState&) = default;
 
@@ -32,17 +36,21 @@ public:
     virtual void onDescend () = 0;
 
     // game loop callbacks
-    virtual void render (float) = 0;
+    void clearWindow ();
+    virtual void render (double) = 0;
     virtual void update () = 0;
 
     // input handling
     Controller& getController ();
+    void setController (Controller&&);
     void setController (Controller&);
     void clearController ();
 
 protected:
 
     Controller m_controller;
+    bool m_clearWindow {false};
+    Color m_clearColor {0.f, 0.f, 0.f, 1.f};
 
 };
 
