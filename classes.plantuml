@@ -5,13 +5,19 @@
 package "Asset Control" #eeeeee {
 
     class AssetStore <<Static>> {
-        - std::map<std::string, Font*> m_fonts
-        - std::map<std::string, Image*> m_images
-        - std::map<std::string, Sound*> m_sounds
+        - std::map<std::string, std::shared_ptr<Font>> m_fonts
+        - std::map<std::string, std::shared_ptr<Image>> m_images
+        - std::map<std::string, std::shared_ptr<Sound>> m_sounds
+        + std::shared_ptr<Font> createFont (std::string, auto args...)
+        + bool registerFont (std::string std::shared_ptr<Font>);
         + bool registerFont (std::string, Font*)
-        + Font* getFont (std::string)
+        + std::shared_ptr<Font> getFont (std::string)
+        + std::shared_ptr<Image> createImage (std::string, auto args...)
+        + bool registerImage (std::string, std::shared_ptr<Image>)
         + bool registerImage (std::string, Image*)
-        + Image* getImage (std::string)
+        + std::shared_ptr<Image> getImage (std::string)
+        + std::shared_ptr<Sound> createSound (std::string, auto args...)
+        + bool registerSound (std::string, std::shared_ptr<Sound>)
         + bool registerSound (std::string, Sound*)
         + Sound* getSound (std::string)
     }
@@ -56,7 +62,9 @@ package "Game State Control" #eeeeee {
     }
 
     class GameStateStore <<Static>> {
-        - std::map<std::string, GameState*> m_states
+        - std::map<std::string, std::shared_ptr<GameState>> m_states
+        + std::shared_ptr<GameState> create<T> (std::string, auto args...)
+        + bool register (std::string, std::shared_ptr<GameState>)
         + bool register (std::string, GameState*)
         + GameState* get (std::string)
     }
@@ -107,10 +115,8 @@ package "Logging System" #eeeeee {
         + void notice (std::string)
         + void warning (std::string)
         + void error (std::string)
-        + void bindCallbacks ()
+        + void bindUnhandledException ()
         + void unhandledException ()
-        + void glfwError (int, char*)
-        + void glewError (GLenum)
     }
 
     enum LogLevel {
