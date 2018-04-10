@@ -74,7 +74,7 @@ std::string FileLogObserver::formatMessage (LogLevel logLevel, const std::string
 
     }
 
-    oss << message;
+    oss << context << " : " << message;
 
     return oss.str();
 

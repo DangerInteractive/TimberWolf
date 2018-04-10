@@ -54,7 +54,7 @@ std::string ConsoleLogObserver::formatMessage (LogLevel logLevel, const std::str
 
     }
 
-    oss << message;
+    oss << context << " : " << message;
 
     return oss.str();
 
