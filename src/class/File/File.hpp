@@ -28,7 +28,7 @@ public:
     template <typename ...T>
     bool write (T&&... data) {
 
-        std::scoped_lock lock(m_fstream_mutex);
+        std::unique_lock<std::mutex> lock(m_fstream_mutex);
 
         if (!isOpen()) {
             return false;
@@ -39,6 +39,25 @@ public:
         }
 
         (m_fstream << ... << std::forward<T>(data));
+
+        return true;
+
+    }
+
+    template <typename ...T>
+    bool writeLine (T&&... data) {
+
+        std::unique_lock<std::mutex> lock(m_fstream_mutex);
+
+        if (!isOpen()) {
+            return false;
+        }
+
+        if (!writeEnabled()) {
+            return false;
+        }
+
+        (m_fstream << ... << std::forward<T>(data)) << std::endl;
 
         return true;
 

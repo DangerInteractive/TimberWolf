@@ -37,7 +37,7 @@ FileLogObserver::FileLogObserver (unsigned int allowedLevelFlags, const std::str
 
 void FileLogObserver::notifyCallback (LogLevel logLevel, const std::string& context, const std::string& message) {
 
-    m_file.write(formatMessage(logLevel, context, message));
+    m_file.writeLine(formatMessage(logLevel, context, message));
 
 }
 

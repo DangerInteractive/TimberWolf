@@ -17,7 +17,7 @@ ConsoleLogObserver::ConsoleLogObserver (unsigned int allowedLevelFlags, const st
 
 void ConsoleLogObserver::notifyCallback (LogLevel logLevel, const std::string& context, const std::string& message) {
 
-    Console::stdout(formatMessage(logLevel, context, message));
+    Console::stdoutLine(formatMessage(logLevel, context, message));
 
 }
 
