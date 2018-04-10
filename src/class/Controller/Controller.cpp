@@ -7,43 +7,43 @@ void Controller::onKey (int action, int mod, int key, int scanCode) {
     for (int i = 0; i < m_keybindings.size(); ++i) {
         m_keybindings[i].process(action, mod, key, scanCode);
     }
-    Log::verbose("Key ", action, " ", mod, " ", key, " ", scanCode);
+    Log::verbose("input", "Key ", action, " ", mod, " ", key, " ", scanCode);
 
 }
 
 void Controller::onCursor (double xPos, double yPos) {
 
-    Log::verbose("Mouse ", xPos, " ", yPos);
+    Log::verbose("input", "Mouse ", xPos, " ", yPos);
 
 }
 
 void Controller::onCursorIn () {
 
-    Log::verbose("Mouse In");
+    Log::verbose("input", "Mouse In");
 
 }
 
 void Controller::onCursorOut () {
 
-    Log::verbose("Mouse Out");
+    Log::verbose("input", "Mouse Out");
 
 }
 
 void Controller::onMouseButton (int action, int mod, int button) {
 
-    Log::verbose("Mouse Button ", action, " ", mod, " ", button);
+    Log::verbose("input", "Mouse Button ", action, " ", mod, " ", button);
 
 }
 
 void Controller::onScroll (double xOffset, double yOffset) {
 
-    Log::verbose("Scroll ", xOffset, " ", yOffset);
+    Log::verbose("input", "Scroll ", xOffset, " ", yOffset);
 
 }
 
 void Controller::onDrop (int count, const char** paths) {
 
-    Log::verbose("Drop ", count, " ", *paths);
+    Log::verbose("input", "Drop ", count, " ", *paths);
 
 }
 

@@ -4,7 +4,7 @@ void Window::init () {
 
     glfwSetErrorCallback([](int error, const char* description){
 
-        Log::error(
+        Log::error("window",
             std::showbase,
             std::internal,
             std::setfill('0'),
@@ -20,7 +20,7 @@ void Window::init () {
         exit(EXIT_FAILURE);
     }
 
-    Log::verbose("GLFW initialized.");
+    Log::verbose("window", "GLFW initialized.");
 
 }
 
@@ -28,7 +28,7 @@ void Window::deinit () {
 
     glfwTerminate();
 
-    Log::verbose("GLFW terminated.");
+    Log::verbose("window", "GLFW terminated.");
 
 }
 
@@ -42,7 +42,7 @@ void Window::makeContextCurrent () {
 
     if (m_context != NULL) {
         glfwMakeContextCurrent(m_context);
-        Log::verbose("Set GLFW window as current context.");
+        Log::verbose("window", "Set GLFW window as current context.");
     } else {
         throw std::runtime_error("Cannot set NULL context current.");
     }
@@ -64,7 +64,7 @@ void Window::open () {
 
     if (!m_context) {
         glfwTerminate();
-        Log::error("Failed to get a window or OpenGL context.");
+        Log::error("window", "Failed to get a window or OpenGL context.");
     }
 
     makeContextCurrent();
@@ -80,7 +80,7 @@ void Window::open () {
         );
     }
 
-    Log::verbose("GLEW initialized.");
+    Log::verbose("window", "GLEW initialized.");
 
 }
 

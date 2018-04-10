@@ -4,6 +4,7 @@
 #include <string>
 #include <exception>
 #include <stdexcept>
+#include <iomanip>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "../Color/Color.hpp"

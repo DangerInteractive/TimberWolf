@@ -3,14 +3,12 @@
 
 #include <iostream>
 #include <string>
-#include <iomanip>
+#include <vector>
+#include <memory>
 #include <sstream>
-#include <fstream>
-#include <ctime>
 #include <mutex>
-#include <exception>
-#include <cstdlib>
-#include <atomic>
+#include <functional>
+#include "../LogObserver/LogObserver.hpp"
 #include "../../enum/LogLevel/LogLevel.hpp"
 
 class Log {
@@ -26,93 +24,58 @@ public:
     Log (const Log&) = delete;
     Log& operator = (const Log&) = delete;
 
-    static bool cliOutputEnabled ();
-    static void enableCliOutput ();
-    static void disableCliOutput ();
+    template <typename ...T>
+    static void log (LogLevel messageType, const std::string& context, T&&... message) {
 
-    static LogLevel getCliFilterLevel ();
-    static void setCliFilterLevel (LogLevel);
+        std::unique_lock<std::mutex> lock(m_mutex);
 
-    static bool fileOpen ();
-    static bool openFile (const std::string&);
-    static void closeFile ();
+        for (unsigned int i = 0; i < m_observers.size(); ++i) {
 
-    static bool fileOutputEnabled ();
-    static void enableFileOutput ();
-    static void disableFileOutput ();
+            m_observers[i]->notify(messageType, context, concatMessage(std::forward<T>(message)...));
 
-    static LogLevel getFileFilterLevel ();
-    static void setFileFilterLevel (LogLevel);
-
-    template<typename ...T>
-    static void log (LogLevel messageType, T&&... message) {
-
-        std::string out;
-
-        if (
-            (m_cliOutputEnabled || m_fileOutputEnabled) &&
-            (
-                messageType == LogLevel::UNDEFINED ||
-                messageType >= m_cliFilterLevel ||
-                messageType >= m_fileFilterLevel
-            )
-        ) {
-            out = Log::formatMessage(messageType, Log::concatMessage(std::forward<T>(message)...));
-        } else {
-            return;
-        }
-
-        if (m_cliOutputEnabled) {
-            if (messageType == LogLevel::UNDEFINED || messageType >= m_cliFilterLevel) {
-
-                if (messageType == LogLevel::ERROR) {
-                    std::unique_lock<std::mutex> lock_stderr(Log::mutex_stderr);
-                    std::cerr << out << std::endl;
-                } else {
-                    std::unique_lock<std::mutex> lock_stdout(Log::mutex_stdout);
-                    std::cout << out << std::endl;
-                }
-
-            }
-        }
-
-        if (m_fileOutputEnabled && fileOpen()) {
-            if (messageType == LogLevel::UNDEFINED || messageType >= m_fileFilterLevel) {
-
-                std::unique_lock<std::mutex> lock_file(Log::mutex_file);
-                m_file << out << std::endl;
-
-            }
         }
 
     }
 
-    template<typename ...T>
-    static void verbose (T&&... message) {
-        Log::log(LogLevel::VERBOSE, std::forward<T>(message)...);
+    template <typename ...T>
+    static void verbose (const std::string& context, T&&... message) {
+        Log::log(LogLevel::VERBOSE, context, std::forward<T>(message)...);
     }
 
-    template<typename ...T>
-    static void notice (T&&... message) {
-        Log::log(LogLevel::NOTICE, std::forward<T>(message)...);
+    template <typename ...T>
+    static void notice (const std::string& context, T&&... message) {
+        Log::log(LogLevel::NOTICE, context, std::forward<T>(message)...);
     }
 
-    template<typename ...T>
-    static void warning (T&&... message) {
-        Log::log(LogLevel::WARNING, std::forward<T>(message)...);
+    template <typename ...T>
+    static void warning (const std::string& context, T&&... message) {
+        Log::log(LogLevel::WARNING, context, std::forward<T>(message)...);
     }
 
-    template<typename ...T>
-    static void error (T&&... message) {
-        Log::log(LogLevel::ERROR, std::forward<T>(message)...);
+    template <typename ...T>
+    static void error (const std::string& context, T&&... message) {
+        Log::log(LogLevel::ERROR, context, std::forward<T>(message)...);
     }
 
     static void bindUnhandledException ();
-    static void unhandledException ();
+
+    template <typename T, typename ...Targ>
+    static LogObserver* makeObserver (Targ&&... args) {
+
+        auto observer = std::make_unique<T>(std::forward<Targ>(args)...);
+        auto observerPtr = observer.get();
+
+        m_observers.push_back(std::move(observer));
+
+        return observerPtr;
+
+    }
+    static void registerObserver (std::unique_ptr<LogObserver>&&);
+    static void registerObserver (LogObserver*);
 
 private:
 
-    template<typename ...T>
+    template <typename ...T>
     static std::string concatMessage (T&&... message) {
 
         std::ostringstream oss;
@@ -121,19 +84,8 @@ private:
 
     }
 
-    static std::string formatMessage (LogLevel, const std::string&);
-
-    static std::atomic<bool> m_cliOutputEnabled;
-    static std::atomic<bool> m_fileOutputEnabled;
-
-    static std::atomic<LogLevel> m_cliFilterLevel;
-    static std::atomic<LogLevel> m_fileFilterLevel;
-
-    static std::ofstream m_file;
-
-    static std::mutex mutex_stdout;
-    static std::mutex mutex_stderr;
-    static std::mutex mutex_file;
+    static std::mutex m_mutex;
+    static std::vector<std::unique_ptr<LogObserver>> m_observers;
 
 };
 
