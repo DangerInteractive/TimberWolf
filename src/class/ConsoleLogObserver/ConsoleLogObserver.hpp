@@ -19,7 +19,7 @@ public:
     explicit ConsoleLogObserver (const std::string&...);
     ConsoleLogObserver (unsigned int, const std::set<std::string>&);
     ConsoleLogObserver (unsigned int, const std::string&...);
-    virtual ~ConsoleLogObserver () override = default;
+    ~ConsoleLogObserver () override = default;
 
     ConsoleLogObserver (ConsoleLogObserver&&) = default;
     ConsoleLogObserver& operator = (ConsoleLogObserver&&) = default;

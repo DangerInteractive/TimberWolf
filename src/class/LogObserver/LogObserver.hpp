@@ -8,6 +8,9 @@ class Log;
 
 class LogObserver {
 
+// WARNING: Never call Log::* functions from inside subclasses of this.
+// It will cause infinite recursion and you will be sad.
+
 public:
 
     static inline constexpr unsigned int ALLOW_UNDEFINED = 0b00001;

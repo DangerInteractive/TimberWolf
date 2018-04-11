@@ -15,12 +15,19 @@ public:
     typedef std::function<void(LogLevel, const std::string&, const std::string&)> Callback;
 
     FunctionLogObserver () = default;
-    explicit FunctionLogObserver (unsigned int);
-    explicit FunctionLogObserver (const std::set<std::string>&);
-    explicit FunctionLogObserver (const std::string&...);
-    FunctionLogObserver (unsigned int, const std::set<std::string>&);
-    FunctionLogObserver (unsigned int, const std::string&...);
-    virtual ~FunctionLogObserver () = default;
+    explicit FunctionLogObserver (const std::vector<Callback>&);
+    explicit FunctionLogObserver (const Callback&...);
+    FunctionLogObserver (const std::vector<Callback>&, unsigned int);
+    FunctionLogObserver (const Callback&, unsigned int);
+    FunctionLogObserver (const std::vector<Callback>&, const std::set<std::string>&);
+    FunctionLogObserver (const Callback&, const std::set<std::string>&);
+    FunctionLogObserver (const std::vector<Callback>&, const std::string&...);
+    FunctionLogObserver (const Callback&, const std::string&...);
+    FunctionLogObserver (const std::vector<Callback>&, unsigned int, const std::set<std::string>&);
+    FunctionLogObserver (const Callback&, unsigned int, const std::set<std::string>&);
+    FunctionLogObserver (const std::vector<Callback>&, unsigned int, const std::string&...);
+    FunctionLogObserver (const Callback&, unsigned int, const std::string&...);
+    ~FunctionLogObserver () = default;
 
     FunctionLogObserver (FunctionLogObserver&&) = default;
     FunctionLogObserver& operator = (FunctionLogObserver&&) = default;
@@ -30,7 +37,7 @@ public:
 
     const std::vector<Callback>& getCallbacks () const;
     void setCallbacks (const std::vector<Callback>&);
-    void addCallback (const Callback&);
+    void addCallback (const Callback&...);
     void clearCallbacks ();
 
 protected:

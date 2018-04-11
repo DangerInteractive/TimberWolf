@@ -18,7 +18,7 @@ public:
     explicit FileLogObserver (const std::string&...);
     FileLogObserver (unsigned int, const std::set<std::string>&);
     FileLogObserver (unsigned int, const std::string&...);
-    virtual ~FileLogObserver () override = default;
+    ~FileLogObserver () override = default;
 
     FileLogObserver (FileLogObserver&&) = default;
     FileLogObserver& operator = (FileLogObserver&&) = default;

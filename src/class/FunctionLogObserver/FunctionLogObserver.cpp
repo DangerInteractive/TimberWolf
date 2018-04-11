@@ -1,5 +1,89 @@
 #include "FunctionLogObserver.hpp"
 
+FunctionLogObserver::FunctionLogObserver (const std::vector<FunctionLogObserver::Callback>& callbacks)
+: LogObserver() {
+
+    setCallbacks(callbacks);
+
+}
+
+FunctionLogObserver::FunctionLogObserver (const Callback& callbacks...)
+: LogObserver() {
+
+    addCallback(callbacks);
+
+}
+
+FunctionLogObserver::FunctionLogObserver (const std::vector<FunctionLogObserver::Callback>& callbacks, unsigned int allowedLevelFlags)
+: LogObserver(allowedLevelFlags) {
+
+    setCallbacks(callbacks);
+
+}
+
+FunctionLogObserver::FunctionLogObserver (const FunctionLogObserver::Callback& callback, unsigned int allowedLevelFlags)
+: LogObserver(allowedLevelFlags) {
+
+    addCallback(callback);
+
+}
+
+FunctionLogObserver::FunctionLogObserver (const std::vector<FunctionLogObserver::Callback>& callbacks, const std::set<std::string>& allowedContexts)
+: LogObserver(allowedContexts) {
+
+    setCallbacks(callbacks);
+
+}
+
+FunctionLogObserver::FunctionLogObserver (const FunctionLogObserver::Callback& callback, const std::set<std::string>& allowedContexts)
+: LogObserver(allowedContexts) {
+
+    addCallback(callback);
+
+}
+
+FunctionLogObserver::FunctionLogObserver (const std::vector<FunctionLogObserver::Callback>& callbacks, const std::string& allowedContexts...)
+: LogObserver(allowedContexts) {
+
+    setCallbacks(callbacks);
+
+}
+
+FunctionLogObserver::FunctionLogObserver (const FunctionLogObserver::Callback& callback, const std::string& allowedContexts...)
+: LogObserver(allowedContexts) {
+
+    addCallback(callback);
+
+}
+
+FunctionLogObserver::FunctionLogObserver (const std::vector<FunctionLogObserver::Callback>& callbacks, unsigned int allowedLevelFlags, const std::set<std::string>& allowedContexts)
+: LogObserver(allowedLevelFlags, allowedContexts) {
+
+    setCallbacks(callbacks);
+
+}
+
+FunctionLogObserver::FunctionLogObserver (const FunctionLogObserver::Callback& callback, unsigned int allowedLevelFlags, const std::set<std::string>& allowedContexts)
+: LogObserver(allowedLevelFlags, allowedContexts) {
+
+    addCallback(callback);
+
+}
+
+FunctionLogObserver::FunctionLogObserver (const std::vector<FunctionLogObserver::Callback>& callbacks, unsigned int allowedLevelFlags, const std::string& allowedContexts...)
+: LogObserver(allowedLevelFlags, allowedContexts) {
+
+    setCallbacks(callbacks);
+
+}
+
+FunctionLogObserver::FunctionLogObserver (const FunctionLogObserver::Callback& callback, unsigned int allowedLevelFlags, const std::string& allowedContexts...)
+: LogObserver(allowedLevelFlags, allowedContexts) {
+
+    addCallback(callback);
+
+}
+
 void FunctionLogObserver::notifyCallback (LogLevel logLevel, const std::string& context, const std::string& message) {
 
     std::unique_lock<std::mutex> lock(m_mutex);
@@ -24,7 +108,7 @@ void FunctionLogObserver::setCallbacks (const std::vector<Callback>& callbacks) 
 
 }
 
-void FunctionLogObserver::addCallback (const FunctionLogObserver::Callback& callback) {
+void FunctionLogObserver::addCallback (const FunctionLogObserver::Callback& callback...) {
 
     m_callbacks.push_back(callback);
 
