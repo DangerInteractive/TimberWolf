@@ -14,11 +14,6 @@ class ConsoleLogObserver : public LogObserver {
 public:
 
     ConsoleLogObserver () = default;
-    explicit ConsoleLogObserver (unsigned int);
-    explicit ConsoleLogObserver (const std::set<std::string>&);
-    explicit ConsoleLogObserver (const std::string&...);
-    ConsoleLogObserver (unsigned int, const std::set<std::string>&);
-    ConsoleLogObserver (unsigned int, const std::string&...);
     ~ConsoleLogObserver () override = default;
 
     ConsoleLogObserver (ConsoleLogObserver&&) = default;

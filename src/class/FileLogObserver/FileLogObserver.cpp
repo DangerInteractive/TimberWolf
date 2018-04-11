@@ -1,41 +1,62 @@
 #include "FileLogObserver.hpp"
 
-FileLogObserver::FileLogObserver (unsigned int allowedLevelFlags)
-: LogObserver(allowedLevelFlags) {
+FileLogObserver::FileLogObserver (const std::string& filename)
+: LogObserver(), m_file(filename, File::ENABLE_WRITE | File::ENABLE_APPEND) {}
+
+FileLogObserver::FileLogObserver (const std::string& filename, unsigned int allowedLevelFlags)
+: LogObserver(allowedLevelFlags), m_file(filename, File::ENABLE_WRITE | File::ENABLE_APPEND) {
 
     m_file.open();
 
 }
 
-FileLogObserver::FileLogObserver (const std::set<std::string>& allowedContexts)
-: LogObserver(allowedContexts) {
+FileLogObserver::FileLogObserver (const std::string& filename, const std::set<std::string>& allowedContexts)
+: LogObserver(allowedContexts), m_file(filename, File::ENABLE_WRITE | File::ENABLE_APPEND) {
 
     m_file.open();
 
 }
 
-FileLogObserver::FileLogObserver (const std::string& allowedContexts...)
-: LogObserver(allowedContexts) {
+FileLogObserver::FileLogObserver (const std::string& filename, const std::string& allowedContexts...)
+: LogObserver(allowedContexts), m_file(filename, File::ENABLE_WRITE | File::ENABLE_APPEND) {
 
     m_file.open();
 
 }
 
-FileLogObserver::FileLogObserver (unsigned int allowedLevelFlags, const std::set<std::string>& allowedContexts)
-: LogObserver(allowedLevelFlags, allowedContexts) {
+FileLogObserver::FileLogObserver (const std::string& filename, unsigned int allowedLevelFlags, const std::set<std::string>& allowedContexts)
+: LogObserver(allowedLevelFlags, allowedContexts), m_file(filename, File::ENABLE_WRITE | File::ENABLE_APPEND) {
 
     m_file.open();
 
 }
 
-FileLogObserver::FileLogObserver (unsigned int allowedLevelFlags, const std::string& allowedContexts...)
-: LogObserver(allowedLevelFlags, allowedContexts) {
+FileLogObserver::FileLogObserver (const std::string& filename, unsigned int allowedLevelFlags, const std::string& allowedContexts...)
+: LogObserver(allowedLevelFlags, allowedContexts), m_file(filename, File::ENABLE_WRITE | File::ENABLE_APPEND) {
 
     m_file.open();
+
+}
+
+std::string FileLogObserver::getFilePath () const {
+
+    return m_file.getPath();
+
+}
+
+bool FileLogObserver::setFilePath (const std::string& path) {
+
+    return m_file.setPath(path);
 
 }
 
 void FileLogObserver::notifyCallback (LogLevel logLevel, const std::string& context, const std::string& message) {
+
+    if (!m_file.isOpen()) {
+        if (!m_file.open()) {
+            return;
+        }
+    }
 
     m_file.writeLine(formatMessage(logLevel, context, message));
 

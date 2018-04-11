@@ -13,11 +13,12 @@ class FileLogObserver : public LogObserver {
 public:
 
     FileLogObserver () = default;
-    explicit FileLogObserver (unsigned int);
-    explicit FileLogObserver (const std::set<std::string>&);
-    explicit FileLogObserver (const std::string&...);
-    FileLogObserver (unsigned int, const std::set<std::string>&);
-    FileLogObserver (unsigned int, const std::string&...);
+    explicit FileLogObserver (const std::string&);
+    FileLogObserver (const std::string&, unsigned int);
+    FileLogObserver (const std::string&, const std::set<std::string>&);
+    FileLogObserver (const std::string&, const std::string&...);
+    FileLogObserver (const std::string&, unsigned int, const std::set<std::string>&);
+    FileLogObserver (const std::string&, unsigned int, const std::string&...);
     ~FileLogObserver () override = default;
 
     FileLogObserver (FileLogObserver&&) = default;
@@ -25,6 +26,9 @@ public:
 
     FileLogObserver (const FileLogObserver&) = default;
     FileLogObserver& operator = (const FileLogObserver&) = default;
+
+    std::string getFilePath () const;
+    bool setFilePath (const std::string&);
 
 protected:
 

@@ -1,20 +1,5 @@
 #include "ConsoleLogObserver.hpp"
 
-ConsoleLogObserver::ConsoleLogObserver (unsigned int allowedLevelFlags)
-: LogObserver(allowedLevelFlags) {}
-
-ConsoleLogObserver::ConsoleLogObserver (const std::set<std::string>& allowedContexts)
-: LogObserver(allowedContexts) {}
-
-ConsoleLogObserver::ConsoleLogObserver (const std::string& allowedContexts...)
-: LogObserver(allowedContexts) {}
-
-ConsoleLogObserver::ConsoleLogObserver (unsigned int allowedLevelFlags, const std::set<std::string>& allowedContexts)
-: LogObserver(allowedLevelFlags, allowedContexts) {}
-
-ConsoleLogObserver::ConsoleLogObserver (unsigned int allowedLevelFlags, const std::string& allowedContexts...)
-: LogObserver(allowedLevelFlags, allowedContexts) {}
-
 void ConsoleLogObserver::notifyCallback (LogLevel logLevel, const std::string& context, const std::string& message) {
 
     if (logLevel != LogLevel::ERROR) {
