@@ -21,13 +21,33 @@ set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_CXX_EXTENSIONS OFF)
 set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-pthread")
-set (CMAKE_CXX_FLAGS_DEBUG "-g")
+set (CMAKE_CXX_FLAGS_DEBUG "-g -Og")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3")
 configure_file (
     "${PROJECT_SOURCE_DIR}/src/config.hpp.in"
     "${PROJECT_SOURCE_DIR}/src/config.hpp"
 )
 include_directories ("${PROJECT_BINARY_DIR}")
+
+# debug mode testing/analysis
+unset (CMAKE_CXX_CPPCHECK CACHE)
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    message (STATUS "Testing/Analysis Enabled")
+    find_program (CMAKE_CXX_CPPCHECK NAMES cppcheck)
+    if (CMAKE_CXX_CPPCHECK)
+        list (APPEND CMAKE_CXX_CPPCHECK
+            "--enable=warning"
+            "--inconclusive"
+            "--force"
+            "--inline-suppr"
+        )
+    else ()
+        message (WARNING "Could not find CPPCheck executable. CPPCheck testing disabled.")
+    endif ()
+else ()
+    message (STATUS "Testing/Analysis Disabled")
+    set (CMAKE_CXX_CPPCHECK)
+endif ()
 
 # list of sources (just for compilation)
 list (APPEND SOURCES
