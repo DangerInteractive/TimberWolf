@@ -1,6 +1,6 @@
 #include "Keybinding.hpp"
 
-Keybinding::Keybinding (
+tw::Keybinding::Keybinding (
     KeybindingCallback callback,
     KeyAction action,
     KeyMod mod,
@@ -14,7 +14,7 @@ Keybinding::Keybinding (
   m_scanCode(scanCode)
 {}
 
-bool Keybinding::check (int action, int mod, int key, int scanCode) {
+bool tw::Keybinding::check (int action, int mod, int key, int scanCode) {
 
     if (
         key == KeyType::NONE ||
@@ -35,7 +35,7 @@ bool Keybinding::check (int action, int mod, int key, int scanCode) {
 
 }
 
-void Keybinding::process (int action, int mod, int key, int scanCode) {
+void tw::Keybinding::process (int action, int mod, int key, int scanCode) {
 
     if (check(action, mod, key, scanCode)) {
         m_callback();

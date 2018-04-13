@@ -1,6 +1,6 @@
 #include "GameStateManager.hpp"
 
-void GameStateManager::pushState (GameState* state) {
+void tw::GameStateManager::pushState (GameState* state) {
 
     m_states.push_back(state);
     state->onPush();
@@ -18,7 +18,7 @@ void GameStateManager::pushState (GameState* state) {
 
 }
 
-bool GameStateManager::pushState (std::string key) {
+bool tw::GameStateManager::pushState (std::string key) {
 
     if (!GameStateStore::stateExists(key)) {
         return false;
@@ -31,7 +31,7 @@ bool GameStateManager::pushState (std::string key) {
 
 }
 
-void GameStateManager::dropState () {
+void tw::GameStateManager::dropState () {
 
     GameState* top = m_states[m_states.size() - 1];
     top->onDeactivate();
@@ -50,7 +50,7 @@ void GameStateManager::dropState () {
 
 }
 
-GameState* GameStateManager::popState () {
+tw::GameState* tw::GameStateManager::popState () {
 
     GameState* top = m_states[m_states.size() - 1];
     top->onDeactivate();
@@ -70,7 +70,7 @@ GameState* GameStateManager::popState () {
 
 }
 
-void GameStateManager::refreshLiveStates () {
+void tw::GameStateManager::refreshLiveStates () {
 
     std::vector<GameState*> liveRenderStates;
     std::vector<GameState*> liveUpdateStates;
@@ -133,7 +133,7 @@ void GameStateManager::refreshLiveStates () {
 
 }
 
-void GameStateManager::render (double deltaTime) {
+void tw::GameStateManager::render (double deltaTime) {
 
     for (int i = 0; i < m_statesLiveRender.size(); ++i) {
         m_statesLiveRender[i]->render(deltaTime);
@@ -141,7 +141,7 @@ void GameStateManager::render (double deltaTime) {
 
 }
 
-void GameStateManager::update () {
+void tw::GameStateManager::update () {
 
     for (int i = 0; i < m_statesLiveUpdate.size(); ++i) {
         m_statesLiveUpdate[i]->update();
@@ -149,7 +149,7 @@ void GameStateManager::update () {
 
 }
 
-void GameStateManager::keyCallback (GLFWwindow* window, int key, int scanCode, int action, int mod) {
+void tw::GameStateManager::keyCallback (GLFWwindow* window, int key, int scanCode, int action, int mod) {
 
     for (int i = 0; i < m_statesLiveInput.size(); ++i) {
         m_statesLiveInput[i]->getController().onKey(action, mod, key, scanCode);
@@ -157,7 +157,7 @@ void GameStateManager::keyCallback (GLFWwindow* window, int key, int scanCode, i
 
 }
 
-void GameStateManager::cursorCallback (GLFWwindow* window, double xPos, double yPos) {
+void tw::GameStateManager::cursorCallback (GLFWwindow* window, double xPos, double yPos) {
 
     for (int i = 0; i < m_statesLiveInput.size(); ++i) {
         m_statesLiveInput[i]->getController().onCursor(xPos, yPos);
@@ -165,7 +165,7 @@ void GameStateManager::cursorCallback (GLFWwindow* window, double xPos, double y
 
 }
 
-void GameStateManager::cursorInOutCallback (GLFWwindow* window, int in) {
+void tw::GameStateManager::cursorInOutCallback (GLFWwindow* window, int in) {
 
     if (in) {
         for (int i = 0; i < m_statesLiveInput.size(); ++i) {
@@ -179,7 +179,7 @@ void GameStateManager::cursorInOutCallback (GLFWwindow* window, int in) {
 
 }
 
-void GameStateManager::mouseButtonCallback (GLFWwindow* window, int button, int action, int mod) {
+void tw::GameStateManager::mouseButtonCallback (GLFWwindow* window, int button, int action, int mod) {
 
     for (int i = 0; i < m_statesLiveInput.size(); ++i) {
         m_statesLiveInput[i]->getController().onMouseButton(action, mod, button);
@@ -187,7 +187,7 @@ void GameStateManager::mouseButtonCallback (GLFWwindow* window, int button, int 
 
 }
 
-void GameStateManager::scrollCallback (GLFWwindow* window, double xOffset, double yOffset) {
+void tw::GameStateManager::scrollCallback (GLFWwindow* window, double xOffset, double yOffset) {
 
     for (int i = 0; i < m_statesLiveInput.size(); ++i) {
         m_statesLiveInput[i]->getController().onScroll(xOffset, yOffset);
@@ -195,7 +195,7 @@ void GameStateManager::scrollCallback (GLFWwindow* window, double xOffset, doubl
 
 }
 
-void GameStateManager::dropCallback (GLFWwindow* window, int count, const char** paths) {
+void tw::GameStateManager::dropCallback (GLFWwindow* window, int count, const char** paths) {
 
     for (int i = 0; i < m_statesLiveInput.size(); ++i) {
         m_statesLiveInput[i]->getController().onDrop(count, paths);
@@ -203,8 +203,8 @@ void GameStateManager::dropCallback (GLFWwindow* window, int count, const char**
 
 }
 
-std::vector<GameState*> GameStateManager::m_states;
+std::vector<tw::GameState*> tw::GameStateManager::m_states;
 
-std::vector<GameState*> GameStateManager::m_statesLiveRender;
-std::vector<GameState*> GameStateManager::m_statesLiveUpdate;
-std::vector<GameState*> GameStateManager::m_statesLiveInput;
+std::vector<tw::GameState*> tw::GameStateManager::m_statesLiveRender;
+std::vector<tw::GameState*> tw::GameStateManager::m_statesLiveUpdate;
+std::vector<tw::GameState*> tw::GameStateManager::m_statesLiveInput;

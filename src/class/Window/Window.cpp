@@ -1,6 +1,6 @@
 #include "Window.hpp"
 
-void Window::init () {
+void tw::Window::init () {
 
     glfwSetErrorCallback([](int error, const char* description){
 
@@ -24,7 +24,7 @@ void Window::init () {
 
 }
 
-void Window::deinit () {
+void tw::Window::deinit () {
 
     glfwTerminate();
 
@@ -32,13 +32,13 @@ void Window::deinit () {
 
 }
 
-GLFWwindow* Window::getContext () {
+GLFWwindow* tw::Window::getContext () {
 
     return m_context;
 
 }
 
-void Window::makeContextCurrent () {
+void tw::Window::makeContextCurrent () {
 
     if (m_context != NULL) {
         glfwMakeContextCurrent(m_context);
@@ -49,13 +49,13 @@ void Window::makeContextCurrent () {
 
 }
 
-bool Window::isOpen () {
+bool tw::Window::isOpen () {
 
     return m_context != nullptr;
 
 }
 
-void Window::open () {
+void tw::Window::open () {
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, m_glVersionMajor);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, m_glVersionMinor);
@@ -84,7 +84,7 @@ void Window::open () {
 
 }
 
-void Window::close () {
+void tw::Window::close () {
 
     if (isOpen()) {
         glfwSetWindowShouldClose(m_context, 1);
@@ -92,7 +92,7 @@ void Window::close () {
 
 }
 
-void Window::destroy () {
+void tw::Window::destroy () {
 
     if (isOpen()) {
         glfwDestroyWindow(m_context); // equivalent to deleting
@@ -101,7 +101,7 @@ void Window::destroy () {
 
 }
 
-void Window::clear () {
+void tw::Window::clear () {
 
     if (isOpen()) {
         if (m_lastClearColor != m_defaultClearColor) {
@@ -118,7 +118,7 @@ void Window::clear () {
 
 }
 
-void Window::clear (const Color& color) {
+void tw::Window::clear (const Color& color) {
 
     if (isOpen()) {
         if (m_lastClearColor != color) {
@@ -135,7 +135,7 @@ void Window::clear (const Color& color) {
 
 }
 
-void Window::clear (float r, float g, float b, float a) {
+void tw::Window::clear (float r, float g, float b, float a) {
 
     if (isOpen()) {
 
@@ -156,19 +156,19 @@ void Window::clear (float r, float g, float b, float a) {
 
 }
 
-int Window::getWidth () {
+int tw::Window::getWidth () {
 
     return m_width;
 
 }
 
-int Window::getHeight () {
+int tw::Window::getHeight () {
 
     return m_height;
 
 }
 
-void Window::setWidth (const int width) {
+void tw::Window::setWidth (const int width) {
 
     std::unique_lock<std::mutex> lock_size(mutex_size);
 
@@ -177,7 +177,7 @@ void Window::setWidth (const int width) {
 
 }
 
-void Window::setHeight (const int height) {
+void tw::Window::setHeight (const int height) {
 
     std::unique_lock<std::mutex> lock_size(mutex_size);
 
@@ -186,7 +186,7 @@ void Window::setHeight (const int height) {
 
 }
 
-void Window::setSize (const int width, const int height) {
+void tw::Window::setSize (const int width, const int height) {
 
     std::unique_lock<std::mutex> lock_size(mutex_size);
 
@@ -196,13 +196,13 @@ void Window::setSize (const int width, const int height) {
 
 }
 
-std::string Window::getTitle () {
+std::string tw::Window::getTitle () {
 
     return m_title;
 
 }
 
-void Window::setTitle (const std::string& title) {
+void tw::Window::setTitle (const std::string& title) {
 
     std::unique_lock<std::mutex> lock_title(mutex_title);
 
@@ -211,19 +211,19 @@ void Window::setTitle (const std::string& title) {
 
 }
 
-int Window::getGlVersionMajor () {
+int tw::Window::getGlVersionMajor () {
 
     return m_glVersionMajor;
 
 }
 
-int Window::getGlVersionMinor () {
+int tw::Window::getGlVersionMinor () {
 
     return m_glVersionMinor;
 
 }
 
-std::string Window::getGlVersion () {
+std::string tw::Window::getGlVersion () {
 
     std::ostringstream oss;
     oss << m_glVersionMajor << '.' << m_glVersionMinor;
@@ -231,7 +231,7 @@ std::string Window::getGlVersion () {
 
 }
 
-void Window::setGlVersionMajor (const int majorVersion) {
+void tw::Window::setGlVersionMajor (const int majorVersion) {
 
     std::unique_lock<std::mutex> lock_glVersion(mutex_glVersion);
 
@@ -243,7 +243,7 @@ void Window::setGlVersionMajor (const int majorVersion) {
 
 }
 
-void Window::setGlVersionMinor (const int minorVersion) {
+void tw::Window::setGlVersionMinor (const int minorVersion) {
 
     std::unique_lock<std::mutex> lock_glVersion(mutex_glVersion);
 
@@ -255,7 +255,7 @@ void Window::setGlVersionMinor (const int minorVersion) {
 
 }
 
-void Window::setGlVersion (const int majorVersion, const int minorVersion) {
+void tw::Window::setGlVersion (const int majorVersion, const int minorVersion) {
 
     std::unique_lock<std::mutex> lock_glVersion(mutex_glVersion);
 
@@ -268,7 +268,7 @@ void Window::setGlVersion (const int majorVersion, const int minorVersion) {
 
 }
 
-void Window::pushWindowSize () {
+void tw::Window::pushWindowSize () {
 
     if (m_context != NULL) {
         glfwSetWindowSize(m_context, m_width, m_height);
@@ -276,7 +276,7 @@ void Window::pushWindowSize () {
 
 }
 
-void Window::pushWindowTitle () {
+void tw::Window::pushWindowTitle () {
 
     if (m_context != NULL) {
         glfwSetWindowTitle(m_context, m_title.c_str());
@@ -284,18 +284,18 @@ void Window::pushWindowTitle () {
 
 }
 
-GLFWwindow* Window::m_context = nullptr;
+GLFWwindow* tw::Window::m_context = nullptr;
 
-int Window::m_width = 800;
-int Window::m_height = 600;
-std::mutex Window::mutex_size;
+int tw::Window::m_width = 800;
+int tw::Window::m_height = 600;
+std::mutex tw::Window::mutex_size;
 
-std::string Window::m_title = "";
-std::mutex Window::mutex_title;
+std::string tw::Window::m_title = "";
+std::mutex tw::Window::mutex_title;
 
-int Window::m_glVersionMajor = 2;
-int Window::m_glVersionMinor = 1;
-std::mutex Window::mutex_glVersion;
+int tw::Window::m_glVersionMajor = 2;
+int tw::Window::m_glVersionMinor = 1;
+std::mutex tw::Window::mutex_glVersion;
 
-Color Window::m_lastClearColor {0.f, 0.f, 0.f, 1.f};
-const Color Window::m_defaultClearColor {0.f, 0.f, 0.f, 1.f};
+tw::Color tw::Window::m_lastClearColor {0.f, 0.f, 0.f, 1.f};
+const tw::Color tw::Window::m_defaultClearColor {0.f, 0.f, 0.f, 1.f};

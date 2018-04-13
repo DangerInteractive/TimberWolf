@@ -4,6 +4,7 @@
 #include <tuple>
 #include <cstdint>
 
+namespace tw {
 class Color {
 
 public:
@@ -101,5 +102,6 @@ private:
     float m_a {1.f};
 
 };
+}
 
 #endif

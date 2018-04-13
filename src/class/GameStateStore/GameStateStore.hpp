@@ -5,6 +5,7 @@
 #include <string>
 #include "../GameState/GameState.hpp"
 
+namespace tw {
 class GameStateStore {
 
 public:
@@ -29,5 +30,6 @@ private:
     static std::map<std::string, GameState*> m_stateMap;
 
 };
+}
 
 #endif

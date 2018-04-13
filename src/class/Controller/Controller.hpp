@@ -11,6 +11,7 @@
 #include "../../enum/KeyType/KeyType.hpp"
 #include "../Keybinding/Keybinding.hpp"
 
+namespace tw {
 class Controller {
 
 public:
@@ -117,5 +118,6 @@ private:
     std::vector<ResizeCallback> m_resizeCallbacks;
 
 };
+}
 
 #endif

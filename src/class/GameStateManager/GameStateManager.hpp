@@ -13,6 +13,7 @@
 #include "../Window/Window.hpp"
 #include "../Log/Log.hpp"
 
+namespace tw {
 class GameStateManager {
 
 public:
@@ -53,5 +54,6 @@ private:
     static std::vector<GameState*> m_statesLiveInput;
 
 };
+}
 
 #endif

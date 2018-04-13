@@ -1,3 +1,3 @@
 #include "Console.hpp"
 
-std::mutex Console::m_mutex;
+std::mutex tw::Console::m_mutex;

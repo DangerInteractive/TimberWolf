@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 #include "../Scene/Scene.hpp"
 
+namespace tw {
 class Renderer {
 
 public:
@@ -21,5 +22,6 @@ public:
     void renderScene(Scene&);
 
 };
+}
 
 #endif

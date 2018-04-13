@@ -1,18 +1,18 @@
 #include "File.hpp"
 
-File::File (const std::string& path)
+tw::File::File (const std::string& path)
 : m_path(path) {}
 
-File::File (const std::string& path, std::ios_base::openmode openFlags)
+tw::File::File (const std::string& path, std::ios_base::openmode openFlags)
 : m_path(path), m_flags(openFlags) {}
 
-bool File::isOpen () const {
+bool tw::File::isOpen () const {
 
     return m_fstream.is_open();
 
 }
 
-std::string File::readString () {
+std::string tw::File::readString () {
 
     std::unique_lock<std::mutex> fstream_lock(m_fstream_mutex);
 
@@ -30,7 +30,7 @@ std::string File::readString () {
 
 }
 
-bool File::open () {
+bool tw::File::open () {
 
     std::scoped_lock lock(m_metadata_mutex, m_fstream_mutex);
 
@@ -44,7 +44,7 @@ bool File::open () {
 
 }
 
-bool File::close () {
+bool tw::File::close () {
 
     std::scoped_lock lock(m_metadata_mutex, m_fstream_mutex);
 
@@ -58,13 +58,13 @@ bool File::close () {
 
 }
 
-std::string File::getPath () const {
+std::string tw::File::getPath () const {
 
     return m_path;
 
 }
 
-bool File::setPath (const std::string& path) {
+bool tw::File::setPath (const std::string& path) {
 
     std::unique_lock<std::mutex> metadata_lock(m_metadata_mutex);
 
@@ -78,13 +78,13 @@ bool File::setPath (const std::string& path) {
 
 }
 
-bool File::readEnabled () const {
+bool tw::File::readEnabled () const {
 
     return m_flags & ENABLE_READ;
 
 }
 
-bool File::enableRead () {
+bool tw::File::enableRead () {
 
     std::unique_lock<std::mutex> metadata_lock(m_metadata_mutex);
 
@@ -98,7 +98,7 @@ bool File::enableRead () {
 
 }
 
-bool File::disableRead () {
+bool tw::File::disableRead () {
 
     std::unique_lock<std::mutex> metadata_lock(m_metadata_mutex);
 
@@ -112,13 +112,13 @@ bool File::disableRead () {
 
 }
 
-bool File::writeEnabled () const {
+bool tw::File::writeEnabled () const {
 
     return m_flags & ENABLE_WRITE;
 
 }
 
-bool File::enableWrite () {
+bool tw::File::enableWrite () {
 
     std::unique_lock<std::mutex> metadata_lock(m_metadata_mutex);
 
@@ -132,7 +132,7 @@ bool File::enableWrite () {
 
 }
 
-bool File::disableWrite () {
+bool tw::File::disableWrite () {
 
     std::unique_lock<std::mutex> metadata_lock(m_metadata_mutex);
 
@@ -146,13 +146,13 @@ bool File::disableWrite () {
 
 }
 
-bool File::appendEnabled () const {
+bool tw::File::appendEnabled () const {
 
     return m_flags & ENABLE_APPEND;
 
 }
 
-bool File::enableAppend () {
+bool tw::File::enableAppend () {
 
     std::unique_lock<std::mutex> metadata_lock(m_metadata_mutex);
 
@@ -166,7 +166,7 @@ bool File::enableAppend () {
 
 }
 
-bool File::disableAppend () {
+bool tw::File::disableAppend () {
 
     std::unique_lock<std::mutex> metadata_lock(m_metadata_mutex);
 
@@ -180,13 +180,13 @@ bool File::disableAppend () {
 
 }
 
-bool File::atEndEnabled () const {
+bool tw::File::atEndEnabled () const {
 
     return m_flags & ENABLE_AT_END;
 
 }
 
-bool File::enableAtEnd () {
+bool tw::File::enableAtEnd () {
 
     std::unique_lock<std::mutex> metadata_lock(m_metadata_mutex);
 
@@ -200,7 +200,7 @@ bool File::enableAtEnd () {
 
 }
 
-bool File::disableAtEnd () {
+bool tw::File::disableAtEnd () {
 
     std::unique_lock<std::mutex> metadata_lock(m_metadata_mutex);
 
@@ -214,13 +214,13 @@ bool File::disableAtEnd () {
 
 }
 
-bool File::binaryEnabled () const {
+bool tw::File::binaryEnabled () const {
 
     return m_flags & ENABLE_BINARY;
 
 }
 
-bool File::enableBinary () {
+bool tw::File::enableBinary () {
 
     std::unique_lock<std::mutex> metadata_lock(m_metadata_mutex);
 
@@ -234,7 +234,7 @@ bool File::enableBinary () {
 
 }
 
-bool File::disableBinary () {
+bool tw::File::disableBinary () {
 
     std::unique_lock<std::mutex> metadata_lock(m_metadata_mutex);
 
@@ -248,13 +248,13 @@ bool File::disableBinary () {
 
 }
 
-bool File::wipeEnabled () const {
+bool tw::File::wipeEnabled () const {
 
     return m_flags & ENABLE_WIPE;
 
 }
 
-bool File::enableWipe () {
+bool tw::File::enableWipe () {
 
     std::unique_lock<std::mutex> metadata_lock(m_metadata_mutex);
 
@@ -268,7 +268,7 @@ bool File::enableWipe () {
 
 }
 
-bool File::disableWipe () {
+bool tw::File::disableWipe () {
 
     std::unique_lock<std::mutex> metadata_lock(m_metadata_mutex);
 

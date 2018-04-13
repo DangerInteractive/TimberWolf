@@ -1,3 +1,3 @@
 #include "Renderer.hpp"
 
-void Renderer::renderScene (Scene& scene) {};
+void tw::Renderer::renderScene (Scene& scene) {};

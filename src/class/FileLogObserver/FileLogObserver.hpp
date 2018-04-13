@@ -8,6 +8,7 @@
 #include "../LogObserver/LogObserver.hpp"
 #include "../File/File.hpp"
 
+namespace tw {
 class FileLogObserver : public LogObserver {
 
 public:
@@ -39,5 +40,6 @@ protected:
     File m_file {"./log.txt", File::ENABLE_WRITE | File::ENABLE_APPEND};
 
 };
+}
 
 #endif

@@ -8,6 +8,7 @@
 #include <mutex>
 #include "../LogObserver/LogObserver.hpp"
 
+namespace tw {
 class FunctionLogObserver : public LogObserver {
 
 public:
@@ -48,5 +49,6 @@ protected:
     std::vector<Callback> m_callbacks;
 
 };
+}
 
 #endif

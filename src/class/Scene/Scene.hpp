@@ -4,6 +4,7 @@
 #include <vector>
 #include "../Model/Model.hpp"
 
+namespace tw {
 class Scene {
 
 public:
@@ -22,5 +23,6 @@ private:
     std::vector<Model> m_models;
 
 };
+}
 
 #endif

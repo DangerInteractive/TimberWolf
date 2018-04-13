@@ -4,8 +4,9 @@
 #include <string>
 #include <set>
 #include "../../enum/LogLevel/LogLevel.hpp"
-class Log;
+namespace tw{ class Log; }
 
+namespace tw {
 class LogObserver {
 
 // WARNING: Never call Log::* functions from inside subclasses of this.
@@ -74,5 +75,6 @@ protected:
     bool m_allContextsAllowed {true};
 
 };
+}
 
 #endif

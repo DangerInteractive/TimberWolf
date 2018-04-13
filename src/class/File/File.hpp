@@ -7,6 +7,7 @@
 #include <streambuf>
 #include <mutex>
 
+namespace tw {
 class File {
 
 public:
@@ -99,5 +100,6 @@ private:
     std::fstream m_fstream;
 
 };
+}
 
 #endif

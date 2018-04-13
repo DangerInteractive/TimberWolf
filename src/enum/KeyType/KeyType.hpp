@@ -1,6 +1,7 @@
 #ifndef H_ENUM_KEYTYPE
 #define H_ENUM_KEYTYPE
 
+namespace tw {
 enum KeyType {
 
     // invalid keys
@@ -146,5 +147,6 @@ enum KeyType {
     MENU = 348
 
 };
+}
 
 #endif

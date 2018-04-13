@@ -1,8 +1,8 @@
 #include "ConsoleLogObserver.hpp"
 
-void ConsoleLogObserver::notifyCallback (LogLevel logLevel, const std::string& context, const std::string& message) {
+void tw::ConsoleLogObserver::notifyCallback (LogLevel logLevel, const std::string& context, const std::string& message) {
 
-    if (logLevel != LogLevel::ERROR) {
+    if (logLevel != tw::LogLevel::ERROR) {
         Console::stdoutLine(formatMessage(logLevel, context, message));
     } else {
         Console::stderrLine(formatMessage(logLevel, context, message));
@@ -10,7 +10,7 @@ void ConsoleLogObserver::notifyCallback (LogLevel logLevel, const std::string& c
 
 }
 
-std::string ConsoleLogObserver::formatMessage (LogLevel logLevel, const std::string& context, const std::string& message) const {
+std::string tw::ConsoleLogObserver::formatMessage (LogLevel logLevel, const std::string& context, const std::string& message) const {
 
     auto time = std::time(nullptr);
     auto localtime = *std::localtime(&time);
@@ -21,19 +21,19 @@ std::string ConsoleLogObserver::formatMessage (LogLevel logLevel, const std::str
 
     switch (logLevel) {
 
-        case LogLevel::VERBOSE:
+        case tw::LogLevel::VERBOSE:
             oss << ". VERBOSE : ";
             break;
 
-        case LogLevel::NOTICE:
+        case tw::LogLevel::NOTICE:
             oss << "_ NOTICE  : ";
             break;
 
-        case LogLevel::WARNING:
+        case tw::LogLevel::WARNING:
             oss << "! WARNING : ";
             break;
 
-        case LogLevel::ERROR:
+        case tw::LogLevel::ERROR:
             oss << "# ERROR   : ";
             break;
 

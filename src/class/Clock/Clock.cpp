@@ -1,16 +1,15 @@
 #include "Clock.hpp"
 
-Clock::Clock ()
-: m_resetTime(std::chrono::high_resolution_clock::now())
-{}
+tw::Clock::Clock ()
+: m_resetTime(std::chrono::high_resolution_clock::now()) {}
 
-std::chrono::time_point<std::chrono::high_resolution_clock> Clock::getResetTime () const {
+std::chrono::time_point<std::chrono::high_resolution_clock> tw::Clock::getResetTime () const {
 
     return m_resetTime;
 
 }
 
-double Clock::getElapsedSeconds () const {
+double tw::Clock::getElapsedSeconds () const {
 
     std::chrono::duration<double> duration = std::chrono::high_resolution_clock::now() - m_resetTime;
 
@@ -18,7 +17,7 @@ double Clock::getElapsedSeconds () const {
 
 }
 
-long long Clock::getElapsedMilliseconds () const {
+long long tw::Clock::getElapsedMilliseconds () const {
 
     std::chrono::duration<long long, std::milli> duration =
         std::chrono::duration_cast<std::chrono::milliseconds>(
@@ -29,7 +28,7 @@ long long Clock::getElapsedMilliseconds () const {
 
 }
 
-long long Clock::getElapsedMicroseconds () const {
+long long tw::Clock::getElapsedMicroseconds () const {
 
     std::chrono::duration<long long, std::micro> duration =
         std::chrono::duration_cast<std::chrono::microseconds>(
@@ -40,7 +39,7 @@ long long Clock::getElapsedMicroseconds () const {
 
 }
 
-long long Clock::getElapsedNanoseconds () const {
+long long tw::Clock::getElapsedNanoseconds () const {
 
     std::chrono::duration<long long, std::nano> duration =
         std::chrono::duration_cast<std::chrono::nanoseconds>(
@@ -51,7 +50,7 @@ long long Clock::getElapsedNanoseconds () const {
 
 }
 
-void Clock::reset () {
+void tw::Clock::reset () {
 
     m_resetTime = std::chrono::high_resolution_clock::now();
 

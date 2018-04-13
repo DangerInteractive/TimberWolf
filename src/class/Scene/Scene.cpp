@@ -1,3 +1,3 @@
 #include "Scene.hpp"
 
-Scene::Scene () {};
+tw::Scene::Scene () {};

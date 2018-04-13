@@ -1,6 +1,7 @@
 #ifndef H_CLASS_MODEL
 #define H_CLASS_MODEL
 
+namespace tw {
 class Model {
 
 public:
@@ -17,5 +18,6 @@ public:
 private:
 
 };
+}
 
 #endif

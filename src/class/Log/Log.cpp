@@ -1,25 +1,25 @@
 #include "Log.hpp"
 
-void Log::bindUnhandledException () {
+void tw::Log::bindUnhandledException () {
 
     std::set_terminate([](){
-        Log::error("system", "Unhandled exception.");
+        tw::Log::error("system", "Unhandled exception.");
         std::abort();
     });
 
 }
 
-void Log::registerObserver (std::unique_ptr<LogObserver>&& observer) {
+void tw::Log::registerObserver (std::unique_ptr<LogObserver>&& observer) {
 
     m_observers.push_back(std::move(observer));
 
 }
 
-void Log::registerObserver (LogObserver* observer) {
+void tw::Log::registerObserver (LogObserver* observer) {
 
     m_observers.emplace_back(observer);
 
 }
 
-std::mutex Log::m_mutex;
-std::vector<std::unique_ptr<LogObserver>> Log::m_observers {};
+std::mutex tw::Log::m_mutex;
+std::vector<std::unique_ptr<tw::LogObserver>> tw::Log::m_observers {};

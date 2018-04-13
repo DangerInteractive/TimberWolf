@@ -6,6 +6,7 @@
 #include "../../enum/KeyAction/KeyAction.hpp"
 #include "../../enum/KeyType/KeyType.hpp"
 
+namespace tw {
 class Keybinding {
 
 public:
@@ -31,5 +32,6 @@ public:
     int m_scanCode;
 
 };
+}
 
 #endif

@@ -9,6 +9,7 @@
 #include "../LogObserver/LogObserver.hpp"
 #include "../Console/Console.hpp"
 
+namespace tw {
 class ConsoleLogObserver : public LogObserver {
 
 public:
@@ -29,5 +30,6 @@ protected:
     virtual std::string formatMessage (LogLevel, const std::string&, const std::string&) const;
 
 };
+}
 
 #endif

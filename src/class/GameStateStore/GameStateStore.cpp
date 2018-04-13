@@ -1,6 +1,6 @@
 #include "GameStateStore.hpp"
 
-bool GameStateStore::stateExists (std::string key) {
+bool tw::GameStateStore::stateExists (std::string key) {
 
     if (m_stateMap.find(key) == m_stateMap.end()) {
         return false;
@@ -10,7 +10,7 @@ bool GameStateStore::stateExists (std::string key) {
 
 }
 
-GameState* GameStateStore::getState (std::string key) {
+tw::GameState* tw::GameStateStore::getState (std::string key) {
 
     if (!stateExists(key)) {
         return nullptr;
@@ -20,7 +20,7 @@ GameState* GameStateStore::getState (std::string key) {
 
 }
 
-bool GameStateStore::registerState (std::string key, GameState* gameState) {
+bool tw::GameStateStore::registerState (std::string key, GameState* gameState) {
 
     if (stateExists(key)) {
         return false;
@@ -31,7 +31,7 @@ bool GameStateStore::registerState (std::string key, GameState* gameState) {
 
 }
 
-void GameStateStore::deleteState (std::string key) {
+void tw::GameStateStore::deleteState (std::string key) {
 
     if (!stateExists(key)) {
         return;
@@ -42,4 +42,4 @@ void GameStateStore::deleteState (std::string key) {
 
 }
 
-std::map<std::string, GameState*> GameStateStore::m_stateMap;
+std::map<std::string, tw::GameState*> tw::GameStateStore::m_stateMap;

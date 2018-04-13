@@ -4,6 +4,7 @@
 #include <iostream>
 #include <mutex>
 
+namespace tw {
 class Console {
 
 public:
@@ -58,5 +59,6 @@ private:
     static std::mutex m_mutex;
 
 };
+}
 
 #endif

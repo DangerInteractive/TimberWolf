@@ -4,8 +4,9 @@
 #include "../Controller/Controller.hpp"
 #include "../Window/Window.hpp"
 #include "../Color/Color.hpp"
-class GameStateManager;
+namespace tw { class GameStateManager; }
 
+namespace tw {
 class GameState {
 
 public:
@@ -53,5 +54,6 @@ protected:
     Color m_clearColor {0.f, 0.f, 0.f, 1.f};
 
 };
+}
 
 #endif

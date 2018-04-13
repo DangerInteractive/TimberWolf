@@ -1,6 +1,7 @@
 #ifndef H_CLASS_KEYMOD
 #define H_CLASS_KEYMOD
 
+namespace tw {
 class KeyMod {
 
 public:
@@ -40,5 +41,6 @@ private:
     int m_flags;
 
 };
+}
 
 #endif

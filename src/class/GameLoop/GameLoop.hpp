@@ -11,6 +11,7 @@
 #include "../Window/Window.hpp"
 #include "../Clock/Clock.hpp"
 
+namespace tw {
 class GameLoop {
 
 public:
@@ -59,5 +60,6 @@ private:
     static std::thread m_updateThread;
 
 };
+}
 
 #endif

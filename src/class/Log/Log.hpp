@@ -11,6 +11,7 @@
 #include "../LogObserver/LogObserver.hpp"
 #include "../../enum/LogLevel/LogLevel.hpp"
 
+namespace tw {
 class Log {
 
 public:
@@ -88,5 +89,6 @@ private:
     static std::vector<std::unique_ptr<LogObserver>> m_observers;
 
 };
+}
 
 #endif

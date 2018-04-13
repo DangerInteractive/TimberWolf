@@ -10,6 +10,7 @@
 #include "../Color/Color.hpp"
 #include "../Log/Log.hpp"
 
+namespace tw {
 class Window {
 
 public:
@@ -85,5 +86,6 @@ private:
     static const Color m_defaultClearColor;
 
 };
+}
 
 #endif
