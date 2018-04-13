@@ -13,3 +13,4 @@ CPackSourceConfig.cmake
 src/config.hpp
 TimberWolf.pc
 Makefile
+/docs
