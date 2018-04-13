@@ -4,9 +4,9 @@
 # Project related configuration options
 #---------------------------------------------------------------------------
 DOXYFILE_ENCODING      = UTF-8
-PROJECT_NAME           = TimberWolf
-PROJECT_NUMBER         = 
-PROJECT_BRIEF          = "high-performance C++ OpenGL/Vulkan game engine"
+PROJECT_NAME           = @PROJECT_NAME@
+PROJECT_NUMBER         = @PROJECT_VERSION@
+PROJECT_BRIEF          = "@PROJECT_DESCRIPTION@"
 PROJECT_LOGO           = 
 OUTPUT_DIRECTORY       = ./docs
 CREATE_SUBDIRS         = NO

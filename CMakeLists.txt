@@ -49,6 +49,13 @@ else ()
     set (CMAKE_CXX_CPPCHECK)
 endif ()
 
+# documentation
+configure_file (
+    "${PROJECT_SOURCE_DIR}/Doxyfile.in"
+    "${PROJECT_SOURCE_DIR}/Doxyfile"
+    @ONLY
+)
+
 # list of sources (just for compilation)
 list (APPEND SOURCES
 
