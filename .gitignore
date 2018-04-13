@@ -1,0 +1,15 @@
+libTimberWolf.so*
+src/libTimberWolf.so*
+libTimberWolf.dll*
+src/libTimberWolf.dll*
+libTimberWolf.dylib*
+src/libTimberWolf.dylib*
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake
+install_manifest.txt
+CPackConfig.cmake
+CPackSourceConfig.cmake
+src/config.hpp
+TimberWolf.pc
+Makefile
