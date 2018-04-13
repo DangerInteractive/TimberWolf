@@ -155,6 +155,7 @@ add_library (${LIBRARY_NAME} SHARED ${SOURCES})
 set_target_properties (${LIBRARY_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties (${LIBRARY_NAME} PROPERTIES SOVERSION ${TimberWolf_VERSION_MAJOR})
 set_target_properties (${LIBRARY_NAME} PROPERTIES PUBLIC_HEADER ${HEADERS})
+set_target_properties (${LIBRARY_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
 configure_file(
     ${PROJECT_SOURCE_DIR}/TimberWolf.pc.in
     ${PROJECT_BINARY_DIR}/TimberWolf.pc
