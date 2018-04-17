@@ -1,5 +1,24 @@
 cmake_minimum_required (VERSION 3.10)
 
+# installation setup
+set (INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
+set (INSTALL_BIN_DIR bin CACHE PATH "Installation directory for executables")
+set (INSTALL_INCLUDE_DIR include CACHE PATH "Installation directory for header files")
+if (WIN32 AND NOT CYGWIN)
+    set (DEF_INSTALL_CMAKE_DIR CMake)
+else ()
+    set (DEF_INSTALL_CMAKE_DIR lib/CMake/TimberWolf)
+endif ()
+set (INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Installation directory for CMake files")
+
+# Make relative paths absolute
+foreach (p LIB BIN INCLUDE CMAKE)
+    set (var INSTALL_${p}_DIR)
+    if (NOT IS_ABSOLUTE "${${var}}")
+        set (${var} "${CMAKE_INSTALL_PREFIX}/${${var}}")
+    endif ()
+endforeach ()
+
 # build type selection
 if (NOT CMAKE_BUILD_TYPE)
     set (CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build (Debug or Release)" FORCE)
@@ -24,10 +43,13 @@ set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-pthread")
 set (CMAKE_CXX_FLAGS_DEBUG "-g -Og")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3")
 configure_file (
-    "${PROJECT_SOURCE_DIR}/src/config.hpp.in"
-    "${PROJECT_SOURCE_DIR}/src/config.hpp"
+    "${PROJECT_SOURCE_DIR}/include/TimberWolf.hpp.in"
+    "${PROJECT_SOURCE_DIR}/include/TimberWolf.hpp"
 )
-include_directories ("${PROJECT_BINARY_DIR}")
+include_directories (
+    "${PROJECT_SOURCE_DIR}"
+    "${PROJECT_BINARY_DIR}"
+)
 
 # debug mode testing/analysis
 unset (CMAKE_CXX_CPPCHECK CACHE)
@@ -59,57 +81,30 @@ configure_file (
 # list of sources (just for compilation)
 list (APPEND SOURCES
 
-    # config code
-    ${PROJECT_SOURCE_DIR}/src/config.hpp
-
     # bundled libraries
-    ${PROJECT_SOURCE_DIR}/src/lib/FastNoise/FastNoise.h
-    ${PROJECT_SOURCE_DIR}/src/lib/FastNoise/FastNoise.cpp
+    ${PROJECT_SOURCE_DIR}/lib/FastNoise/FastNoise.cpp
 
     # game engine
-    ${PROJECT_SOURCE_DIR}/src/class/Clock/Clock.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Clock/Clock.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/Color/Color.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Color/Color.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/Console/Console.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Console/Console.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/ConsoleLogObserver/ConsoleLogObserver.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/ConsoleLogObserver/ConsoleLogObserver.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/Controller/Controller.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Controller/Controller.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/File/File.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/File/File.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/FileLogObserver/FileLogObserver.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/FileLogObserver/FileLogObserver.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/FunctionLogObserver/FunctionLogObserver.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/FunctionLogObserver/FunctionLogObserver.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/GameLoop/GameLoop.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/GameLoop/GameLoop.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/GameState/GameState.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/GameState/GameState.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/GameStateManager/GameStateManager.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/GameStateManager/GameStateManager.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/GameStateStore/GameStateStore.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/GameStateStore/GameStateStore.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/Keybinding/Keybinding.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Keybinding/Keybinding.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/KeyMod/KeyMod.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/KeyMod/KeyMod.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/Log/Log.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Log/Log.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/LogObserver/LogObserver.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/LogObserver/LogObserver.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/Model/Model.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Model/Model.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/Renderer/Renderer.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Renderer/Renderer.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/Scene/Scene.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Scene/Scene.cpp
-    ${PROJECT_SOURCE_DIR}/src/class/Window/Window.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Window/Window.cpp
-    ${PROJECT_SOURCE_DIR}/src/enum/KeyAction/KeyAction.hpp
-    ${PROJECT_SOURCE_DIR}/src/enum/KeyType/KeyType.hpp
-    ${PROJECT_SOURCE_DIR}/src/enum/LogLevel/LogLevel.hpp
+    ${PROJECT_SOURCE_DIR}/src/Clock.cpp
+    ${PROJECT_SOURCE_DIR}/src/Color.cpp
+    ${PROJECT_SOURCE_DIR}/src/Console.cpp
+    ${PROJECT_SOURCE_DIR}/src/ConsoleLogObserver.cpp
+    ${PROJECT_SOURCE_DIR}/src/Controller.cpp
+    ${PROJECT_SOURCE_DIR}/src/File.cpp
+    ${PROJECT_SOURCE_DIR}/src/FileLogObserver.cpp
+    ${PROJECT_SOURCE_DIR}/src/FunctionLogObserver.cpp
+    ${PROJECT_SOURCE_DIR}/src/GameLoop.cpp
+    ${PROJECT_SOURCE_DIR}/src/GameState.cpp
+    ${PROJECT_SOURCE_DIR}/src/GameStateManager.cpp
+    ${PROJECT_SOURCE_DIR}/src/GameStateStore.cpp
+    ${PROJECT_SOURCE_DIR}/src/Keybinding.cpp
+    ${PROJECT_SOURCE_DIR}/src/KeyMod.cpp
+    ${PROJECT_SOURCE_DIR}/src/Log.cpp
+    ${PROJECT_SOURCE_DIR}/src/LogObserver.cpp
+    ${PROJECT_SOURCE_DIR}/src/Model.cpp
+    ${PROJECT_SOURCE_DIR}/src/Renderer.cpp
+    ${PROJECT_SOURCE_DIR}/src/Scene.cpp
+    ${PROJECT_SOURCE_DIR}/src/Window.cpp
 
 )
 
@@ -117,35 +112,35 @@ list (APPEND SOURCES
 list (APPEND HEADERS
 
     # config code
-    ${PROJECT_SOURCE_DIR}/src/config.hpp
+    ${PROJECT_SOURCE_DIR}/include/TimberWolf.hpp
 
     # bundled libraries
-    ${PROJECT_SOURCE_DIR}/src/lib/FastNoise/FastNoise.h
+    ${PROJECT_SOURCE_DIR}/lib/FastNoise/FastNoise.h
 
     # game engine
-    ${PROJECT_SOURCE_DIR}/src/class/Clock/Clock.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Color/Color.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Console/Console.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/ConsoleLogObserver/ConsoleLogObserver.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Controller/Controller.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/File/File.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/FileLogObserver/FileLogObserver.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/FunctionLogObserver/FunctionLogObserver.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/GameLoop/GameLoop.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/GameState/GameState.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/GameStateManager/GameStateManager.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/GameStateStore/GameStateStore.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Keybinding/Keybinding.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/KeyMod/KeyMod.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Log/Log.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/LogObserver/LogObserver.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Model/Model.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Renderer/Renderer.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Scene/Scene.hpp
-    ${PROJECT_SOURCE_DIR}/src/class/Window/Window.hpp
-    ${PROJECT_SOURCE_DIR}/src/enum/KeyAction/KeyAction.hpp
-    ${PROJECT_SOURCE_DIR}/src/enum/KeyType/KeyType.hpp
-    ${PROJECT_SOURCE_DIR}/src/enum/LogLevel/LogLevel.hpp
+    ${PROJECT_SOURCE_DIR}/include/Clock.hpp
+    ${PROJECT_SOURCE_DIR}/include/Color.hpp
+    ${PROJECT_SOURCE_DIR}/include/Console.hpp
+    ${PROJECT_SOURCE_DIR}/include/ConsoleLogObserver.hpp
+    ${PROJECT_SOURCE_DIR}/include/Controller.hpp
+    ${PROJECT_SOURCE_DIR}/include/File.hpp
+    ${PROJECT_SOURCE_DIR}/include/FileLogObserver.hpp
+    ${PROJECT_SOURCE_DIR}/include/FunctionLogObserver.hpp
+    ${PROJECT_SOURCE_DIR}/include/GameLoop.hpp
+    ${PROJECT_SOURCE_DIR}/include/GameState.hpp
+    ${PROJECT_SOURCE_DIR}/include/GameStateManager.hpp
+    ${PROJECT_SOURCE_DIR}/include/GameStateStore.hpp
+    ${PROJECT_SOURCE_DIR}/include/Keybinding.hpp
+    ${PROJECT_SOURCE_DIR}/include/KeyMod.hpp
+    ${PROJECT_SOURCE_DIR}/include/Log.hpp
+    ${PROJECT_SOURCE_DIR}/include/LogObserver.hpp
+    ${PROJECT_SOURCE_DIR}/include/Model.hpp
+    ${PROJECT_SOURCE_DIR}/include/Renderer.hpp
+    ${PROJECT_SOURCE_DIR}/include/Scene.hpp
+    ${PROJECT_SOURCE_DIR}/include/Window.hpp
+    ${PROJECT_SOURCE_DIR}/include/KeyAction.hpp
+    ${PROJECT_SOURCE_DIR}/include/KeyType.hpp
+    ${PROJECT_SOURCE_DIR}/include/LogLevel.hpp
 
 )
 
@@ -156,9 +151,41 @@ set_target_properties (${LIBRARY_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties (${LIBRARY_NAME} PROPERTIES SOVERSION ${TimberWolf_VERSION_MAJOR})
 set_target_properties (${LIBRARY_NAME} PROPERTIES PUBLIC_HEADER "${HEADERS}")
 set_target_properties (${LIBRARY_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
-configure_file(
+configure_file (
     ${PROJECT_SOURCE_DIR}/TimberWolf.pc.in
     ${PROJECT_BINARY_DIR}/TimberWolf.pc
+    @ONLY
+)
+
+# find_package stuff
+export (
+    TARGETS ${LIBRARY_NAME}
+    FILE ${PROJECT_BINARY_DIR}/TimberWolfTargets.cmake
+)
+export (PACKAGE TimberWolf)
+file (RELATIVE_PATH REL_INCLUDE_DIR ${INSTALL_CMAKE_DIR}
+    ${INSTALL_INCLUDE_DIR}
+)
+set (CONF_INCLUDE_DIRS
+    ${PROJECT_SOURCE_DIR}
+    ${PROJECT_BINARY_DIR}
+)
+configure_file (
+    ${PROJECT_SOURCE_DIR}/TimberWolfConfig.cmake.in
+    ${PROJECT_BINARY_DIR}/TimberWolfConfig.cmake
+    @ONLY
+)
+set (CONF_INCLUDE_DIRS
+    ${FOOBAR_CMAKE_DIR}/${REL_INCLUDE_DIR}
+)
+configure_file (
+    ${PROJECT_SOURCE_DIR}/TimberWolfConfig.cmake.in
+    ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/TimberWolfConfig.cmake
+    @ONLY
+)
+configure_file (
+    ${PROJECT_SOURCE_DIR}/TimberWolfConfigVersion.cmake.in
+    ${PROJECT_BINARY_DIR}/TimberWolfConfigVersion.cmake
     @ONLY
 )
 
@@ -176,12 +203,22 @@ install (TARGETS ${LIBRARY_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/TimberWolf
 )
-install(FILES ${CMAKE_BINARY_DIR}/TimberWolf.pc DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+install (
+    FILES ${CMAKE_BINARY_DIR}/TimberWolf.pc
+    DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig
+)
+install (
+    FILES
+        ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/TimberWolfConfig.cmake
+        ${PROJECT_BINARY_DIR}/TimberWolfConfigVersion.cmake
+    DESTINATION ${INSTALL_CMAKE_DIR}
+    COMPONENT dev
+)
 
 # packaging
 include (InstallRequiredSystemLibraries)
-set (CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
-set (CPACK_RESOURCE_VERSION_MAJOR "${TimberWolf_VERSION_MAJOR}")
-set (CPACK_RESOURCE_VERSION_MINOR "${TimberWolf_VERSION_MINOR}")
-set (CPACK_RESOURCE_VERSION_PATCH "${TimberWolf_VERSION_PATCH}")
+set (CPACK_RESOURCE_FILE_LICENSE ${CMAKE_SOURCE_DIR}/LICENSE)
+set (CPACK_RESOURCE_VERSION_MAJOR ${TimberWolf_VERSION_MAJOR})
+set (CPACK_RESOURCE_VERSION_MINOR ${TimberWolf_VERSION_MINOR})
+set (CPACK_RESOURCE_VERSION_PATCH ${TimberWolf_VERSION_PATCH})
 include (CPack)
