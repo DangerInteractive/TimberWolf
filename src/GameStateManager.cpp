@@ -1,13 +1,13 @@
 #include "../include/GameStateManager.hpp"
 
-void tw::GameStateManager::pushState (GameState* state) {
+void tw::GameStateManager::pushState (const std::shared_ptr<GameState>& state) {
 
     m_states.push_back(state);
     state->onPush();
     state->onActivate();
 
     if (m_states.size() > 1) {
-        GameState* prev = m_states[m_states.size() - 2];
+        auto prev = m_states[m_states.size() - 2];
         prev->onDeactivate();
         for (int i = m_states.size() - 2; i >= 0; --i) {
             m_states[i]->onDescend();
@@ -18,13 +18,20 @@ void tw::GameStateManager::pushState (GameState* state) {
 
 }
 
-bool tw::GameStateManager::pushState (std::string key) {
+void tw::GameStateManager::pushState (GameState* state) {
+
+    std::shared_ptr<GameState> ptrState(state);
+    pushState(ptrState);
+
+}
+
+bool tw::GameStateManager::pushState (const std::string& key) {
 
     if (!GameStateStore::stateExists(key)) {
         return false;
     }
 
-    GameState* state = GameStateStore::getState(key);
+    auto state = GameStateStore::getState(key);
     pushState(state);
 
     return true;
@@ -33,13 +40,13 @@ bool tw::GameStateManager::pushState (std::string key) {
 
 void tw::GameStateManager::dropState () {
 
-    GameState* top = m_states[m_states.size() - 1];
+    auto top = m_states[m_states.size() - 1];
     top->onDeactivate();
     top->onPop();
-    delete top;
+    top.reset();
 
     if (m_states.size() > 0) {
-        GameState* top = m_states[m_states.size() - 1];
+        auto top = m_states[m_states.size() - 1];
         top->onActivate();
         for (int i = m_states.size() - 1; i >= 0; --i) {
             m_states[i]->onAscend();
@@ -50,14 +57,14 @@ void tw::GameStateManager::dropState () {
 
 }
 
-tw::GameState* tw::GameStateManager::popState () {
+std::shared_ptr<tw::GameState> tw::GameStateManager::popState () {
 
-    GameState* top = m_states[m_states.size() - 1];
+    auto top = m_states[m_states.size() - 1];
     top->onDeactivate();
     top->onPop();
 
     if (m_states.size() > 0) {
-        GameState* top = m_states[m_states.size() - 1];
+        auto top = m_states[m_states.size() - 1];
         top->onActivate();
         for (int i = m_states.size() - 1; i >= 0; --i) {
             m_states[i]->onAscend();
@@ -72,11 +79,11 @@ tw::GameState* tw::GameStateManager::popState () {
 
 void tw::GameStateManager::refreshLiveStates () {
 
-    std::vector<GameState*> liveRenderStates;
-    std::vector<GameState*> liveUpdateStates;
-    std::vector<GameState*> liveInputStates;
+    std::vector<std::shared_ptr<GameState>> liveRenderStates;
+    std::vector<std::shared_ptr<GameState>> liveUpdateStates;
+    std::vector<std::shared_ptr<GameState>> liveInputStates;
 
-    GameState* top = m_states[m_states.size() - 1];
+    auto top = m_states[m_states.size() - 1];
     liveRenderStates.push_back(top);
     liveUpdateStates.push_back(top);
     liveInputStates.push_back(top);
@@ -90,14 +97,14 @@ void tw::GameStateManager::refreshLiveStates () {
         )
     ) {
 
-        GameState* prev = top;
+        auto prev = top;
         bool renderBroken = !prev->transparentRender;
         bool updateBroken = !prev->transparentUpdate;
         bool inputBroken = !prev->transparentInput;
 
         for (int i = m_states.size() - 2; i >= 0; --i) {
 
-            GameState* cur = m_states[i];
+            auto cur = m_states[i];
 
             if (renderBroken && updateBroken && inputBroken) {
                 break;
@@ -130,6 +137,14 @@ void tw::GameStateManager::refreshLiveStates () {
     m_statesLiveRender = liveRenderStates;
     m_statesLiveUpdate = liveUpdateStates;
     m_statesLiveInput = liveInputStates;
+
+}
+
+void tw::GameStateManager::clearWindow () {
+
+    for (int i = m_statesLiveRender.size() - 1; i >= 0; --i) {
+        m_statesLiveRender[i]->clearWindow();
+    }
 
 }
 
@@ -203,8 +218,8 @@ void tw::GameStateManager::dropCallback (GLFWwindow* window, int count, const ch
 
 }
 
-std::vector<tw::GameState*> tw::GameStateManager::m_states;
+std::vector<std::shared_ptr<tw::GameState>> tw::GameStateManager::m_states;
 
-std::vector<tw::GameState*> tw::GameStateManager::m_statesLiveRender;
-std::vector<tw::GameState*> tw::GameStateManager::m_statesLiveUpdate;
-std::vector<tw::GameState*> tw::GameStateManager::m_statesLiveInput;
+std::vector<std::shared_ptr<tw::GameState>> tw::GameStateManager::m_statesLiveRender;
+std::vector<std::shared_ptr<tw::GameState>> tw::GameStateManager::m_statesLiveUpdate;
+std::vector<std::shared_ptr<tw::GameState>> tw::GameStateManager::m_statesLiveInput;

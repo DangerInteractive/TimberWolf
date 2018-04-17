@@ -2,6 +2,8 @@
 #define H_CLASS_WINDOW
 
 #include <string>
+#include <functional>
+#include <memory>
 #include <exception>
 #include <stdexcept>
 #include <iomanip>
@@ -15,12 +17,12 @@ class Window {
 
 public:
 
-    typedef void (* KeyCallback) (GLFWwindow*, int, int, int, int);
-    typedef void (* CursorCallback) (GLFWwindow*, double, double);
-    typedef void (* CursorInOutCallback) (GLFWwindow*, int);
-    typedef void (* MouseButtonCallback) (GLFWwindow*, int, int, int);
-    typedef void (* ScrollCallback) (GLFWwindow*, double, double);
-    typedef void (* DropCallback) (GLFWwindow*, int, const char**);
+    typedef std::function <void (GLFWwindow*, int, int, int, int)> KeyCallback;
+    typedef std::function <void (GLFWwindow*, double, double)> CursorCallback;
+    typedef std::function <void (GLFWwindow*, int)> CursorInOutCallback;
+    typedef std::function <void (GLFWwindow*, int, int, int)> MouseButtonCallback;
+    typedef std::function <void (GLFWwindow*, double, double)> ScrollCallback;
+    typedef std::function <void (GLFWwindow*, int, const char**)> DropCallback;
 
     Window () = delete; // static only
     ~Window () = delete;
@@ -69,7 +71,10 @@ private:
     static void pushWindowSize ();
     static void pushWindowTitle ();
 
-    static GLFWwindow* m_context;
+    struct GLFWwindowDeleter{
+        void operator () (GLFWwindow* ptr) { glfwDestroyWindow(ptr); }
+    };
+    static std::unique_ptr<GLFWwindow, GLFWwindowDeleter> m_context;
 
     static int m_width;
     static int m_height;

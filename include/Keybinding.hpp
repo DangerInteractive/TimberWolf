@@ -2,6 +2,7 @@
 #define H_CLASS_KEYBINDING
 
 #include <vector>
+#include <functional>
 #include "KeyMod.hpp"
 #include "KeyAction.hpp"
 #include "KeyType.hpp"
@@ -11,9 +12,10 @@ class Keybinding {
 
 public:
 
-    typedef void (* KeybindingCallback) ();
+    typedef std::function <void ()> KeybindingCallback;
 
-    Keybinding (KeybindingCallback, KeyAction, KeyMod, KeyType, int = -1);
+    Keybinding (KeybindingCallback, KeyAction, const KeyMod&, KeyType, int = -1);
+    Keybinding (KeybindingCallback, KeyAction, unsigned int, KeyType, int = -1);
     ~Keybinding () = default;
 
     Keybinding (Keybinding&&) = default;
@@ -22,8 +24,31 @@ public:
     Keybinding (const Keybinding&) = default;
     Keybinding& operator = (const Keybinding&) = default;
 
-    bool check (int, int, int, int = -1);
+    bool check (int, int, int, int = -1) const;
     void process (int, int, int, int = -1);
+
+    const KeybindingCallback& getCallback () const;
+    KeyAction getAction () const;
+    const KeyMod& getMod () const;
+    bool getAlt () const;
+    bool getControl () const;
+    bool getShift () const;
+    bool getSuper () const;
+    KeyType getKey () const;
+    int getScanCode () const;
+
+    void setCallback (const KeybindingCallback&);
+    void setAction (KeyAction);
+    void setMod (const KeyMod&);
+    void setMod (unsigned int);
+    void setAlt (bool);
+    void setControl (bool);
+    void setShift (bool);
+    void setSuper (bool);
+    void setKey (KeyType);
+    void setScanCode (int);
+
+private:
 
     KeybindingCallback m_callback;
     KeyAction m_action;

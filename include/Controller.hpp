@@ -16,15 +16,15 @@ class Controller {
 
 public:
 
-    typedef std::function<void(double,double)> CursorCallback;
-    typedef std::function<void()> CursorInCallback;
-    typedef std::function<void()> CursorOutCallback;
-    typedef std::function<void()> FocusCallback;
-    typedef std::function<void()> UnfocusCallback;
-    typedef std::function<void(int,int)> MouseButtonPressCallback;
-    typedef std::function<void(int,int)> MouseButtonReleaseCallback;
-    typedef std::function<void(double,double)> ScrollCallback;
-    typedef std::function<void(int,int)> ResizeCallback;
+    typedef std::function <void (double, double)> CursorCallback;
+    typedef std::function <void ()> CursorInCallback;
+    typedef std::function <void ()> CursorOutCallback;
+    typedef std::function <void ()> FocusCallback;
+    typedef std::function <void ()> UnfocusCallback;
+    typedef std::function <void (int, int)> MouseButtonPressCallback;
+    typedef std::function <void (int, int)> MouseButtonReleaseCallback;
+    typedef std::function <void (double, double)> ScrollCallback;
+    typedef std::function <void (int, int)> ResizeCallback;
 
     Controller ();
     ~Controller () = default;

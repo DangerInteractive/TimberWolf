@@ -6,10 +6,10 @@ class KeyMod {
 
 public:
 
-    static const int MOD_SHIFT   = 0x00000001;
-    static const int MOD_CONTROL = 0x00000002;
-    static const int MOD_ALT     = 0x00000004;
-    static const int MOD_SUPER   = 0x00000008;
+    static inline constexpr unsigned int MOD_SHIFT   = 0b0001;
+    static inline constexpr unsigned int MOD_CONTROL = 0b0010;
+    static inline constexpr unsigned int MOD_ALT     = 0b0100;
+    static inline constexpr unsigned int MOD_SUPER   = 0b1000;
 
     explicit KeyMod (int);
     KeyMod (bool, bool, bool, bool);
@@ -33,12 +33,12 @@ public:
     void setAlt (bool);
     void setSuper (bool);
 
-    bool operator == (const KeyMod);
-    bool operator != (const KeyMod);
+    bool operator == (const KeyMod&);
+    bool operator != (const KeyMod&);
 
 private:
 
-    int m_flags;
+    unsigned int m_flags;
 
 };
 }

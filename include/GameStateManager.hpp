@@ -27,13 +27,21 @@ public:
     GameStateManager (const GameStateManager&) = delete;
     GameStateManager& operator = (const GameStateManager&) = delete;
 
+    template <typename TState, typename ...TArg>
+    static std::shared_ptr<GameState> pushNewState (TArg&&... args) {
+        auto state = std::make_shared<TState>(std::forward<TArg>(args)...);
+        pushState(state);
+        return state;
+    }
+    static void pushState (const std::shared_ptr<GameState>&);
     static void pushState (GameState*);
-    static bool pushState (std::string);
+    static bool pushState (const std::string&);
     static void dropState ();
-    static GameState* popState ();
+    static std::shared_ptr<GameState> popState ();
 
     static void refreshLiveStates ();
 
+    static void clearWindow ();
     static void render (double);
 
     static void update (double);
@@ -47,11 +55,11 @@ public:
 
 private:
 
-    static std::vector<GameState*> m_states;
+    static std::vector<std::shared_ptr<GameState>> m_states;
 
-    static std::vector<GameState*> m_statesLiveRender;
-    static std::vector<GameState*> m_statesLiveUpdate;
-    static std::vector<GameState*> m_statesLiveInput;
+    static std::vector<std::shared_ptr<GameState>> m_statesLiveRender;
+    static std::vector<std::shared_ptr<GameState>> m_statesLiveUpdate;
+    static std::vector<std::shared_ptr<GameState>> m_statesLiveInput;
 
 };
 }

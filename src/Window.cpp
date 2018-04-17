@@ -34,14 +34,14 @@ void tw::Window::deinit () {
 
 GLFWwindow* tw::Window::getContext () {
 
-    return m_context;
+    return m_context.get();
 
 }
 
 void tw::Window::makeContextCurrent () {
 
     if (m_context != NULL) {
-        glfwMakeContextCurrent(m_context);
+        glfwMakeContextCurrent(m_context.get());
         Log::verbose("window", "Set GLFW window as current context.");
     } else {
         throw std::runtime_error("Cannot set NULL context current.");
@@ -60,7 +60,13 @@ void tw::Window::open () {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, m_glVersionMajor);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, m_glVersionMinor);
 
-    m_context = glfwCreateWindow(m_width, m_height, m_title.c_str(), NULL, NULL);
+    m_context = std::unique_ptr<GLFWwindow, GLFWwindowDeleter>(glfwCreateWindow(
+        m_width,
+        m_height,
+        m_title.c_str(),
+        NULL,
+        NULL
+    ));
 
     if (!m_context) {
         glfwTerminate();
@@ -87,7 +93,7 @@ void tw::Window::open () {
 void tw::Window::close () {
 
     if (isOpen()) {
-        glfwSetWindowShouldClose(m_context, 1);
+        glfwSetWindowShouldClose(m_context.get(), 1);
     }
 
 }
@@ -95,8 +101,7 @@ void tw::Window::close () {
 void tw::Window::destroy () {
 
     if (isOpen()) {
-        glfwDestroyWindow(m_context); // equivalent to deleting
-        m_context = nullptr;
+        m_context.reset();
     }
 
 }
@@ -271,7 +276,7 @@ void tw::Window::setGlVersion (const int majorVersion, const int minorVersion) {
 void tw::Window::pushWindowSize () {
 
     if (m_context != NULL) {
-        glfwSetWindowSize(m_context, m_width, m_height);
+        glfwSetWindowSize(m_context.get(), m_width, m_height);
     }
 
 }
@@ -279,12 +284,12 @@ void tw::Window::pushWindowSize () {
 void tw::Window::pushWindowTitle () {
 
     if (m_context != NULL) {
-        glfwSetWindowTitle(m_context, m_title.c_str());
+        glfwSetWindowTitle(m_context.get(), m_title.c_str());
     }
 
 }
 
-GLFWwindow* tw::Window::m_context = nullptr;
+std::unique_ptr<GLFWwindow, tw::Window::GLFWwindowDeleter> tw::Window::m_context;
 
 int tw::Window::m_width = 800;
 int tw::Window::m_height = 600;

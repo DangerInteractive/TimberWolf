@@ -60,11 +60,11 @@ std::vector<tw::Keybinding> tw::Controller::getKeybindings (KeyAction action, Ke
     for (int i = 0; i < m_keybindings.size(); ++i) {
 
         if (
-            action == m_keybindings[i].m_action &&
-            mod.getFlags() == m_keybindings[i].m_mod.getFlags() &&
+            action == m_keybindings[i].getAction() &&
+            mod.getFlags() == m_keybindings[i].getMod().getFlags() &&
             (
-                key == m_keybindings[i].m_key ||
-                scanCode == m_keybindings[i].m_scanCode
+                key == m_keybindings[i].getKey() ||
+                scanCode == m_keybindings[i].getScanCode()
             )
         ) {
             out.push_back(m_keybindings[i]);
@@ -82,7 +82,7 @@ std::vector<tw::Keybinding> tw::Controller::getKeybindingsByKeyAction (KeyAction
 
     for (int i = 0; i < m_keybindings.size(); ++i) {
 
-        if (action == m_keybindings[i].m_action) {
+        if (action == m_keybindings[i].getAction()) {
             out.push_back(m_keybindings[i]);
         }
 
@@ -98,7 +98,7 @@ std::vector<tw::Keybinding> tw::Controller::getKeybindingsByKeyType (KeyType key
 
     for (int i = 0; i < m_keybindings.size(); ++i) {
 
-        if (key == m_keybindings[i].m_key) {
+        if (key == m_keybindings[i].getKey()) {
             out.push_back(m_keybindings[i]);
         }
 
@@ -114,7 +114,7 @@ std::vector<tw::Keybinding> tw::Controller::getKeybindingsByKeyMod (KeyMod mod) 
 
     for (int i = 0; i < m_keybindings.size(); ++i) {
 
-        if (mod == m_keybindings[i].m_mod) {
+        if (mod == m_keybindings[i].getMod()) {
             out.push_back(m_keybindings[i]);
         }
 
@@ -130,7 +130,7 @@ std::vector<tw::Keybinding> tw::Controller::getKeybindingsByScanCode (int scanCo
 
     for (int i = 0; i < m_keybindings.size(); ++i) {
 
-        if (scanCode == m_keybindings[i].m_scanCode) {
+        if (scanCode == m_keybindings[i].getScanCode()) {
             out.push_back(m_keybindings[i]);
         }
 
@@ -163,11 +163,11 @@ void tw::Controller::removeKeybindings (KeyAction action, KeyMod mod, KeyType ke
     for (int i = 0; i < m_keybindings.size(); ++i) {
 
         if (
-            action == m_keybindings[i].m_action &&
-            mod.getFlags() == m_keybindings[i].m_mod.getFlags() &&
+            action == m_keybindings[i].getAction() &&
+            mod.getFlags() == m_keybindings[i].getMod().getFlags() &&
             (
-                key == m_keybindings[i].m_key ||
-                scanCode == m_keybindings[i].m_scanCode
+                key == m_keybindings[i].getKey() ||
+                scanCode == m_keybindings[i].getScanCode()
             )
         ) {
             m_keybindings.erase(m_keybindings.begin() + i);
@@ -182,7 +182,7 @@ void tw::Controller::removeKeybindingsByKeyAction (KeyAction action) {
 
     for (int i = 0; i < m_keybindings.size(); ++i) {
 
-        if (action == m_keybindings[i].m_action) {
+        if (action == m_keybindings[i].getAction()) {
             m_keybindings.erase(m_keybindings.begin() + i);
             --i;
         }
@@ -195,7 +195,7 @@ void tw::Controller::removeKeybindingsByKeyType (KeyType key) {
 
     for (int i = 0; i < m_keybindings.size(); ++i) {
 
-        if (key == m_keybindings[i].m_key) {
+        if (key == m_keybindings[i].getKey()) {
             m_keybindings.erase(m_keybindings.begin() + i);
             --i;
         }
@@ -208,7 +208,7 @@ void tw::Controller::removeKeybindingsByKeyMod (KeyMod mod) {
 
     for (int i = 0; i < m_keybindings.size(); ++i) {
 
-        if (mod == m_keybindings[i].m_mod) {
+        if (mod == m_keybindings[i].getMod()) {
             m_keybindings.erase(m_keybindings.begin() + i);
             --i;
         }
@@ -221,7 +221,7 @@ void tw::Controller::removeKeybindingsByScanCode (int scanCode) {
 
     for (int i = 0; i < m_keybindings.size(); ++i) {
 
-        if (scanCode == m_keybindings[i].m_scanCode) {
+        if (scanCode == m_keybindings[i].getScanCode()) {
             m_keybindings.erase(m_keybindings.begin() + i);
             --i;
         }

@@ -3,6 +3,7 @@
 
 #include <map>
 #include <string>
+#include <memory>
 #include "GameState.hpp"
 
 namespace tw {
@@ -19,15 +20,27 @@ public:
     GameStateStore (const GameStateStore&) = delete;
     GameStateStore& operator = (const GameStateStore&) = delete;
 
-    static bool stateExists (std::string);
-    static GameState* getState (std::string);
+    // state getters
+    static bool stateExists (const std::string&);
+    static std::shared_ptr<GameState> getState (const std::string&);
 
-    static bool registerState (std::string, GameState*);
-    static void deleteState (std::string);
+    // state setters
+    template <typename TState, typename ...TArg>
+    static std::shared_ptr<GameState> makeState (const std::string& key, TArg&&... args) {
+        auto state = std::make_shared<TState>(std::forward<TArg>(args)...);
+        if (registerState(key, state)) {
+            return state;
+        } else {
+            return nullptr;
+        }
+    }
+    static bool registerState (const std::string&, const std::shared_ptr<GameState>&);
+    static bool registerState (const std::string&, GameState*);
+    static void deleteState (const std::string&);
 
 private:
 
-    static std::map<std::string, GameState*> m_stateMap;
+    static std::map<std::string, std::shared_ptr<GameState>> m_stateMap;
 
 };
 }
