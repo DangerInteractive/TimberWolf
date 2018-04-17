@@ -36,7 +36,7 @@ public:
 
     static void render (double);
 
-    static void update ();
+    static void update (double);
 
     static void keyCallback (GLFWwindow*, int, int, int, int = -1);
     static void cursorCallback (GLFWwindow*, double, double);

@@ -39,7 +39,7 @@ public:
     // game loop callbacks
     void clearWindow ();
     virtual void render (double) = 0;
-    virtual void update () = 0;
+    virtual void update (double) = 0;
 
     // input handling
     Controller& getController ();

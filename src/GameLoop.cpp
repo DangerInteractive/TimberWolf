@@ -120,7 +120,7 @@ void tw::GameLoop::update (
 
             int ticks = static_cast<int>(deltaTime * updateTickRate);
             for (int i = 0; i < ticks; ++i) {
-                GameStateManager::update();
+                GameStateManager::update(updateSeconds);
             }
 
         }

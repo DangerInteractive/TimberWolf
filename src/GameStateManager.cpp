@@ -141,10 +141,10 @@ void tw::GameStateManager::render (double deltaTime) {
 
 }
 
-void tw::GameStateManager::update () {
+void tw::GameStateManager::update (double deltaTime) {
 
     for (int i = 0; i < m_statesLiveUpdate.size(); ++i) {
-        m_statesLiveUpdate[i]->update();
+        m_statesLiveUpdate[i]->update(deltaTime);
     };
 
 }

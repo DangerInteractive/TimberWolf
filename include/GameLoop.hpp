@@ -40,7 +40,6 @@ private:
     static void update (Clock&, unsigned int&, double&, bool&, bool&, bool&);
 
     static void render (double);
-    static void input ();
 
     static unsigned int m_renderFrameRate;
     static unsigned int m_updateTickRate;
