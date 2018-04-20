@@ -139,6 +139,7 @@ list (APPEND HEADERS
     ${PROJECT_SOURCE_DIR}/include/Log.hpp
     ${PROJECT_SOURCE_DIR}/include/LogLevel.hpp
     ${PROJECT_SOURCE_DIR}/include/LogObserver.hpp
+    ${PROJECT_SOURCE_DIR}/include/Mesh.hpp
     ${PROJECT_SOURCE_DIR}/include/Model.hpp
     ${PROJECT_SOURCE_DIR}/include/Renderer.hpp
     ${PROJECT_SOURCE_DIR}/include/Scene.hpp

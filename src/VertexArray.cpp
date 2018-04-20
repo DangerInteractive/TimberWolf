@@ -15,6 +15,23 @@ tw::VertexArray::~VertexArray () {
 
 }
 
+GLuint tw::VertexArray::getId () const {
+
+    return m_id;
+
+}
+
+void tw::VertexArray::storeBuffer (GLuint index, VertexBuffer& vbo) {
+
+    bind();
+    vbo.bind();
+    glEnableVertexAttribArray(index);
+    glVertexAttribPointer(index, vbo.getVertexSize(), vbo.getDataType(), vbo.isNormalized(), vbo.getVertexStride(), NULL);
+    vbo.unbind();
+    unbind();
+
+}
+
 void tw::VertexArray::bind () {
 
     glBindVertexArray(m_id);

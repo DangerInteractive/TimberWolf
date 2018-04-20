@@ -2,6 +2,8 @@
 #define H_CLASS_VERTEXARRAY
 
 #include <GL/glew.h>
+#include "VertexBuffer.hpp"
+#include "Mesh.hpp"
 
 namespace tw {
 class VertexArray {
@@ -17,6 +19,19 @@ public:
 
     VertexArray (const VertexArray&) = delete; // not copyable
     VertexArray& operator = (const VertexArray&) = delete;
+
+    GLuint getId () const;
+
+    template <typename ...T>
+    void storeBuffer (T&&... args) {
+
+        bind();
+        glVertexAttribPointer(std::forward<T>(args)...);
+        unbind();
+
+    }
+
+    void storeBuffer (GLuint, VertexBuffer&);
 
     void bind ();
     void unbind ();
