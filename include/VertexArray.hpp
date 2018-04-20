@@ -22,15 +22,6 @@ public:
 
     GLuint getId () const;
 
-    template <typename ...T>
-    void storeBuffer (T&&... args) {
-
-        bind();
-        glVertexAttribPointer(std::forward<T>(args)...);
-        unbind();
-
-    }
-
     void storeBuffer (GLuint, VertexBuffer&);
 
     void bind ();

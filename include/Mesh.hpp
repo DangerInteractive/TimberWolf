@@ -11,9 +11,8 @@ class Mesh {
 public:
 
     Mesh () = default;
-    explicit Mesh (T&& args...) {
-        m_vertices.emplace_back(std::forward<T>(args));
-    }
+    explicit Mesh (T&& data...) : m_data(std::vector<T>(data)) {}
+    explicit Mesh (const std::vector<T>& data) : m_data(data) {}
     ~Mesh () = default;
 
     Mesh (Mesh&&) = default;
@@ -39,20 +38,20 @@ public:
     }
 
     const std::vector<T>& getVertexVector () const {
-        return m_vertices;
+        return m_data;
     }
 
     const T* getVertexPointer () const {
-        return &m_vertices.front();
+        return &m_data.front();
     }
 
     unsigned int getVertexCount () const {
-        return m_vertices.size();
+        return m_data.size() / (Size+Stride);
     }
 
 protected:
 
-    std::vector<T[Size + Stride]> m_vertices;
+    std::vector<T> m_data;
 
 };
 }

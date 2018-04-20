@@ -27,8 +27,6 @@ public:
     GLboolean isNormalized () const;
     GLsizei getVertexStride () const;
 
-    void write (const std::vector<GLvoid*>&, GLint = 3, GLenum = GL_FLOAT, GLboolean = false, GLsizei = 0);
-
     template <typename T, GLint Size, GLenum Type, GLboolean Normalized, GLsizei Stride>
     void write (const Mesh<T, Size, Type, Normalized, Stride>& mesh) {
 

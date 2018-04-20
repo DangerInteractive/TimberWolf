@@ -45,19 +45,6 @@ GLsizei tw::VertexBuffer::getVertexStride () const {
 
 }
 
-void tw::VertexBuffer::write (const std::vector<GLvoid*>& data, GLint size, GLenum type, GLboolean normalized, GLsizei stride) {
-
-    m_vertexSize = size;
-    m_dataType = type;
-    m_normalized = normalized;
-    m_vertexStride = stride;
-
-    bind();
-    glBufferData(GL_ARRAY_BUFFER, data.size(), &data.front(), GL_STATIC_DRAW);
-    unbind();
-
-}
-
 void tw::VertexBuffer::bind () {
 
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
