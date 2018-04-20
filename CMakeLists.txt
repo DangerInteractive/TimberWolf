@@ -104,6 +104,8 @@ list (APPEND SOURCES
     ${PROJECT_SOURCE_DIR}/src/Model.cpp
     ${PROJECT_SOURCE_DIR}/src/Renderer.cpp
     ${PROJECT_SOURCE_DIR}/src/Scene.cpp
+    ${PROJECT_SOURCE_DIR}/src/VertexArray.cpp
+    ${PROJECT_SOURCE_DIR}/src/VertexBuffer.cpp
     ${PROJECT_SOURCE_DIR}/src/Window.cpp
 
 )
@@ -130,17 +132,19 @@ list (APPEND HEADERS
     ${PROJECT_SOURCE_DIR}/include/GameState.hpp
     ${PROJECT_SOURCE_DIR}/include/GameStateManager.hpp
     ${PROJECT_SOURCE_DIR}/include/GameStateStore.hpp
+    ${PROJECT_SOURCE_DIR}/include/KeyAction.hpp
     ${PROJECT_SOURCE_DIR}/include/Keybinding.hpp
     ${PROJECT_SOURCE_DIR}/include/KeyMod.hpp
+    ${PROJECT_SOURCE_DIR}/include/KeyType.hpp
     ${PROJECT_SOURCE_DIR}/include/Log.hpp
+    ${PROJECT_SOURCE_DIR}/include/LogLevel.hpp
     ${PROJECT_SOURCE_DIR}/include/LogObserver.hpp
     ${PROJECT_SOURCE_DIR}/include/Model.hpp
     ${PROJECT_SOURCE_DIR}/include/Renderer.hpp
     ${PROJECT_SOURCE_DIR}/include/Scene.hpp
+    ${PROJECT_SOURCE_DIR}/include/VertexArray.hpp
+    ${PROJECT_SOURCE_DIR}/include/VertexBuffer.hpp
     ${PROJECT_SOURCE_DIR}/include/Window.hpp
-    ${PROJECT_SOURCE_DIR}/include/KeyAction.hpp
-    ${PROJECT_SOURCE_DIR}/include/KeyType.hpp
-    ${PROJECT_SOURCE_DIR}/include/LogLevel.hpp
 
 )
 
