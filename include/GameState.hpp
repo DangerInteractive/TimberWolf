@@ -1,5 +1,5 @@
-#ifndef H_CLASS_GameState
-#define H_CLASS_GameState
+#ifndef H_TW_GameState
+#define H_TW_GameState
 
 #include "Controller.hpp"
 #include "Window.hpp"

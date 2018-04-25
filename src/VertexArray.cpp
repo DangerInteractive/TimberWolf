@@ -26,9 +26,21 @@ void tw::VertexArray::storeBuffer (GLuint index, VertexBuffer& vbo) {
     bind();
     vbo.bind();
     glEnableVertexAttribArray(index);
-    glVertexAttribPointer(index, vbo.getVertexSize(), vbo.getDataType(), vbo.isNormalized(), vbo.getVertexStride(), NULL);
+    glVertexAttribPointer(index, vbo.getVertexSize(), vbo.getDataType(), vbo.isNormalized(), vbo.getVertexStride(), 0);
     vbo.unbind();
     unbind();
+
+}
+
+void tw::VertexArray::enableAttribute (GLuint index) {
+
+    glEnableVertexAttribArray(index);
+
+}
+
+void tw::VertexArray::disableAttribute (GLuint index) {
+
+    glDisableVertexAttribArray(index);
 
 }
 

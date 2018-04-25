@@ -1,5 +1,5 @@
-#ifndef H_ENUM_LOGLEVEL
-#define H_ENUM_LOGLEVEL
+#ifndef H_TW_LOGLEVEL
+#define H_TW_LOGLEVEL
 
 namespace tw {
 enum LogLevel {

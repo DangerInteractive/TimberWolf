@@ -1,5 +1,5 @@
-#ifndef H_CLASS_STATEMANAGER
-#define H_CLASS_STATEMANAGER
+#ifndef H_TW_STATEMANAGER
+#define H_TW_STATEMANAGER
 
 #include <vector>
 #include <memory>

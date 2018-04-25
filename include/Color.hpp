@@ -1,5 +1,5 @@
-#ifndef H_CLASS_COLOR
-#define H_CLASS_COLOR
+#ifndef H_TW_COLOR
+#define H_TW_COLOR
 
 #include <tuple>
 #include <cstdint>

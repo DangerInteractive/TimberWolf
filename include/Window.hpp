@@ -1,5 +1,5 @@
-#ifndef H_CLASS_WINDOW
-#define H_CLASS_WINDOW
+#ifndef H_TW_WINDOW
+#define H_TW_WINDOW
 
 #include <string>
 #include <functional>

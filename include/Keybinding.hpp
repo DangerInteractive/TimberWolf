@@ -1,5 +1,5 @@
-#ifndef H_CLASS_KEYBINDING
-#define H_CLASS_KEYBINDING
+#ifndef H_TW_KEYBINDING
+#define H_TW_KEYBINDING
 
 #include <vector>
 #include <functional>

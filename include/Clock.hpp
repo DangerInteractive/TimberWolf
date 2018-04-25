@@ -1,5 +1,5 @@
-#ifndef H_CLASS_CLOCK
-#define H_CLASS_CLOCK
+#ifndef H_TW_CLOCK
+#define H_TW_CLOCK
 
 #include <chrono>
 

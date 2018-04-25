@@ -1,5 +1,5 @@
-#ifndef H_CLASS_VBO
-#define H_CLASS_VBO
+#ifndef H_TW_VBO
+#define H_TW_VBO
 
 #include <vector>
 #include <GL/glew.h>

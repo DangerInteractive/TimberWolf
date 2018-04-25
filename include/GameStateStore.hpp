@@ -1,5 +1,5 @@
-#ifndef H_CLASS_GAMESTATESTORE
-#define H_CLASS_GAMESTATESTORE
+#ifndef H_TW_GAMESTATESTORE
+#define H_TW_GAMESTATESTORE
 
 #include <map>
 #include <string>

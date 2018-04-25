@@ -1,5 +1,5 @@
-#ifndef H_CLASS_FILELOGOBSERVER
-#define H_CLASS_FILELOGOBSERVER
+#ifndef H_TW_FILELOGOBSERVER
+#define H_TW_FILELOGOBSERVER
 
 #include <string>
 #include <set>

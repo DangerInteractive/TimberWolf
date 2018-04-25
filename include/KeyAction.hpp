@@ -1,5 +1,5 @@
-#ifndef H_ENUM_KEYACTION
-#define H_ENUM_KEYACTION
+#ifndef H_TW_KEYACTION
+#define H_TW_KEYACTION
 
 namespace tw {
 enum KeyAction {

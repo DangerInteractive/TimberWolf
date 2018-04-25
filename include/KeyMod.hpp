@@ -1,5 +1,5 @@
-#ifndef H_CLASS_KEYMOD
-#define H_CLASS_KEYMOD
+#ifndef H_TW_KEYMOD
+#define H_TW_KEYMOD
 
 namespace tw {
 class KeyMod {

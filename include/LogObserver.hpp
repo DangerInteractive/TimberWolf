@@ -1,5 +1,5 @@
-#ifndef H_CLASS_LOGOBSERVER
-#define H_CLASS_LOGOBSERVER
+#ifndef H_TW_LOGOBSERVER
+#define H_TW_LOGOBSERVER
 
 #include <string>
 #include <set>

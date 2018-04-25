@@ -1,5 +1,5 @@
-#ifndef H_ENUM_KEYTYPE
-#define H_ENUM_KEYTYPE
+#ifndef H_TW_KEYTYPE
+#define H_TW_KEYTYPE
 
 namespace tw {
 enum KeyType {

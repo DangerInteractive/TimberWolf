@@ -1,5 +1,5 @@
-#ifndef H_CLASS_MODEL
-#define H_CLASS_MODEL
+#ifndef H_TW_MODEL
+#define H_TW_MODEL
 
 #include <memory>
 #include "VertexArray.hpp"

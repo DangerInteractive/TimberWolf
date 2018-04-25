@@ -43,12 +43,12 @@ set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-pthread")
 set (CMAKE_CXX_FLAGS_DEBUG "-g -Og")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3")
 configure_file (
-    "${PROJECT_SOURCE_DIR}/include/TimberWolf.hpp.in"
-    "${PROJECT_SOURCE_DIR}/include/TimberWolf.hpp"
+    ${PROJECT_SOURCE_DIR}/include/TimberWolf.hpp.in
+    ${PROJECT_SOURCE_DIR}/include/TimberWolf.hpp
 )
 include_directories (
-    "${PROJECT_SOURCE_DIR}"
-    "${PROJECT_BINARY_DIR}"
+    ${PROJECT_SOURCE_DIR}
+    ${PROJECT_BINARY_DIR}
 )
 
 # debug mode testing/analysis
@@ -73,8 +73,8 @@ endif ()
 
 # documentation
 configure_file (
-    "${PROJECT_SOURCE_DIR}/Doxyfile.in"
-    "${PROJECT_SOURCE_DIR}/Doxyfile"
+    ${PROJECT_SOURCE_DIR}/Doxyfile.in
+    ${PROJECT_SOURCE_DIR}/Doxyfile
     @ONLY
 )
 
@@ -181,7 +181,7 @@ configure_file (
     @ONLY
 )
 set (CONF_INCLUDE_DIRS
-    ${FOOBAR_CMAKE_DIR}/${REL_INCLUDE_DIR}
+    ${REL_INCLUDE_DIR}
 )
 configure_file (
     ${PROJECT_SOURCE_DIR}/TimberWolfConfig.cmake.in
@@ -222,7 +222,7 @@ install (
 
 # packaging
 include (InstallRequiredSystemLibraries)
-set (CPACK_RESOURCE_FILE_LICENSE ${CMAKE_SOURCE_DIR}/LICENSE)
+set (CPACK_RESOURCE_FILE_LICENSE ${PROJECT_SOURCE_DIR}/LICENSE)
 set (CPACK_RESOURCE_VERSION_MAJOR ${TimberWolf_VERSION_MAJOR})
 set (CPACK_RESOURCE_VERSION_MINOR ${TimberWolf_VERSION_MINOR})
 set (CPACK_RESOURCE_VERSION_PATCH ${TimberWolf_VERSION_PATCH})

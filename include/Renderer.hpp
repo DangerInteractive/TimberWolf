@@ -1,5 +1,5 @@
-#ifndef H_CLASS_RENDERER
-#define H_CLASS_RENDERER
+#ifndef H_TW_RENDERER
+#define H_TW_RENDERER
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

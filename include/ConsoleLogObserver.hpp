@@ -1,5 +1,5 @@
-#ifndef H_CLASS_CONSOLELOGOBSERVER
-#define H_CLASS_CONSOLELOGOBSERVER
+#ifndef H_TW_CONSOLELOGOBSERVER
+#define H_TW_CONSOLELOGOBSERVER
 
 #include <string>
 #include <set>

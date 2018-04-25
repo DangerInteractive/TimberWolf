@@ -1,5 +1,5 @@
-#ifndef H_CLASS_VERTEXARRAY
-#define H_CLASS_VERTEXARRAY
+#ifndef H_TW_VERTEXARRAY
+#define H_TW_VERTEXARRAY
 
 #include <GL/glew.h>
 #include "VertexBuffer.hpp"
@@ -23,6 +23,9 @@ public:
     GLuint getId () const;
 
     void storeBuffer (GLuint, VertexBuffer&);
+
+    void enableAttribute (GLuint);
+    void disableAttribute (GLuint);
 
     void bind ();
     void unbind ();

@@ -1,5 +1,5 @@
-#ifndef H_CLASS_SCENE
-#define H_CLASS_SCENE
+#ifndef H_TW_SCENE
+#define H_TW_SCENE
 
 #include <vector>
 #include "Model.hpp"

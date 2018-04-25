@@ -1,5 +1,5 @@
-#ifndef H_CLASS_MESH
-#define H_CLASS_MESH
+#ifndef H_TW_MESH
+#define H_TW_MESH
 
 #include <vector>
 #include <GL/glew.h>

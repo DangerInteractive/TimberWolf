@@ -1,5 +1,5 @@
-#ifndef H_CLASS_GAMELOOP
-#define H_CLASS_GAMELOOP
+#ifndef H_TW_GAMELOOP
+#define H_TW_GAMELOOP
 
 #include <chrono>
 #include <thread>

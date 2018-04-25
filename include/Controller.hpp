@@ -1,5 +1,5 @@
-#ifndef H_CLASS_CONTROLLER
-#define H_CLASS_CONTROLLER
+#ifndef H_TW_CONTROLLER
+#define H_TW_CONTROLLER
 
 #include <vector>
 #include <sstream>
