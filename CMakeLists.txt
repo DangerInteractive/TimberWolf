@@ -87,16 +87,19 @@ list (APPEND SOURCES
     # game engine
     ${PROJECT_SOURCE_DIR}/src/Clock.cpp
     ${PROJECT_SOURCE_DIR}/src/Color.cpp
+    ${PROJECT_SOURCE_DIR}/src/ComputeShader.cpp
     ${PROJECT_SOURCE_DIR}/src/Console.cpp
     ${PROJECT_SOURCE_DIR}/src/ConsoleLogObserver.cpp
     ${PROJECT_SOURCE_DIR}/src/Controller.cpp
     ${PROJECT_SOURCE_DIR}/src/File.cpp
     ${PROJECT_SOURCE_DIR}/src/FileLogObserver.cpp
+    ${PROJECT_SOURCE_DIR}/src/FragmentShader.cpp
     ${PROJECT_SOURCE_DIR}/src/FunctionLogObserver.cpp
     ${PROJECT_SOURCE_DIR}/src/GameLoop.cpp
     ${PROJECT_SOURCE_DIR}/src/GameState.cpp
     ${PROJECT_SOURCE_DIR}/src/GameStateManager.cpp
     ${PROJECT_SOURCE_DIR}/src/GameStateStore.cpp
+    ${PROJECT_SOURCE_DIR}/src/GeometryShader.cpp
     ${PROJECT_SOURCE_DIR}/src/Keybinding.cpp
     ${PROJECT_SOURCE_DIR}/src/KeyMod.cpp
     ${PROJECT_SOURCE_DIR}/src/Log.cpp
@@ -104,8 +107,14 @@ list (APPEND SOURCES
     ${PROJECT_SOURCE_DIR}/src/Model.cpp
     ${PROJECT_SOURCE_DIR}/src/Renderer.cpp
     ${PROJECT_SOURCE_DIR}/src/Scene.cpp
+    ${PROJECT_SOURCE_DIR}/src/Shader.cpp
+    ${PROJECT_SOURCE_DIR}/src/ShaderProgram.cpp
+    ${PROJECT_SOURCE_DIR}/src/TesselationControlShader.cpp
+    ${PROJECT_SOURCE_DIR}/src/TesselationEvaluationShader.cpp
+    ${PROJECT_SOURCE_DIR}/src/ThreadManager.cpp
     ${PROJECT_SOURCE_DIR}/src/VertexArray.cpp
     ${PROJECT_SOURCE_DIR}/src/VertexBuffer.cpp
+    ${PROJECT_SOURCE_DIR}/src/VertexShader.cpp
     ${PROJECT_SOURCE_DIR}/src/Window.cpp
 
 )
@@ -122,16 +131,19 @@ list (APPEND HEADERS
     # game engine
     ${PROJECT_SOURCE_DIR}/include/Clock.hpp
     ${PROJECT_SOURCE_DIR}/include/Color.hpp
+    ${PROJECT_SOURCE_DIR}/include/ComputeShader.hpp
     ${PROJECT_SOURCE_DIR}/include/Console.hpp
     ${PROJECT_SOURCE_DIR}/include/ConsoleLogObserver.hpp
     ${PROJECT_SOURCE_DIR}/include/Controller.hpp
     ${PROJECT_SOURCE_DIR}/include/File.hpp
     ${PROJECT_SOURCE_DIR}/include/FileLogObserver.hpp
+    ${PROJECT_SOURCE_DIR}/include/FragmentShader.hpp
     ${PROJECT_SOURCE_DIR}/include/FunctionLogObserver.hpp
     ${PROJECT_SOURCE_DIR}/include/GameLoop.hpp
     ${PROJECT_SOURCE_DIR}/include/GameState.hpp
     ${PROJECT_SOURCE_DIR}/include/GameStateManager.hpp
     ${PROJECT_SOURCE_DIR}/include/GameStateStore.hpp
+    ${PROJECT_SOURCE_DIR}/include/GeometryShader.hpp
     ${PROJECT_SOURCE_DIR}/include/KeyAction.hpp
     ${PROJECT_SOURCE_DIR}/include/Keybinding.hpp
     ${PROJECT_SOURCE_DIR}/include/KeyMod.hpp
@@ -143,8 +155,14 @@ list (APPEND HEADERS
     ${PROJECT_SOURCE_DIR}/include/Model.hpp
     ${PROJECT_SOURCE_DIR}/include/Renderer.hpp
     ${PROJECT_SOURCE_DIR}/include/Scene.hpp
+    ${PROJECT_SOURCE_DIR}/include/Shader.hpp
+    ${PROJECT_SOURCE_DIR}/include/ShaderProgram.hpp
+    ${PROJECT_SOURCE_DIR}/include/TesselationControlShader.hpp
+    ${PROJECT_SOURCE_DIR}/include/TesselationEvaluationShader.hpp
+    ${PROJECT_SOURCE_DIR}/include/ThreadManager.hpp
     ${PROJECT_SOURCE_DIR}/include/VertexArray.hpp
     ${PROJECT_SOURCE_DIR}/include/VertexBuffer.hpp
+    ${PROJECT_SOURCE_DIR}/include/VertexShader.hpp
     ${PROJECT_SOURCE_DIR}/include/Window.hpp
 
 )
