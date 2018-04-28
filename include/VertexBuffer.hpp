@@ -1,5 +1,5 @@
-#ifndef H_TW_VBO
-#define H_TW_VBO
+#ifndef H_TW_VERTEXBUFFER
+#define H_TW_VERTEXBUFFER
 
 #include <vector>
 #include <GL/glew.h>
