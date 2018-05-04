@@ -5,14 +5,16 @@
 #include <GL/glew.h>
 
 namespace tw {
-template <typename T = float, GLint Size = 3, GLenum Type = GL_FLOAT, GLboolean Normalized = false, GLsizei Stride = 0>
+template <typename T = float, GLint Size = 3, GLenum Type = GL_FLOAT, GLboolean Normalized = GL_FALSE, GLsizei Stride = 0>
 class Mesh {
 
 public:
 
     Mesh () = default;
-    explicit Mesh (T&& data...) : m_data(std::vector<T>(data)) {}
-    explicit Mesh (const std::vector<T>& data) : m_data(data) {}
+    explicit Mesh (std::initializer_list<T> initializerList)
+    : m_data(std::vector<T>(initializerList)) {}
+    explicit Mesh (const std::vector<T>& data)
+    : m_data(data) {}
     ~Mesh () = default;
 
     Mesh (Mesh&&) = default;
@@ -46,7 +48,11 @@ public:
     }
 
     unsigned int getVertexCount () const {
-        return m_data.size() / (Size+Stride);
+        return m_data.size() / (static_cast<int>(Size) + static_cast<int>(Stride));
+    }
+
+    unsigned int getDataSize () const {
+        return sizeof(T) * m_data.size();
     }
 
 protected:

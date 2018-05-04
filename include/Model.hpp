@@ -10,7 +10,9 @@ class Model {
 
 public:
 
-    Model ();
+    Model () = default;;
+    explicit Model (VertexArray&&);
+    explicit Model (const std::shared_ptr<VertexArray>&);
     ~Model () = default;
 
     Model (Model&&) = default;
@@ -19,9 +21,17 @@ public:
     Model (const Model&) = default;
     Model& operator = (const Model&) = default;
 
+    std::shared_ptr<VertexArray> getVAO () const;
+    unsigned int getVertexCount () const;
+
+    void setVAO (VertexArray&&);
+    void setVAO (const std::shared_ptr<VertexArray>&);
+    void setVertexCount (unsigned int);
+
 private:
 
     std::shared_ptr<VertexArray> m_vao;
+    unsigned int m_vertexCount {0};
 
 };
 }

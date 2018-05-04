@@ -3,7 +3,6 @@
 
 #include <GL/glew.h>
 #include "VertexBuffer.hpp"
-#include "Mesh.hpp"
 
 namespace tw {
 class VertexArray {
@@ -22,13 +21,8 @@ public:
 
     GLuint getId () const;
 
-    void storeBuffer (GLuint, VertexBuffer&);
-
-    void enableAttribute (GLuint);
-    void disableAttribute (GLuint);
-
     void bind ();
-    void unbind ();
+    static void unbind ();
 
 private:
 

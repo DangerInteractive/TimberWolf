@@ -86,6 +86,10 @@ void tw::Window::open () {
         );
     }
 
+    if (m_glVersionMajor >= 4 && m_glVersionMinor >= 3) {
+        glDebugMessageCallback(glLiveDebug, nullptr);
+    }
+
     Log::verbose("window", "GLEW initialized.");
 
 }
@@ -286,6 +290,33 @@ void tw::Window::pushWindowTitle () {
     if (m_context != NULL) {
         glfwSetWindowTitle(m_context.get(), m_title.c_str());
     }
+
+}
+
+void tw::Window::glLiveDebug (
+    GLenum source,
+    GLenum type,
+    GLuint id,
+    GLenum severity,
+    GLsizei length,
+    const GLchar* message,
+    const void* userParam
+) {
+
+    std::string messageString;
+    messageString.reserve(length);
+    for (unsigned int i = 0; i < length; ++i) {
+        messageString += message[i];
+    }
+
+    Log::error(
+        "opengl",
+        "OpenGL Error: ", messageString,
+        " source: ", source,
+        " type: ", type,
+        " id: ", id,
+        " severity: ", severity
+    );
 
 }
 

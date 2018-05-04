@@ -21,30 +21,6 @@ GLuint tw::VertexBuffer::getId () const {
 
 }
 
-GLint tw::VertexBuffer::getVertexSize () const {
-
-    return m_vertexSize;
-
-}
-
-GLenum tw::VertexBuffer::getDataType () const {
-
-    return m_dataType;
-
-}
-
-GLboolean tw::VertexBuffer::isNormalized () const {
-
-    return m_normalized;
-
-}
-
-GLsizei tw::VertexBuffer::getVertexStride () const {
-
-    return m_vertexStride;
-
-}
-
 void tw::VertexBuffer::bind () {
 
     glBindBuffer(GL_ARRAY_BUFFER, m_id);

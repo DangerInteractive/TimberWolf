@@ -71,6 +71,8 @@ private:
     static void pushWindowSize ();
     static void pushWindowTitle ();
 
+    static void glLiveDebug (GLenum, GLenum, GLuint, GLenum, GLsizei, const GLchar*, const void*);
+
     struct GLFWwindowDeleter{
         void operator () (GLFWwindow* ptr) { glfwDestroyWindow(ptr); }
     };

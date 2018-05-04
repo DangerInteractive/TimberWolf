@@ -2,8 +2,8 @@
 #define H_TW_RENDERER
 
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include "Scene.hpp"
+#include "Model.hpp"
+#include "Log.hpp"
 
 namespace tw {
 class Renderer {
@@ -19,7 +19,7 @@ public:
     Renderer (const Renderer&) = delete;
     Renderer& operator = (const Renderer&) = delete;
 
-    void renderScene(Scene&);
+    static void render (const Model&);
 
 };
 }
