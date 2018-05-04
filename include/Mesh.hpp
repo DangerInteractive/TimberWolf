@@ -1,7 +1,7 @@
 #ifndef H_TW_MESH
 #define H_TW_MESH
 
-#include <vector>
+#include <array>
 #include <GL/glew.h>
 
 namespace tw {
@@ -11,9 +11,9 @@ class Mesh {
 public:
 
     Mesh () = default;
-    explicit Mesh (std::initializer_list<T> initializerList)
-    : m_data(std::vector<T>(initializerList)) {}
-    explicit Mesh (const std::vector<T>& data)
+    explicit Mesh (T&& data...)
+    : m_data({{std::forward<T>(data)}}) {}
+    explicit Mesh (const std::array<T, Size*(3+Stride)>& data)
     : m_data(data) {}
     ~Mesh () = default;
 
@@ -39,7 +39,7 @@ public:
         return Stride;
     }
 
-    const std::vector<T>& getVertexVector () const {
+    const std::array<T, Size*(3+Stride)>& getVertexData () const {
         return m_data;
     }
 
@@ -57,7 +57,7 @@ public:
 
 protected:
 
-    std::vector<T> m_data;
+    std::array<T, Size*(3+Stride)> m_data;
 
 };
 }
