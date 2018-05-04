@@ -1,16 +1,41 @@
 #include "../include/GameLoop.hpp"
 
+unsigned int tw::GameLoop::getRenderFrameRate () {
+
+    return m_renderFrameRate;
+
+}
+
+unsigned int tw::GameLoop::getUpdateTickRate () {
+
+    return m_updateTickRate;
+
+}
+
+double tw::GameLoop::getTimeSpeed () {
+
+    return m_timeSpeed;
+
+}
+
 void tw::GameLoop::setRenderFrameRate (unsigned int framesPerSecond) {
 
     m_renderFrameRate = framesPerSecond;
-    m_renderSeconds = 1.0 / framesPerSecond;
+    updateRenderTimings();
 
 }
 
 void tw::GameLoop::setUpdateTickRate (unsigned int ticksPerSecond) {
 
     m_updateTickRate = ticksPerSecond;
-    m_updateSeconds = 1.0 / ticksPerSecond;
+    updateUpdateTimings();
+
+}
+
+void tw::GameLoop::setTimeSpeed (double timeSpeed) {
+
+    m_timeSpeed = timeSpeed;
+    updateUpdateTimings();
 
 }
 
@@ -25,6 +50,7 @@ void tw::GameLoop::run () {
             std::ref(m_updateLoopClock),
             std::ref(m_updateTickRate),
             std::ref(m_updateSeconds),
+            std::ref(m_perceivedUpdateSeconds),
             std::ref(m_windowOpen),
             std::ref(m_isRunning),
             std::ref(m_updateLoopRunning)
@@ -59,7 +85,7 @@ void tw::GameLoop::run () {
                 }
 
                 glfwPollEvents();
-                render(deltaTime);
+                render(deltaTime * m_timeSpeed);
 
             }
 
@@ -104,6 +130,7 @@ void tw::GameLoop::update (
     Clock& updateLoopClock,
     unsigned int& updateTickRate,
     double& updateSeconds,
+    double& perceivedUpdateSeconds,
     bool& windowOpen,
     bool& isRunning,
     bool& updateLoopRunning
@@ -120,7 +147,7 @@ void tw::GameLoop::update (
 
             int ticks = static_cast<int>(deltaTime * updateTickRate);
             for (int i = 0; i < ticks; ++i) {
-                GameStateManager::update(updateSeconds);
+                GameStateManager::update(perceivedUpdateSeconds);
             }
 
         }
@@ -139,8 +166,23 @@ void tw::GameLoop::update (
 
 }
 
+void tw::GameLoop::updateRenderTimings () {
+
+    m_renderSeconds = 1.0 / m_renderFrameRate;
+
+}
+
+void tw::GameLoop::updateUpdateTimings () {
+
+    m_updateSeconds = 1.0 / m_updateTickRate;
+    m_perceivedUpdateSeconds = m_updateSeconds * m_timeSpeed;
+
+}
+
 unsigned int tw::GameLoop::m_renderFrameRate = 60;
 unsigned int tw::GameLoop::m_updateTickRate = 40;
+
+double tw::GameLoop::m_timeSpeed = 1.0;
 
 double tw::GameLoop::m_renderSeconds = 1.0 / 60.0;
 double tw::GameLoop::m_updateSeconds = 1.0 / 40.0;

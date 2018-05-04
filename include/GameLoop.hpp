@@ -26,10 +26,14 @@ public:
     GameLoop& operator = (const GameLoop&) = delete;
 
     static unsigned int getRenderFrameRate ();
-    static unsigned int getUpdateFrameRate ();
+    static unsigned int getUpdateTickRate ();
+
+    static double getTimeSpeed ();
 
     static void setRenderFrameRate (unsigned int);
     static void setUpdateTickRate (unsigned int);
+
+    static void setTimeSpeed (double);
 
     static void run ();
     static void freeze ();
@@ -37,15 +41,21 @@ public:
 
 private:
 
-    static void update (Clock&, unsigned int&, double&, bool&, bool&, bool&);
+    static void update (Clock&, unsigned int&, double&, double&, bool&, bool&, bool&);
 
     static void render (double);
+
+    static void updateRenderTimings ();
+    static void updateUpdateTimings ();
 
     static unsigned int m_renderFrameRate;
     static unsigned int m_updateTickRate;
 
+    static double m_timeSpeed;
+
     static double m_renderSeconds;
     static double m_updateSeconds;
+    static double m_perceivedUpdateSeconds;
 
     static Clock m_renderLoopClock;
     static Clock m_updateLoopClock;
