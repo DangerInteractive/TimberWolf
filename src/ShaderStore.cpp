@@ -357,3 +357,12 @@ void tw::ShaderStore::deleteShaderProgram (const std::string& key) {
     m_shaderPrograms.erase(key);
 
 }
+
+std::unordered_map<std::string, std::shared_ptr<tw::VertexShader>> tw::ShaderStore::m_vertexShaders;
+std::unordered_map<std::string, std::shared_ptr<tw::FragmentShader>> tw::ShaderStore::m_fragmentShaders;
+std::unordered_map<std::string, std::shared_ptr<tw::GeometryShader>> tw::ShaderStore::m_geometryShaders;
+std::unordered_map<std::string, std::shared_ptr<tw::TesselationEvaluationShader>> tw::ShaderStore::m_tesselationEvaluationShaders;
+std::unordered_map<std::string, std::shared_ptr<tw::TesselationControlShader>> tw::ShaderStore::m_tesselationControlShaders;
+std::unordered_map<std::string, std::shared_ptr<tw::ComputeShader>> tw::ShaderStore::m_computeShaders;
+
+std::unordered_map<std::string, std::shared_ptr<tw::ShaderProgram>> tw::ShaderStore::m_shaderPrograms;

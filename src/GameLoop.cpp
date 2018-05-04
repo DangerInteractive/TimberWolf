@@ -171,6 +171,7 @@ double tw::GameLoop::m_timeSpeed = 1.0;
 
 double tw::GameLoop::m_renderSeconds = 1.0 / 60.0;
 double tw::GameLoop::m_updateSeconds = 1.0 / 40.0;
+double tw::GameLoop::m_perceivedUpdateSeconds = 1.0 / 40.0;
 
 tw::SpeedGovernor tw::GameLoop::m_renderLoopGovernor {false, false, 1.0 / 60.0};
 tw::SpeedGovernor tw::GameLoop::m_updateLoopGovernor {true, true, 1.0 / 40.0};

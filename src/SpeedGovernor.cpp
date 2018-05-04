@@ -189,6 +189,30 @@ void tw::SpeedGovernor::disableCatchUp () {
 
 }
 
+void tw::SpeedGovernor::setLag (double lag) {
+
+    m_lag = lag;
+
+}
+
+void tw::SpeedGovernor::gainLag (double lag) {
+
+    auto newLag = m_lag + lag;
+
+    if (newLag < 0) {
+        m_lag = 0;
+    } else {
+        m_lag = newLag;
+    }
+
+}
+
+void tw::SpeedGovernor::loseLag (double lag) {
+
+    gainLag(-lag);
+
+}
+
 void tw::SpeedGovernor::clearLag () {
 
     m_lag = 0.0;
