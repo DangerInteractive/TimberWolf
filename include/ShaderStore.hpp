@@ -178,7 +178,7 @@ public:
         }
 
     }
-    static std::shared_ptr<ShaderProgram> makeShaderProgram (
+    static std::shared_ptr<ShaderProgram> makeShaderProgramByKeys (
         const std::string&,
         const std::string& = "",
         const std::string& = "",

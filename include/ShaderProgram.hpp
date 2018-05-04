@@ -51,6 +51,8 @@ public:
     bool setComputeShader (const std::shared_ptr<ComputeShader>&);
 
     bool link ();
+    bool use ();
+    static bool unuse ();
 
 private:
 

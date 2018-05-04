@@ -176,10 +176,10 @@ bool tw::ShaderProgram::link () {
         GLsizei infoLogLength;
         std::array<GLchar, 255> infoLog;
         std::string infoLogString;
-        glGetProgramInfoLog(m_id, 255, &infoLogLength, &infoLog[0]);
+        glGetProgramInfoLog(m_id, 255, &infoLogLength, infoLog.data());
         infoLogString.reserve(infoLogLength);
         for (unsigned int i = 0; i < infoLogLength; ++i) {
-            infoLogString.push_back(infoLog[i]);
+            infoLogString += infoLog.at(i);
         }
         Log::error("opengl", "OpenGL shader program link error: ", infoLogString);
 
@@ -188,6 +188,28 @@ bool tw::ShaderProgram::link () {
     }
 
     m_linked = true;
+    return true;
+
+}
+
+bool tw::ShaderProgram::use () {
+
+    if (!isLinked()) {
+        if (!link()) {
+            return false;
+        }
+    }
+
+    glUseProgram(m_id);
+
+    return true;
+
+}
+
+bool tw::ShaderProgram::unuse () {
+
+    glUseProgram(0);
+
     return true;
 
 }

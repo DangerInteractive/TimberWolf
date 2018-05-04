@@ -308,7 +308,7 @@ void tw::ShaderStore::deleteComputeShader (const std::string& key) {
 
 }
 
-std::shared_ptr<tw::ShaderProgram> tw::ShaderStore::makeShaderProgram (
+std::shared_ptr<tw::ShaderProgram> tw::ShaderStore::makeShaderProgramByKeys (
     const std::string& key,
     const std::string& vertexShaderKey,
     const std::string& fragmentShaderKey,

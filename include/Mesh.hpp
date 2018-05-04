@@ -44,7 +44,7 @@ public:
     }
 
     const T* getVertexPointer () const {
-        return &m_data.front();
+        return m_data.data();
     }
 
     unsigned int getVertexCount () const {
