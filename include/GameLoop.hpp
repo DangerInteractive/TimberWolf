@@ -9,7 +9,7 @@
 #include "Log.hpp"
 #include "GameStateManager.hpp"
 #include "Window.hpp"
-#include "Clock.hpp"
+#include "SpeedGovernor.hpp"
 
 namespace tw {
 class GameLoop {
@@ -41,7 +41,7 @@ public:
 
 private:
 
-    static void update (Clock&, unsigned int&, double&, double&, bool&, bool&, bool&);
+    static void update (SpeedGovernor&, unsigned int&, double&, double&, bool&, bool&, bool&);
 
     static void render (double);
 
@@ -57,8 +57,8 @@ private:
     static double m_updateSeconds;
     static double m_perceivedUpdateSeconds;
 
-    static Clock m_renderLoopClock;
-    static Clock m_updateLoopClock;
+    static SpeedGovernor m_renderLoopGovernor;
+    static SpeedGovernor m_updateLoopGovernor;
 
     static bool m_windowOpen;
     static bool m_isRunning;

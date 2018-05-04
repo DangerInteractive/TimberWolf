@@ -110,6 +110,7 @@ list (APPEND SOURCES
     ${PROJECT_SOURCE_DIR}/src/Shader.cpp
     ${PROJECT_SOURCE_DIR}/src/ShaderProgram.cpp
     ${PROJECT_SOURCE_DIR}/src/ShaderStore.cpp
+    ${PROJECT_SOURCE_DIR}/src/SpeedGovernor.cpp
     ${PROJECT_SOURCE_DIR}/src/TesselationControlShader.cpp
     ${PROJECT_SOURCE_DIR}/src/TesselationEvaluationShader.cpp
     ${PROJECT_SOURCE_DIR}/src/ThreadManager.cpp
@@ -159,6 +160,7 @@ list (APPEND HEADERS
     ${PROJECT_SOURCE_DIR}/include/Shader.hpp
     ${PROJECT_SOURCE_DIR}/include/ShaderProgram.hpp
     ${PROJECT_SOURCE_DIR}/include/ShaderStore.hpp
+    ${PROJECT_SOURCE_DIR}/include/SpeedGovernor.hpp
     ${PROJECT_SOURCE_DIR}/include/TesselationControlShader.hpp
     ${PROJECT_SOURCE_DIR}/include/TesselationEvaluationShader.hpp
     ${PROJECT_SOURCE_DIR}/include/ThreadManager.hpp

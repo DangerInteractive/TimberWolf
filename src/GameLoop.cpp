@@ -47,7 +47,7 @@ void tw::GameLoop::run () {
     if (!m_updateLoopRunning) {
         m_updateThread = std::thread(
             update,
-            std::ref(m_updateLoopClock),
+            std::ref(m_updateLoopGovernor),
             std::ref(m_updateTickRate),
             std::ref(m_updateSeconds),
             std::ref(m_perceivedUpdateSeconds),
@@ -71,17 +71,18 @@ void tw::GameLoop::run () {
         glfwSetScrollCallback(context, GameStateManager::scrollCallback);
         glfwSetDropCallback(context, GameStateManager::dropCallback);
 
+        m_renderLoopGovernor.clearLag();
+        m_renderLoopGovernor.reset();
         while (!glfwWindowShouldClose(context)) {
 
-            m_renderLoopClock.reset();
-
-            auto deltaTime = m_updateLoopClock.getElapsedSeconds();
+            auto deltaTime = m_updateLoopGovernor.getElapsedSeconds();
 
             if (m_isRunning) {
 
                 if (context != NULL) {
-                    glClear(GL_COLOR_BUFFER_BIT);
                     glfwSwapBuffers(context);
+                    glClear(GL_COLOR_BUFFER_BIT);
+                    glClear(GL_DEPTH_BUFFER_BIT);
                 }
 
                 glfwPollEvents();
@@ -89,13 +90,7 @@ void tw::GameLoop::run () {
 
             }
 
-            auto elapsedTime = m_renderLoopClock.getElapsedSeconds();
-
-            if (elapsedTime < m_renderSeconds) {
-                std::this_thread::sleep_for(std::chrono::duration<double>(m_renderSeconds - elapsedTime));
-            }
-
-            m_renderLoopClock.reset();
+            m_renderLoopGovernor.next();
 
         }
 
@@ -127,7 +122,7 @@ void tw::GameLoop::render (double deltaTime) {
 }
 
 void tw::GameLoop::update (
-    Clock& updateLoopClock,
+    SpeedGovernor& updateLoopGovernor,
     unsigned int& updateTickRate,
     double& updateSeconds,
     double& perceivedUpdateSeconds,
@@ -138,27 +133,15 @@ void tw::GameLoop::update (
 
     updateLoopRunning = true;
 
-    double deltaTime = updateSeconds;
+    m_updateLoopGovernor.clearLag();
+    m_updateLoopGovernor.reset();
     while (windowOpen) {
 
-        auto startTime = updateLoopClock.getElapsedSeconds();
-
         if (isRunning) {
-
-            int ticks = static_cast<int>(deltaTime * updateTickRate);
-            for (int i = 0; i < ticks; ++i) {
-                GameStateManager::update(perceivedUpdateSeconds);
-            }
-
+            GameStateManager::update(perceivedUpdateSeconds);
         }
 
-        auto elapsedTime = updateLoopClock.getElapsedSeconds();
-        if (elapsedTime < updateSeconds) {
-            std::this_thread::sleep_for(std::chrono::duration<double>(updateSeconds - elapsedTime));
-        }
-
-        deltaTime = updateLoopClock.getElapsedSeconds() - startTime;
-        updateLoopClock.reset();
+        m_updateLoopGovernor.next();
 
     }
 
@@ -169,6 +152,7 @@ void tw::GameLoop::update (
 void tw::GameLoop::updateRenderTimings () {
 
     m_renderSeconds = 1.0 / m_renderFrameRate;
+    m_renderLoopGovernor.setSeconds(m_renderSeconds);
 
 }
 
@@ -176,6 +160,7 @@ void tw::GameLoop::updateUpdateTimings () {
 
     m_updateSeconds = 1.0 / m_updateTickRate;
     m_perceivedUpdateSeconds = m_updateSeconds * m_timeSpeed;
+    m_updateLoopGovernor.setSeconds(m_updateSeconds);
 
 }
 
@@ -187,8 +172,8 @@ double tw::GameLoop::m_timeSpeed = 1.0;
 double tw::GameLoop::m_renderSeconds = 1.0 / 60.0;
 double tw::GameLoop::m_updateSeconds = 1.0 / 40.0;
 
-tw::Clock tw::GameLoop::m_renderLoopClock;
-tw::Clock tw::GameLoop::m_updateLoopClock;
+tw::SpeedGovernor tw::GameLoop::m_renderLoopGovernor {false, false, 1.0 / 60.0};
+tw::SpeedGovernor tw::GameLoop::m_updateLoopGovernor {true, true, 1.0 / 40.0};
 
 bool tw::GameLoop::m_windowOpen = false;
 bool tw::GameLoop::m_isRunning = false;
