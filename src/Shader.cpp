@@ -85,4 +85,8 @@ tw::Shader::Shader (GLenum type)
 };
 
 tw::Shader::Shader (GLenum type, const std::string& source)
-: m_type(type), m_source(source) {};
+: m_type(type), m_source(source) {
+
+    m_id = glCreateShader(type);
+
+};
