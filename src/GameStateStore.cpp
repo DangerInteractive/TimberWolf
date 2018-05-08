@@ -23,6 +23,7 @@ std::shared_ptr<tw::GameState> tw::GameStateStore::getState (const std::string& 
 bool tw::GameStateStore::registerState (const std::string& key, const std::shared_ptr<GameState>& gameState) {
 
     if (stateExists(key)) {
+        logStateAlreadyExists(key);
         return false;
     }
 
@@ -45,6 +46,12 @@ void tw::GameStateStore::deleteState (const std::string& key) {
 
     m_stateMap[key].reset();
     m_stateMap.erase(key);
+
+}
+
+void tw::GameStateStore::logStateAlreadyExists (const std::string& key) {
+
+    Log::warning("gamestatestore", "Game state with \"", key, "\" key already exists.");
 
 }
 

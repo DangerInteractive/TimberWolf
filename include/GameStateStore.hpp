@@ -5,6 +5,7 @@
 #include <string>
 #include <memory>
 #include "GameState.hpp"
+#include "Log.hpp"
 
 namespace tw {
 class GameStateStore {
@@ -27,18 +28,28 @@ public:
     // state setters
     template <typename TState, typename ...TArg>
     static std::shared_ptr<GameState> makeState (const std::string& key, TArg&&... args) {
+
+        if (stateExists(key)) {
+            logStateAlreadyExists(key);
+            return nullptr;
+        }
+
         auto state = std::make_shared<TState>(std::forward<TArg>(args)...);
+
         if (registerState(key, state)) {
             return state;
         } else {
             return nullptr;
         }
+
     }
     static bool registerState (const std::string&, const std::shared_ptr<GameState>&);
     static bool registerState (const std::string&, GameState*);
     static void deleteState (const std::string&);
 
 private:
+
+    static void logStateAlreadyExists (const std::string&);
 
     static std::map<std::string, std::shared_ptr<GameState>> m_stateMap;
 

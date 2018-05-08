@@ -46,6 +46,7 @@ public:
     static std::shared_ptr<VertexShader> makeVertexShader (const std::string& key, T&&... args) {
 
         if (vertexShaderExists(key)) {
+            logVertexShaderAlreadyExists(key);
             return nullptr;
         }
 
@@ -66,6 +67,7 @@ public:
     static std::shared_ptr<FragmentShader> makeFragmentShader (const std::string& key, T&&... args) {
 
         if (fragmentShaderExists(key)) {
+            logFragmentShaderAlreadyExists(key);
             return nullptr;
         }
 
@@ -86,6 +88,7 @@ public:
     static std::shared_ptr<GeometryShader> makeGeometryShader (const std::string& key, T&&... args) {
 
         if (geometryShaderExists(key)) {
+            logGeometryShaderAlreadyExists(key);
             return nullptr;
         }
 
@@ -106,6 +109,7 @@ public:
     static std::shared_ptr<TesselationEvaluationShader> makeTesselationEvaluationShader (const std::string& key, T&&... args) {
 
         if (tesselationEvaluationShaderExists(key)) {
+            logTesselationEvaluationShaderAlreadyExists(key);
             return nullptr;
         }
 
@@ -126,6 +130,7 @@ public:
     static std::shared_ptr<TesselationControlShader> makeTesselationControlShader (const std::string& key, T&&... args) {
 
         if (tesselationControlShaderExists(key)) {
+            logTesselationControlShaderAlreadyExists(key);
             return nullptr;
         }
 
@@ -146,6 +151,7 @@ public:
     static std::shared_ptr<ComputeShader> makeComputeShader (const std::string& key, T&... args) {
 
         if (computeShaderExists(key)) {
+            logComputeShaderAlreadyExists(key);
             return nullptr;
         }
 
@@ -166,6 +172,7 @@ public:
     static std::shared_ptr<ShaderProgram> makeShaderProgram (const std::string& key, T&&... args) {
 
         if (shaderProgramExists(key)) {
+            logShaderProgramAlreadyExists(key);
             return nullptr;
         }
 
@@ -192,6 +199,14 @@ public:
     static void deleteShaderProgram (const std::string&);
 
 private:
+
+    static void logVertexShaderAlreadyExists (const std::string&);
+    static void logFragmentShaderAlreadyExists (const std::string&);
+    static void logGeometryShaderAlreadyExists (const std::string&);
+    static void logTesselationEvaluationShaderAlreadyExists (const std::string&);
+    static void logTesselationControlShaderAlreadyExists (const std::string&);
+    static void logComputeShaderAlreadyExists (const std::string&);
+    static void logShaderProgramAlreadyExists (const std::string&);
 
     static std::unordered_map<std::string, std::shared_ptr<VertexShader>> m_vertexShaders;
     static std::unordered_map<std::string, std::shared_ptr<FragmentShader>> m_fragmentShaders;

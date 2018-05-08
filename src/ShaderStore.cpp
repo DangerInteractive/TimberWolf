@@ -143,6 +143,7 @@ std::shared_ptr<tw::ShaderProgram> tw::ShaderStore::getShaderProgram (const std:
 bool tw::ShaderStore::registerVertexShader (const std::string& key, const std::shared_ptr<VertexShader>& vertexShader) {
 
     if (vertexShaderExists(key)) {
+        logVertexShaderAlreadyExists(key);
         return false;
     }
 
@@ -171,6 +172,7 @@ void tw::ShaderStore::deleteVertexShader (const std::string& key) {
 bool tw::ShaderStore::registerFragmentShader (const std::string& key, const std::shared_ptr<FragmentShader>& fragmentShader) {
 
     if (fragmentShaderExists(key)) {
+        logFragmentShaderAlreadyExists(key);
         return false;
     }
 
@@ -199,6 +201,7 @@ void tw::ShaderStore::deleteFragmentShader (const std::string& key) {
 bool tw::ShaderStore::registerGeometryShader (const std::string& key, const std::shared_ptr<GeometryShader>& geometryShader) {
 
     if (geometryShaderExists(key)) {
+        logGeometryShaderAlreadyExists(key);
         return false;
     }
 
@@ -227,6 +230,7 @@ void tw::ShaderStore::deleteGeometryShader (const std::string& key) {
 bool tw::ShaderStore::registerTesselationEvaluationShader (const std::string& key, const std::shared_ptr<TesselationEvaluationShader>& tesselationEvaluationShader) {
 
     if (tesselationEvaluationShaderExists(key)) {
+        logTesselationEvaluationShaderAlreadyExists(key);
         return false;
     }
 
@@ -255,6 +259,7 @@ void tw::ShaderStore::deleteTesselationEvaluationShader (const std::string& key)
 bool tw::ShaderStore::registerTesselationControlShader (const std::string& key, const std::shared_ptr<TesselationControlShader>& tesselationControlShader) {
 
     if (tesselationControlShaderExists(key)) {
+        logTesselationControlShaderAlreadyExists(key);
         return false;
     }
 
@@ -283,6 +288,7 @@ void tw::ShaderStore::deleteTesselationControlShader (const std::string& key) {
 bool tw::ShaderStore::registerComputeShader (const std::string& key, const std::shared_ptr<ComputeShader>& computeShader) {
 
     if (computeShaderExists(key)) {
+        logComputeShaderAlreadyExists(key);
         return false;
     }
 
@@ -333,6 +339,7 @@ std::shared_ptr<tw::ShaderProgram> tw::ShaderStore::makeShaderProgramByKeys (
 bool tw::ShaderStore::registerShaderProgram (const std::string& key, const std::shared_ptr<ShaderProgram>& shaderProgram) {
 
     if (shaderProgramExists(key)) {
+        logShaderProgramAlreadyExists(key);
         return false;
     }
 
@@ -355,6 +362,48 @@ void tw::ShaderStore::deleteShaderProgram (const std::string& key) {
 
     m_shaderPrograms[key].reset();
     m_shaderPrograms.erase(key);
+
+}
+
+void tw::ShaderStore::logVertexShaderAlreadyExists (const std::string& key) {
+
+    Log::warning("shaderstore", "Vertex shader with \"", key, "\" key already exists.");
+
+}
+
+void tw::ShaderStore::logFragmentShaderAlreadyExists (const std::string& key) {
+
+    Log::warning("shaderstore", "Fragment shader with \"", key, "\" key already exists.");
+
+}
+
+void tw::ShaderStore::logGeometryShaderAlreadyExists (const std::string& key) {
+
+    Log::warning("shaderstore", "Geometry shader with \"", key, "\" key already exists.");
+
+}
+
+void tw::ShaderStore::logTesselationEvaluationShaderAlreadyExists (const std::string& key) {
+
+    Log::warning("shaderstore", "Tesselation evaluation shader with \"", key, "\" key already exists.");
+
+}
+
+void tw::ShaderStore::logTesselationControlShaderAlreadyExists (const std::string& key) {
+
+    Log::warning("shaderstore", "Tesselation control shader with \"", key, "\" key already exists.");
+
+}
+
+void tw::ShaderStore::logComputeShaderAlreadyExists (const std::string& key) {
+
+    Log::warning("shaderstore", "Compute shader with \"", key, "\" key already exists.");
+
+}
+
+void tw::ShaderStore::logShaderProgramAlreadyExists (const std::string& key) {
+
+    Log::warning("shaderstore", "Shader program with \"", key, "\" key already exists.");
 
 }
 
