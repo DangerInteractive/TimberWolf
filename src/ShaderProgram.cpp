@@ -1,5 +1,11 @@
 #include "../include/ShaderProgram.hpp"
 
+tw::ShaderProgram::ShaderProgram () {
+
+    m_id = glCreateProgram();
+
+}
+
 tw::ShaderProgram::ShaderProgram (
     const std::shared_ptr<VertexShader>& vertexShader,
     const std::shared_ptr<FragmentShader>& fragmentShader,

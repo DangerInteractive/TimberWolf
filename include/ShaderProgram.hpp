@@ -16,7 +16,7 @@ class ShaderProgram {
 
 public:
 
-    ShaderProgram () = default;
+    ShaderProgram ();
     ShaderProgram (
         const std::shared_ptr<VertexShader>& = nullptr,
         const std::shared_ptr<FragmentShader>& = nullptr,
