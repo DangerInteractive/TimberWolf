@@ -38,6 +38,10 @@ bool tw::Shader::setSource (const std::string& source) {
 
     m_source = source;
 
+    auto cSource = m_source.c_str();
+    GLint sourceSize = m_source.size();
+    glShaderSource(m_id, 1, &cSource, &sourceSize);
+
     return true;
 
 }
@@ -85,8 +89,10 @@ tw::Shader::Shader (GLenum type)
 };
 
 tw::Shader::Shader (GLenum type, const std::string& source)
-: m_type(type), m_source(source) {
+: m_type(type) {
 
     m_id = glCreateShader(type);
+
+    setSource(source);
 
 };
