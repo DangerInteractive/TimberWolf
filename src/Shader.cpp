@@ -1,5 +1,15 @@
 #include "../include/Shader.hpp"
 
+/**
+ * @class tw::Shader
+ *
+ * Abstract class representing a generic shader. This class should not be
+ * instantiated on its own, it should instead be stored polymorphically and
+ * instantiated as a tw::VertexShader, tw::FragmentShader, tw::GeometryShader,
+ * tw::TesselationEvaluationShader, tw::TesselationControlShader, or
+ * tw::ComputeShader.
+ */
+
 tw::Shader::~Shader () {
 
     glDeleteShader(m_id);

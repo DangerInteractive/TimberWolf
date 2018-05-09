@@ -1,5 +1,14 @@
 #include "../include/Model.hpp"
 
+/**
+ * @class tw::Model
+ *
+ * Representation of a three dimensional model, to be rendered by tw::Renderer.
+ * It stores a handle to an OpenGL VAO (vertex array object) containing the
+ * vertex, index, and texture buffers, a count of vertices in the VAO, and a
+ * handle to an OpenGL shader program to use while the object is being rendered.
+ */
+
 tw::Model::Model (VertexArray&& vao)
 : m_vao(std::make_shared<VertexArray>(std::move(vao))) {}
 

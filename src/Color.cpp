@@ -1,12 +1,18 @@
 #include "../include/Color.hpp"
 
 /**
+ * @class tw::Color
+ *
+ * Class for representing an RGBA color.
+ */
+
+/**
  * Color constructor, taking in normalized values of the red, green, blue, and alpha channels.
  *
- * \param r normalized (0-1) red channel value
- * \param g normalized (0-1) green channel value
- * \param b normalized (0-1) blue channel value
- * \param a normalized (0-1) alpha channel value
+ * @param r normalized (0-1) red channel value
+ * @param g normalized (0-1) green channel value
+ * @param b normalized (0-1) blue channel value
+ * @param a normalized (0-1) alpha channel value
  */
 tw::Color::Color (float r, float g, float b, float a) {
 
@@ -17,7 +23,7 @@ tw::Color::Color (float r, float g, float b, float a) {
 /**
  * Get a tuple of the normalized values of the red, green, blue, and alpha channels.
  *
- * \return a 4-element tuple containing the normalized (0-1) values of the red, green, blue, and alpha channels, in that order
+ * @return a 4-element tuple containing the normalized (0-1) values of the red, green, blue, and alpha channels, in that order
  */
 std::tuple<float, float, float, float> tw::Color::getRGBA () const {
 
@@ -30,7 +36,7 @@ std::tuple<float, float, float, float> tw::Color::getRGBA () const {
 /**
  * Get a tuple of the 8-bit integral values of the red, green, blue, and alpha channels.
  *
- * \return a 4-element tuple containing the 8-bit integral (0-255) values of the red, green, blue, and alpha channels, in that order
+ * @return a 4-element tuple containing the 8-bit integral (0-255) values of the red, green, blue, and alpha channels, in that order
  */
 std::tuple<uint8_t, uint8_t, uint8_t, uint8_t> tw::Color::getRGBA8 () const {
 
@@ -43,7 +49,7 @@ std::tuple<uint8_t, uint8_t, uint8_t, uint8_t> tw::Color::getRGBA8 () const {
 /**
  * Get a tuple of the 16-bit integral values of the red, green, blue, and alpha channels.
  *
- * \return a 4-element tuple containing the 16-bit integral (0-65535) values of the red, green, blue, and alpha channels, in that order
+ * @return a 4-element tuple containing the 16-bit integral (0-65535) values of the red, green, blue, and alpha channels, in that order
  */
 std::tuple<uint16_t, uint16_t, uint16_t, uint16_t> tw::Color::getRGBA16 () const {
 
@@ -56,7 +62,7 @@ std::tuple<uint16_t, uint16_t, uint16_t, uint16_t> tw::Color::getRGBA16 () const
 /**
  * Get the normalized value of the red channel.
  *
- * \return the normalized (0-1) value of the red channel
+ * @return the normalized (0-1) value of the red channel
  */
 float tw::Color::getR () const {
 
@@ -67,7 +73,7 @@ float tw::Color::getR () const {
 /**
  * Get the 8-bit integral value of the red channel.
  *
- * \return the 8-bit integral (0-255) value of the red channel
+ * @return the 8-bit integral (0-255) value of the red channel
  */
 uint8_t tw::Color::getR8 () const {
 
@@ -78,7 +84,7 @@ uint8_t tw::Color::getR8 () const {
 /**
  * Get the 16-bit integral value of the red channel.
  *
- * \return the 16-bit integral (0-65535) value of the red channel
+ * @return the 16-bit integral (0-65535) value of the red channel
  */
 uint16_t tw::Color::getR16 () const {
 
@@ -89,7 +95,7 @@ uint16_t tw::Color::getR16 () const {
 /**
  * Get the normalized value of the green channel.
  *
- * \return the normalized (0-1) value of the green channel
+ * @return the normalized (0-1) value of the green channel
  */
 float tw::Color::getG () const {
 
@@ -100,7 +106,7 @@ float tw::Color::getG () const {
 /**
  * Get the 8-bit integral value of the green channel.
  *
- * \return the 8-bit integral (0-255) value of the green channel
+ * @return the 8-bit integral (0-255) value of the green channel
  */
 uint8_t tw::Color::getG8 () const {
 
@@ -111,7 +117,7 @@ uint8_t tw::Color::getG8 () const {
 /**
  * Get the 16-bit integral value of the green channel.
  *
- * \return the 16-bit integral (0-65535) value of the green channel
+ * @return the 16-bit integral (0-65535) value of the green channel
  */
 uint16_t tw::Color::getG16 () const {
 
@@ -122,7 +128,7 @@ uint16_t tw::Color::getG16 () const {
 /**
  * Get the normalized value of the blue channel.
  *
- * \return the normalized (0-1) value of the blue channel
+ * @return the normalized (0-1) value of the blue channel
  */
 float tw::Color::getB () const {
 
@@ -133,7 +139,7 @@ float tw::Color::getB () const {
 /**
  * Get the 8-bit integral value of the blue channel.
  *
- * \return the 8-bit integral (0-255) value of the blue channel
+ * @return the 8-bit integral (0-255) value of the blue channel
  */
 uint8_t tw::Color::getB8 () const {
 
@@ -144,7 +150,7 @@ uint8_t tw::Color::getB8 () const {
 /**
  * Get the 16-bit integral value of the blue channel.
  *
- * \return the 16-bit integral (0-65535) value of the blue channel
+ * @return the 16-bit integral (0-65535) value of the blue channel
  */
 uint16_t tw::Color::getB16 () const {
 
@@ -154,7 +160,7 @@ uint16_t tw::Color::getB16 () const {
 /**
  * Get the normalized value of the alpha channel.
  *
- * \return the normalized (0-1) value of the alpha channel
+ * @return the normalized (0-1) value of the alpha channel
  */
 float tw::Color::getA () const {
 
@@ -165,7 +171,7 @@ float tw::Color::getA () const {
 /**
  * Get the 8-bit integral value of the alpha channel.
  *
- * \return the 8-bit integral (0-255) value of the alpha channel
+ * @return the 8-bit integral (0-255) value of the alpha channel
  */
 uint8_t tw::Color::getA8 () const {
 
@@ -176,7 +182,7 @@ uint8_t tw::Color::getA8 () const {
 /**
  * Get the 16-bit integral value of the alpha channel.
  *
- * \return the 16-bit integral (0-65535) value of the alpha channel
+ * @return the 16-bit integral (0-65535) value of the alpha channel
  */
 uint16_t tw::Color::getA16 () const {
 
@@ -187,10 +193,10 @@ uint16_t tw::Color::getA16 () const {
 /**
  * Set the normalized values of the red, green, blue, and alpha channels.
  *
- * \param r the normalized (0-1) value of the red channel
- * \param g the normalized (0-1) value of the green channel
- * \param b the normalized (0-1) value of the blue channel
- * \param a the normalized (0-1) value of the alpha channel
+ * @param r the normalized (0-1) value of the red channel
+ * @param g the normalized (0-1) value of the green channel
+ * @param b the normalized (0-1) value of the blue channel
+ * @param a the normalized (0-1) value of the alpha channel
  */
 void tw::Color::setRGBA (float r, float g, float b, float a) {
 
@@ -204,10 +210,10 @@ void tw::Color::setRGBA (float r, float g, float b, float a) {
 /**
  * Set the 8-bit integral values of the red, green, blue, and alpha channels.
  *
- * \param r the 8-bit integral (0-255) value of the red channel
- * \param g the 8-bit integral (0-255) value of the green channel
- * \param b the 8-bit integral (0-255) value of the blue channel
- * \param a the 8-bit integral (0-255) value of the alpha channel
+ * @param r the 8-bit integral (0-255) value of the red channel
+ * @param g the 8-bit integral (0-255) value of the green channel
+ * @param b the 8-bit integral (0-255) value of the blue channel
+ * @param a the 8-bit integral (0-255) value of the alpha channel
  */
 void tw::Color::setRGBA8 (uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
 
@@ -221,10 +227,10 @@ void tw::Color::setRGBA8 (uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
 /**
  * Set the 16-bit integral values of the red, green, blue, and alpha channels.
  *
- * \param r the 16-bit integral (0-65535) value of the red channel
- * \param g the 16-bit integral (0-65535) value of the green channel
- * \param b the 16-bit integral (0-65535) value of the blue channel
- * \param a the 16-bit integral (0-65535) value of the alpha channel
+ * @param r the 16-bit integral (0-65535) value of the red channel
+ * @param g the 16-bit integral (0-65535) value of the green channel
+ * @param b the 16-bit integral (0-65535) value of the blue channel
+ * @param a the 16-bit integral (0-65535) value of the alpha channel
  */
 void tw::Color::setRGBA16 (uint16_t r, uint16_t g, uint16_t b, uint16_t a) {
 
@@ -238,7 +244,7 @@ void tw::Color::setRGBA16 (uint16_t r, uint16_t g, uint16_t b, uint16_t a) {
 /**
  * Set the normalized value of the red channel
  *
- * \param r the normalized (0-1) value of the red channel
+ * @param r the normalized (0-1) value of the red channel
  */
 void tw::Color::setR (float r) {
 
@@ -255,7 +261,7 @@ void tw::Color::setR (float r) {
 /**
  * Set the 8-bit integral value of the red channel.
  *
- * \param r the 8-bit integral (0-255) value of the red channel
+ * @param r the 8-bit integral (0-255) value of the red channel
  */
 void tw::Color::setR8 (uint8_t r) {
 
@@ -266,7 +272,7 @@ void tw::Color::setR8 (uint8_t r) {
 /**
  * Set the 16-bit integral value of the red channel.
  *
- * \param r the 16-bit integral (0-65535) value of the red channel
+ * @param r the 16-bit integral (0-65535) value of the red channel
  */
 void tw::Color::setR16 (uint16_t r) {
 
@@ -277,7 +283,7 @@ void tw::Color::setR16 (uint16_t r) {
 /**
  * Set the normalized value of the green channel.
  *
- * \param g the normalized (0-1) value of the green channel
+ * @param g the normalized (0-1) value of the green channel
  */
 void tw::Color::setG (float g) {
 
@@ -294,7 +300,7 @@ void tw::Color::setG (float g) {
 /**
  * Set the 8-bit integral value of the green channel.
  *
- * \param g the 8-bit integral (0-255) value of the green channel
+ * @param g the 8-bit integral (0-255) value of the green channel
  */
 void tw::Color::setG8 (uint8_t g) {
 
@@ -305,7 +311,7 @@ void tw::Color::setG8 (uint8_t g) {
 /**
  * Set the 16-bit integral value of the green channel.
  *
- * \param g the 16-bit integral (0-65535) value of the green channel
+ * @param g the 16-bit integral (0-65535) value of the green channel
  */
 void tw::Color::setG16 (uint16_t g) {
 
@@ -316,7 +322,7 @@ void tw::Color::setG16 (uint16_t g) {
 /**
  * Set the normalized value of the blue channel.
  *
- * \param b the normalized (0-1) value of the blue channel
+ * @param b the normalized (0-1) value of the blue channel
  */
 void tw::Color::setB (float b) {
 
@@ -333,7 +339,7 @@ void tw::Color::setB (float b) {
 /**
  * Set the 8-bit integral value of the blue channel
  *
- * \param b the 8-bit integral (0-255) value of the blue channel
+ * @param b the 8-bit integral (0-255) value of the blue channel
  */
 void tw::Color::setB8 (uint8_t b) {
 
@@ -344,7 +350,7 @@ void tw::Color::setB8 (uint8_t b) {
 /**
  * Set the 16-bit integral value of the blue channel
  *
- * \param b the 16-bit integral (0-65535) value of the blue channel
+ * @param b the 16-bit integral (0-65535) value of the blue channel
  */
 void tw::Color::setB16 (uint16_t b) {
 
@@ -355,7 +361,7 @@ void tw::Color::setB16 (uint16_t b) {
 /**
  * Set the normalized value of the alpha channel
  *
- * \param a the normalized (0-1) value of the blue channel
+ * @param a the normalized (0-1) value of the blue channel
  */
 void tw::Color::setA (float a) {
 
@@ -372,7 +378,7 @@ void tw::Color::setA (float a) {
 /**
  * Set the 8-bit integral value of the alpha channel
  *
- * \param a the 8-bit integral (0-255) value of the alpha channel
+ * @param a the 8-bit integral (0-255) value of the alpha channel
  */
 void tw::Color::setA8 (uint8_t a) {
 
@@ -383,7 +389,7 @@ void tw::Color::setA8 (uint8_t a) {
 /**
  * Set the 16-bit integral value of the alpha channel
  *
- * \param a the 16-bit integral (0-65535) value of the alpha channel
+ * @param a the 16-bit integral (0-65535) value of the alpha channel
  */
 void tw::Color::setA16 (uint16_t a) {
 
@@ -394,7 +400,7 @@ void tw::Color::setA16 (uint16_t a) {
 /**
  * Lighten the color.
  *
- * \param multiplier value to add
+ * @param multiplier value to add
  */
 void tw::Color::lighten (float multiplier) {
 
@@ -412,8 +418,8 @@ void tw::Color::lighten (float multiplier) {
 /**
  * Get a lightened copy of the color.
  *
- * \param multiplier value to add to copy
- * \return lightened copy of color
+ * @param multiplier value to add to copy
+ * @return lightened copy of color
  */
 tw::Color tw::Color::makeLighten (float multiplier) {
 
@@ -426,7 +432,7 @@ tw::Color tw::Color::makeLighten (float multiplier) {
 /**
  * Darken the color.
  *
- * \param multiplier value to remove
+ * @param multiplier value to remove
  */
 void tw::Color::darken (float multiplier) {
 
@@ -444,8 +450,8 @@ void tw::Color::darken (float multiplier) {
 /**
  * Get a darkened copy of the color.
  *
- * \param multiplier value to remove from copy
- * \return darkened copy of color
+ * @param multiplier value to remove from copy
+ * @return darkened copy of color
  */
 tw::Color tw::Color::makeDarken (float multiplier) {
 
@@ -458,7 +464,7 @@ tw::Color tw::Color::makeDarken (float multiplier) {
 /**
  * Increase the saturation of the color.
  *
- * \param multiplier saturation to add
+ * @param multiplier saturation to add
  */
 void tw::Color::saturate (float multiplier) {
 
@@ -501,8 +507,8 @@ void tw::Color::saturate (float multiplier) {
 /**
  * Get a saturated copy of the color.
  *
- * \param multiplier saturation to add to copy
- * \return saturated copy of color
+ * @param multiplier saturation to add to copy
+ * @return saturated copy of color
  */
 tw::Color tw::Color::makeSaturate (float multiplier) {
 
@@ -515,7 +521,7 @@ tw::Color tw::Color::makeSaturate (float multiplier) {
 /**
  * Decrease saturation of the color.
  *
- * \param multiplier saturation to remove
+ * @param multiplier saturation to remove
  */
 void tw::Color::desaturate (float multiplier) {
 
@@ -526,8 +532,8 @@ void tw::Color::desaturate (float multiplier) {
 /**
  * Get a desaturated copy of the color.
  *
- * \param multiplier saturation to remove from copy
- * \return desaturated copy of color
+ * @param multiplier saturation to remove from copy
+ * @return desaturated copy of color
  */
 tw::Color tw::Color::makeDesaturate (float multiplier) {
 
@@ -540,8 +546,8 @@ tw::Color tw::Color::makeDesaturate (float multiplier) {
 /**
  * Check for equality of two tw::Color objects.
  *
- * \param other color with which to compare
- * \return equality of tw::Color objects
+ * @param other color with which to compare
+ * @return equality of tw::Color objects
  */
 bool tw::Color::operator == (const tw::Color& other) const {
 
@@ -561,8 +567,8 @@ bool tw::Color::operator == (const tw::Color& other) const {
 /**
  * Check for inequality of two tw::Color objects.
  *
- * \param other color with which to compare
- * \return inequality of tw::Color objects
+ * @param other color with which to compare
+ * @return inequality of tw::Color objects
  */
 bool tw::Color::operator != (const tw::Color& other) const {
 
@@ -573,8 +579,8 @@ bool tw::Color::operator != (const tw::Color& other) const {
 /**
  * Add the values of two tw::Color objects.
  *
- * \param other color with which to add
- * \return color with combined values
+ * @param other color with which to add
+ * @return color with combined values
  */
 tw::Color tw::Color::operator + (const tw::Color& other) const {
 
@@ -594,8 +600,8 @@ tw::Color tw::Color::operator + (const tw::Color& other) const {
 /**
  * Add the values of two tw::Color objects (rvalue optimization).
  *
- * \param other color with which to add
- * \return color with combined values
+ * @param other color with which to add
+ * @return color with combined values
  */
 tw::Color tw::Color::operator + (tw::Color&& other) const {
 
@@ -613,8 +619,8 @@ tw::Color tw::Color::operator + (tw::Color&& other) const {
 /**
  * Add the value of a tw::Color and a scalar.
  *
- * \param other scalar with which to add
- * \return color with combined values
+ * @param other scalar with which to add
+ * @return color with combined values
  */
 tw::Color tw::Color::operator + (float other) const {
 
@@ -634,8 +640,8 @@ tw::Color tw::Color::operator + (float other) const {
 /**
  * Increment the value of a tw::Color with another tw::Color.
  *
- * \param other color with which to increment
- * \return self reference after incrementing
+ * @param other color with which to increment
+ * @return self reference after incrementing
  */
 tw::Color& tw::Color::operator += (const tw::Color& other) {
 
@@ -653,8 +659,8 @@ tw::Color& tw::Color::operator += (const tw::Color& other) {
 /**
  * Increment the value of a tw::Color with a scalar.
  *
- * \param other scalar with which to increment
- * \return self reference after incrementing
+ * @param other scalar with which to increment
+ * @return self reference after incrementing
  */
 tw::Color& tw::Color::operator += (float other) {
 
@@ -672,8 +678,8 @@ tw::Color& tw::Color::operator += (float other) {
 /**
  * Subtract the value of a tw::Color from a tw::Color.
  *
- * \param other color by which to subtract
- * \return color with subtracted value
+ * @param other color by which to subtract
+ * @return color with subtracted value
  */
 tw::Color tw::Color::operator - (const tw::Color& other) const {
 
@@ -693,8 +699,8 @@ tw::Color tw::Color::operator - (const tw::Color& other) const {
 /**
  * Subtract the value of a tw::Color from a tw::Color (rvalue optimization).
  *
- * \param other color by which to subtract
- * \return color with subtracted value
+ * @param other color by which to subtract
+ * @return color with subtracted value
  */
 tw::Color tw::Color::operator - (tw::Color&& other) const {
 
@@ -712,8 +718,8 @@ tw::Color tw::Color::operator - (tw::Color&& other) const {
 /**
  * Subtract the value of a scalar from a tw::Color.
  *
- * \param other scalar by which to subtract
- * \return color with subtracted value
+ * @param other scalar by which to subtract
+ * @return color with subtracted value
  */
 tw::Color tw::Color::operator - (float other) const {
 
@@ -733,8 +739,8 @@ tw::Color tw::Color::operator - (float other) const {
 /**
  * Decrement the value of a tw::Color from a tw::Color.
  *
- * \param other color by which to decrement
- * \return self reference after decrementing
+ * @param other color by which to decrement
+ * @return self reference after decrementing
  */
 tw::Color& tw::Color::operator -= (const tw::Color& other) {
 
@@ -752,8 +758,8 @@ tw::Color& tw::Color::operator -= (const tw::Color& other) {
 /**
  * Decrement the value of a scalar from a tw::Color.
  *
- * \param other scalar by which to decrement
- * \return self reference after decrementing
+ * @param other scalar by which to decrement
+ * @return self reference after decrementing
  */
 tw::Color& tw::Color::operator -= (float other) {
 
@@ -771,8 +777,8 @@ tw::Color& tw::Color::operator -= (float other) {
 /**
  * Multiply the value of two tw::Colors.
  *
- * \param other color with which to multiply
- * \return color with multiplied values
+ * @param other color with which to multiply
+ * @return color with multiplied values
  */
 tw::Color tw::Color::operator * (const tw::Color& other) const {
 
@@ -792,8 +798,8 @@ tw::Color tw::Color::operator * (const tw::Color& other) const {
 /**
  * Multiply the value of two tw::Colors (rvalue optimization).
  *
- * \param other color with which to multiply
- * \return color with multiplied values
+ * @param other color with which to multiply
+ * @return color with multiplied values
  */
 tw::Color tw::Color::operator * (tw::Color&& other) const {
 
@@ -811,8 +817,8 @@ tw::Color tw::Color::operator * (tw::Color&& other) const {
 /**
  * Multiply the value of a tw::Color with a scalar.
  *
- * \param other scalar with which to multiply
- * \return color with multiplied values
+ * @param other scalar with which to multiply
+ * @return color with multiplied values
  */
 tw::Color tw::Color::operator * (float other) const {
 
@@ -832,8 +838,8 @@ tw::Color tw::Color::operator * (float other) const {
 /**
  * Multiply-assign the value of a tw::Color with a tw::Color.
  *
- * \param other color with which to multiply
- * \return self reference after multiply-assigning
+ * @param other color with which to multiply
+ * @return self reference after multiply-assigning
  */
 tw::Color& tw::Color::operator *= (const tw::Color& other) {
 
@@ -851,8 +857,8 @@ tw::Color& tw::Color::operator *= (const tw::Color& other) {
 /**
  * Multiply-assign the value of a tw::Color with a scalar.
  *
- * \param other scalar with which to multiply
- * \return self reference after multiply-assigning
+ * @param other scalar with which to multiply
+ * @return self reference after multiply-assigning
  */
 tw::Color& tw::Color::operator *= (float other) {
 
@@ -870,8 +876,8 @@ tw::Color& tw::Color::operator *= (float other) {
 /**
  * Divide the value of a tw::Color by a tw::Color.
  *
- * \param other color by which to divide
- * \return color with divided values
+ * @param other color by which to divide
+ * @return color with divided values
  */
 tw::Color tw::Color::operator / (const tw::Color& other) const {
 
@@ -891,8 +897,8 @@ tw::Color tw::Color::operator / (const tw::Color& other) const {
 /**
  * Divide the value of a tw::Color by a tw::Color (rvalue optimization)
  *
- * \param other color by which to divide
- * \return color with divided values
+ * @param other color by which to divide
+ * @return color with divided values
  */
 tw::Color tw::Color::operator / (tw::Color&& other) const {
 
@@ -910,8 +916,8 @@ tw::Color tw::Color::operator / (tw::Color&& other) const {
 /**
  * Divide the value of a tw::Color by a scalar
  *
- * \param other scalar by which to divide
- * \return color with divided values
+ * @param other scalar by which to divide
+ * @return color with divided values
  */
 tw::Color tw::Color::operator / (float other) const {
 
@@ -931,8 +937,8 @@ tw::Color tw::Color::operator / (float other) const {
 /**
  * Divide-assign the value of a tw::Color by a tw::Color
  *
- * \param other color by which to divide
- * \return self reference after divide-assigning
+ * @param other color by which to divide
+ * @return self reference after divide-assigning
  */
 tw::Color& tw::Color::operator /= (const tw::Color& other) {
 
@@ -950,8 +956,8 @@ tw::Color& tw::Color::operator /= (const tw::Color& other) {
 /**
  * Divide-assign the value of a tw::Color by a scalar
  *
- * \param other scalar by which to divide
- * \return self reference after divide-assigning
+ * @param other scalar by which to divide
+ * @return self reference after divide-assigning
  */
 tw::Color& tw::Color::operator /= (float other) {
 

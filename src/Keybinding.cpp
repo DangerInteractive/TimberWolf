@@ -1,5 +1,12 @@
 #include "../include/Keybinding.hpp"
 
+/**
+ * @class tw::Keybinding
+ *
+ * Representation of a keyboard keybinding, to be stored in a tw::Controller
+ * object.
+ */
+
 tw::Keybinding::Keybinding (
     KeybindingCallback callback,
     KeyAction action,

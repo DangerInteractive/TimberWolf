@@ -1,5 +1,12 @@
 #include "../include/Window.hpp"
 
+/**
+ * @class tw::Window
+ *
+ * Static class keeping track of the GLFW window handle and allowing access and
+ * manipulation to window properties.
+ */
+
 void tw::Window::init () {
 
     glfwSetErrorCallback([](int error, const char* description){

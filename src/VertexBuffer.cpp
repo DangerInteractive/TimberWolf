@@ -1,5 +1,11 @@
 #include "../include/VertexBuffer.hpp"
 
+/**
+ * @class tw::VertexBuffer
+ *
+ * Handle representing an OpenGL VBO (vertex buffer object).
+ */
+
 tw::VertexBuffer::VertexBuffer () {
 
     glGenBuffers(1, &m_id);

@@ -1,5 +1,12 @@
 #include "../include/GameStateStore.hpp"
 
+/**
+ * @class tw::GameStateStore
+ *
+ * Static map-based object cache keeping track of polymorphic GameState objects
+ * under std::string keys.
+ */
+
 bool tw::GameStateStore::stateExists (const std::string& key) {
 
     if (m_stateMap.find(key) == m_stateMap.end()) {

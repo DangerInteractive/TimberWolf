@@ -1,5 +1,12 @@
 #include "../include/GameLoop.hpp"
 
+/**
+ * @class tw::GameLoop
+ *
+ * Static class representing the inner game loop and its threads, and providing
+ * controls for the rendering and update rates and speeds.
+ */
+
 unsigned int tw::GameLoop::getRenderFrameRate () {
 
     return m_renderFrameRate;

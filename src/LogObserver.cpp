@@ -1,5 +1,16 @@
 #include "../include/LogObserver.hpp"
 
+/**
+ * @class tw::LogObserver
+ *
+ * Abstract class representing a log observer, to be stored in the static
+ * tw::Log class. This class is meant to be extended by classes implementing the
+ * specific logic to which you want log messages to be passed. The engine has
+ * built in subclasses for sending to console, file, and arbitrary functions:
+ * tw::ConsoleLogObserver, tw::FileLogObserver, and tw::FunctionLogObserver
+ * respectively.
+ */
+
 tw::LogObserver::LogObserver (unsigned int allowedLevelFlags)
 : m_allowedLevelFlags(allowedLevelFlags) {}
 

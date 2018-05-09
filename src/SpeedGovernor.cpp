@@ -1,5 +1,17 @@
 #include "../include/SpeedGovernor.hpp"
 
+/**
+ * @class tw::SpeedGovernor
+ *
+ * Time tracking object that controls the execution speed of a looping thread by
+ * setting a minimum time per loop, and sleeping for the remaining time when
+ * running fast. When running slow, it has different handling modes. The fixed
+ * step setting causes the loop to guarantee each execution represents the same
+ * time difference. The catch-up setting causes the loop to keep track of how
+ * much time it lags behind where it should be, and it will try to run extra
+ * iterations to catch up that missing time.
+ */
+
 tw::SpeedGovernor::SpeedGovernor (bool fixedStep, bool catchUp, double seconds)
 : m_fixedStep(fixedStep), m_catchUp(catchUp), m_seconds(seconds), m_frequency(1.0 / seconds) {}
 

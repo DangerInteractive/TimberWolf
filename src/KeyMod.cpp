@@ -1,5 +1,13 @@
 #include "../include/KeyMod.hpp"
 
+/**
+ * @class tw::KeyMod
+ *
+ * Representation of a keybinding modificiation, which are additional keys being
+ * held during a keypress, such as control in Ctrl+Z. Stores a bit for each of
+ * shift, control, alt, and super keys.
+ */
+
 tw::KeyMod::KeyMod (int flags)
 : m_flags(flags) {}
 

@@ -1,5 +1,13 @@
 #include "../include/Log.hpp"
 
+/**
+ * @class tw::Log
+ *
+ * Static class providing a global means of notifying all log observers
+ * (polymorphic tw::LogObserver objects), and also storing and managing those
+ * log observers.
+ */
+
 void tw::Log::bindUnhandledException () {
 
     std::set_terminate([](){

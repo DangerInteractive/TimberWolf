@@ -1,5 +1,11 @@
 #include "../include/FileLogObserver.hpp"
 
+/**
+ * @class tw::FileLogObserver
+ *
+ * Log observer that formats and routes messages to a log file.
+ */
+
 tw::FileLogObserver::FileLogObserver (const std::string& filename)
 : LogObserver(), m_file(filename, File::ENABLE_WRITE | File::ENABLE_APPEND) {}
 

@@ -1,5 +1,12 @@
 #include "../include/Controller.hpp"
 
+/**
+ * @class tw::Controller
+ *
+ * Container for storing and processing input event handlers such as keybindings
+ * and mouse button presses. Instances are stored in tw::GameState objects.
+ */
+
 tw::Controller::Controller () {}
 
 void tw::Controller::onKey (int action, int mod, int key, int scanCode) {

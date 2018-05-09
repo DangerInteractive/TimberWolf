@@ -1,5 +1,11 @@
 #include "../include/File.hpp"
 
+/**
+ * @class tw::File
+ *
+ * Handle for an operating system file, providing manipulation and data access.
+ */
+
 tw::File::File (const std::string& path)
 : m_path(path) {}
 

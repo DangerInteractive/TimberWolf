@@ -1,5 +1,11 @@
 #include "../include/ConsoleLogObserver.hpp"
 
+/**
+ * @class tw::ConsoleLogObserver
+ *
+ * Log observer that formats and routes messages to the console out.
+ */
+
 void tw::ConsoleLogObserver::notifyCallback (LogLevel logLevel, const std::string& context, const std::string& message) {
 
     if (logLevel != tw::LogLevel::ERROR) {

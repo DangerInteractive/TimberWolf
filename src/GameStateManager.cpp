@@ -1,5 +1,13 @@
 #include "../include/GameStateManager.hpp"
 
+/**
+ * @class tw::GameStateManager
+ *
+ * Static class representing the game state machine, a pushdown automaton type
+ * state machine for switching game states during game runtime. Stores shared
+ * pointers to GameState objects polymorphically.
+ */
+
 void tw::GameStateManager::pushState (const std::shared_ptr<GameState>& state) {
 
     m_states.push_back(state);

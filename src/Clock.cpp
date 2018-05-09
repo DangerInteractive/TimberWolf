@@ -1,6 +1,12 @@
 #include "../include/Clock.hpp"
 
 /**
+ * @class tw::Clock
+ *
+ * Class for tracking elapsed time from its instantiation or reset time.
+ */
+
+/**
  * tw::Clock default constructor counting from the moment it is instantiated.
  */
 tw::Clock::Clock ()
@@ -9,7 +15,7 @@ tw::Clock::Clock ()
 /**
  * Get the time point when the last clock reset occurred.
  *
- * \return the last reset time
+ * @return the last reset time
  */
 std::chrono::time_point<std::chrono::high_resolution_clock> tw::Clock::getResetTime () const {
 
@@ -20,7 +26,7 @@ std::chrono::time_point<std::chrono::high_resolution_clock> tw::Clock::getResetT
 /**
  * Get the number of seconds since the last clock reset.
  *
- * \return seconds since last reset time
+ * @return seconds since last reset time
  */
 double tw::Clock::getElapsedSeconds () const {
 
@@ -33,7 +39,7 @@ double tw::Clock::getElapsedSeconds () const {
 /**
  * Get the number of milliseconds since the last clock reset
  *
- * \return milliseconds since last reset time
+ * @return milliseconds since last reset time
  */
 long long tw::Clock::getElapsedMilliseconds () const {
 
@@ -49,7 +55,7 @@ long long tw::Clock::getElapsedMilliseconds () const {
 /**
  * Get the number of microseconds since the last clock reset
  *
- * \return microseconds since last reset time
+ * @return microseconds since last reset time
  */
 long long tw::Clock::getElapsedMicroseconds () const {
 
@@ -65,7 +71,7 @@ long long tw::Clock::getElapsedMicroseconds () const {
 /**
  * Get the number of nanoseconds since the last clock reset
  *
- * \return nanoseconds since last reset time
+ * @return nanoseconds since last reset time
  */
 long long tw::Clock::getElapsedNanoseconds () const {
 

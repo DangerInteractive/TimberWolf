@@ -1,5 +1,11 @@
 #include "../include/VertexArray.hpp"
 
+/**
+ * @class tw::VertexArray
+ *
+ * Handle representing an OpenGL VAO (vertex array object).
+ */
+
 tw::VertexArray::VertexArray () {
 
     glGenVertexArrays(1, &m_id);

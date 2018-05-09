@@ -1,5 +1,12 @@
 #include "../include/FunctionLogObserver.hpp"
 
+/**
+ * @class tw::FunctionLogObserver
+ *
+ * Log observer that stores a collection of callbacks and routes messages to
+ * them.
+ */
+
 tw::FunctionLogObserver::FunctionLogObserver (const std::vector<Callback>& callbacks)
 : LogObserver() {
 

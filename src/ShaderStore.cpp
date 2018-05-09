@@ -1,5 +1,12 @@
 #include "../include/ShaderStore.hpp"
 
+/**
+ * @class tw::ShaderStore
+ *
+ * Static map-based object cache keeping track of handles to shader objects and
+ * shader programs via a std::string key.
+ */
+
 bool tw::ShaderStore::vertexShaderExists (const std::string& key) {
 
     if (m_vertexShaders.find(key) == m_vertexShaders.end()) {

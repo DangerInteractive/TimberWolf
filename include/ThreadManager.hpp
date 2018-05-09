@@ -21,7 +21,11 @@ public:
 
     template <typename ...TArgs>
     static std::thread* makeThread (const std::string& key, TArgs&&... args) {
+
         registerThread(key, std::thread(std::forward<TArgs>(args)...));
+
+        return &m_threads[key];
+
     }
 
     static void registerThread (const std::string&, std::thread&&);

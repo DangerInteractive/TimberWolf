@@ -1,5 +1,12 @@
 #include "../include/ShaderProgram.hpp"
 
+/**
+ * @class tw::ShaderProgram
+ *
+ * Handle for an OpenGL shader program (version 2.0+), linking together various
+ * shader types to be executed by the renderer.
+ */
+
 tw::ShaderProgram::ShaderProgram () {
 
     m_id = glCreateProgram();
