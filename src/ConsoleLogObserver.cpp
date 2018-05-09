@@ -6,6 +6,13 @@
  * Log observer that formats and routes messages to the console out.
  */
 
+/**
+ * Send message to the observer. This is called by tw::LogObserver::notify().
+ *
+ * @param logLevel level of the message
+ * @param context  context of the message
+ * @param message  text of the message
+ */
 void tw::ConsoleLogObserver::notifyCallback (LogLevel logLevel, const std::string& context, const std::string& message) {
 
     if (logLevel != tw::LogLevel::ERROR) {
@@ -16,6 +23,13 @@ void tw::ConsoleLogObserver::notifyCallback (LogLevel logLevel, const std::strin
 
 }
 
+/**
+ * Format the message text to be output to the console.
+ *
+ * @param logLevel level of the message
+ * @param context  context of the message
+ * @param message  text of the message
+ */
 std::string tw::ConsoleLogObserver::formatMessage (LogLevel logLevel, const std::string& context, const std::string& message) const {
 
     auto time = std::time(nullptr);
