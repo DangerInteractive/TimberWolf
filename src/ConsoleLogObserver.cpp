@@ -7,11 +7,12 @@
  */
 
 /**
- * Send message to the observer. This is called by tw::LogObserver::notify().
+ * Send message to the observer to be printed. This should only be called by
+ * tw::LogObserver::notify().
  *
- * @param logLevel level of the message
- * @param context  context of the message
- * @param message  text of the message
+ * @param logLevel message log level
+ * @param context  message context
+ * @param message  message text
  */
 void tw::ConsoleLogObserver::notifyCallback (LogLevel logLevel, const std::string& context, const std::string& message) {
 
@@ -26,9 +27,10 @@ void tw::ConsoleLogObserver::notifyCallback (LogLevel logLevel, const std::strin
 /**
  * Format the message text to be output to the console.
  *
- * @param logLevel level of the message
- * @param context  context of the message
- * @param message  text of the message
+ * @param logLevel message log level
+ * @param context  message context
+ * @param message  message text
+ * @return formatted message
  */
 std::string tw::ConsoleLogObserver::formatMessage (LogLevel logLevel, const std::string& context, const std::string& message) const {
 

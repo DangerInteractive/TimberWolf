@@ -8,6 +8,9 @@
  * respective state of the game.
  */
 
+/**
+ * Clear the window.
+ */
 void tw::GameState::clearWindow () {
 
     if (m_clearWindow) {
@@ -16,18 +19,31 @@ void tw::GameState::clearWindow () {
 
 }
 
+/**
+ * Get the attached tw::Controller, which handles input.
+ *
+ * @return controller (input handler)
+ */
 tw::Controller& tw::GameState::getController () {
 
     return m_controller;
 
 }
 
+/**
+ * Replace the attached controller.
+ *
+ * @param controller controller (input handler)
+ */
 void tw::GameState::setController (Controller& controller) {
 
     m_controller = controller;
 
 }
 
+/**
+ * Remove the attached controller.
+ */
 void tw::GameState::clearController () {
 
     m_controller = Controller();
