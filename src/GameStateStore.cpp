@@ -49,9 +49,10 @@ std::shared_ptr<tw::GameState> tw::GameStateStore::getState (const std::string& 
  * will be placed into the cache and then returned.
  *
  * @tparam TState type of state to be created (must extend tw::GameState)
- * @tparam TArg types of arguments passed to TState constructor (deduced automatically)
- * @param key key to store the game state under
- * @param args variadic arguments to pass to TState constructor
+ * @tparam TArg   types of arguments passed to TState constructor (deduced automatically)
+ * @param key     key to store the game state under
+ * @param args    variadic arguments to pass to TState constructor
+ * @return shared pointer to created game state on success, null pointer on failure
  */
 
 /**
