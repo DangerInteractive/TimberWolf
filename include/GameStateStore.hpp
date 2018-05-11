@@ -1,7 +1,7 @@
 #ifndef H_TW_GAMESTATESTORE
 #define H_TW_GAMESTATESTORE
 
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <memory>
 #include "GameState.hpp"
@@ -51,7 +51,7 @@ private:
 
     static void logStateAlreadyExists (const std::string&);
 
-    static std::map<std::string, std::shared_ptr<GameState>> m_stateMap;
+    static std::unordered_map<std::string, std::shared_ptr<GameState>> m_stateMap;
 
 };
 }
