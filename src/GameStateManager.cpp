@@ -8,6 +8,11 @@
  * pointers to GameState objects polymorphically.
  */
 
+/**
+ * Push a std::shared_ptr to a game state onto the stack.
+ *
+ * @param state game state to push
+ */
 void tw::GameStateManager::pushState (const std::shared_ptr<GameState>& state) {
 
     m_states.push_back(state);
@@ -26,6 +31,11 @@ void tw::GameStateManager::pushState (const std::shared_ptr<GameState>& state) {
 
 }
 
+/**
+ * Push a pointer to a game state onto the stack.
+ *
+ * @param state game state
+ */
 void tw::GameStateManager::pushState (GameState* state) {
 
     std::shared_ptr<GameState> ptrState(state);
@@ -33,6 +43,14 @@ void tw::GameStateManager::pushState (GameState* state) {
 
 }
 
+/**
+ * Push a game state onto the stack via a key to a game state stored in
+ * tw::GameStateStore. Will fail if there is no matching game state registered
+ * with tw::GameStateStore before calling.
+ *
+ * @param key key to game state stored in tw::GameStateStore
+ * @return true if game state was found and pushed, false if not
+ */
 bool tw::GameStateManager::pushState (const std::string& key) {
 
     if (!GameStateStore::stateExists(key)) {
@@ -46,6 +64,10 @@ bool tw::GameStateManager::pushState (const std::string& key) {
 
 }
 
+/**
+ * Pop and dispose of the top (current) game state on the stack, switching to
+ * the next lower state if it exists.
+ */
 void tw::GameStateManager::dropState () {
 
     auto top = m_states[m_states.size() - 1];
@@ -65,6 +87,12 @@ void tw::GameStateManager::dropState () {
 
 }
 
+/**
+ * Pop and return the top (current) game state on the stack, switching to the
+ * next lower state if it exists.
+ *
+ * @return shared pointer to the popped state
+ */
 std::shared_ptr<tw::GameState> tw::GameStateManager::popState () {
 
     auto top = m_states[m_states.size() - 1];
@@ -85,6 +113,11 @@ std::shared_ptr<tw::GameState> tw::GameStateManager::popState () {
 
 }
 
+/**
+ * Refresh the cached lists of states that are eligible for processing based on
+ * their transparency flags. This is automatically called whenever the game
+ * state stack is changed.
+ */
 void tw::GameStateManager::refreshLiveStates () {
 
     std::vector<std::shared_ptr<GameState>> liveRenderStates;
@@ -148,6 +181,9 @@ void tw::GameStateManager::refreshLiveStates () {
 
 }
 
+/**
+ * Clear the window.
+ */
 void tw::GameStateManager::clearWindow () {
 
     for (int i = m_statesLiveRender.size() - 1; i >= 0; --i) {
@@ -156,6 +192,13 @@ void tw::GameStateManager::clearWindow () {
 
 }
 
+/**
+ * Execute an iteration of the active game state(s) render loop, passing the
+ * number of seconds since the last iteration of the update loop for the purpose
+ * of preventing rendering stutter. This should only be called by tw::GameLoop.
+ *
+ * @param deltaTime number of seconds perceived since the last iteration of the update loop
+ */
 void tw::GameStateManager::render (double deltaTime) {
 
     for (int i = 0; i < m_statesLiveRender.size(); ++i) {
@@ -164,6 +207,13 @@ void tw::GameStateManager::render (double deltaTime) {
 
 }
 
+/**
+ * Execute an iteration of the active game state(s) update loop, passing the
+ * number of seconds perceived since the last iteration to the update loop. This
+ * should only be called by tw::GameLoop.
+ *
+ * @param deltaTime number of seconds perceived since the last iteration of the update loop
+ */
 void tw::GameStateManager::update (double deltaTime) {
 
     for (int i = 0; i < m_statesLiveUpdate.size(); ++i) {
@@ -172,6 +222,17 @@ void tw::GameStateManager::update (double deltaTime) {
 
 }
 
+/**
+ * Notify the active state(s) of a key input event. This is a callback passed
+ * directly to GLFW. You shouldn't need to call it unless you need to simulate
+ * a key input event.
+ *
+ * @param window   pointer to the window context
+ * @param key      engine key code
+ * @param scanCode OS key scan code
+ * @param action   0 for release, 1 for press, 2 for hold
+ * @param mod      key modifier
+ */
 void tw::GameStateManager::keyCallback (GLFWwindow* window, int key, int scanCode, int action, int mod) {
 
     for (int i = 0; i < m_statesLiveInput.size(); ++i) {
@@ -180,6 +241,15 @@ void tw::GameStateManager::keyCallback (GLFWwindow* window, int key, int scanCod
 
 }
 
+/**
+ * Notify the active state(s) of a cursor move event. This is a callback passed
+ * directly to GLFW. You shouldn't need to call it unless you need to simulate
+ * a cursor move event.
+ *
+ * @param window pointer to window context
+ * @param xPos   horizontal position of cursor in pixels from left
+ * @param yPos   vertical position of cursor in pixels from top
+ */
 void tw::GameStateManager::cursorCallback (GLFWwindow* window, double xPos, double yPos) {
 
     for (int i = 0; i < m_statesLiveInput.size(); ++i) {
@@ -188,6 +258,14 @@ void tw::GameStateManager::cursorCallback (GLFWwindow* window, double xPos, doub
 
 }
 
+/**
+ * Notify the active state(s) of a cursor entry or exit event. This is a
+ * callback passed directly to GLFW. You shouldn't need to call it unless you
+ * need to simulate a cursor entry or exit event.
+ *
+ * @param window pointer to window context
+ * @param in     [description]
+ */
 void tw::GameStateManager::cursorInOutCallback (GLFWwindow* window, int in) {
 
     if (in) {
@@ -202,6 +280,16 @@ void tw::GameStateManager::cursorInOutCallback (GLFWwindow* window, int in) {
 
 }
 
+/**
+ * Notify the active state(s) of a mouse button input event. This is a callback
+ * passed directly to GLFW. You shouldn't need to call it unless you need to
+ * simulate a mouse button event.
+ *
+ * @param window pointer to window context
+ * @param button 0 for left, 1 for right, 2 for middle
+ * @param action 0 for release, 1 for press
+ * @param mod    key modifier
+ */
 void tw::GameStateManager::mouseButtonCallback (GLFWwindow* window, int button, int action, int mod) {
 
     for (int i = 0; i < m_statesLiveInput.size(); ++i) {
@@ -210,6 +298,15 @@ void tw::GameStateManager::mouseButtonCallback (GLFWwindow* window, int button, 
 
 }
 
+/**
+ * Notify the active state(s) of a scroll event. This is a callback passed
+ * directly to GLFW. You shouldn't need to call it unless you need to simulate
+ * a scroll event.
+ *
+ * @param window  pointer to window context
+ * @param xOffset horizontal scroll position in pixels from left
+ * @param yOffset vertical scroll position in pixels from top
+ */
 void tw::GameStateManager::scrollCallback (GLFWwindow* window, double xOffset, double yOffset) {
 
     for (int i = 0; i < m_statesLiveInput.size(); ++i) {
@@ -218,6 +315,15 @@ void tw::GameStateManager::scrollCallback (GLFWwindow* window, double xOffset, d
 
 }
 
+/**
+ * Notify the active state(s) of a file drop event. This is a callback passed
+ * directly to GLFW. You shouldn't need to call it unless you need to simulate a
+ * file drop event.
+ *
+ * @param window pointer to window context
+ * @param count  number of files dropped
+ * @param paths  array of file paths for the dropped files
+ */
 void tw::GameStateManager::dropCallback (GLFWwindow* window, int count, const char** paths) {
 
     for (int i = 0; i < m_statesLiveInput.size(); ++i) {
@@ -226,8 +332,8 @@ void tw::GameStateManager::dropCallback (GLFWwindow* window, int count, const ch
 
 }
 
-std::vector<std::shared_ptr<tw::GameState>> tw::GameStateManager::m_states;
+std::vector<std::shared_ptr<tw::GameState>> tw::GameStateManager::m_states; ///< Game state stack, actually a std::vector so state transparency can iterate.
 
-std::vector<std::shared_ptr<tw::GameState>> tw::GameStateManager::m_statesLiveRender;
-std::vector<std::shared_ptr<tw::GameState>> tw::GameStateManager::m_statesLiveUpdate;
-std::vector<std::shared_ptr<tw::GameState>> tw::GameStateManager::m_statesLiveInput;
+std::vector<std::shared_ptr<tw::GameState>> tw::GameStateManager::m_statesLiveRender; ///< Ordered game states eligible to be rendered (based on game state transparencies). This is a cache.
+std::vector<std::shared_ptr<tw::GameState>> tw::GameStateManager::m_statesLiveUpdate; ///< Ordered game states eligible to be updated (based on game state transparencies). This is a cache.
+std::vector<std::shared_ptr<tw::GameState>> tw::GameStateManager::m_statesLiveInput; ///< Ordered game states eligible to receive input events (based on game state transparencies). This is a cache.
