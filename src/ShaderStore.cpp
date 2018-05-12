@@ -7,6 +7,12 @@
  * shader programs via a std::string key.
  */
 
+/**
+ * Check if a vertex shader handle with the given key exists.
+ *
+ * @param key vertex shader key to check
+ * @return true if vertex shader key exists, false if not
+ */
 bool tw::ShaderStore::vertexShaderExists (const std::string& key) {
 
     if (m_vertexShaders.find(key) == m_vertexShaders.end()) {
@@ -17,6 +23,13 @@ bool tw::ShaderStore::vertexShaderExists (const std::string& key) {
 
 }
 
+/**
+ * Get a std::shared_ptr to the vertex shader handle with the given key. Returns
+ * nullptr if the vertex shader key does not exist.
+ *
+ * @param key vertex shader key
+ * @return shared pointer to vertex shader handle, nullptr if none
+ */
 std::shared_ptr<tw::VertexShader> tw::ShaderStore::getVertexShader (const std::string& key) {
 
     if (!vertexShaderExists(key)) {
@@ -27,6 +40,12 @@ std::shared_ptr<tw::VertexShader> tw::ShaderStore::getVertexShader (const std::s
 
 }
 
+/**
+ * Check if a fragment shader handle with the given key exists.
+ *
+ * @param key fragment shader key to check
+ * @return true if fragment shader key exists, false if not
+ */
 bool tw::ShaderStore::fragmentShaderExists (const std::string& key) {
 
     if (m_fragmentShaders.find(key) == m_fragmentShaders.end()) {
@@ -37,6 +56,13 @@ bool tw::ShaderStore::fragmentShaderExists (const std::string& key) {
 
 }
 
+/**
+ * Get a std::shared_ptr to the fragment shader handle with the given key.
+ * Returns nullptr if the fragment shader key does not exist.
+ *
+ * @param key fragment shader key
+ * @return shared pointer to fragment shader handle, nullptr if none
+ */
 std::shared_ptr<tw::FragmentShader> tw::ShaderStore::getFragmentShader (const std::string& key) {
 
     if (!fragmentShaderExists(key)) {
@@ -47,6 +73,12 @@ std::shared_ptr<tw::FragmentShader> tw::ShaderStore::getFragmentShader (const st
 
 }
 
+/**
+ * Check if a geometry shader handle with the given key exists.
+ *
+ * @param key geometry shader key to check
+ * @return true if geometry shader key exists, false if not
+ */
 bool tw::ShaderStore::geometryShaderExists (const std::string& key) {
 
     if (m_geometryShaders.find(key) == m_geometryShaders.end()) {
@@ -57,6 +89,13 @@ bool tw::ShaderStore::geometryShaderExists (const std::string& key) {
 
 }
 
+/**
+ * Get a std::shared_ptr to the geometry shader handle with the given key.
+ * Returns nullptr if the geometry shader key does not exist.
+ *
+ * @param key geometry shader key
+ * @return shared pointer to geometry shader, nullptr if none
+ */
 std::shared_ptr<tw::GeometryShader> tw::ShaderStore::getGeometryShader (const std::string& key) {
 
     if (!geometryShaderExists(key)) {
@@ -67,6 +106,12 @@ std::shared_ptr<tw::GeometryShader> tw::ShaderStore::getGeometryShader (const st
 
 }
 
+/**
+ * Check if a tesselation evaluation shader handle with the given key exists.
+ *
+ * @param key tesselation evaluation shader key to check
+ * @return true if tesselation evaluation shader key exists, false if not
+ */
 bool tw::ShaderStore::tesselationEvaluationShaderExists (const std::string& key) {
 
     if (m_tesselationEvaluationShaders.find(key) == m_tesselationEvaluationShaders.end()) {
@@ -77,6 +122,14 @@ bool tw::ShaderStore::tesselationEvaluationShaderExists (const std::string& key)
 
 }
 
+/**
+ * Get a std::shared_ptr to the tesselation evaluation shader handle with the
+ * given key. Returns nullptr if the tesselation evaluation shader key does not
+ * exist.
+ *
+ * @param key tesselation evaluation shader key
+ * @return shared pointer to tesselation evaluation shader, nullptr if none
+ */
 std::shared_ptr<tw::TesselationEvaluationShader> tw::ShaderStore::getTesselationEvaluationShader (const std::string& key) {
 
     if (!tesselationEvaluationShaderExists(key)) {
@@ -87,6 +140,12 @@ std::shared_ptr<tw::TesselationEvaluationShader> tw::ShaderStore::getTesselation
 
 }
 
+/**
+ * Check if a tesselation control shader handle with the given key exists.
+ *
+ * @param key tesselation control shader key to check
+ * @return true if tesselation control shader key exists, false if not
+ */
 bool tw::ShaderStore::tesselationControlShaderExists (const std::string& key) {
 
     if (m_tesselationControlShaders.find(key) == m_tesselationControlShaders.end()) {
@@ -97,6 +156,13 @@ bool tw::ShaderStore::tesselationControlShaderExists (const std::string& key) {
 
 }
 
+/**
+ * Get a std::shared_ptr to the tesselation control shader handle with the given
+ * key. Returns nullptr if the tesselation control shader key does not exist.
+ *
+ * @param key tesselation evaluation shader key
+ * @return shared pointer to tesselation control shader, nullptr if none
+ */
 std::shared_ptr<tw::TesselationControlShader> tw::ShaderStore::getTesselationControlShader (const std::string& key) {
 
     if (!tesselationControlShaderExists(key)) {
@@ -107,6 +173,12 @@ std::shared_ptr<tw::TesselationControlShader> tw::ShaderStore::getTesselationCon
 
 }
 
+/**
+ * Check if a compute shader handle with the given key exists.
+ *
+ * @param key compute shader key to check
+ * @return true if compute shader key exists, false if not
+ */
 bool tw::ShaderStore::computeShaderExists (const std::string& key) {
 
     if (m_computeShaders.find(key) == m_computeShaders.end()) {
@@ -117,6 +189,13 @@ bool tw::ShaderStore::computeShaderExists (const std::string& key) {
 
 }
 
+/**
+ * Get a std::shared_ptr to the compute shader handle with the given key.
+ * Returns nullptr if the compute shader key does not exist.
+ *
+ * @param key compute shader key
+ * @return shared pointer to compute shader, nullptr if none
+ */
 std::shared_ptr<tw::ComputeShader> tw::ShaderStore::getComputeShader (const std::string& key) {
 
     if (!computeShaderExists(key)) {
@@ -127,6 +206,12 @@ std::shared_ptr<tw::ComputeShader> tw::ShaderStore::getComputeShader (const std:
 
 }
 
+/**
+ * Check if a shader program handle with the given key exists.
+ *
+ * @param key shader program key to checl
+ * @return true if shader program key exists, false if not
+ */
 bool tw::ShaderStore::shaderProgramExists (const std::string& key) {
 
     if (m_shaderPrograms.find(key) == m_shaderPrograms.end()) {
@@ -137,6 +222,13 @@ bool tw::ShaderStore::shaderProgramExists (const std::string& key) {
 
 }
 
+/**
+ * Get a std::shared_ptr to the shader program handle with the given key.
+ * Returns nullptr if the shader program key does not exist.
+ *
+ * @param key shader program key
+ * @return shared pointer to shader program, nullptr if none
+ */
 std::shared_ptr<tw::ShaderProgram> tw::ShaderStore::getShaderProgram (const std::string& key) {
 
     if (!shaderProgramExists(key)) {
