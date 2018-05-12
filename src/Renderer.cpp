@@ -7,6 +7,11 @@
  * to the game window.
  */
 
+/**
+ * Render a tw::Model object with OpenGL to the window.
+ *
+ * @param model model to render
+ */
 void tw::Renderer::render (const Model& model) {
 
     auto vao = model.getVAO();

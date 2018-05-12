@@ -7,4 +7,7 @@
  * not complete yet.
  */
 
+/**
+ * Default contructor
+ */
 tw::Scene::Scene () {};

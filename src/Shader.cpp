@@ -10,36 +10,65 @@
  * tw::ComputeShader.
  */
 
+/**
+ * Destructor. Removes the shader from OpenGL and frees the associated GPU
+ * memory.
+ */
 tw::Shader::~Shader () {
 
     glDeleteShader(m_id);
 
 }
 
+/**
+ * Get the GLenum of the shader type.
+ *
+ * @return shader type enumeration
+ */
 GLenum tw::Shader::getType () const {
 
     return m_type;
 
 }
 
+/**
+ * Get the ID of the shader.
+ *
+ * @return shader ID
+ */
 GLuint tw::Shader::getId () const {
 
     return m_id;
 
 }
 
+/**
+ * Get the source code of the shader as a std::string.
+ *
+ * @return shader source code
+ */
 std::string tw::Shader::getSource () const {
 
     return m_source;
 
 }
 
+/**
+ * Check if the shader has been compiled.
+ *
+ * @return true if the shader has been compiled, false if not
+ */
 bool tw::Shader::isCompiled () const {
 
     return m_compiled;
 
 }
 
+/**
+ * Set the source code of a shader program to a given std::string.
+ *
+ * @param source shader source code
+ */
 bool tw::Shader::setSource (const std::string& source) {
 
     if (isCompiled()) {
@@ -56,6 +85,11 @@ bool tw::Shader::setSource (const std::string& source) {
 
 }
 
+/**
+ * Compile the shader.
+ *
+ * @return true if the shader is successfully compiled, false if not
+ */
 bool tw::Shader::compile () {
 
     if (isCompiled()) {
@@ -91,6 +125,14 @@ bool tw::Shader::compile () {
 
 }
 
+/**
+ * Constructor taking in a GLenum shader type. This constructor is called by the
+ * default constructors of tw::VertexShader, tw::FragmentShader,
+ * tw::GeometryShader, tw::TesselationEvaluationShader,
+ * tw::TesselationControlShader, and tw::ComputeShader.
+ *
+ * @param type shader type enumeration
+ */
 tw::Shader::Shader (GLenum type)
 : m_type(type) {
 
@@ -98,6 +140,16 @@ tw::Shader::Shader (GLenum type)
 
 };
 
+/**
+ * Constructor taking in a GLenum shader type and a std::string of shader source
+ * code. This constructor is called by the source code constructors of
+ * tw::VertexShader, tw::FragmentShader, tw::GeometryShader,
+ * tw::TesselationEvaluationShader, tw::TesselationControlShader,
+ * and tw::ComputeShader.
+ *
+ * @param type   shader type enumeration
+ * @param source shader source code
+ */
 tw::Shader::Shader (GLenum type, const std::string& source)
 : m_type(type) {
 
