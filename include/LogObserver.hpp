@@ -52,7 +52,7 @@ public:
     void allowError ();
     void blockError ();
 
-    bool contextAllowed (const std::string&...) const;
+    bool contextAllowed (const std::string&) const;
     void allowContext (const std::string&...);
     void blockContext (const std::string&...);
     bool allContextAllowed () const;
