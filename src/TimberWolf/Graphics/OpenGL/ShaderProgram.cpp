@@ -305,7 +305,7 @@ bool tw::ShaderProgram::link () {
         std::string infoLogString;
         glGetProgramInfoLog(m_id, 255, &infoLogLength, infoLog.data());
         infoLogString.reserve(infoLogLength);
-        for (unsigned int i = 0; i < infoLogLength; ++i) {
+        for (int i = 0; i < infoLogLength; ++i) {
             infoLogString += infoLog.at(i);
         }
         Log::error("opengl", "OpenGL shader program link error: ", infoLogString);

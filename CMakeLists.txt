@@ -21,7 +21,7 @@ endforeach ()
 
 # build type selection
 if (NOT CMAKE_BUILD_TYPE)
-    set (CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build (Debug or Release)" FORCE)
+    set (CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build (Debug, Release, Compact)" FORCE)
 endif ()
 
 # notify of the build type in use
@@ -39,9 +39,10 @@ project (
 set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_CXX_EXTENSIONS OFF)
-set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-pthread")
+set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fstack-protector -Wl,-z,relro -Wl,-z,now -Wformat-security -fvisibility=hidden -W -Wall -Wno-unused-parameter -Wno-unused-function -Wno-unused-label -Wpointer-arith -Wformat -Wreturn-type -Wsign-compare -Wmultichar -Wformat-nonliteral -Winit-self -Wuninitialized -Wno-deprecated -Werror")
 set (CMAKE_CXX_FLAGS_DEBUG "-g -Og")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3")
+set (CMAKE_CXX_FLAGS_COMPACT "-Os")
 set (TimberWolf_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/TimberWolf)
 set (TimberWolf_PUBLIC_HEADER ${PROJECT_SOURCE_DIR}/include/)
 set (TimberWolf_SOURCE_DIR ${PROJECT_SOURCE_DIR}/src/TimberWolf)
@@ -137,6 +138,11 @@ list (APPEND SOURCES
     # Engine Window Subsystem
     ${TimberWolf_SOURCE_DIR}/Window/Window.cpp
 
+)
+set_source_files_properties(
+    ${PROJECT_SOURCE_DIR}/lib/FastNoise/FastNoise.cpp
+    PROPERTIES COMPILE_FLAGS
+        "-Wno-implicit-fallthrough -Wno-maybe-uninitialized"
 )
 
 # list of header files (the public API)
@@ -247,13 +253,14 @@ configure_file (
 )
 
 # dependencies
+find_package (Threads REQUIRED)
 set (OpenGL_GL_PREFERENCE "GLVND")
 find_package (OpenGL REQUIRED)
 find_package (GLEW REQUIRED)
 find_package (glfw3 REQUIRED)
 find_package (glm REQUIRED)
 include_directories (${OPENGL_INCLUDE_DIR})
-target_link_libraries (${LIBRARY_NAME} ${OPENGL_gl_LIBRARY} glfw GLEW glm)
+target_link_libraries (${LIBRARY_NAME} ${CMAKE_THREAD_LIBS_INIT} ${OPENGL_gl_LIBRARY} glfw GLEW glm)
 
 # installation
 include (GNUInstallDirs)

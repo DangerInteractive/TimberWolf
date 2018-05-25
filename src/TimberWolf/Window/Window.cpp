@@ -451,7 +451,7 @@ void tw::Window::glLiveDebug (
 
     std::string messageString;
     messageString.reserve(length);
-    for (unsigned int i = 0; i < length; ++i) {
+    for (int i = 0; i < length; ++i) {
         messageString += message[i];
     }
 

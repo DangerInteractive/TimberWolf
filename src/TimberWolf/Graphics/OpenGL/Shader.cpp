@@ -111,7 +111,7 @@ bool tw::Shader::compile () {
         std::string infoLogString;
         glGetShaderInfoLog(m_id, 255, &infoLogLength, &infoLog[0]);
         infoLogString.reserve(infoLogLength);
-        for (unsigned int i = 0; i < infoLogLength; ++i) {
+        for (int i = 0; i < infoLogLength; ++i) {
             infoLogString.push_back(infoLog[i]);
         }
         Log::error("opengl", "OpenGL shader compile error: ", infoLogString);

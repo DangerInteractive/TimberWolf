@@ -19,7 +19,7 @@ tw::Controller::Controller () {}
  */
 void tw::Controller::onKey (int action, int mod, int key, int scanCode) {
 
-    for (int i = 0; i < m_keybindings.size(); ++i) {
+    for (unsigned int i = 0; i < m_keybindings.size(); ++i) {
         m_keybindings[i].process(action, mod, key, scanCode);
     }
     Log::verbose("input", "Key ", action, " ", mod, " ", key, " ", scanCode);
@@ -117,7 +117,7 @@ std::vector<tw::Keybinding> tw::Controller::getKeybindings (KeyAction action, Ke
 
     std::vector<Keybinding> out;
 
-    for (int i = 0; i < m_keybindings.size(); ++i) {
+    for (unsigned int i = 0; i < m_keybindings.size(); ++i) {
 
         if (
             action == m_keybindings[i].getAction() &&
@@ -146,7 +146,7 @@ std::vector<tw::Keybinding> tw::Controller::getKeybindingsByKeyAction (KeyAction
 
     std::vector<Keybinding> out;
 
-    for (int i = 0; i < m_keybindings.size(); ++i) {
+    for (unsigned int i = 0; i < m_keybindings.size(); ++i) {
 
         if (action == m_keybindings[i].getAction()) {
             out.push_back(m_keybindings[i]);
@@ -168,7 +168,7 @@ std::vector<tw::Keybinding> tw::Controller::getKeybindingsByKeyType (KeyType key
 
     std::vector<Keybinding> out;
 
-    for (int i = 0; i < m_keybindings.size(); ++i) {
+    for (unsigned int i = 0; i < m_keybindings.size(); ++i) {
 
         if (key == m_keybindings[i].getKey()) {
             out.push_back(m_keybindings[i]);
@@ -191,7 +191,7 @@ std::vector<tw::Keybinding> tw::Controller::getKeybindingsByKeyMod (KeyMod mod) 
 
     std::vector<Keybinding> out;
 
-    for (int i = 0; i < m_keybindings.size(); ++i) {
+    for (unsigned int i = 0; i < m_keybindings.size(); ++i) {
 
         if (mod == m_keybindings[i].getMod()) {
             out.push_back(m_keybindings[i]);
@@ -214,7 +214,7 @@ std::vector<tw::Keybinding> tw::Controller::getKeybindingsByScanCode (int scanCo
 
     std::vector<Keybinding> out;
 
-    for (int i = 0; i < m_keybindings.size(); ++i) {
+    for (unsigned int i = 0; i < m_keybindings.size(); ++i) {
 
         if (scanCode == m_keybindings[i].getScanCode()) {
             out.push_back(m_keybindings[i]);
@@ -267,7 +267,7 @@ void tw::Controller::clearKeybindings () {
  */
 void tw::Controller::removeKeybindings (KeyAction action, KeyMod mod, KeyType key, int scanCode) {
 
-    for (int i = 0; i < m_keybindings.size(); ++i) {
+    for (unsigned int i = 0; i < m_keybindings.size(); ++i) {
 
         if (
             action == m_keybindings[i].getAction() &&
@@ -292,7 +292,7 @@ void tw::Controller::removeKeybindings (KeyAction action, KeyMod mod, KeyType ke
  */
 void tw::Controller::removeKeybindingsByKeyAction (KeyAction action) {
 
-    for (int i = 0; i < m_keybindings.size(); ++i) {
+    for (unsigned int i = 0; i < m_keybindings.size(); ++i) {
 
         if (action == m_keybindings[i].getAction()) {
             m_keybindings.erase(m_keybindings.begin() + i);
@@ -310,7 +310,7 @@ void tw::Controller::removeKeybindingsByKeyAction (KeyAction action) {
  */
 void tw::Controller::removeKeybindingsByKeyType (KeyType key) {
 
-    for (int i = 0; i < m_keybindings.size(); ++i) {
+    for (unsigned int i = 0; i < m_keybindings.size(); ++i) {
 
         if (key == m_keybindings[i].getKey()) {
             m_keybindings.erase(m_keybindings.begin() + i);
@@ -328,7 +328,7 @@ void tw::Controller::removeKeybindingsByKeyType (KeyType key) {
  */
 void tw::Controller::removeKeybindingsByKeyMod (KeyMod mod) {
 
-    for (int i = 0; i < m_keybindings.size(); ++i) {
+    for (unsigned int i = 0; i < m_keybindings.size(); ++i) {
 
         if (mod == m_keybindings[i].getMod()) {
             m_keybindings.erase(m_keybindings.begin() + i);
@@ -346,7 +346,7 @@ void tw::Controller::removeKeybindingsByKeyMod (KeyMod mod) {
  */
 void tw::Controller::removeKeybindingsByScanCode (int scanCode) {
 
-    for (int i = 0; i < m_keybindings.size(); ++i) {
+    for (unsigned int i = 0; i < m_keybindings.size(); ++i) {
 
         if (scanCode == m_keybindings[i].getScanCode()) {
             m_keybindings.erase(m_keybindings.begin() + i);
