@@ -42,9 +42,12 @@ set (CMAKE_CXX_EXTENSIONS OFF)
 set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-pthread")
 set (CMAKE_CXX_FLAGS_DEBUG "-g -Og")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3")
+set (TimberWolf_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/TimberWolf)
+set (TimberWolf_PUBLIC_HEADER ${PROJECT_SOURCE_DIR}/include/)
+set (TimberWolf_SOURCE_DIR ${PROJECT_SOURCE_DIR}/src/TimberWolf)
 configure_file (
-    ${PROJECT_SOURCE_DIR}/include/TimberWolf.hpp.in
-    ${PROJECT_SOURCE_DIR}/include/TimberWolf.hpp
+    ${PROJECT_SOURCE_DIR}/TimberWolf.hpp.in
+    ${TimberWolf_INCLUDE_DIR}/TimberWolf.hpp
 )
 include_directories (
     ${PROJECT_SOURCE_DIR}
@@ -81,43 +84,58 @@ configure_file (
 # list of sources (just for compilation)
 list (APPEND SOURCES
 
-    # bundled libraries
+    # Bundled Libraries
     ${PROJECT_SOURCE_DIR}/lib/FastNoise/FastNoise.cpp
 
-    # game engine
-    ${PROJECT_SOURCE_DIR}/src/Clock.cpp
-    ${PROJECT_SOURCE_DIR}/src/Color.cpp
-    ${PROJECT_SOURCE_DIR}/src/ComputeShader.cpp
-    ${PROJECT_SOURCE_DIR}/src/Console.cpp
-    ${PROJECT_SOURCE_DIR}/src/ConsoleLogObserver.cpp
-    ${PROJECT_SOURCE_DIR}/src/Controller.cpp
-    ${PROJECT_SOURCE_DIR}/src/File.cpp
-    ${PROJECT_SOURCE_DIR}/src/FileLogObserver.cpp
-    ${PROJECT_SOURCE_DIR}/src/FragmentShader.cpp
-    ${PROJECT_SOURCE_DIR}/src/FunctionLogObserver.cpp
-    ${PROJECT_SOURCE_DIR}/src/GameLoop.cpp
-    ${PROJECT_SOURCE_DIR}/src/GameState.cpp
-    ${PROJECT_SOURCE_DIR}/src/GameStateManager.cpp
-    ${PROJECT_SOURCE_DIR}/src/GameStateStore.cpp
-    ${PROJECT_SOURCE_DIR}/src/GeometryShader.cpp
-    ${PROJECT_SOURCE_DIR}/src/Keybinding.cpp
-    ${PROJECT_SOURCE_DIR}/src/KeyMod.cpp
-    ${PROJECT_SOURCE_DIR}/src/Log.cpp
-    ${PROJECT_SOURCE_DIR}/src/LogObserver.cpp
-    ${PROJECT_SOURCE_DIR}/src/Model.cpp
-    ${PROJECT_SOURCE_DIR}/src/Renderer.cpp
-    ${PROJECT_SOURCE_DIR}/src/Scene.cpp
-    ${PROJECT_SOURCE_DIR}/src/Shader.cpp
-    ${PROJECT_SOURCE_DIR}/src/ShaderProgram.cpp
-    ${PROJECT_SOURCE_DIR}/src/ShaderStore.cpp
-    ${PROJECT_SOURCE_DIR}/src/SpeedGovernor.cpp
-    ${PROJECT_SOURCE_DIR}/src/TesselationControlShader.cpp
-    ${PROJECT_SOURCE_DIR}/src/TesselationEvaluationShader.cpp
-    ${PROJECT_SOURCE_DIR}/src/ThreadManager.cpp
-    ${PROJECT_SOURCE_DIR}/src/VertexArray.cpp
-    ${PROJECT_SOURCE_DIR}/src/VertexBuffer.cpp
-    ${PROJECT_SOURCE_DIR}/src/VertexShader.cpp
-    ${PROJECT_SOURCE_DIR}/src/Window.cpp
+    # Engine Core Classes
+    ${TimberWolf_SOURCE_DIR}/Core/Clock.cpp
+    ${TimberWolf_SOURCE_DIR}/Core/Color.cpp
+    ${TimberWolf_SOURCE_DIR}/Core/Console.cpp
+    ${TimberWolf_SOURCE_DIR}/Core/File.cpp
+    ${TimberWolf_SOURCE_DIR}/Core/SpeedGovernor.cpp
+    ${TimberWolf_SOURCE_DIR}/Core/ThreadManager.cpp
+
+    # Engine Log Subsystem
+    ${TimberWolf_SOURCE_DIR}/Log/ConsoleLogObserver.cpp
+    ${TimberWolf_SOURCE_DIR}/Log/FileLogObserver.cpp
+    ${TimberWolf_SOURCE_DIR}/Log/FunctionLogObserver.cpp
+    ${TimberWolf_SOURCE_DIR}/Log/Log.cpp
+    ${TimberWolf_SOURCE_DIR}/Log/LogObserver.cpp
+
+    # Engine Game Loop Subsystem
+    ${TimberWolf_SOURCE_DIR}/GameLoop/Controller.cpp
+    ${TimberWolf_SOURCE_DIR}/GameLoop/GameLoop.cpp
+    ${TimberWolf_SOURCE_DIR}/GameLoop/GameState.cpp
+    ${TimberWolf_SOURCE_DIR}/GameLoop/GameStateManager.cpp
+    ${TimberWolf_SOURCE_DIR}/GameLoop/GameStateStore.cpp
+    ${TimberWolf_SOURCE_DIR}/GameLoop/Keybinding.cpp
+    ${TimberWolf_SOURCE_DIR}/GameLoop/KeyMod.cpp
+
+    # Engine Graphics Subsystem
+    ${TimberWolf_SOURCE_DIR}/Graphics/GLBufferable.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/Mesh.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/Model.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/Renderer.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/Scene.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/TexturePoint.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/Vertex.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/VertexCollection.cpp
+
+    # Engine OpenGL Graphics Backend
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/ComputeShader.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/FragmentShader.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GeometryShader.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/Shader.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/ShaderProgram.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/ShaderStore.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/TesselationControlShader.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/TesselationEvaluationShader.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/VertexArray.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/VertexBuffer.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/VertexShader.cpp
+
+    # Engine Window Subsystem
+    ${TimberWolf_SOURCE_DIR}/Window/Window.cpp
 
 )
 
@@ -125,49 +143,62 @@ list (APPEND SOURCES
 list (APPEND HEADERS
 
     # config code
-    ${PROJECT_SOURCE_DIR}/include/TimberWolf.hpp
+    ${TimberWolf_INCLUDE_DIR}/TimberWolf.hpp
 
     # bundled libraries
     ${PROJECT_SOURCE_DIR}/lib/FastNoise/FastNoise.h
 
-    # game engine
-    ${PROJECT_SOURCE_DIR}/include/Clock.hpp
-    ${PROJECT_SOURCE_DIR}/include/Color.hpp
-    ${PROJECT_SOURCE_DIR}/include/ComputeShader.hpp
-    ${PROJECT_SOURCE_DIR}/include/Console.hpp
-    ${PROJECT_SOURCE_DIR}/include/ConsoleLogObserver.hpp
-    ${PROJECT_SOURCE_DIR}/include/Controller.hpp
-    ${PROJECT_SOURCE_DIR}/include/File.hpp
-    ${PROJECT_SOURCE_DIR}/include/FileLogObserver.hpp
-    ${PROJECT_SOURCE_DIR}/include/FragmentShader.hpp
-    ${PROJECT_SOURCE_DIR}/include/FunctionLogObserver.hpp
-    ${PROJECT_SOURCE_DIR}/include/GameLoop.hpp
-    ${PROJECT_SOURCE_DIR}/include/GameState.hpp
-    ${PROJECT_SOURCE_DIR}/include/GameStateManager.hpp
-    ${PROJECT_SOURCE_DIR}/include/GameStateStore.hpp
-    ${PROJECT_SOURCE_DIR}/include/GeometryShader.hpp
-    ${PROJECT_SOURCE_DIR}/include/KeyAction.hpp
-    ${PROJECT_SOURCE_DIR}/include/Keybinding.hpp
-    ${PROJECT_SOURCE_DIR}/include/KeyMod.hpp
-    ${PROJECT_SOURCE_DIR}/include/KeyType.hpp
-    ${PROJECT_SOURCE_DIR}/include/Log.hpp
-    ${PROJECT_SOURCE_DIR}/include/LogLevel.hpp
-    ${PROJECT_SOURCE_DIR}/include/LogObserver.hpp
-    ${PROJECT_SOURCE_DIR}/include/Mesh.hpp
-    ${PROJECT_SOURCE_DIR}/include/Model.hpp
-    ${PROJECT_SOURCE_DIR}/include/Renderer.hpp
-    ${PROJECT_SOURCE_DIR}/include/Scene.hpp
-    ${PROJECT_SOURCE_DIR}/include/Shader.hpp
-    ${PROJECT_SOURCE_DIR}/include/ShaderProgram.hpp
-    ${PROJECT_SOURCE_DIR}/include/ShaderStore.hpp
-    ${PROJECT_SOURCE_DIR}/include/SpeedGovernor.hpp
-    ${PROJECT_SOURCE_DIR}/include/TesselationControlShader.hpp
-    ${PROJECT_SOURCE_DIR}/include/TesselationEvaluationShader.hpp
-    ${PROJECT_SOURCE_DIR}/include/ThreadManager.hpp
-    ${PROJECT_SOURCE_DIR}/include/VertexArray.hpp
-    ${PROJECT_SOURCE_DIR}/include/VertexBuffer.hpp
-    ${PROJECT_SOURCE_DIR}/include/VertexShader.hpp
-    ${PROJECT_SOURCE_DIR}/include/Window.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core.hpp
+    ${TimberWolf_INCLUDE_DIR}/GameLoop.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics.hpp
+    ${TimberWolf_INCLUDE_DIR}/Log.hpp
+    ${TimberWolf_INCLUDE_DIR}/OpenGL.hpp
+    ${TimberWolf_INCLUDE_DIR}/Window.hpp
+
+    # Engine Core Classes
+    ${TimberWolf_INCLUDE_DIR}/Core/Clock.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Color.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Console.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/File.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/SpeedGovernor.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/ThreadManager.hpp
+
+    # Engine Log Subsystem
+    ${TimberWolf_INCLUDE_DIR}/Log/ConsoleLogObserver.hpp
+    ${TimberWolf_INCLUDE_DIR}/Log/FileLogObserver.hpp
+    ${TimberWolf_INCLUDE_DIR}/Log/FunctionLogObserver.hpp
+    ${TimberWolf_INCLUDE_DIR}/Log/Log.hpp
+    ${TimberWolf_INCLUDE_DIR}/Log/LogObserver.hpp
+
+    # Engine Game Loop Subsystem
+    ${TimberWolf_INCLUDE_DIR}/GameLoop/Controller.hpp
+    ${TimberWolf_INCLUDE_DIR}/GameLoop/GameLoop.hpp
+    ${TimberWolf_INCLUDE_DIR}/GameLoop/GameState.hpp
+    ${TimberWolf_INCLUDE_DIR}/GameLoop/GameStateManager.hpp
+    ${TimberWolf_INCLUDE_DIR}/GameLoop/GameStateStore.hpp
+    ${TimberWolf_INCLUDE_DIR}/GameLoop/Keybinding.hpp
+    ${TimberWolf_INCLUDE_DIR}/GameLoop/KeyMod.hpp
+
+    # Engine Graphics Subsystem
+    ${TimberWolf_INCLUDE_DIR}/Graphics/Model.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/Renderer.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/Scene.hpp
+
+    # Engine OpenGL Graphics Backend
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/ComputeShader.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/FragmentShader.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GeometryShader.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/Shader.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/ShaderProgram.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/ShaderStore.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/TesselationControlShader.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/TesselationEvaluationShader.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/VertexArray.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/VertexBuffer.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/VertexShader.hpp
+
+    # Engine Window Subsystem
+    ${TimberWolf_INCLUDE_DIR}/Window/Window.hpp
 
 )
 
@@ -176,7 +207,6 @@ set (LIBRARY_NAME "TimberWolf")
 add_library (${LIBRARY_NAME} SHARED ${SOURCES})
 set_target_properties (${LIBRARY_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties (${LIBRARY_NAME} PROPERTIES SOVERSION ${TimberWolf_VERSION_MAJOR})
-set_target_properties (${LIBRARY_NAME} PROPERTIES PUBLIC_HEADER "${HEADERS}")
 set_target_properties (${LIBRARY_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
 configure_file (
     ${PROJECT_SOURCE_DIR}/TimberWolf.pc.in
@@ -217,6 +247,7 @@ configure_file (
 )
 
 # dependencies
+set (OpenGL_GL_PREFERENCE "GLVND")
 find_package (OpenGL REQUIRED)
 find_package (GLEW REQUIRED)
 find_package (glfw3 REQUIRED)
@@ -228,7 +259,10 @@ target_link_libraries (${LIBRARY_NAME} ${OPENGL_gl_LIBRARY} glfw GLEW glm)
 include (GNUInstallDirs)
 install (TARGETS ${LIBRARY_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/TimberWolf
+)
+install (
+    DIRECTORY ${TimberWolf_PUBLIC_HEADER}
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 install (
     FILES ${CMAKE_BINARY_DIR}/TimberWolf.pc
