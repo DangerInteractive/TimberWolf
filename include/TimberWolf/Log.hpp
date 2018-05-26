@@ -13,7 +13,7 @@
 #include "Core.hpp"
 
 #include "Log/ConsoleLogObserver.hpp"
-#include "Log/FileLogObsever.hpp"
+#include "Log/FileLogObserver.hpp"
 #include "Log/FunctionLogObserver.hpp"
 #include "Log/LogLevel.hpp"
 #include "Log/LogObserver.hpp"

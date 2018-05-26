@@ -39,12 +39,12 @@ project (
 set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_CXX_EXTENSIONS OFF)
-set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fstack-protector -Wl,-z,relro -Wl,-z,now -Wformat-security -fvisibility=hidden -W -Wall -Wno-unused-parameter -Wno-unused-function -Wno-unused-label -Wpointer-arith -Wformat -Wreturn-type -Wsign-compare -Wmultichar -Wformat-nonliteral -Winit-self -Wuninitialized -Wno-deprecated -Werror")
+set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fstack-protector -Wl,-z,relro -Wl,-z,now -Wformat-security -W -Wall -Wno-unused-parameter -Wno-unused-function -Wno-unused-label -Wpointer-arith -Wformat -Wreturn-type -Wsign-compare -Wmultichar -Wformat-nonliteral -Winit-self -Wuninitialized -Wno-deprecated -Werror")
 set (CMAKE_CXX_FLAGS_DEBUG "-g -Og")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3")
 set (CMAKE_CXX_FLAGS_COMPACT "-Os")
 set (TimberWolf_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/TimberWolf)
-set (TimberWolf_PUBLIC_HEADER ${PROJECT_SOURCE_DIR}/include/)
+set (TimberWolf_PUBLIC_HEADER ${PROJECT_SOURCE_DIR}/include)
 set (TimberWolf_SOURCE_DIR ${PROJECT_SOURCE_DIR}/src/TimberWolf)
 configure_file (
     ${PROJECT_SOURCE_DIR}/TimberWolf.hpp.in
@@ -148,12 +148,13 @@ set_source_files_properties(
 # list of header files (the public API)
 list (APPEND HEADERS
 
-    # config code
+    # Library Metadata
     ${TimberWolf_INCLUDE_DIR}/TimberWolf.hpp
 
-    # bundled libraries
+    # Bundled Libraries
     ${PROJECT_SOURCE_DIR}/lib/FastNoise/FastNoise.h
 
+    # Engine Core Classes
     ${TimberWolf_INCLUDE_DIR}/Core.hpp
     ${TimberWolf_INCLUDE_DIR}/GameLoop.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics.hpp
@@ -230,8 +231,8 @@ file (RELATIVE_PATH REL_INCLUDE_DIR ${INSTALL_CMAKE_DIR}
     ${INSTALL_INCLUDE_DIR}
 )
 set (CONF_INCLUDE_DIRS
-    ${PROJECT_SOURCE_DIR}
-    ${PROJECT_BINARY_DIR}
+    "${PROJECT_SOURCE_DIR}"
+    "${PROJECT_BINARY_DIR}"
 )
 configure_file (
     ${PROJECT_SOURCE_DIR}/TimberWolfConfig.cmake.in
@@ -239,7 +240,7 @@ configure_file (
     @ONLY
 )
 set (CONF_INCLUDE_DIRS
-    ${REL_INCLUDE_DIR}
+    "\${TimberWolf_CMAKE_DIR}/${REL_INCLUDE_DIR}"
 )
 configure_file (
     ${PROJECT_SOURCE_DIR}/TimberWolfConfig.cmake.in
@@ -260,7 +261,13 @@ find_package (GLEW REQUIRED)
 find_package (glfw3 REQUIRED)
 find_package (glm REQUIRED)
 include_directories (${OPENGL_INCLUDE_DIR})
-target_link_libraries (${LIBRARY_NAME} ${CMAKE_THREAD_LIBS_INIT} ${OPENGL_gl_LIBRARY} glfw GLEW glm)
+target_link_libraries (${LIBRARY_NAME}
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${OPENGL_gl_LIBRARY}
+    glfw
+    GLEW
+    glm
+)
 
 # installation
 include (GNUInstallDirs)
@@ -268,7 +275,7 @@ install (TARGETS ${LIBRARY_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 install (
-    DIRECTORY ${TimberWolf_PUBLIC_HEADER}
+    DIRECTORY ${TimberWolf_PUBLIC_HEADER}/ # trailing slash intended, don't remove
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 install (

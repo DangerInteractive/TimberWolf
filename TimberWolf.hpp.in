@@ -1,5 +1,5 @@
 // CMake Configuration Template
-#define TW_PROJECT_NAME @PROJECT_NAME@
+#define TW_PROJECT_NAME "@PROJECT_NAME@"
 #define TW_VERSION_MAJOR @TimberWolf_VERSION_MAJOR@
 #define TW_VERSION_MINOR @TimberWolf_VERSION_MINOR@
 #define TW_VERSION_PATCH @TimberWolf_VERSION_PATCH@
