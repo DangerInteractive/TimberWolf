@@ -7,7 +7,6 @@
  * Header file for the tw::Vertex class.
  */
 
-#include <GL/glew.h>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 

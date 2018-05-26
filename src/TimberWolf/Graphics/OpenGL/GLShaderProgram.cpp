@@ -1,7 +1,7 @@
-#include "../../../../include/TimberWolf/Graphics/OpenGL/ShaderProgram.hpp"
+#include "../../../../include/TimberWolf/Graphics/OpenGL/GLShaderProgram.hpp"
 
 /**
- * @class tw::ShaderProgram
+ * @class tw::GLShaderProgram
  *
  * Handle for an OpenGL shader program (version 2.0+), linking together various
  * shader types to be executed by the renderer.
@@ -10,7 +10,7 @@
 /**
  * Default constructor. Allocates OpenGL shader program resource on GPU.
  */
-tw::ShaderProgram::ShaderProgram () {
+tw::GLShaderProgram::GLShaderProgram () {
 
     m_id = glCreateProgram();
 
@@ -28,13 +28,13 @@ tw::ShaderProgram::ShaderProgram () {
  * @param tesselationControlShader    tesselation control shader handle (optional) (pass nullptr to disable)
  * @param computeShader               conpute shader handle (optional) (pass nullptr to disable)
  */
-tw::ShaderProgram::ShaderProgram (
-    const std::shared_ptr<VertexShader>& vertexShader,
-    const std::shared_ptr<FragmentShader>& fragmentShader,
-    const std::shared_ptr<GeometryShader>& geometryShader,
-    const std::shared_ptr<TesselationEvaluationShader>& tesselationEvaluationShader,
-    const std::shared_ptr<TesselationControlShader>& tesselationControlShader,
-    const std::shared_ptr<ComputeShader>& computeShader
+tw::GLShaderProgram::GLShaderProgram (
+    const std::shared_ptr<GLVertexShader>& vertexShader,
+    const std::shared_ptr<GLFragmentShader>& fragmentShader,
+    const std::shared_ptr<GLGeometryShader>& geometryShader,
+    const std::shared_ptr<GLTesselationEvaluationShader>& tesselationEvaluationShader,
+    const std::shared_ptr<GLTesselationControlShader>& tesselationControlShader,
+    const std::shared_ptr<GLComputeShader>& computeShader
 )
 :   m_vertexShader(vertexShader),
     m_fragmentShader(fragmentShader),
@@ -54,7 +54,7 @@ tw::ShaderProgram::ShaderProgram (
  *
  * @return shader program ID
  */
-GLuint tw::ShaderProgram::getId () const {
+GLuint tw::GLShaderProgram::getId () const {
 
     return m_id;
 
@@ -65,7 +65,7 @@ GLuint tw::ShaderProgram::getId () const {
  *
  * @return true if the shader program has been linked, false if not
  */
-bool tw::ShaderProgram::isLinked () const {
+bool tw::GLShaderProgram::isLinked () const {
 
     return m_linked;
 
@@ -77,7 +77,7 @@ bool tw::ShaderProgram::isLinked () const {
  *
  * @return shared pointer to attached vertex shader, or nullptr if none
  */
-std::shared_ptr<tw::VertexShader> tw::ShaderProgram::getVertexShader () const {
+std::shared_ptr<tw::GLVertexShader> tw::GLShaderProgram::getVertexShader () const {
 
     return m_vertexShader;
 
@@ -89,7 +89,7 @@ std::shared_ptr<tw::VertexShader> tw::ShaderProgram::getVertexShader () const {
  *
  * @return shared pointer to attached fragment shader, or nullptr if none
  */
-std::shared_ptr<tw::FragmentShader> tw::ShaderProgram::getFragmentShader () const {
+std::shared_ptr<tw::GLFragmentShader> tw::GLShaderProgram::getFragmentShader () const {
 
     return m_fragmentShader;
 
@@ -101,7 +101,7 @@ std::shared_ptr<tw::FragmentShader> tw::ShaderProgram::getFragmentShader () cons
  *
  * @return shared pointer to attached geometry shader, or nullptr if none
  */
-std::shared_ptr<tw::GeometryShader> tw::ShaderProgram::getGeometryShader () const {
+std::shared_ptr<tw::GLGeometryShader> tw::GLShaderProgram::getGeometryShader () const {
 
     return m_geometryShader;
 
@@ -109,11 +109,10 @@ std::shared_ptr<tw::GeometryShader> tw::ShaderProgram::getGeometryShader () cons
 
 /**
  * Get a std::shared_ptr to the attached tesselation evaluation shader. If no
- * tesselation evaluation shader is attached, returns nullptr.
- *
- * @return shared pointer to attached tesselation evaluation shader, or nullptr if none
+ * tesselation evaluation shader is attached, returns nullptr. * @return shared
+ * pointer to attached tesselation evaluation shader, or nullptr if none
  */
-std::shared_ptr<tw::TesselationEvaluationShader> tw::ShaderProgram::getTesselationEvaluationShader () const {
+std::shared_ptr<tw::GLTesselationEvaluationShader> tw::GLShaderProgram::getTesselationEvaluationShader () const {
 
     return m_tesselationEvaluationShader;
 
@@ -121,11 +120,10 @@ std::shared_ptr<tw::TesselationEvaluationShader> tw::ShaderProgram::getTesselati
 
 /**
  * Get a std::shared_ptr to the attached tesselation control shader. If no
- * tesselation control shader is attached, returns nullptr.
- *
- * @return shared pointer to attached tesselation control shader, or nullptr if none
+ * tesselation control shader is attached, returns nullptr. * @return shared
+ * pointer to attached tesselation control shader, or nullptr if none
  */
-std::shared_ptr<tw::TesselationControlShader> tw::ShaderProgram::getTesselationControlShader () const {
+std::shared_ptr<tw::GLTesselationControlShader> tw::GLShaderProgram::getTesselationControlShader () const {
 
     return m_tesselationControlShader;
 
@@ -137,7 +135,7 @@ std::shared_ptr<tw::TesselationControlShader> tw::ShaderProgram::getTesselationC
  *
  * @return shared pointer to attached compute shader, or nullptr if none
  */
-std::shared_ptr<tw::ComputeShader> tw::ShaderProgram::getComputeShader () const {
+std::shared_ptr<tw::GLComputeShader> tw::GLShaderProgram::getComputeShader () const {
 
     return m_computeShader;
 
@@ -151,7 +149,7 @@ std::shared_ptr<tw::ComputeShader> tw::ShaderProgram::getComputeShader () const 
  * @param vertexShader shared pointer to vertex shader handle
  * @return true if vertex shader was successfully set, false if not
  */
-bool tw::ShaderProgram::setVertexShader (const std::shared_ptr<VertexShader>& vertexShader) {
+bool tw::GLShaderProgram::setVertexShader (const std::shared_ptr<GLVertexShader>& vertexShader) {
 
     if (isLinked()) {
         return false;
@@ -171,7 +169,7 @@ bool tw::ShaderProgram::setVertexShader (const std::shared_ptr<VertexShader>& ve
  * @param fragmentShader shared pointer to fragment shader handle
  * @return true if fragment shader was successfully set, false if not
  */
-bool tw::ShaderProgram::setFragmentShader (const std::shared_ptr<FragmentShader>& fragmentShader) {
+bool tw::GLShaderProgram::setFragmentShader (const std::shared_ptr<GLFragmentShader>& fragmentShader) {
 
     if (isLinked()) {
         return false;
@@ -191,7 +189,7 @@ bool tw::ShaderProgram::setFragmentShader (const std::shared_ptr<FragmentShader>
  * @param geometryShader shared pointer to geometry shader handle
  * @return true if geometry shader was successfully set, false if not
  */
-bool tw::ShaderProgram::setGeometryShader (const std::shared_ptr<GeometryShader>& geometryShader) {
+bool tw::GLShaderProgram::setGeometryShader (const std::shared_ptr<GLGeometryShader>& geometryShader) {
 
     if (isLinked()) {
         return false;
@@ -212,7 +210,7 @@ bool tw::ShaderProgram::setGeometryShader (const std::shared_ptr<GeometryShader>
  * @param tesselationEvaluationShader shared pointer to tesselation evaluation shader handle
  * @return true if tesselation evaluation shader was successfully set, false if not
  */
-bool tw::ShaderProgram::setTesselationEvaluationShader (const std::shared_ptr<TesselationEvaluationShader>& tesselationEvaluationShader) {
+bool tw::GLShaderProgram::setTesselationEvaluationShader (const std::shared_ptr<GLTesselationEvaluationShader>& tesselationEvaluationShader) {
 
     if (isLinked()) {
         return false;
@@ -228,11 +226,11 @@ bool tw::ShaderProgram::setTesselationEvaluationShader (const std::shared_ptr<Te
  * Set the attached tesselation control shader to a given std::shared_ptr to a
  * tesselation control shader handle. Only works if the program has not already
  * been linked. You can pass nullptr to unset the tesselation control shader.
- *
- * @param tesselationControlShader shared pointer to tesselation control shader handle
- * @return true if tesselation control shader was successfully set, false if not
+ * @param tesselationControlShader shared pointer to tesselation control shader
+ * handle @return true if tesselation control shader was successfully set, false
+ * if not
  */
-bool tw::ShaderProgram::setTesselationControlShader (const std::shared_ptr<TesselationControlShader>& tesselationControlShader) {
+bool tw::GLShaderProgram::setTesselationControlShader (const std::shared_ptr<GLTesselationControlShader>& tesselationControlShader) {
 
     if (isLinked()) {
         return false;
@@ -252,7 +250,7 @@ bool tw::ShaderProgram::setTesselationControlShader (const std::shared_ptr<Tesse
  * @param computeShader shared pointer to compute shader handle
  * @return true if compute shader was successfully set, false if not
  */
-bool tw::ShaderProgram::setComputeShader (const std::shared_ptr<ComputeShader>& computeShader) {
+bool tw::GLShaderProgram::setComputeShader (const std::shared_ptr<GLComputeShader>& computeShader) {
 
     if (isLinked()) {
         return false;
@@ -268,7 +266,7 @@ bool tw::ShaderProgram::setComputeShader (const std::shared_ptr<ComputeShader>& 
  * Link all of the attached shaders in the shader program. Once this is done,
  * the attached shaders cannot be modified.
  */
-bool tw::ShaderProgram::link () {
+bool tw::GLShaderProgram::link () {
 
     if (m_vertexShader != nullptr) {
         glAttachShader(m_id, m_vertexShader->getId());
@@ -324,7 +322,7 @@ bool tw::ShaderProgram::link () {
  *
  * @return true if shader program was successfully activated, false if not
  */
-bool tw::ShaderProgram::use () {
+bool tw::GLShaderProgram::use () {
 
     if (!isLinked()) {
         if (!link()) {
@@ -343,7 +341,7 @@ bool tw::ShaderProgram::use () {
  *
  * @return true if shader was successfully deactivated, false if not
  */
-bool tw::ShaderProgram::unuse () {
+bool tw::GLShaderProgram::unuse () {
 
     glUseProgram(0);
 

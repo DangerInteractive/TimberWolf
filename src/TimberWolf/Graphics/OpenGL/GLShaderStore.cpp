@@ -1,7 +1,7 @@
-#include "../../../../include/TimberWolf/Graphics/OpenGL/ShaderStore.hpp"
+#include "../../../../include/TimberWolf/Graphics/OpenGL/GLShaderStore.hpp"
 
 /**
- * @class tw::ShaderStore
+ * @class tw::GLShaderStore
  *
  * Static map-based object cache keeping track of handles to shader objects and
  * shader programs via a std::string key.
@@ -13,7 +13,7 @@
  * @param key vertex shader key to check
  * @return true if vertex shader key exists, false if not
  */
-bool tw::ShaderStore::vertexShaderExists (const std::string& key) {
+bool tw::GLShaderStore::vertexShaderExists (const std::string& key) {
 
     if (m_vertexShaders.find(key) == m_vertexShaders.end()) {
         return false;
@@ -30,7 +30,7 @@ bool tw::ShaderStore::vertexShaderExists (const std::string& key) {
  * @param key vertex shader key
  * @return shared pointer to vertex shader handle, nullptr if none
  */
-std::shared_ptr<tw::VertexShader> tw::ShaderStore::getVertexShader (const std::string& key) {
+std::shared_ptr<tw::GLVertexShader> tw::GLShaderStore::getVertexShader (const std::string& key) {
 
     if (!vertexShaderExists(key)) {
         return nullptr;
@@ -46,7 +46,7 @@ std::shared_ptr<tw::VertexShader> tw::ShaderStore::getVertexShader (const std::s
  * @param key fragment shader key to check
  * @return true if fragment shader key exists, false if not
  */
-bool tw::ShaderStore::fragmentShaderExists (const std::string& key) {
+bool tw::GLShaderStore::fragmentShaderExists (const std::string& key) {
 
     if (m_fragmentShaders.find(key) == m_fragmentShaders.end()) {
         return false;
@@ -63,7 +63,7 @@ bool tw::ShaderStore::fragmentShaderExists (const std::string& key) {
  * @param key fragment shader key
  * @return shared pointer to fragment shader handle, nullptr if none
  */
-std::shared_ptr<tw::FragmentShader> tw::ShaderStore::getFragmentShader (const std::string& key) {
+std::shared_ptr<tw::GLFragmentShader> tw::GLShaderStore::getFragmentShader (const std::string& key) {
 
     if (!fragmentShaderExists(key)) {
         return nullptr;
@@ -79,7 +79,7 @@ std::shared_ptr<tw::FragmentShader> tw::ShaderStore::getFragmentShader (const st
  * @param key geometry shader key to check
  * @return true if geometry shader key exists, false if not
  */
-bool tw::ShaderStore::geometryShaderExists (const std::string& key) {
+bool tw::GLShaderStore::geometryShaderExists (const std::string& key) {
 
     if (m_geometryShaders.find(key) == m_geometryShaders.end()) {
         return false;
@@ -96,7 +96,7 @@ bool tw::ShaderStore::geometryShaderExists (const std::string& key) {
  * @param key geometry shader key
  * @return shared pointer to geometry shader, nullptr if none
  */
-std::shared_ptr<tw::GeometryShader> tw::ShaderStore::getGeometryShader (const std::string& key) {
+std::shared_ptr<tw::GLGeometryShader> tw::GLShaderStore::getGeometryShader (const std::string& key) {
 
     if (!geometryShaderExists(key)) {
         return nullptr;
@@ -112,7 +112,7 @@ std::shared_ptr<tw::GeometryShader> tw::ShaderStore::getGeometryShader (const st
  * @param key tesselation evaluation shader key to check
  * @return true if tesselation evaluation shader key exists, false if not
  */
-bool tw::ShaderStore::tesselationEvaluationShaderExists (const std::string& key) {
+bool tw::GLShaderStore::tesselationEvaluationShaderExists (const std::string& key) {
 
     if (m_tesselationEvaluationShaders.find(key) == m_tesselationEvaluationShaders.end()) {
         return false;
@@ -130,7 +130,7 @@ bool tw::ShaderStore::tesselationEvaluationShaderExists (const std::string& key)
  * @param key tesselation evaluation shader key
  * @return shared pointer to tesselation evaluation shader, nullptr if none
  */
-std::shared_ptr<tw::TesselationEvaluationShader> tw::ShaderStore::getTesselationEvaluationShader (const std::string& key) {
+std::shared_ptr<tw::GLTesselationEvaluationShader> tw::GLShaderStore::getTesselationEvaluationShader (const std::string& key) {
 
     if (!tesselationEvaluationShaderExists(key)) {
         return nullptr;
@@ -146,7 +146,7 @@ std::shared_ptr<tw::TesselationEvaluationShader> tw::ShaderStore::getTesselation
  * @param key tesselation control shader key to check
  * @return true if tesselation control shader key exists, false if not
  */
-bool tw::ShaderStore::tesselationControlShaderExists (const std::string& key) {
+bool tw::GLShaderStore::tesselationControlShaderExists (const std::string& key) {
 
     if (m_tesselationControlShaders.find(key) == m_tesselationControlShaders.end()) {
         return false;
@@ -163,7 +163,7 @@ bool tw::ShaderStore::tesselationControlShaderExists (const std::string& key) {
  * @param key tesselation evaluation shader key
  * @return shared pointer to tesselation control shader, nullptr if none
  */
-std::shared_ptr<tw::TesselationControlShader> tw::ShaderStore::getTesselationControlShader (const std::string& key) {
+std::shared_ptr<tw::GLTesselationControlShader> tw::GLShaderStore::getTesselationControlShader (const std::string& key) {
 
     if (!tesselationControlShaderExists(key)) {
         return nullptr;
@@ -179,7 +179,7 @@ std::shared_ptr<tw::TesselationControlShader> tw::ShaderStore::getTesselationCon
  * @param key compute shader key to check
  * @return true if compute shader key exists, false if not
  */
-bool tw::ShaderStore::computeShaderExists (const std::string& key) {
+bool tw::GLShaderStore::computeShaderExists (const std::string& key) {
 
     if (m_computeShaders.find(key) == m_computeShaders.end()) {
         return false;
@@ -196,7 +196,7 @@ bool tw::ShaderStore::computeShaderExists (const std::string& key) {
  * @param key compute shader key
  * @return shared pointer to compute shader, nullptr if none
  */
-std::shared_ptr<tw::ComputeShader> tw::ShaderStore::getComputeShader (const std::string& key) {
+std::shared_ptr<tw::GLComputeShader> tw::GLShaderStore::getComputeShader (const std::string& key) {
 
     if (!computeShaderExists(key)) {
         return nullptr;
@@ -212,7 +212,7 @@ std::shared_ptr<tw::ComputeShader> tw::ShaderStore::getComputeShader (const std:
  * @param key shader program key to checl
  * @return true if shader program key exists, false if not
  */
-bool tw::ShaderStore::shaderProgramExists (const std::string& key) {
+bool tw::GLShaderStore::shaderProgramExists (const std::string& key) {
 
     if (m_shaderPrograms.find(key) == m_shaderPrograms.end()) {
         return false;
@@ -229,7 +229,7 @@ bool tw::ShaderStore::shaderProgramExists (const std::string& key) {
  * @param key shader program key
  * @return shared pointer to shader program, nullptr if none
  */
-std::shared_ptr<tw::ShaderProgram> tw::ShaderStore::getShaderProgram (const std::string& key) {
+std::shared_ptr<tw::GLShaderProgram> tw::GLShaderStore::getShaderProgram (const std::string& key) {
 
     if (!shaderProgramExists(key)) {
         return nullptr;
@@ -240,15 +240,15 @@ std::shared_ptr<tw::ShaderProgram> tw::ShaderStore::getShaderProgram (const std:
 }
 
 /**
- * @fn tw::ShaderStore::makeVertexShader
+ * @fn tw::GLShaderStore::makeVertexShader
  *
  * Factory method that creates a vertex shader using the given arguments, and
  * then stores the new std::shared_ptr to the vertex shader handle in the cache
  * under the given std::string key.
  *
- * @tparam T    variadic types of arguments forwarded to tw::VertexShader contructor (automatically deduced)
+ * @tparam T    variadic types of arguments forwarded to tw::GLVertexShader contructor (automatically deduced)
  * @param  key  vertex shader key
- * @param  args variadic arguments forwarded to tw::VertexShader constructor
+ * @param  args variadic arguments forwarded to tw::GLVertexShader constructor
  * @return shared pointer to the created vertex shader handle
  */
 
@@ -260,7 +260,7 @@ std::shared_ptr<tw::ShaderProgram> tw::ShaderStore::getShaderProgram (const std:
  * @param vertexShader shared pointer to vertex shader handle
  * @return true if vertex shader was successfully registered, false if not
  */
-bool tw::ShaderStore::registerVertexShader (const std::string& key, const std::shared_ptr<VertexShader>& vertexShader) {
+bool tw::GLShaderStore::registerVertexShader (const std::string& key, const std::shared_ptr<GLVertexShader>& vertexShader) {
 
     if (vertexShaderExists(key)) {
         logVertexShaderAlreadyExists(key);
@@ -282,9 +282,9 @@ bool tw::ShaderStore::registerVertexShader (const std::string& key, const std::s
  * @param vertexShader pointer to vertex shader handle
  * @return true if vertex shader was successfully registered, false if not
  */
-bool tw::ShaderStore::registerVertexShader (const std::string& key, VertexShader* vertexShader) {
+bool tw::GLShaderStore::registerVertexShader (const std::string& key, GLVertexShader* vertexShader) {
 
-    return registerVertexShader(key, std::shared_ptr<VertexShader>(vertexShader));
+    return registerVertexShader(key, std::shared_ptr<GLVertexShader>(vertexShader));
 
 }
 
@@ -295,7 +295,7 @@ bool tw::ShaderStore::registerVertexShader (const std::string& key, VertexShader
  *
  * @param key vertex shader key
  */
-void tw::ShaderStore::deleteVertexShader (const std::string& key) {
+void tw::GLShaderStore::deleteVertexShader (const std::string& key) {
 
     if (!vertexShaderExists(key)) {
         return;
@@ -307,15 +307,15 @@ void tw::ShaderStore::deleteVertexShader (const std::string& key) {
 }
 
 /**
- * @fn tw::ShaderStore::makeFragmentShader
+ * @fn tw::GLShaderStore::makeFragmentShader
  *
  * Factory method that creates a fragment shader using the given arguments, and
  * then stores the new std::shared_ptr to the fragment shader handle in the
  * cache under the given std::string key.
  *
- * @tparam T    variadic types of arguments forwarded to tw::FragmentShader contructor (automatically deduced)
+ * @tparam T    variadic types of arguments forwarded to tw::GLFragmentShader contructor (automatically deduced)
  * @param  key  fragment shader key
- * @param  args variadic arguments forwarded to tw::FragmentShader constructor
+ * @param  args variadic arguments forwarded to tw::GLFragmentShader constructor
  * @return shared pointer to the created fragment shader handle
  */
 
@@ -327,7 +327,7 @@ void tw::ShaderStore::deleteVertexShader (const std::string& key) {
  * @param fragmentShader shared pointer to fragment shader handle
  * @return true if fragment shader was successfully registered, false if not
  */
-bool tw::ShaderStore::registerFragmentShader (const std::string& key, const std::shared_ptr<FragmentShader>& fragmentShader) {
+bool tw::GLShaderStore::registerFragmentShader (const std::string& key, const std::shared_ptr<GLFragmentShader>& fragmentShader) {
 
     if (fragmentShaderExists(key)) {
         logFragmentShaderAlreadyExists(key);
@@ -349,9 +349,9 @@ bool tw::ShaderStore::registerFragmentShader (const std::string& key, const std:
  * @param fragmentShader pointer to fragment shader handle
  * @return true if fragment shader was successfully registered, false if not
  */
-bool tw::ShaderStore::registerFragmentShader (const std::string& key, FragmentShader* fragmentShader) {
+bool tw::GLShaderStore::registerFragmentShader (const std::string& key, GLFragmentShader* fragmentShader) {
 
-    return registerFragmentShader(key, std::shared_ptr<FragmentShader>(fragmentShader));
+    return registerFragmentShader(key, std::shared_ptr<GLFragmentShader>(fragmentShader));
 
 }
 
@@ -362,7 +362,7 @@ bool tw::ShaderStore::registerFragmentShader (const std::string& key, FragmentSh
  *
  * @param key fragment shader key
  */
-void tw::ShaderStore::deleteFragmentShader (const std::string& key) {
+void tw::GLShaderStore::deleteFragmentShader (const std::string& key) {
 
     if (!fragmentShaderExists(key)) {
         return;
@@ -374,15 +374,15 @@ void tw::ShaderStore::deleteFragmentShader (const std::string& key) {
 }
 
 /**
- * @fn tw::ShaderStore::makeGeometryShader
+ * @fn tw::GLShaderStore::makeGeometryShader
  *
  * Factory method that creates a geometry shader using the given arguments, and
  * then stores the new std::shared_ptr to the geometry shader handle in the
  * cache under the given std::string key.
  *
- * @tparam T    variadic types of arguments forwarded to tw::GeometryShader contructor (automatically deduced)
+ * @tparam T    variadic types of arguments forwarded to tw::GLGeometryShader contructor (automatically deduced)
  * @param  key  geometry shader key
- * @param  args variadic arguments forwarded to tw::GeometryShader constructor
+ * @param  args variadic arguments forwarded to tw::GLGeometryShader constructor
  * @return shared pointer to the created geometry shader handle
  */
 
@@ -394,7 +394,7 @@ void tw::ShaderStore::deleteFragmentShader (const std::string& key) {
  * @param geometryShader shared pointer to geometry shader handle
  * @return true if geometry shader was successfully registered, false if not
  */
-bool tw::ShaderStore::registerGeometryShader (const std::string& key, const std::shared_ptr<GeometryShader>& geometryShader) {
+bool tw::GLShaderStore::registerGeometryShader (const std::string& key, const std::shared_ptr<GLGeometryShader>& geometryShader) {
 
     if (geometryShaderExists(key)) {
         logGeometryShaderAlreadyExists(key);
@@ -416,9 +416,9 @@ bool tw::ShaderStore::registerGeometryShader (const std::string& key, const std:
  * @param geometryShader pointer to geometry shader handle
  * @return true if geometry shader was successfully registered, false if not
  */
-bool tw::ShaderStore::registerGeometryShader (const std::string& key, GeometryShader* geometryShader) {
+bool tw::GLShaderStore::registerGeometryShader (const std::string& key, GLGeometryShader* geometryShader) {
 
-    return registerGeometryShader(key, std::shared_ptr<GeometryShader>(geometryShader));
+    return registerGeometryShader(key, std::shared_ptr<GLGeometryShader>(geometryShader));
 
 }
 
@@ -429,7 +429,7 @@ bool tw::ShaderStore::registerGeometryShader (const std::string& key, GeometrySh
  *
  * @param key geometry shader key
  */
-void tw::ShaderStore::deleteGeometryShader (const std::string& key) {
+void tw::GLShaderStore::deleteGeometryShader (const std::string& key) {
 
     if (!geometryShaderExists(key)) {
         return;
@@ -441,15 +441,15 @@ void tw::ShaderStore::deleteGeometryShader (const std::string& key) {
 }
 
 /**
- * @fn tw::ShaderStore::makeTesselationEvaluationShader
+ * @fn tw::GLShaderStore::makeTesselationEvaluationShader
  *
  * Factory method that creates a tesselation evaluation shader using the given
  * arguments, and then stores the new std::shared_ptr to the tesselation
  * evaluation shader handle in the cache under the given std::string key.
  *
- * @tparam T    variadic types of arguments forwarded to tw::TesselationEvaluationShader contructor (automatically deduced)
+ * @tparam T    variadic types of arguments forwarded to tw::GLTesselationEvaluationShader contructor (automatically deduced)
  * @param  key  tesselation evaluation shader key
- * @param  args variadic arguments forwarded to tw::TesselationEvaluationShader constructor
+ * @param  args variadic arguments forwarded to tw::GLTesselationEvaluationShader constructor
  * @return shared pointer to the created tesselation evaluation shader handle
  */
 
@@ -461,7 +461,7 @@ void tw::ShaderStore::deleteGeometryShader (const std::string& key) {
  * @param tesselationEvaluationShader shared pointer to tesselation evaluation shader handle
  * @return true if tesselation evaluation shader was successfully registered, false if not
  */
-bool tw::ShaderStore::registerTesselationEvaluationShader (const std::string& key, const std::shared_ptr<TesselationEvaluationShader>& tesselationEvaluationShader) {
+bool tw::GLShaderStore::registerTesselationEvaluationShader (const std::string& key, const std::shared_ptr<GLTesselationEvaluationShader>& tesselationEvaluationShader) {
 
     if (tesselationEvaluationShaderExists(key)) {
         logTesselationEvaluationShaderAlreadyExists(key);
@@ -483,9 +483,9 @@ bool tw::ShaderStore::registerTesselationEvaluationShader (const std::string& ke
  * @param tesselationEvaluationShader pointer to tesselation evaluation shader handle
  * @return true if tesselation evaluation shader was successfully registered, false if not
  */
-bool tw::ShaderStore::registerTesselationEvaluationShader (const std::string& key, TesselationEvaluationShader* tesselationEvaluationShader) {
+bool tw::GLShaderStore::registerTesselationEvaluationShader (const std::string& key, GLTesselationEvaluationShader* tesselationEvaluationShader) {
 
-    return registerTesselationEvaluationShader(key, std::shared_ptr<TesselationEvaluationShader>(tesselationEvaluationShader));
+    return registerTesselationEvaluationShader(key, std::shared_ptr<GLTesselationEvaluationShader>(tesselationEvaluationShader));
 
 }
 
@@ -496,7 +496,7 @@ bool tw::ShaderStore::registerTesselationEvaluationShader (const std::string& ke
  *
  * @param key tesselation evaluation shader key
  */
-void tw::ShaderStore::deleteTesselationEvaluationShader (const std::string& key) {
+void tw::GLShaderStore::deleteTesselationEvaluationShader (const std::string& key) {
 
     if (!tesselationEvaluationShaderExists(key)) {
         return;
@@ -508,15 +508,15 @@ void tw::ShaderStore::deleteTesselationEvaluationShader (const std::string& key)
 }
 
 /**
- * @fn tw::ShaderStore::makeTesselationControlShader
+ * @fn tw::GLShaderStore::makeTesselationControlShader
  *
  * Factory method that creates a tesselation control shader using the given
  * arguments, and then stores the new std::shared_ptr to the tesselation control
  * shader handle in the cache under the given std::string key.
  *
- * @tparam T    variadic types of arguments forwarded to tw::TesselationControlShader contructor (automatically deduced)
+ * @tparam T    variadic types of arguments forwarded to tw::GLTesselationControlShader contructor (automatically deduced)
  * @param  key  tesselation control shader key
- * @param  args variadic arguments forwarded to tw::TesselationControlShader constructor
+ * @param  args variadic arguments forwarded to tw::GLTesselationControlShader constructor
  * @return shared pointer to the created tesselation control shader handle
  */
 
@@ -528,7 +528,7 @@ void tw::ShaderStore::deleteTesselationEvaluationShader (const std::string& key)
  * @param tesselationControlShader shared pointer to tesselation control shader handle
  * @return true if tesselation control shader was successfully registered, false if not
  */
-bool tw::ShaderStore::registerTesselationControlShader (const std::string& key, const std::shared_ptr<TesselationControlShader>& tesselationControlShader) {
+bool tw::GLShaderStore::registerTesselationControlShader (const std::string& key, const std::shared_ptr<GLTesselationControlShader>& tesselationControlShader) {
 
     if (tesselationControlShaderExists(key)) {
         logTesselationControlShaderAlreadyExists(key);
@@ -550,9 +550,9 @@ bool tw::ShaderStore::registerTesselationControlShader (const std::string& key, 
  * @param tesselationControlShader pointer to tesselation shader handle
  * @return true if tesselation control shader was successfully registered, false if not
  */
-bool tw::ShaderStore::registerTesselationControlShader (const std::string& key, TesselationControlShader* tesselationControlShader) {
+bool tw::GLShaderStore::registerTesselationControlShader (const std::string& key, GLTesselationControlShader* tesselationControlShader) {
 
-    return registerTesselationControlShader(key, std::shared_ptr<TesselationControlShader>(tesselationControlShader));
+    return registerTesselationControlShader(key, std::shared_ptr<GLTesselationControlShader>(tesselationControlShader));
 
 }
 
@@ -563,7 +563,7 @@ bool tw::ShaderStore::registerTesselationControlShader (const std::string& key, 
  *
  * @param key tesselation control shader key
  */
-void tw::ShaderStore::deleteTesselationControlShader (const std::string& key) {
+void tw::GLShaderStore::deleteTesselationControlShader (const std::string& key) {
 
     if (!tesselationControlShaderExists(key)) {
         return;
@@ -575,15 +575,15 @@ void tw::ShaderStore::deleteTesselationControlShader (const std::string& key) {
 }
 
 /**
- * @fn tw::ShaderStore::makeComputeShader
+ * @fn tw::GLShaderStore::makeComputeShader
  *
  * Factory method that creates a compute shader using the given arguments, and
  * then stores the new std::shared_ptr to the compute shader handle in the cache
  * under the given std::string key.
  *
- * @tparam T    variadic types of arguments forwarded to tw::ComputeShader contructor (automatically deduced)
+ * @tparam T    variadic types of arguments forwarded to tw::GLComputeShader contructor (automatically deduced)
  * @param  key  compute shader key
- * @param  args variadic arguments forwarded to tw::ComputeShader constructor
+ * @param  args variadic arguments forwarded to tw::GLComputeShader constructor
  * @return shared pointer to the created compute shader handle
  */
 
@@ -595,7 +595,7 @@ void tw::ShaderStore::deleteTesselationControlShader (const std::string& key) {
  * @param computeShader shared pointer to compute shader handle
  * @return true if compute shader was successfully registered, false if not
  */
-bool tw::ShaderStore::registerComputeShader (const std::string& key, const std::shared_ptr<ComputeShader>& computeShader) {
+bool tw::GLShaderStore::registerComputeShader (const std::string& key, const std::shared_ptr<GLComputeShader>& computeShader) {
 
     if (computeShaderExists(key)) {
         logComputeShaderAlreadyExists(key);
@@ -617,9 +617,9 @@ bool tw::ShaderStore::registerComputeShader (const std::string& key, const std::
  * @param computeShader pointer to fragment shader handle
  * @return true if compute shader was successfully registered, false if not
  */
-bool tw::ShaderStore::registerComputeShader (const std::string& key, ComputeShader* computeShader) {
+bool tw::GLShaderStore::registerComputeShader (const std::string& key, GLComputeShader* computeShader) {
 
-    return registerComputeShader(key, std::shared_ptr<ComputeShader>(computeShader));
+    return registerComputeShader(key, std::shared_ptr<GLComputeShader>(computeShader));
 
 }
 
@@ -630,7 +630,7 @@ bool tw::ShaderStore::registerComputeShader (const std::string& key, ComputeShad
  *
  * @param key compute shader key
  */
-void tw::ShaderStore::deleteComputeShader (const std::string& key) {
+void tw::GLShaderStore::deleteComputeShader (const std::string& key) {
 
     if (!computeShaderExists(key)) {
         return;
@@ -642,7 +642,7 @@ void tw::ShaderStore::deleteComputeShader (const std::string& key) {
 }
 
 /**
- * @fn tw::ShaderStore::makeShaderProgram
+ * @fn tw::GLShaderStore::makeShaderProgram
  *
  * Factory method that creates a shader program using the given arguments, and
  * then stores the new std::shared_ptr to the shader program handle in the cache
@@ -669,7 +669,7 @@ void tw::ShaderStore::deleteComputeShader (const std::string& key) {
  * @param computeShaderKey               compute shader key
  * @return shared pointer to the created shader program handle, or nullptr on failure
  */
-std::shared_ptr<tw::ShaderProgram> tw::ShaderStore::makeShaderProgramByKeys (
+std::shared_ptr<tw::GLShaderProgram> tw::GLShaderStore::makeShaderProgramByKeys (
     const std::string& key,
     const std::string& vertexShaderKey,
     const std::string& fragmentShaderKey,
@@ -699,7 +699,7 @@ std::shared_ptr<tw::ShaderProgram> tw::ShaderStore::makeShaderProgramByKeys (
  * @param shaderProgram shared pointer to shader program handle
  * @return true if shader program was successfully registered, false if not
  */
-bool tw::ShaderStore::registerShaderProgram (const std::string& key, const std::shared_ptr<ShaderProgram>& shaderProgram) {
+bool tw::GLShaderStore::registerShaderProgram (const std::string& key, const std::shared_ptr<GLShaderProgram>& shaderProgram) {
 
     if (shaderProgramExists(key)) {
         logShaderProgramAlreadyExists(key);
@@ -721,9 +721,9 @@ bool tw::ShaderStore::registerShaderProgram (const std::string& key, const std::
  * @param shaderProgram pointer to shader program handle
  * @return true if shader program was successfully registered, false if not
  */
-bool tw::ShaderStore::registerShaderProgram (const std::string& key, ShaderProgram* shaderProgram) {
+bool tw::GLShaderStore::registerShaderProgram (const std::string& key, GLShaderProgram* shaderProgram) {
 
-    return registerShaderProgram(key, std::shared_ptr<ShaderProgram>(shaderProgram));
+    return registerShaderProgram(key, std::shared_ptr<GLShaderProgram>(shaderProgram));
 
 }
 
@@ -734,7 +734,7 @@ bool tw::ShaderStore::registerShaderProgram (const std::string& key, ShaderProgr
  *
  * @param key shader program key
  */
-void tw::ShaderStore::deleteShaderProgram (const std::string& key) {
+void tw::GLShaderStore::deleteShaderProgram (const std::string& key) {
 
     if (!shaderProgramExists(key)) {
         return;
@@ -751,7 +751,7 @@ void tw::ShaderStore::deleteShaderProgram (const std::string& key) {
  *
  * @param key vertex shader key
  */
-void tw::ShaderStore::logVertexShaderAlreadyExists (const std::string& key) {
+void tw::GLShaderStore::logVertexShaderAlreadyExists (const std::string& key) {
 
     Log::warning("shaderstore", "Vertex shader with \"", key, "\" key already exists.");
 
@@ -763,7 +763,7 @@ void tw::ShaderStore::logVertexShaderAlreadyExists (const std::string& key) {
  *
  * @param key fragment shader key
  */
-void tw::ShaderStore::logFragmentShaderAlreadyExists (const std::string& key) {
+void tw::GLShaderStore::logFragmentShaderAlreadyExists (const std::string& key) {
 
     Log::warning("shaderstore", "Fragment shader with \"", key, "\" key already exists.");
 
@@ -775,7 +775,7 @@ void tw::ShaderStore::logFragmentShaderAlreadyExists (const std::string& key) {
  *
  * @param key geometry shader key
  */
-void tw::ShaderStore::logGeometryShaderAlreadyExists (const std::string& key) {
+void tw::GLShaderStore::logGeometryShaderAlreadyExists (const std::string& key) {
 
     Log::warning("shaderstore", "Geometry shader with \"", key, "\" key already exists.");
 
@@ -788,7 +788,7 @@ void tw::ShaderStore::logGeometryShaderAlreadyExists (const std::string& key) {
  *
  * @param key tesselation evaluation shader key
  */
-void tw::ShaderStore::logTesselationEvaluationShaderAlreadyExists (const std::string& key) {
+void tw::GLShaderStore::logTesselationEvaluationShaderAlreadyExists (const std::string& key) {
 
     Log::warning("shaderstore", "Tesselation evaluation shader with \"", key, "\" key already exists.");
 
@@ -801,7 +801,7 @@ void tw::ShaderStore::logTesselationEvaluationShaderAlreadyExists (const std::st
  *
  * @param key tesselation control shader key
  */
-void tw::ShaderStore::logTesselationControlShaderAlreadyExists (const std::string& key) {
+void tw::GLShaderStore::logTesselationControlShaderAlreadyExists (const std::string& key) {
 
     Log::warning("shaderstore", "Tesselation control shader with \"", key, "\" key already exists.");
 
@@ -813,7 +813,7 @@ void tw::ShaderStore::logTesselationControlShaderAlreadyExists (const std::strin
  *
  * @param key compute shader key
  */
-void tw::ShaderStore::logComputeShaderAlreadyExists (const std::string& key) {
+void tw::GLShaderStore::logComputeShaderAlreadyExists (const std::string& key) {
 
     Log::warning("shaderstore", "Compute shader with \"", key, "\" key already exists.");
 
@@ -825,17 +825,17 @@ void tw::ShaderStore::logComputeShaderAlreadyExists (const std::string& key) {
  *
  * @param key shader program key
  */
-void tw::ShaderStore::logShaderProgramAlreadyExists (const std::string& key) {
+void tw::GLShaderStore::logShaderProgramAlreadyExists (const std::string& key) {
 
     Log::warning("shaderstore", "Shader program with \"", key, "\" key already exists.");
 
 }
 
-std::unordered_map<std::string, std::shared_ptr<tw::VertexShader>> tw::ShaderStore::m_vertexShaders; ///< vertex shader cache
-std::unordered_map<std::string, std::shared_ptr<tw::FragmentShader>> tw::ShaderStore::m_fragmentShaders; ///< fragment shader cache
-std::unordered_map<std::string, std::shared_ptr<tw::GeometryShader>> tw::ShaderStore::m_geometryShaders; ///< geometry shader cache
-std::unordered_map<std::string, std::shared_ptr<tw::TesselationEvaluationShader>> tw::ShaderStore::m_tesselationEvaluationShaders; ///< tesselation evaluation shader cache
-std::unordered_map<std::string, std::shared_ptr<tw::TesselationControlShader>> tw::ShaderStore::m_tesselationControlShaders; ///< tesselation control shader cache
-std::unordered_map<std::string, std::shared_ptr<tw::ComputeShader>> tw::ShaderStore::m_computeShaders; ///< compute shader cache
+std::unordered_map<std::string, std::shared_ptr<tw::GLVertexShader>> tw::GLShaderStore::m_vertexShaders; ///< vertex shader cache
+std::unordered_map<std::string, std::shared_ptr<tw::GLFragmentShader>> tw::GLShaderStore::m_fragmentShaders; ///< fragment shader cache
+std::unordered_map<std::string, std::shared_ptr<tw::GLGeometryShader>> tw::GLShaderStore::m_geometryShaders; ///< geometry shader cache
+std::unordered_map<std::string, std::shared_ptr<tw::GLTesselationEvaluationShader>> tw::GLShaderStore::m_tesselationEvaluationShaders; ///< tesselation evaluation shader cache
+std::unordered_map<std::string, std::shared_ptr<tw::GLTesselationControlShader>> tw::GLShaderStore::m_tesselationControlShaders; ///< tesselation control shader cache
+std::unordered_map<std::string, std::shared_ptr<tw::GLComputeShader>> tw::GLShaderStore::m_computeShaders; ///< compute shader cache
 
-std::unordered_map<std::string, std::shared_ptr<tw::ShaderProgram>> tw::ShaderStore::m_shaderPrograms; ///< shader program cache
+std::unordered_map<std::string, std::shared_ptr<tw::GLShaderProgram>> tw::GLShaderStore::m_shaderPrograms; ///< shader program cache

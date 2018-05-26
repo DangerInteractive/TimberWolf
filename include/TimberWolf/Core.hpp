@@ -16,5 +16,6 @@
 #include "Core/File.hpp"
 #include "Core/SpeedGovernor.hpp"
 #include "Core/ThreadManager.hpp"
+#include "Core/Vertex.hpp"
 
 #endif

@@ -1,7 +1,7 @@
-#include "../../../../include/TimberWolf/Graphics/OpenGL/VertexBuffer.hpp"
+#include "../../../../include/TimberWolf/Graphics/OpenGL/GLVertexBuffer.hpp"
 
 /**
- * @class tw::VertexBuffer
+ * @class tw::GLVertexBuffer
  *
  * Handle representing an OpenGL VBO (vertex buffer object).
  */
@@ -9,7 +9,7 @@
 /**
  * Default constructor. Creates a VBO on the graphics card.
  */
-tw::VertexBuffer::VertexBuffer () {
+tw::GLVertexBuffer::GLVertexBuffer () {
 
     glGenBuffers(1, &m_id);
 
@@ -21,13 +21,13 @@ tw::VertexBuffer::VertexBuffer () {
  *
  * @param id VBO ID
  */
-tw::VertexBuffer::VertexBuffer (GLuint id)
+tw::GLVertexBuffer::GLVertexBuffer (GLuint id)
 : m_id(id) {}
 
 /**
  * Destructor. Deletes VBO on the graphics card if it is not in use.
  */
-tw::VertexBuffer::~VertexBuffer () {
+tw::GLVertexBuffer::~GLVertexBuffer () {
 
     glDeleteBuffers(1, &m_id);
 
@@ -38,7 +38,7 @@ tw::VertexBuffer::~VertexBuffer () {
  *
  * @return VBO ID
  */
-GLuint tw::VertexBuffer::getId () const {
+GLuint tw::GLVertexBuffer::getId () const {
 
     return m_id;
 
@@ -47,7 +47,7 @@ GLuint tw::VertexBuffer::getId () const {
 /**
  * Bind the VBO (make it the currently selected VBO).
  */
-void tw::VertexBuffer::bind () {
+void tw::GLVertexBuffer::bind () {
 
     glBindBuffer(GL_ARRAY_BUFFER, m_id);
 
@@ -56,7 +56,7 @@ void tw::VertexBuffer::bind () {
 /**
  * Unbind the currently bound VBO (bind null VBO).
  */
-void tw::VertexBuffer::unbind () {
+void tw::GLVertexBuffer::unbind () {
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 

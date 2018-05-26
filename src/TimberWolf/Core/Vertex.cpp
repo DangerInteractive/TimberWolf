@@ -1,4 +1,4 @@
-#include "../../../include/TimberWolf/Graphics/Vertex.hpp"
+#include "../../../include/TimberWolf/Core/Vertex.hpp"
 
 /**
  * Get a 3-dimensional vector of vertex coordinates.

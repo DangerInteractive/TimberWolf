@@ -95,6 +95,7 @@ list (APPEND SOURCES
     ${TimberWolf_SOURCE_DIR}/Core/File.cpp
     ${TimberWolf_SOURCE_DIR}/Core/SpeedGovernor.cpp
     ${TimberWolf_SOURCE_DIR}/Core/ThreadManager.cpp
+    ${TimberWolf_SOURCE_DIR}/Core/Vertex.cpp
 
     # Engine Log Subsystem
     ${TimberWolf_SOURCE_DIR}/Log/ConsoleLogObserver.cpp
@@ -113,27 +114,26 @@ list (APPEND SOURCES
     ${TimberWolf_SOURCE_DIR}/GameLoop/KeyMod.cpp
 
     # Engine Graphics Subsystem
-    ${TimberWolf_SOURCE_DIR}/Graphics/GLBufferable.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/GraphicsBufferable.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Mesh.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Model.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Renderer.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Scene.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/TexturePoint.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/Vertex.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/VertexCollection.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/VertexSet.cpp
 
     # Engine OpenGL Graphics Backend
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/ComputeShader.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/FragmentShader.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GeometryShader.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/Shader.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/ShaderProgram.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/ShaderStore.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/TesselationControlShader.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/TesselationEvaluationShader.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/VertexArray.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/VertexBuffer.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/VertexShader.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLComputeShader.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLFragmentShader.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLGeometryShader.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLShader.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLShaderProgram.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLShaderStore.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLTesselationControlShader.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLTesselationEvaluationShader.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLVertexArray.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLVertexBuffer.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLVertexShader.cpp
 
     # Engine Window Subsystem
     ${TimberWolf_SOURCE_DIR}/Window/Window.cpp
@@ -169,6 +169,7 @@ list (APPEND HEADERS
     ${TimberWolf_INCLUDE_DIR}/Core/File.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/SpeedGovernor.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/ThreadManager.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Vertex.hpp
 
     # Engine Log Subsystem
     ${TimberWolf_INCLUDE_DIR}/Log/ConsoleLogObserver.hpp
@@ -187,22 +188,26 @@ list (APPEND HEADERS
     ${TimberWolf_INCLUDE_DIR}/GameLoop/KeyMod.hpp
 
     # Engine Graphics Subsystem
+    ${TimberWolf_INCLUDE_DIR}/Graphics/GraphicsBufferable.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/Mesh.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/Model.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/Renderer.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/Scene.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/TexturePoint.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/VertexSet.hpp
 
     # Engine OpenGL Graphics Backend
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/ComputeShader.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/FragmentShader.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GeometryShader.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/Shader.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/ShaderProgram.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/ShaderStore.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/TesselationControlShader.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/TesselationEvaluationShader.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/VertexArray.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/VertexBuffer.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/VertexShader.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLComputeShader.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLFragmentShader.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLGeometryShader.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLShader.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLShaderProgram.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLShaderStore.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLTesselationControlShader.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLTesselationEvaluationShader.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLVertexArray.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLVertexBuffer.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLVertexShader.hpp
 
     # Engine Window Subsystem
     ${TimberWolf_INCLUDE_DIR}/Window/Window.hpp

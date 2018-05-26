@@ -9,10 +9,10 @@
 
 #include <memory>
 #include <string>
-#include "OpenGL/VertexArray.hpp"
-#include "OpenGL/VertexBuffer.hpp"
-#include "OpenGL/ShaderStore.hpp"
-#include "OpenGL/ShaderProgram.hpp"
+#include "OpenGL/GLVertexArray.hpp" // TODO: decouple OpenGL from here
+#include "OpenGL/GLVertexBuffer.hpp"
+#include "OpenGL/GLShaderStore.hpp"
+#include "OpenGL/GLShaderProgram.hpp"
 
 namespace tw {
 class Model {
@@ -20,12 +20,12 @@ class Model {
 public:
 
     Model () = default;;
-    explicit Model (VertexArray&&);
-    explicit Model (const std::shared_ptr<VertexArray>&);
-    Model (VertexArray&&, const std::shared_ptr<ShaderProgram>&);
-    Model (VertexArray&&, const std::string&);
-    Model (const std::shared_ptr<VertexArray>&, const std::shared_ptr<ShaderProgram>&);
-    Model (const std::shared_ptr<VertexArray>&, const std::string&);
+    explicit Model (GLVertexArray&&);
+    explicit Model (const std::shared_ptr<GLVertexArray>&);
+    Model (GLVertexArray&&, const std::shared_ptr<GLShaderProgram>&);
+    Model (GLVertexArray&&, const std::string&);
+    Model (const std::shared_ptr<GLVertexArray>&, const std::shared_ptr<GLShaderProgram>&);
+    Model (const std::shared_ptr<GLVertexArray>&, const std::string&);
     ~Model () = default;
 
     Model (Model&&) = default;
@@ -34,20 +34,20 @@ public:
     Model (const Model&) = default;
     Model& operator = (const Model&) = default;
 
-    std::shared_ptr<VertexArray> getVAO () const;
-    std::shared_ptr<ShaderProgram> getShaderProgram() const;
+    std::shared_ptr<GLVertexArray> getVAO () const;
+    std::shared_ptr<GLShaderProgram> getShaderProgram() const; // TODO: decouple OpenGL from here
     unsigned int getVertexCount () const;
 
-    void setVAO (VertexArray&&);
-    void setVAO (const std::shared_ptr<VertexArray>&);
-    void setShaderProgram (const std::shared_ptr<ShaderProgram>&);
+    void setVAO (GLVertexArray&&);
+    void setVAO (const std::shared_ptr<GLVertexArray>&);
+    void setShaderProgram (const std::shared_ptr<GLShaderProgram>&);
     void setShaderProgram (const std::string&);
     void setVertexCount (unsigned int);
 
 private:
 
-    std::shared_ptr<VertexArray> m_vao;
-    std::shared_ptr<ShaderProgram> m_shader;
+    std::shared_ptr<GLVertexArray> m_vao;
+    std::shared_ptr<GLShaderProgram> m_shader;
     unsigned int m_vertexCount {0};
 
 };

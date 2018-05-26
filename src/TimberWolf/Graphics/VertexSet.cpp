@@ -1,11 +1,11 @@
-#include "../../../include/TimberWolf/Graphics/VertexCollection.hpp"
+#include "../../../include/TimberWolf/Graphics/VertexSet.hpp"
 
 /**
  * Constructor taking in a reference to a std::vector of vertices.
  *
  * @param vertices vector of vertices
  */
-tw::VertexCollection::VertexCollection (const std::vector<Vertex>& vertices)
+tw::VertexSet::VertexSet (const std::vector<Vertex>& vertices)
 : m_vertices(vertices) {}
 
 /**
@@ -14,7 +14,7 @@ tw::VertexCollection::VertexCollection (const std::vector<Vertex>& vertices)
  *
  * @param vertices rvalue vector of vertices
  */
-tw::VertexCollection::VertexCollection (std::vector<Vertex>&& vertices)
+tw::VertexSet::VertexSet (std::vector<Vertex>&& vertices)
 : m_vertices(std::move(vertices)) {}
 
 /**
@@ -22,7 +22,7 @@ tw::VertexCollection::VertexCollection (std::vector<Vertex>&& vertices)
  *
  * @param vertices variadic vertices
  */
-tw::VertexCollection::VertexCollection (Vertex vertices...)
+tw::VertexSet::VertexSet (Vertex vertices...)
 : m_vertices({{vertices}}) {}
 
 /**
@@ -31,7 +31,7 @@ tw::VertexCollection::VertexCollection (Vertex vertices...)
  * @param index vertex index
  * @return vertex
  */
-tw::Vertex tw::VertexCollection::get (unsigned int index) const {
+tw::Vertex tw::VertexSet::get (unsigned int index) const {
 
     return m_vertices.at(0);
 
@@ -43,7 +43,7 @@ tw::Vertex tw::VertexCollection::get (unsigned int index) const {
  * @param index vertex index
  * @return X-coordinate of vertex
  */
-float tw::VertexCollection::getX (unsigned int index) const {
+float tw::VertexSet::getX (unsigned int index) const {
 
     return get(index).getX();
 
@@ -55,7 +55,7 @@ float tw::VertexCollection::getX (unsigned int index) const {
  * @param index vertex index
  * @return Y-coordinate of vertex
  */
-float tw::VertexCollection::getY (unsigned int index) const {
+float tw::VertexSet::getY (unsigned int index) const {
 
     return get(index).getY();
 
@@ -67,7 +67,7 @@ float tw::VertexCollection::getY (unsigned int index) const {
  * @param index vertex index
  * @return Z-coordinate of vertex
  */
-float tw::VertexCollection::getZ (unsigned int index) const {
+float tw::VertexSet::getZ (unsigned int index) const {
 
     return get(index).getZ();
 
@@ -78,7 +78,7 @@ float tw::VertexCollection::getZ (unsigned int index) const {
  *
  * @param vertices vector of vertices
  */
-void tw::VertexCollection::set (const std::vector<Vertex>& vertices) {
+void tw::VertexSet::set (const std::vector<Vertex>& vertices) {
 
     m_vertices = vertices;
 
@@ -90,7 +90,7 @@ void tw::VertexCollection::set (const std::vector<Vertex>& vertices) {
  *
  * @param vertices rvalue vector of vertices
  */
-void tw::VertexCollection::set (std::vector<Vertex>&& vertices) {
+void tw::VertexSet::set (std::vector<Vertex>&& vertices) {
 
     m_vertices = std::move(vertices);
 
@@ -101,7 +101,7 @@ void tw::VertexCollection::set (std::vector<Vertex>&& vertices) {
  *
  * @param vertices variadic vertices
  */
-void tw::VertexCollection::set (Vertex vertices...) {
+void tw::VertexSet::set (Vertex vertices...) {
 
     m_vertices = {vertices};
 
@@ -114,7 +114,7 @@ void tw::VertexCollection::set (Vertex vertices...) {
  * @param vertex new vertex value
  * @return true if vertex was successfully set, false if not
  */
-bool tw::VertexCollection::setVertex (unsigned int index, Vertex vertex) {
+bool tw::VertexSet::setVertex (unsigned int index, Vertex vertex) {
 
     if (getSegmentCount() <= index) {
         return false;
@@ -133,7 +133,7 @@ bool tw::VertexCollection::setVertex (unsigned int index, Vertex vertex) {
  * @param value new X-coordinate value
  * @return true if vertex coordinate was successfully set, false if not
  */
-bool tw::VertexCollection::setVertexX (unsigned int index, float value) {
+bool tw::VertexSet::setVertexX (unsigned int index, float value) {
 
     if (getSegmentCount() <= index) {
         return false;
@@ -152,7 +152,7 @@ bool tw::VertexCollection::setVertexX (unsigned int index, float value) {
  * @param value new Y-coordinate value
  * @return true if vertex coordinate was successfully set, false if not
  */
-bool tw::VertexCollection::setVertexY (unsigned int index, float value) {
+bool tw::VertexSet::setVertexY (unsigned int index, float value) {
 
     if (getSegmentCount() <= index) {
         return false;
@@ -171,7 +171,7 @@ bool tw::VertexCollection::setVertexY (unsigned int index, float value) {
  * @param value new Z-coordinate value
  * @return true if vertex coordinate was successfully set, false if not
  */
-bool tw::VertexCollection::setVertexZ (unsigned int index, float value) {
+bool tw::VertexSet::setVertexZ (unsigned int index, float value) {
 
     if (getSegmentCount() <= index) {
         return false;
@@ -188,7 +188,7 @@ bool tw::VertexCollection::setVertexZ (unsigned int index, float value) {
  *
  * @param vertices vertices to add
  */
-void tw::VertexCollection::add (Vertex vertices...) {
+void tw::VertexSet::add (Vertex vertices...) {
 
     m_vertices.push_back(vertices);
 
@@ -199,7 +199,7 @@ void tw::VertexCollection::add (Vertex vertices...) {
  *
  * @param index index of vertex to remove
  */
-bool tw::VertexCollection::remove (unsigned int index) {
+bool tw::VertexSet::remove (unsigned int index) {
 
     if (getSegmentCount() <= index) {
         return false;
@@ -216,61 +216,61 @@ bool tw::VertexCollection::remove (unsigned int index) {
 /**
  * Remove all existing vertices from the collection.
  */
-void tw::VertexCollection::clear () {
+void tw::VertexSet::clear () {
 
     m_vertices.clear();
 
 }
 
-void* tw::VertexCollection::getDataPointer () {
+void* tw::VertexSet::getDataPointer () {
 
     return &m_vertices.front();
 
 }
 
-GLsizei tw::VertexCollection::getDataBytes () {
+size_t tw::VertexSet::getDataBytes () {
 
     return m_vertices.size() * sizeof(Vertex);
 
 }
 
-GLuint tw::VertexCollection::getSegmentCount () {
+unsigned int tw::VertexSet::getSegmentCount () {
 
     return m_vertices.size();
 
 }
 
-GLint tw::VertexCollection::getSegmentSize (unsigned int track) {
+int tw::VertexSet::getSegmentSize (unsigned int track) {
 
     return 3;
 
 }
 
-GLenum tw::VertexCollection::getDataType (unsigned int track) {
+tw::GraphicsBufferable::DataType tw::VertexSet::getDataType (unsigned int track) {
 
-    return GL_FLOAT;
-
-}
-
-GLsizei tw::VertexCollection::getDataTypeBytes (unsigned int track) {
-
-    return sizeof(GLfloat);
+    return DataType::FLOAT;
 
 }
 
-GLboolean tw::VertexCollection::isNormalized (unsigned int track) {
+size_t tw::VertexSet::getDataTypeBytes (unsigned int track) {
+
+    return sizeof(float);
+
+}
+
+bool tw::VertexSet::isNormalized (unsigned int track) {
 
     return false;
 
 }
 
-GLsizei tw::VertexCollection::getStride (unsigned int track) {
+size_t tw::VertexSet::getStride (unsigned int track) {
 
     return 0;
 
 }
 
-GLsizei tw::VertexCollection::getOffset (unsigned int track) {
+size_t tw::VertexSet::getOffset (unsigned int track) {
 
     return 0;
 

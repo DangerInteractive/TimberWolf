@@ -9,7 +9,7 @@
 
 #include <vector>
 #include <GL/glew.h>
-#include "Vertex.hpp"
+#include "../Core/Vertex.hpp"
 #include "TexturePoint.hpp"
 
 namespace tw {

@@ -1,20 +1,20 @@
-#include "../../../../include/TimberWolf/Graphics/OpenGL/Shader.hpp"
+#include "../../../../include/TimberWolf/Graphics/OpenGL/GLShader.hpp"
 
 /**
- * @class tw::Shader
+ * @class tw::GLShader
  *
  * Abstract class representing a generic shader. This class should not be
  * instantiated on its own, it should instead be stored polymorphically and
- * instantiated as a tw::VertexShader, tw::FragmentShader, tw::GeometryShader,
- * tw::TesselationEvaluationShader, tw::TesselationControlShader, or
- * tw::ComputeShader.
+ * instantiated as a tw::GLVertexShader, tw::GLFragmentShader,
+ * tw::GLGeometryShader, tw::GLTesselationEvaluationShader,
+ * tw::GLTesselationControlShader, or tw::GLComputeShader.
  */
 
 /**
  * Destructor. Removes the shader from OpenGL and frees the associated GPU
  * memory.
  */
-tw::Shader::~Shader () {
+tw::GLShader::~GLShader () {
 
     glDeleteShader(m_id);
 
@@ -25,7 +25,7 @@ tw::Shader::~Shader () {
  *
  * @return shader type enumeration
  */
-GLenum tw::Shader::getType () const {
+GLenum tw::GLShader::getType () const {
 
     return m_type;
 
@@ -36,7 +36,7 @@ GLenum tw::Shader::getType () const {
  *
  * @return shader ID
  */
-GLuint tw::Shader::getId () const {
+GLuint tw::GLShader::getId () const {
 
     return m_id;
 
@@ -47,7 +47,7 @@ GLuint tw::Shader::getId () const {
  *
  * @return shader source code
  */
-std::string tw::Shader::getSource () const {
+std::string tw::GLShader::getSource () const {
 
     return m_source;
 
@@ -58,7 +58,7 @@ std::string tw::Shader::getSource () const {
  *
  * @return true if the shader has been compiled, false if not
  */
-bool tw::Shader::isCompiled () const {
+bool tw::GLShader::isCompiled () const {
 
     return m_compiled;
 
@@ -69,7 +69,7 @@ bool tw::Shader::isCompiled () const {
  *
  * @param source shader source code
  */
-bool tw::Shader::setSource (const std::string& source) {
+bool tw::GLShader::setSource (const std::string& source) {
 
     if (isCompiled()) {
         return false;
@@ -90,7 +90,7 @@ bool tw::Shader::setSource (const std::string& source) {
  *
  * @return true if the shader is successfully compiled, false if not
  */
-bool tw::Shader::compile () {
+bool tw::GLShader::compile () {
 
     if (isCompiled()) {
         return true;
@@ -127,13 +127,13 @@ bool tw::Shader::compile () {
 
 /**
  * Constructor taking in a GLenum shader type. This constructor is called by the
- * default constructors of tw::VertexShader, tw::FragmentShader,
- * tw::GeometryShader, tw::TesselationEvaluationShader,
- * tw::TesselationControlShader, and tw::ComputeShader.
+ * default constructors of tw::GLVertexShader, tw::GLFragmentShader,
+ * tw::GLGeometryShader, tw::GLTesselationEvaluationShader,
+ * tw::GLTesselationControlShader, and tw::GLComputeShader.
  *
  * @param type shader type enumeration
  */
-tw::Shader::Shader (GLenum type)
+tw::GLShader::GLShader (GLenum type)
 : m_type(type) {
 
     m_id = glCreateShader(type);
@@ -143,14 +143,14 @@ tw::Shader::Shader (GLenum type)
 /**
  * Constructor taking in a GLenum shader type and a std::string of shader source
  * code. This constructor is called by the source code constructors of
- * tw::VertexShader, tw::FragmentShader, tw::GeometryShader,
- * tw::TesselationEvaluationShader, tw::TesselationControlShader,
- * and tw::ComputeShader.
+ * tw::GLVertexShader, tw::GLFragmentShader, tw::GLGeometryShader,
+ * tw::GLTesselationEvaluationShader, tw::GLTesselationControlShader,
+ * and tw::GLComputeShader.
  *
  * @param type   shader type enumeration
  * @param source shader source code
  */
-tw::Shader::Shader (GLenum type, const std::string& source)
+tw::GLShader::GLShader (GLenum type, const std::string& source)
 : m_type(type) {
 
     m_id = glCreateShader(type);

@@ -1,7 +1,7 @@
-#include "../../../../include/TimberWolf/Graphics/OpenGL/VertexArray.hpp"
+#include "../../../../include/TimberWolf/Graphics/OpenGL/GLVertexArray.hpp"
 
 /**
- * @class tw::VertexArray
+ * @class tw::GLVertexArray
  *
  * Handle representing an OpenGL VAO (vertex array object).
  */
@@ -9,7 +9,7 @@
 /**
  * Default constructor. Creates a VAO on the graphics card.
  */
-tw::VertexArray::VertexArray () {
+tw::GLVertexArray::GLVertexArray () {
 
     glGenVertexArrays(1, &m_id);
 
@@ -21,13 +21,13 @@ tw::VertexArray::VertexArray () {
  *
  * @param id VAO ID
  */
-tw::VertexArray::VertexArray (GLuint id)
+tw::GLVertexArray::GLVertexArray (GLuint id)
 : m_id(id) {}
 
 /**
  * Destructor. Deletes VAO on the graphics card if it is not in use.
  */
-tw::VertexArray::~VertexArray () {
+tw::GLVertexArray::~GLVertexArray () {
 
     glDeleteVertexArrays(1, &m_id);
 
@@ -38,7 +38,7 @@ tw::VertexArray::~VertexArray () {
  *
  * @return VAO ID
  */
-GLuint tw::VertexArray::getId () const {
+GLuint tw::GLVertexArray::getId () const {
 
     return m_id;
 
@@ -47,7 +47,7 @@ GLuint tw::VertexArray::getId () const {
 /**
  * Bind the VAO (make it the currently selected VAO).
  */
-void tw::VertexArray::bind () {
+void tw::GLVertexArray::bind () {
 
     glBindVertexArray(m_id);
 
@@ -56,7 +56,7 @@ void tw::VertexArray::bind () {
 /**
  * Unbind the currently bound VAO (bind null VAO).
  */
-void tw::VertexArray::unbind () {
+void tw::GLVertexArray::unbind () {
 
     glBindVertexArray(0);
 

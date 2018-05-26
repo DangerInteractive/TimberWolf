@@ -15,15 +15,15 @@
  *
  * @param vao rvalue vertex array object handle
  */
-tw::Model::Model (VertexArray&& vao)
-: m_vao(std::make_shared<VertexArray>(std::move(vao))) {}
+tw::Model::Model (GLVertexArray&& vao)
+: m_vao(std::make_shared<GLVertexArray>(std::move(vao))) {}
 
 /**
  * Constructor taking in a std::shared_ptr to a handle to a vertex array object.
  *
  * @param vao shared pointer to a vertex array object handle
  */
-tw::Model::Model (const std::shared_ptr<VertexArray>& vao)
+tw::Model::Model (const std::shared_ptr<GLVertexArray>& vao)
 : m_vao(vao) {}
 
 /**
@@ -33,18 +33,18 @@ tw::Model::Model (const std::shared_ptr<VertexArray>& vao)
  * @param vao    rvalue vertex array object handle
  * @param shader shared pointer to a shader program
  */
-tw::Model::Model (VertexArray&& vao, const std::shared_ptr<ShaderProgram>& shader)
-: m_vao(std::make_shared<VertexArray>(std::move(vao))), m_shader(shader) {}
+tw::Model::Model (GLVertexArray&& vao, const std::shared_ptr<GLShaderProgram>& shader)
+: m_vao(std::make_shared<GLVertexArray>(std::move(vao))), m_shader(shader) {}
 
 /**
  * Constructor taking in an rvalue to a handle to a vertex array object and a
- * std::string key to a shader program handle stored in tw::ShaderStore.
+ * std::string key to a shader program handle stored in tw::GLShaderStore.
  *
  * @param vao    rvalue vertex array object handle
  * @param shader shader program key
  */
-tw::Model::Model (VertexArray&& vao, const std::string& shader)
-: m_vao(std::make_shared<VertexArray>(std::move(vao))), m_shader(ShaderStore::getShaderProgram(shader)) {}
+tw::Model::Model (GLVertexArray&& vao, const std::string& shader)
+: m_vao(std::make_shared<GLVertexArray>(std::move(vao))), m_shader(GLShaderStore::getShaderProgram(shader)) {}
 
 /**
  * Constructor taking in a std::shared_ptr to a handle to a vertex array object
@@ -53,26 +53,26 @@ tw::Model::Model (VertexArray&& vao, const std::string& shader)
  * @param vao    shared pointer to a vertex array object handle
  * @param shader shared pointer to a shader program handle
  */
-tw::Model::Model (const std::shared_ptr<VertexArray>& vao, const std::shared_ptr<ShaderProgram>& shader)
+tw::Model::Model (const std::shared_ptr<GLVertexArray>& vao, const std::shared_ptr<GLShaderProgram>& shader)
 : m_vao(vao), m_shader(shader) {}
 
 /**
  * Constructor taking in a std::shared_ptr to a handle to a vertex array object
  * and a std::string key to a handle to a shader program stored in
- * tw::ShaderStore.
+ * tw::GLShaderStore.
  *
  * @param vao    shared pointer to a vertex array object handle
  * @param shader key to a shader program handle
  */
-tw::Model::Model (const std::shared_ptr<VertexArray>& vao, const std::string& shader)
-: m_vao(vao), m_shader(ShaderStore::getShaderProgram(shader)) {}
+tw::Model::Model (const std::shared_ptr<GLVertexArray>& vao, const std::string& shader)
+: m_vao(vao), m_shader(GLShaderStore::getShaderProgram(shader)) {}
 
 /**
  * Get a std::shared_ptr to the vertex array object handle.
  *
  * @return shared pointer to the vertex array object handle
  */
-std::shared_ptr<tw::VertexArray> tw::Model::getVAO () const {
+std::shared_ptr<tw::GLVertexArray> tw::Model::getVAO () const {
 
     return m_vao;
 
@@ -83,7 +83,7 @@ std::shared_ptr<tw::VertexArray> tw::Model::getVAO () const {
  *
  * @return shared pointer to the shared pointer handle
  */
-std::shared_ptr<tw::ShaderProgram> tw::Model::getShaderProgram () const {
+std::shared_ptr<tw::GLShaderProgram> tw::Model::getShaderProgram () const {
 
     return m_shader;
 
@@ -106,9 +106,9 @@ unsigned int tw::Model::getVertexCount () const {
  *
  * @param vao rvalue to vertex array object handle
  */
-void tw::Model::setVAO (VertexArray&& vao) {
+void tw::Model::setVAO (GLVertexArray&& vao) {
 
-    m_vao = std::make_shared<VertexArray>(std::move(vao));
+    m_vao = std::make_shared<GLVertexArray>(std::move(vao));
 
 }
 
@@ -118,7 +118,7 @@ void tw::Model::setVAO (VertexArray&& vao) {
  *
  * @param vao shared pointer to vertex array object handle
  */
-void tw::Model::setVAO (const std::shared_ptr<VertexArray>& vao) {
+void tw::Model::setVAO (const std::shared_ptr<GLVertexArray>& vao) {
 
     m_vao = vao;
 
@@ -130,7 +130,7 @@ void tw::Model::setVAO (const std::shared_ptr<VertexArray>& vao) {
  *
  * @param shader shared pointer to shader program handle
  */
-void tw::Model::setShaderProgram (const std::shared_ptr<ShaderProgram>& shader) {
+void tw::Model::setShaderProgram (const std::shared_ptr<GLShaderProgram>& shader) {
 
     m_shader = shader;
 
@@ -138,13 +138,13 @@ void tw::Model::setShaderProgram (const std::shared_ptr<ShaderProgram>& shader) 
 
 /**
  * Set the shader program handle to a given std::string key to a shader program
- * handle stored in tw::ShaderStore.
+ * handle stored in tw::GLShaderStore.
  *
  * @param shader key to a shader program handle
  */
 void tw::Model::setShaderProgram (const std::string& shader) {
 
-    m_shader = ShaderStore::getShaderProgram(shader);
+    m_shader = GLShaderStore::getShaderProgram(shader);
 
 }
 

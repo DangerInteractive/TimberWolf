@@ -25,7 +25,7 @@ void tw::Renderer::render (const Model& model) {
 
     glDrawArrays(GL_TRIANGLES, 0, model.getVertexCount());
 
-    ShaderProgram::unuse();
+    GLShaderProgram::unuse();
     glDisableVertexAttribArray(0);
     vao->unbind();
 

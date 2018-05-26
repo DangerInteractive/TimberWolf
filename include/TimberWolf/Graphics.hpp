@@ -15,13 +15,12 @@
 #include "Log.hpp"
 #include "Window.hpp"
 
-#include "Graphics/GLBufferable.hpp"
+#include "Graphics/GraphicsBufferable.hpp"
 #include "Graphics/Mesh.hpp"
 #include "Graphics/Model.hpp"
 #include "Graphics/Renderer.hpp"
 #include "Graphics/Scene.hpp"
 #include "Graphics/TexturePoint.hpp"
-#include "Graphics/Vertex.hpp"
-#include "Graphics/VertexCollection.hpp"
+#include "Graphics/VertexSet.hpp"
 
 #endif
