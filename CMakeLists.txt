@@ -126,6 +126,7 @@ list (APPEND SOURCES
     ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLComputeShader.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLFragmentShader.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLGeometryShader.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLRenderer.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLShader.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLShaderProgram.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLShaderStore.cpp
@@ -200,6 +201,7 @@ list (APPEND HEADERS
     ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLComputeShader.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLFragmentShader.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLGeometryShader.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLRenderer.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLShader.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLShaderProgram.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLShaderStore.hpp

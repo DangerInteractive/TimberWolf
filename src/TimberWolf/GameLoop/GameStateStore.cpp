@@ -76,7 +76,7 @@ bool tw::GameStateStore::registerState (const std::string& key, const std::share
 }
 
 /**
- * Register (store) a given pointer to a game state in the cache uder the given
+ * Register (store) a given pointer to a game state in the cache under the given
  * std::string key. Note that even though you pass this as a regular pointer, it
  * will be converted into a shared pointer, and as such, removing it from the
  * cache will most likely delete it from memory.

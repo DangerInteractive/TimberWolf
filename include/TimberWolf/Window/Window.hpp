@@ -17,6 +17,10 @@
 #include <GLFW/glfw3.h>
 #include "../Core/Color.hpp"
 #include "../Log/Log.hpp"
+#include "../Graphics/Scene.hpp"
+#include "../Graphics/Model.hpp"
+#include "../Graphics/Mesh.hpp"
+#include "../Graphics/Renderer.hpp"
 
 namespace tw {
 class Window {
@@ -45,14 +49,35 @@ public:
     static GLFWwindow* getContext ();
     static void makeContextCurrent ();
 
+    static Renderer* getRenderer ();
+    static void setRenderer (Renderer*);
+    template <typename T, typename ...TArg>
+    static Renderer* makeRenderer (TArg... args) {
+
+        auto renderer = new T(std::forward<TArg>(args)...);
+        try { setRenderer(renderer); } catch (...) {
+            delete renderer;
+            throw;
+            return nullptr;
+        }
+        return renderer;
+
+    }
+
     static bool isOpen ();
     static void open ();
     static void close ();
     static void destroy ();
 
+    static void render (Scene&);
+
     static void clear ();
     static void clear (const Color&);
     static void clear (float, float, float, float);
+    static void clearColor ();
+    static void clearColor (const Color&);
+    static void clearColor (float, float, float, float);
+    static void clearDepth ();
 
     static int getWidth ();
     static int getHeight ();
@@ -77,12 +102,12 @@ private:
     static void pushWindowSize ();
     static void pushWindowTitle ();
 
-    static void glLiveDebug (GLenum, GLenum, GLuint, GLenum, GLsizei, const GLchar*, const void*);
-
     struct GLFWwindowDeleter{
         void operator () (GLFWwindow* ptr) { glfwDestroyWindow(ptr); }
     };
     static std::unique_ptr<GLFWwindow, GLFWwindowDeleter> m_context;
+
+    static std::unique_ptr<Renderer> m_renderer;
 
     static int m_width;
     static int m_height;
@@ -94,9 +119,6 @@ private:
     static int m_glVersionMajor;
     static int m_glVersionMinor;
     static std::mutex mutex_glVersion;
-
-    static Color m_lastClearColor;
-    static const Color m_defaultClearColor;
 
 };
 }

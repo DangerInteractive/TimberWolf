@@ -1,32 +1,33 @@
 #include "../../../include/TimberWolf/Graphics/Renderer.hpp"
 
-/**
- * @class tw::Renderer
- *
- * Static class to which tw::Model objects are passed to be rendered via OpenGL
- * to the game window.
- */
+void tw::Renderer::clear (const Color& color) {
 
-/**
- * Render a tw::Model object with OpenGL to the window.
- *
- * @param model model to render
- */
-void tw::Renderer::render (const Model& model) {
+    clearColor(color);
+    clearDepth();
 
-    auto vao = model.getVAO();
+}
 
-    vao->bind();
-    glEnableVertexAttribArray(0);
+void tw::Renderer::clear () {
 
-    if (model.getShaderProgram() != nullptr) {
-        model.getShaderProgram()->use();
-    }
+    clearColor();
+    clearDepth();
 
-    glDrawArrays(GL_TRIANGLES, 0, model.getVertexCount());
+}
 
-    GLShaderProgram::unuse();
-    glDisableVertexAttribArray(0);
-    vao->unbind();
+void tw::Renderer::onWindowOpen () {
+
+    return;
+
+}
+
+void tw::Renderer::onWindowClose () {
+
+    return;
+
+}
+
+tw::Color tw::Renderer::getDefaultClearColor () {
+
+    return Color(0.f, 0.f, 0.f, 1.f);
 
 }
