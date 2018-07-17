@@ -33,6 +33,14 @@ std::tuple<float, float, float, float> tw::Color::getRGBA () const {
 
 }
 
+std::tuple<float, float, float, float> tw::Color::getLinearRGBA () const {
+
+    return std::make_tuple<float, float, float, float>(
+        getLinearR(), getLinearG(), getLinearB(), getA()
+    );
+
+}
+
 /**
  * Get a tuple of the 8-bit integral values of the red, green, blue, and alpha channels.
  *
@@ -70,6 +78,12 @@ float tw::Color::getR () const {
 
 }
 
+float tw::Color::getLinearR () const {
+
+    return pow(getR(), 2.2f);
+
+}
+
 /**
  * Get the 8-bit integral value of the red channel.
  *
@@ -103,6 +117,12 @@ float tw::Color::getG () const {
 
 }
 
+float tw::Color::getLinearG () const {
+
+    return pow(getG(), 2.2f);
+
+}
+
 /**
  * Get the 8-bit integral value of the green channel.
  *
@@ -133,6 +153,12 @@ uint16_t tw::Color::getG16 () const {
 float tw::Color::getB () const {
 
     return m_b;
+
+}
+
+float tw::Color::getLinearB () const {
+
+    return pow(getB(), 2.2);
 
 }
 
@@ -207,6 +233,15 @@ void tw::Color::setRGBA (float r, float g, float b, float a) {
 
 }
 
+void tw::Color::setLinearRGBA (float r, float g, float b, float a) {
+
+    setLinearR(r);
+    setLinearG(g);
+    setLinearB(b);
+    setA(a);
+
+}
+
 /**
  * Set the 8-bit integral values of the red, green, blue, and alpha channels.
  *
@@ -248,13 +283,13 @@ void tw::Color::setRGBA16 (uint16_t r, uint16_t g, uint16_t b, uint16_t a) {
  */
 void tw::Color::setR (float r) {
 
-    if (r > 1.f) {
-        m_r = 1.f;
-    } else if (r < 0.f) {
-        m_g = 0.f;
-    } else {
-        m_r = r;
-    }
+    m_r = std::clamp(r, 0.f, 1.f);
+
+}
+
+void tw::Color::setLinearR (float r) {
+
+    setR(pow(r, 1.f / 2.2f));
 
 }
 
@@ -287,13 +322,13 @@ void tw::Color::setR16 (uint16_t r) {
  */
 void tw::Color::setG (float g) {
 
-    if (g > 1.f) {
-        m_g = 1.f;
-    } else if (g < 0.f) {
-        m_g = 0.f;
-    } else {
-        m_g = g;
-    }
+    m_g = std::clamp(g, 0.f, 1.f);
+
+}
+
+void tw::Color::setLinearG (float g) {
+
+    setG(pow(g, 1.f / 2.2f));
 
 }
 
@@ -326,13 +361,13 @@ void tw::Color::setG16 (uint16_t g) {
  */
 void tw::Color::setB (float b) {
 
-    if (b > 1.f) {
-        m_b = 1.f;
-    } else if (b < 0.f) {
-        m_b = 0.f;
-    } else {
-        m_b = b;
-    }
+    m_b = std::clamp(b, 0.f, 1.f);
+
+}
+
+void tw::Color::setLinearB (float b) {
+
+    setB(pow(b, 1.f / 2.2f));
 
 }
 
@@ -406,10 +441,10 @@ void tw::Color::lighten (float multiplier) {
 
     float actual = 1.f + multiplier;
 
-    setRGBA(
-        getR() * actual,
-        getG() * actual,
-        getB() * actual,
+    setLinearRGBA(
+        getLinearR() * actual,
+        getLinearG() * actual,
+        getLinearB() * actual,
         getA()
     );
 
@@ -421,7 +456,7 @@ void tw::Color::lighten (float multiplier) {
  * @param multiplier value to add to copy
  * @return lightened copy of color
  */
-tw::Color tw::Color::makeLighten (float multiplier) {
+tw::Color tw::Color::makeLighten (float multiplier) const {
 
     auto copy = *this;
     copy.lighten(multiplier);
@@ -438,10 +473,10 @@ void tw::Color::darken (float multiplier) {
 
     float actual = 1.f - multiplier;
 
-    setRGBA(
-        getR() * actual,
-        getG() * actual,
-        getB() * actual,
+    setLinearRGBA(
+        getLinearR() * actual,
+        getLinearG() * actual,
+        getLinearB() * actual,
         getA()
     );
 
@@ -453,7 +488,7 @@ void tw::Color::darken (float multiplier) {
  * @param multiplier value to remove from copy
  * @return darkened copy of color
  */
-tw::Color tw::Color::makeDarken (float multiplier) {
+tw::Color tw::Color::makeDarken (float multiplier) const {
 
     auto copy = *this;
     copy.darken(multiplier);
@@ -468,39 +503,31 @@ tw::Color tw::Color::makeDarken (float multiplier) {
  */
 void tw::Color::saturate (float multiplier) {
 
-    float avg = ((getR() + getG() + getB()) / 3.f);
-    float newR = 0.f;
-    float newG = 0.f;
-    float newB = 0.f;
-    float r = getR();
-    float g = getG();
-    float b = getB();
+    float r = getLinearR();
+    float g = getLinearG();
+    float b = getLinearB();
+
+    float avg = ((r + g + b) / 3.f);
 
     if (r > avg) {
-        newR += (r - avg) * multiplier;
+        r += (r - avg) * multiplier;
     } else if (r < avg) {
-        newR -= (avg - r) * multiplier;
-    } else {
-        newR = r;
+        r -= (avg - r) * multiplier;
     }
 
     if (g > avg) {
-        newG += (g - avg) * multiplier;
+        g += (g - avg) * multiplier;
     } else if (g < avg) {
-        newG -= (avg - g) * multiplier;
-    } else {
-        newG = g;
+        g -= (avg - g) * multiplier;
     }
 
     if (b > avg) {
-        newB += (b - avg) * multiplier;
+        b += (b - avg) * multiplier;
     } else if (b < avg) {
-        newB -= (avg - b) * multiplier;
-    } else {
-        newB = b;
+        b -= (avg - b) * multiplier;
     }
 
-    setRGBA(newR, newG, newB, getA());
+    setLinearRGBA(r, g, b, getA());
 
 }
 
@@ -510,7 +537,7 @@ void tw::Color::saturate (float multiplier) {
  * @param multiplier saturation to add to copy
  * @return saturated copy of color
  */
-tw::Color tw::Color::makeSaturate (float multiplier) {
+tw::Color tw::Color::makeSaturate (float multiplier) const {
 
     auto copy = *this;
     copy.saturate(multiplier);
@@ -535,11 +562,64 @@ void tw::Color::desaturate (float multiplier) {
  * @param multiplier saturation to remove from copy
  * @return desaturated copy of color
  */
-tw::Color tw::Color::makeDesaturate (float multiplier) {
+tw::Color tw::Color::makeDesaturate (float multiplier) const {
 
     auto copy = *this;
     copy.desaturate(multiplier);
     return copy;
+
+}
+
+void tw::Color::interpolate (const Color& toColor, float lerp) {
+
+    float r = getLinearR();
+    float g = getLinearG();
+    float b = getLinearB();
+
+    r = r + lerp * (toColor.getLinearR() - r);
+    g = g + lerp * (toColor.getLinearG() - g);
+    b = b + lerp * (toColor.getLinearB() - b);
+    float a = getA() + lerp * (toColor.getA() - getA());
+
+    setLinearRGBA(r, g, b, a);
+
+}
+
+tw::Color tw::Color::makeInterpolate (const Color& toColor, float lerp) const {
+
+    auto copy = *this;
+    copy.interpolate(toColor, lerp);
+    return copy;
+
+}
+
+tw::Color tw::Color::lighten (const Color& fromColor, float multiplier) {
+
+    return fromColor.makeLighten(multiplier);
+
+}
+
+tw::Color tw::Color::darken (const Color& fromColor, float multiplier) {
+
+    return fromColor.makeDarken(multiplier);
+
+}
+
+tw::Color tw::Color::saturate (const Color& fromColor, float multiplier) {
+
+    return fromColor.makeSaturate(multiplier);
+
+}
+
+tw::Color tw::Color::desaturate (const Color& fromColor, float multiplier) {
+
+    return fromColor.makeDesaturate(multiplier);
+
+}
+
+tw::Color tw::Color::interpolate (const Color& fromColor, const Color& toColor, float lerp) {
+
+    return fromColor.makeInterpolate(toColor, lerp);
 
 }
 
