@@ -93,6 +93,7 @@ list (APPEND SOURCES
     ${TimberWolf_SOURCE_DIR}/Core/Color.cpp
     ${TimberWolf_SOURCE_DIR}/Core/Console.cpp
     ${TimberWolf_SOURCE_DIR}/Core/File.cpp
+    ${TimberWolf_SOURCE_DIR}/Core/Gradient.cpp
     ${TimberWolf_SOURCE_DIR}/Core/SpeedGovernor.cpp
     ${TimberWolf_SOURCE_DIR}/Core/ThreadManager.cpp
     ${TimberWolf_SOURCE_DIR}/Core/Vertex.cpp
@@ -168,6 +169,7 @@ list (APPEND HEADERS
     ${TimberWolf_INCLUDE_DIR}/Core/Color.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Console.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/File.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Gradient.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/SpeedGovernor.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/ThreadManager.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Vertex.hpp
