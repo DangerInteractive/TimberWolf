@@ -576,6 +576,8 @@ void tw::Color::interpolate (const Color& toColor, float lerp) {
     float g = getLinearG();
     float b = getLinearB();
 
+    lerp = std::clamp(lerp, 0.f, 1.f);
+
     r = r + lerp * (toColor.getLinearR() - r);
     g = g + lerp * (toColor.getLinearG() - g);
     b = b + lerp * (toColor.getLinearB() - b);
