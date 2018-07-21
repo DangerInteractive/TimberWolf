@@ -116,10 +116,12 @@ list (APPEND SOURCES
 
     # Engine Graphics Subsystem
     ${TimberWolf_SOURCE_DIR}/Graphics/GraphicsBufferable.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/Material.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Mesh.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Model.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Renderer.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Scene.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/Texture.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/TexturePoint.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/VertexSet.cpp
 
@@ -192,10 +194,12 @@ list (APPEND HEADERS
 
     # Engine Graphics Subsystem
     ${TimberWolf_INCLUDE_DIR}/Graphics/GraphicsBufferable.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/Material.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/Mesh.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/Model.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/Renderer.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/Scene.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/Texture.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/TexturePoint.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/VertexSet.hpp
 

@@ -16,10 +16,12 @@
 #include "Window.hpp"
 
 #include "Graphics/GraphicsBufferable.hpp"
+#include "Graphics/Material.hpp"
 #include "Graphics/Mesh.hpp"
 #include "Graphics/Model.hpp"
 #include "Graphics/Renderer.hpp"
 #include "Graphics/Scene.hpp"
+#include "Graphics/Texture.hpp"
 #include "Graphics/TexturePoint.hpp"
 #include "Graphics/VertexSet.hpp"
 
