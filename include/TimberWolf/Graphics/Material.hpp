@@ -1,5 +1,5 @@
-#ifndef H_CLASS_MATERIAL
-#define H_CLASS_MATERIAL
+#ifndef TW_CLASS_MATERIAL
+#define TW_CLASS_MATERIAL
 
 #include <memory>
 #include "../Core/Color.hpp"

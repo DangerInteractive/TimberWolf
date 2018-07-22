@@ -1,5 +1,5 @@
-#ifndef H_CLASS_GRADIENT
-#define H_CLASS_GRADIENT
+#ifndef TW_CLASS_GRADIENT
+#define TW_CLASS_GRADIENT
 
 #include <map>
 #include <cmath>

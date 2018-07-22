@@ -1,5 +1,5 @@
-#ifndef H_CLASS_TEXTURE
-#define H_CLASS_TEXTURE
+#ifndef TW_CLASS_TEXTURE
+#define TW_CLASS_TEXTURE
 
 namespace tw {
 class Texture {

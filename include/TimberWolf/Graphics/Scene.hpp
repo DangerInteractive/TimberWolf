@@ -7,6 +7,7 @@
  * Header file for the tw::Scene class.
  */
 
+#include <memory>
 #include <vector>
 #include "Model.hpp"
 
@@ -25,8 +26,6 @@ public:
     Scene& operator = (const Scene&) = default;
 
 private:
-
-    std::vector<Model> m_models;
 
 };
 }
