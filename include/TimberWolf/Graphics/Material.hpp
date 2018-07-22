@@ -20,12 +20,12 @@ public:
     Material& operator = (const Material&) = default;
 
     bool hasAmbience () const;
-    bool hasAmbienceTexture () const;
+    bool hasAmbientTexture () const;
     bool hasAmbienceMap () const;
     const Color& getAmbientColor () const;
     float getAmbience () const;
-    std::shared_ptr<Texture> getAmbienceTexture () const;
-    float getAmbienceTextureOpacity () const;
+    std::shared_ptr<Texture> getAmbientTexture () const;
+    float getAmbientTextureOpacity () const;
     std::shared_ptr<Texture> getAmbienceMap () const;
 
     bool hasSpecularity () const;
@@ -65,9 +65,9 @@ public:
 
     Material& setAmbientColor (const Color&);
     Material& setAmbience (float);
-    Material& setAmbienceTexture (const std::shared_ptr<Texture>&);
-    Material& setAmbienceTextureOpacity (const std::shared_ptr<Texture>&);
-    Material& getAmbienceMap (const std::shared_ptr<Texture>&);
+    Material& setAmbientTexture (const std::shared_ptr<Texture>&);
+    Material& setAmbientTextureOpacity (float);
+    Material& setAmbienceMap (const std::shared_ptr<Texture>&);
 
     Material& setSpecularColor (const Color&);
     Material& setSpecularity (float);
@@ -85,18 +85,21 @@ public:
     Material& setDiffuseMap (const std::shared_ptr<Texture>&);
     Material& setDiffuseDiffusionMap (const std::shared_ptr<Texture>&);
 
-    Material& getNormalMap (const std::shared_ptr<Texture>&);
-    Material& getBumpMap (const std::shared_ptr<Texture>&);
-    Material& getDisplacementMap (const std::shared_ptr<Texture>&);
-    Material& getParallaxMap (const std::shared_ptr<Texture>&);
+    Material& setNormalMap (const std::shared_ptr<Texture>&);
+    Material& setBumpMap (const std::shared_ptr<Texture>&);
+    Material& setDisplacementMap (const std::shared_ptr<Texture>&);
+    Material& setParallaxMap (const std::shared_ptr<Texture>&);
+
+    Material& enableTransparency ();
+    Material& disableTransparency ();
 
 private:
 
     // ambient illumination
     Color m_ambientColor {};
     float m_ambience {0.f};
-    std::shared_ptr<Texture> m_ambienceTexture {nullptr};
-    float m_ambienceTextureOpacity {0.f};
+    std::shared_ptr<Texture> m_ambientTexture {nullptr};
+    float m_ambientTextureOpacity {0.f};
     std::shared_ptr<Texture> m_ambienceMap {nullptr};
 
     // specular reflection
