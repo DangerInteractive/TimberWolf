@@ -131,3 +131,37 @@ tw::Vertex::operator glm::vec4 () const {
     return getVec4();
 
 }
+
+tw::Vertex tw::Vertex::operator + (const Vertex& right) const {
+
+    auto copy = *this;
+    copy += right;
+    return copy;
+
+}
+
+tw::Vertex& tw::Vertex::operator += (const Vertex& right) {
+
+    setX(getX() + right.getX());
+    setY(getY() + right.getY());
+    setZ(getZ() + right.getZ());
+    return *this;
+
+}
+
+tw::Vertex tw::Vertex::operator - (const Vertex& right) const {
+
+    auto copy = *this;
+    copy -= right;
+    return copy;
+
+}
+
+tw::Vertex& tw::Vertex::operator -= (const Vertex& right) {
+
+    setX(getX() - right.getX());
+    setY(getY() - right.getY());
+    setZ(getZ() - right.getZ());
+    return *this;
+
+}

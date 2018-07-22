@@ -9,7 +9,6 @@
 
 #include <memory>
 #include <vector>
-#include "Model.hpp"
 
 namespace tw {
 class Scene {

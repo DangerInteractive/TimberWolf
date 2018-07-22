@@ -94,6 +94,7 @@ list (APPEND SOURCES
     ${TimberWolf_SOURCE_DIR}/Core/Console.cpp
     ${TimberWolf_SOURCE_DIR}/Core/File.cpp
     ${TimberWolf_SOURCE_DIR}/Core/Gradient.cpp
+    ${TimberWolf_SOURCE_DIR}/Core/Rotation.cpp
     ${TimberWolf_SOURCE_DIR}/Core/SpeedGovernor.cpp
     ${TimberWolf_SOURCE_DIR}/Core/ThreadManager.cpp
     ${TimberWolf_SOURCE_DIR}/Core/Vertex.cpp
@@ -119,6 +120,7 @@ list (APPEND SOURCES
     ${TimberWolf_SOURCE_DIR}/Graphics/Material.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Mesh.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Model.cpp
+    ${TimberWolf_SOURCE_DIR}/Graphics/Puppet.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Renderer.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Scene.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Texture.cpp
@@ -172,6 +174,7 @@ list (APPEND HEADERS
     ${TimberWolf_INCLUDE_DIR}/Core/Console.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/File.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Gradient.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Rotation.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/SpeedGovernor.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/ThreadManager.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Vertex.hpp
@@ -197,6 +200,7 @@ list (APPEND HEADERS
     ${TimberWolf_INCLUDE_DIR}/Graphics/Material.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/Mesh.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/Model.hpp
+    ${TimberWolf_INCLUDE_DIR}/Graphics/Puppet.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/Renderer.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/Scene.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/Texture.hpp

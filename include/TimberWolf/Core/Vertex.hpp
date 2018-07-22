@@ -43,6 +43,11 @@ public:
     operator glm::vec3 () const; // implicit
     operator glm::vec4 () const; // implicit
 
+    Vertex operator + (const Vertex&) const;
+    Vertex& operator += (const Vertex&);
+    Vertex operator - (const Vertex&) const;
+    Vertex& operator -= (const Vertex&);
+
 private:
 
     glm::vec3 m_vertex;

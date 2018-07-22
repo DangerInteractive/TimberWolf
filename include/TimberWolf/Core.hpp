@@ -15,6 +15,7 @@
 #include "Core/Console.hpp"
 #include "Core/File.hpp"
 #include "Core/Gradient.hpp"
+#include "Core/Rotation.hpp"
 #include "Core/SpeedGovernor.hpp"
 #include "Core/ThreadManager.hpp"
 #include "Core/Vertex.hpp"
