@@ -144,6 +144,9 @@ list (APPEND SOURCES
     # Engine Window Subsystem
     ${TimberWolf_SOURCE_DIR}/Window/Window.cpp
 
+    # Engine World Subsystem
+    ${TimberWolf_SOURCE_DIR}/World/World.cpp
+
 )
 set_source_files_properties(
     ${PROJECT_SOURCE_DIR}/lib/FastNoise/FastNoise.cpp
@@ -160,13 +163,14 @@ list (APPEND HEADERS
     # Bundled Libraries
     ${PROJECT_SOURCE_DIR}/lib/FastNoise/FastNoise.h
 
-    # Engine Core Classes
+    # Engine Auto-Include Headers
     ${TimberWolf_INCLUDE_DIR}/Core.hpp
     ${TimberWolf_INCLUDE_DIR}/GameLoop.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics.hpp
     ${TimberWolf_INCLUDE_DIR}/Log.hpp
     ${TimberWolf_INCLUDE_DIR}/OpenGL.hpp
     ${TimberWolf_INCLUDE_DIR}/Window.hpp
+    ${TimberWolf_INCLUDE_DIR}/World.hpp
 
     # Engine Core Classes
     ${TimberWolf_INCLUDE_DIR}/Core/Clock.hpp
@@ -223,6 +227,9 @@ list (APPEND HEADERS
 
     # Engine Window Subsystem
     ${TimberWolf_INCLUDE_DIR}/Window/Window.hpp
+
+    # Engine World Subsystem
+    ${TimberWolf_INCLUDE_DIR}/World/World.hpp
 
 )
 
