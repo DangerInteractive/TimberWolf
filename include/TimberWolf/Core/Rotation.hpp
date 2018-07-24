@@ -11,6 +11,7 @@ class Rotation {
 public:
 
     Rotation () = default;
+    Rotation (glm::quat); // implicit
     Rotation (float, const Vertex&);
     ~Rotation () = default;
 
@@ -29,6 +30,11 @@ public:
     Rotation& rotateToDegrees (float, const Vertex&);
 
     Rotation& reset ();
+
+    operator glm::quat () const; // implicit
+
+    Rotation operator * (float) const;
+    Rotation& operator *= (float);
 
 private:
 

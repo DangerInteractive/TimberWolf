@@ -46,3 +46,22 @@ tw::Rotation& tw::Rotation::reset () {
     return *this;
 
 }
+
+tw::Rotation::operator glm::quat () const {
+
+    return getQuaternion();
+
+}
+
+tw::Rotation tw::Rotation::operator * (float right) const {
+
+    return m_quaternion * right;
+
+}
+
+tw::Rotation& tw::Rotation::operator *= (float right) {
+
+    m_quaternion *= right;
+    return *this;
+
+}

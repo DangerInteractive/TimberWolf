@@ -134,34 +134,65 @@ tw::Vertex::operator glm::vec4 () const {
 
 tw::Vertex tw::Vertex::operator + (const Vertex& right) const {
 
-    auto copy = *this;
-    copy += right;
-    return copy;
+    return m_vertex + right.getVec3();
 
 }
 
 tw::Vertex& tw::Vertex::operator += (const Vertex& right) {
 
-    setX(getX() + right.getX());
-    setY(getY() + right.getY());
-    setZ(getZ() + right.getZ());
+    m_vertex += right.getVec3();
     return *this;
 
 }
 
 tw::Vertex tw::Vertex::operator - (const Vertex& right) const {
 
-    auto copy = *this;
-    copy -= right;
-    return copy;
+    return m_vertex - right.getVec3();
 
 }
 
 tw::Vertex& tw::Vertex::operator -= (const Vertex& right) {
 
-    setX(getX() - right.getX());
-    setY(getY() - right.getY());
-    setZ(getZ() - right.getZ());
+    m_vertex -= right.getVec3();
+    return *this;
+
+}
+
+tw::Vertex tw::Vertex::operator * (const Vertex& right) const {
+
+    return m_vertex * right.getVec3();
+
+}
+
+tw::Vertex tw::Vertex::operator * (float right) const {
+
+    return m_vertex * right;
+
+}
+
+tw::Vertex tw::Vertex::operator * (double right) const {
+
+    return m_vertex * static_cast<float>(right);
+
+}
+
+tw::Vertex& tw::Vertex::operator *= (const Vertex& right) {
+
+    m_vertex *= right.getVec3();
+    return *this;
+
+}
+
+tw::Vertex& tw::Vertex::operator *= (float right) {
+
+    m_vertex *= right;
+    return *this;
+
+}
+
+tw::Vertex& tw::Vertex::operator *= (double right) {
+
+    m_vertex *= static_cast<float>(right);
     return *this;
 
 }

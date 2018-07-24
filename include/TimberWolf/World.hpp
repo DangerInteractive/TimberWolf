@@ -14,6 +14,8 @@
 #include "Window.hpp"
 
 #include "World/Entity.hpp"
+#include "World/EntityComponent.hpp"
+#include "World/PhysicsEntityComponent.hpp"
 #include "World/World.hpp"
 
 #endif

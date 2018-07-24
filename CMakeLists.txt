@@ -146,6 +146,8 @@ list (APPEND SOURCES
 
     # Engine World Subsystem
     ${TimberWolf_SOURCE_DIR}/World/Entity.cpp
+    ${TimberWolf_SOURCE_DIR}/World/EntityComponent.cpp
+    ${TimberWolf_SOURCE_DIR}/World/PhysicsEntityComponent.cpp
     ${TimberWolf_SOURCE_DIR}/World/World.cpp
 
 )
@@ -231,6 +233,8 @@ list (APPEND HEADERS
 
     # Engine World Subsystem
     ${TimberWolf_INCLUDE_DIR}/World/Entity.hpp
+    ${TimberWolf_INCLUDE_DIR}/World/EntityComponent.hpp
+    ${TimberWolf_INCLUDE_DIR}/World/PhysicsEntityComponent.hpp
     ${TimberWolf_INCLUDE_DIR}/World/World.hpp
 
 )
