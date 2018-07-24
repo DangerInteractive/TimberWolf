@@ -15,6 +15,8 @@ public:
     Entity (const Entity&) = default;
     Entity& operator = (const Entity&) = default;
 
+    void update (double);
+
 private:
 
 };
