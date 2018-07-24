@@ -1,6 +1,11 @@
 #ifndef TW_CLASS_WORLD
 #define TW_CLASS_WORLD
 
+#include <memory>
+#include <vector>
+
+#include "Entity.hpp"
+
 namespace tw {
 class World {
 

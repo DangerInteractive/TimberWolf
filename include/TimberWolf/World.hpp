@@ -13,6 +13,7 @@
 #include "Core.hpp"
 #include "Window.hpp"
 
+#include "World/Entity.hpp"
 #include "World/World.hpp"
 
 #endif
