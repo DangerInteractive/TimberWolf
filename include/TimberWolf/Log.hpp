@@ -1,5 +1,5 @@
-#ifndef H_PKG_TW_LOG
-#define H_PKG_TW_LOG
+#ifndef TW_PKG_LOG
+#define TW_PKG_LOG
 
 /**
  * @file

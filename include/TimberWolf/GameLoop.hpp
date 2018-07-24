@@ -1,5 +1,5 @@
-#ifndef H_PKG_TW_GAMELOOP
-#define H_PKG_TW_GAMELOOP
+#ifndef TW_PKG_GAMELOOP
+#define TW_PKG_GAMELOOP
 
 /**
  * @file

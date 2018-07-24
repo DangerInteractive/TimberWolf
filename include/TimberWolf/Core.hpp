@@ -1,5 +1,5 @@
-#ifndef H_PKG_TW_CORE
-#define H_PKG_TW_CORE
+#ifndef TW_PKG_CORE
+#define TW_PKG_CORE
 
 /**
  * @file

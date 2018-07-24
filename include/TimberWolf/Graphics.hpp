@@ -1,5 +1,5 @@
-#ifndef H_PKG_TW_GRAPHICS
-#define H_PKG_TW_GRAPHICS
+#ifndef TW_PKG_GRAPHICS
+#define TW_PKG_GRAPHICS
 
 /**
  * @file

@@ -1,5 +1,5 @@
-#ifndef H_PKG_TW_WINDOW
-#define H_PKG_TW_WINDOW
+#ifndef TW_PKG_WINDOW
+#define TW_PKG_WINDOW
 
 /**
  * @file

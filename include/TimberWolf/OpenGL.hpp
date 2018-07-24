@@ -1,5 +1,5 @@
-#ifndef H_PKG_TW_OPENGL
-#define H_PKG_TW_OPENGL
+#ifndef TW_PKG_OPENGL
+#define TW_PKG_OPENGL
 
 /**
  * @file
