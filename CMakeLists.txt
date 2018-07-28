@@ -96,8 +96,6 @@ list (APPEND SOURCES
     ${TimberWolf_SOURCE_DIR}/Core/Gradient.cpp
     ${TimberWolf_SOURCE_DIR}/Core/Rotation.cpp
     ${TimberWolf_SOURCE_DIR}/Core/SpeedGovernor.cpp
-    ${TimberWolf_SOURCE_DIR}/Core/ThreadManager.cpp
-    ${TimberWolf_SOURCE_DIR}/Core/Vertex.cpp
 
     # Engine Log Subsystem
     ${TimberWolf_SOURCE_DIR}/Log/ConsoleLogObserver.cpp
@@ -180,10 +178,20 @@ list (APPEND HEADERS
     ${TimberWolf_INCLUDE_DIR}/Core/Color.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Console.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/File.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/GlobalVertex.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Gradient.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Matrix3.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Matrix3Double.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Matrix4.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Matrix4Double.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Quaternion.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/QuaternionDouble.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Rotation.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/SpeedGovernor.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/ThreadManager.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Vector2.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Vector2Double.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Vector3.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Vector3Double.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Vertex.hpp
 
     # Engine Log Subsystem

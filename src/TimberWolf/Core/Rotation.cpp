@@ -1,39 +1,59 @@
 #include "../../../include/TimberWolf/Core/Rotation.hpp"
 
-tw::Rotation::Rotation (float radians, const Vertex& axisNormal) {
+tw::Rotation::Rotation (float radians, const Vector3& axisNormal) {
 
     rotateByRadians(radians, axisNormal);
 
 }
 
-const glm::quat& tw::Rotation::getQuaternion () const {
+tw::Quaternion tw::Rotation::getQuaternion () const {
 
     return m_quaternion;
 
 }
 
-tw::Rotation& tw::Rotation::rotateByRadians (float radians, const Vertex& axisNormal) {
+const tw::Quaternion& tw::Rotation::getQuaternionRef () const {
 
-    m_quaternion *= glm::angleAxis(radians, axisNormal.getVec3());
+    return m_quaternion;
+
+}
+
+tw::Rotation& tw::Rotation::rotateBy (const Rotation& rotation) {
+
+    m_quaternion *= rotation.getQuaternion();
     return *this;
 
 }
 
-tw::Rotation& tw::Rotation::rotateByDegrees (float degrees, const Vertex& axisNormal) {
+tw::Rotation& tw::Rotation::rotateByRadians (float radians, const Vector3& axisNormal) {
 
-    m_quaternion *= glm::angleAxis(glm::radians(degrees), axisNormal.getVec3());
+    m_quaternion *= glm::angleAxis(radians, axisNormal);
     return *this;
 
 }
 
-tw::Rotation& tw::Rotation::rotateToRadians (float radians, const Vertex& axisNormal) {
+tw::Rotation& tw::Rotation::rotateByDegrees (float degrees, const Vector3& axisNormal) {
+
+    m_quaternion *= glm::angleAxis(glm::radians(degrees), axisNormal);
+    return *this;
+
+}
+
+tw::Rotation& tw::Rotation::rotateTo (const Rotation& rotation) {
+
+    m_quaternion = rotation.getQuaternion();
+    return *this;
+
+}
+
+tw::Rotation& tw::Rotation::rotateToRadians (float radians, const Vector3& axisNormal) {
 
     reset().rotateByRadians(radians, axisNormal);
     return *this;
 
 }
 
-tw::Rotation& tw::Rotation::rotateToDegrees (float degrees, const Vertex& axisNormal) {
+tw::Rotation& tw::Rotation::rotateToDegrees (float degrees, const Vector3& axisNormal) {
 
     reset().rotateByDegrees(degrees, axisNormal);
     return *this;
@@ -47,7 +67,7 @@ tw::Rotation& tw::Rotation::reset () {
 
 }
 
-tw::Rotation::operator glm::quat () const {
+tw::Rotation::operator tw::Quaternion () const {
 
     return getQuaternion();
 

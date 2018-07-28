@@ -16,19 +16,19 @@ const tw::Vertex& tw::Entity::getPositionRef () const {
 
 float tw::Entity::getPositionX () const {
 
-    return m_position.getX();
+    return m_position.x;
 
 }
 
 float tw::Entity::getPositionY () const {
 
-    return m_position.getY();
+    return m_position.y;
 
 }
 
 float tw::Entity::getPositionZ () const {
 
-    return m_position.getZ();
+    return m_position.z;
 
 }
 
@@ -58,18 +58,18 @@ const tw::Vertex& tw::Entity::getScaleRef () const {
 
 float tw::Entity::getScaleX () const {
 
-    return m_scale.getX();
+    return m_scale.x;
 
 }
 
 float tw::Entity::getScaleY () const {
 
-    return m_scale.getY();
+    return m_scale.y;
 
 }
 
 float tw::Entity::getScaleZ () const {
 
-    return m_scale.getZ();
+    return m_scale.z;
 
 }

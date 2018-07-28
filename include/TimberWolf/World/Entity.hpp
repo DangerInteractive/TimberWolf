@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "../Core/Rotation.hpp"
+#include "../Core/Vector3.hpp"
 #include "../Core/Vertex.hpp"
 
 #include "EntityComponent.hpp"
@@ -82,7 +83,7 @@ private:
 
     Vertex m_position {0.f, 0.f, 0.f};
     Rotation m_orientation {};
-    Vertex m_scale = {1.f, 1.f, 1.f};
+    Vector3 m_scale = {1.f, 1.f, 1.f};
 
 };
 }

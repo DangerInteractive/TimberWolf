@@ -45,7 +45,7 @@ tw::Vertex tw::VertexSet::get (unsigned int index) const {
  */
 float tw::VertexSet::getX (unsigned int index) const {
 
-    return get(index).getX();
+    return get(index).x;
 
 }
 
@@ -57,7 +57,7 @@ float tw::VertexSet::getX (unsigned int index) const {
  */
 float tw::VertexSet::getY (unsigned int index) const {
 
-    return get(index).getY();
+    return get(index).y;
 
 }
 
@@ -69,7 +69,7 @@ float tw::VertexSet::getY (unsigned int index) const {
  */
 float tw::VertexSet::getZ (unsigned int index) const {
 
-    return get(index).getZ();
+    return get(index).z;
 
 }
 
@@ -139,7 +139,7 @@ bool tw::VertexSet::setVertexX (unsigned int index, float value) {
         return false;
     }
 
-    m_vertices.at(index).setX(value);
+    m_vertices.at(index).x = value;
 
     return true;
 
@@ -158,7 +158,7 @@ bool tw::VertexSet::setVertexY (unsigned int index, float value) {
         return false;
     }
 
-    m_vertices.at(index).setY(value);
+    m_vertices.at(index).y = value;
 
     return true;
 
@@ -177,7 +177,7 @@ bool tw::VertexSet::setVertexZ (unsigned int index, float value) {
         return false;
     }
 
-    m_vertices.at(index).setZ(value);
+    m_vertices.at(index).z = value;
 
     return true;
 
