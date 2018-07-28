@@ -17,5 +17,6 @@ TimberWolfTargets.cmake
 Makefile
 Doxyfile
 /docs/generated
+/docs/uml/**/*.png
 /TimberWolf.cbp
 /TimberWolf.layout

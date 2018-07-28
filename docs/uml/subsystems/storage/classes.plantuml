@@ -1,0 +1,91 @@
+@startuml
+
+package "Storage Subsystem" #c0c0fa {
+
+    'Level 1 API'
+
+    class JSONFile {
+    }
+
+    class XMLFile {
+    }
+
+    class CSVFile {
+    }
+
+    class SQLiteFile {
+    }
+
+    class BinaryFile {
+    }
+
+    class CrateFile {
+    }
+
+    'Level 2 API'
+
+    class Database {
+    }
+
+    class DatabaseTable {
+    }
+
+    class CrateStore {
+    }
+
+    interface Crate {
+    }
+
+    class JSONNode {
+    }
+
+    class XMLNode {
+    }
+
+    class CSVRow {
+    }
+
+    'Level 3 API'
+
+    class VectorCrate {
+    }
+
+    class MatrixCrate {
+    }
+
+    class BinTagCrate {
+    }
+
+    class MapCrate {
+    }
+
+}
+
+package "Core Subsystem" #eeeeee {
+
+    class File {
+    }
+
+}
+
+JSONFile o-- File
+XMLFile o-- File
+CSVFile o-- File
+SQLiteFile o-- File
+BinaryFile o-- File
+CrateFile --|> BinaryFile
+Database *-- SQLiteFile
+Database *-- DatabaseTable
+CrateStore o-- CrateFile
+CrateStore *-- Crate
+VectorCrate --|> Crate
+MatrixCrate --|> Crate
+BinTagCrate --|> Crate
+MapCrate --|> Crate
+JSONFile *-- JSONNode
+JSONNode *-- JSONNode
+XMLFile *-- XMLNode
+XMLNode *-- XMLNode
+CSVFile *-- CSVRow
+
+@enduml
