@@ -16,6 +16,6 @@ TimberWolfConfigVersion.cmake
 TimberWolfTargets.cmake
 Makefile
 Doxyfile
-/docs
+/docs/generated
 /TimberWolf.cbp
 /TimberWolf.layout
