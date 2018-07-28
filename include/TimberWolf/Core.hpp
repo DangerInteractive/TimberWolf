@@ -24,6 +24,7 @@
 #include "Core/QuaternionDouble.hpp"
 #include "Core/Rotation.hpp"
 #include "Core/SpeedGovernor.hpp"
+#include "Core/Transformation.hpp"
 #include "Core/Vector2.hpp"
 #include "Core/Vector2Double.hpp"
 #include "Core/Vector3.hpp"

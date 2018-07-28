@@ -96,6 +96,7 @@ list (APPEND SOURCES
     ${TimberWolf_SOURCE_DIR}/Core/Gradient.cpp
     ${TimberWolf_SOURCE_DIR}/Core/Rotation.cpp
     ${TimberWolf_SOURCE_DIR}/Core/SpeedGovernor.cpp
+    ${TimberWolf_SOURCE_DIR}/Core/Transformation.cpp
 
     # Engine Log Subsystem
     ${TimberWolf_SOURCE_DIR}/Log/ConsoleLogObserver.cpp
@@ -114,6 +115,7 @@ list (APPEND SOURCES
     ${TimberWolf_SOURCE_DIR}/GameLoop/KeyMod.cpp
 
     # Engine Graphics Subsystem
+    ${TimberWolf_SOURCE_DIR}/Graphics/Camera.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/GraphicsBufferable.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Material.cpp
     ${TimberWolf_SOURCE_DIR}/Graphics/Mesh.cpp
@@ -188,6 +190,7 @@ list (APPEND HEADERS
     ${TimberWolf_INCLUDE_DIR}/Core/QuaternionDouble.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Rotation.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/SpeedGovernor.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Transformation.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Vector2.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Vector2Double.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Vector3.hpp
@@ -211,6 +214,7 @@ list (APPEND HEADERS
     ${TimberWolf_INCLUDE_DIR}/GameLoop/KeyMod.hpp
 
     # Engine Graphics Subsystem
+    ${TimberWolf_INCLUDE_DIR}/Graphics/Camera.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/GraphicsBufferable.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/Material.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics/Mesh.hpp

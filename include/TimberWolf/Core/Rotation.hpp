@@ -5,13 +5,13 @@
 #include "Vector3.hpp"
 
 namespace tw {
-class Rotation {
+class Rotation : public Quaternion {
 
 public:
 
     Rotation () = default;
-    Rotation (Quaternion); // implicit
-    Rotation (float, const Vector3&);
+    Rotation (float, float, float, float) = delete;
+    Rotation (float, Vector3) = delete;
     ~Rotation () = default;
 
     Rotation (Rotation&&) = default;
@@ -20,27 +20,21 @@ public:
     Rotation (const Rotation&) = default;
     Rotation& operator = (const Rotation&) = default;
 
-    Quaternion getQuaternion () const;
-    const Quaternion& getQuaternionRef () const;
+    Rotation (Quaternion&&); // implicit
+    Rotation (const Quaternion&); // implicit
 
-    Rotation& rotateBy (const tw::Rotation&);
-    Rotation& rotateByRadians (float, const Vector3&);
-    Rotation& rotateByDegrees (float, const Vector3&);
+    static Rotation fromRadians (float, const Vector3&);
+    static Rotation fromDegrees (float, const Vector3&);
 
-    Rotation& rotateTo (const tw::Rotation&);
-    Rotation& rotateToRadians (float, const Vector3&);
-    Rotation& rotateToDegrees (float, const Vector3&);
+    void rotateBy (const tw::Rotation&);
+    void rotateByRadians (float, const Vector3&);
+    void rotateByDegrees (float, const Vector3&);
 
-    Rotation& reset ();
+    void rotateTo (const tw::Rotation&);
+    void rotateToRadians (float, const Vector3&);
+    void rotateToDegrees (float, const Vector3&);
 
-    operator Quaternion () const; // implicit
-
-    Rotation operator * (float) const;
-    Rotation& operator *= (float);
-
-private:
-
-    Quaternion m_quaternion {};
+    void reset ();
 
 };
 }

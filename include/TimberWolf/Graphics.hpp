@@ -15,6 +15,7 @@
 #include "Log.hpp"
 #include "Window.hpp"
 
+#include "Graphics/Camera.hpp"
 #include "Graphics/GraphicsBufferable.hpp"
 #include "Graphics/Material.hpp"
 #include "Graphics/Mesh.hpp"
