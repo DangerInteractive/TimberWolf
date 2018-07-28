@@ -47,11 +47,16 @@ The following example header serves as the styleguide:
 ```c++
 #define ANY "macros up here. Use all caps for title."
 
-#ifndef H_TW_CLASSNAME
-#define H_TW_CLASSNAME
+#ifndef TW_CLASS_CLASSNAME
+#define TW_CLASS_CLASSNAME
 
+#include <alphabetic-order>
 #include <standard-library-stuff-first>
+
+#include <alphabetic order/here-too.hpp>
 #include <shared-library-stuff-second.hpp>
+
+#include "alphabetic-order-also.hpp"
 #include "TimberWolf-stuff-third.hpp"
 
 // forward declarations
@@ -64,12 +69,20 @@ class ClassName : public ParentClass {
 
 public:
 
+    class NestedClassesHere {
+
+    public:
+
+        // ...
+
+    }
+
     // typedefs here
     typedef TypeDefs GoHere;
 
     // constructors and destructor
-    ClassName () = default;
-    explicit ClassName (int); // make explicit if only one argument
+    ClassName () = default; // if class is static only, make constructor PUBLIC, but DELETED!
+    explicit ClassName (int); // make explicit if only one argument (unless genuinely interchangeable)
     ~ClassName () = default; // make virtual if class has virtual methods
 
     // always declare move constructor and copy assignment operator
@@ -99,9 +112,6 @@ protected:
 
     // if class is not polymorphic, omit "protected:" entirely
 
-    // if class should NEVER be instantiated because it's a base class, place
-    // all constructors in protected.
-
 private:
 
     // if class is not polymorphic, put all member variables here
@@ -125,4 +135,10 @@ The following example source serves as the styleguide:
 
 tw::ClassName::ClassName (int variable)
 : m_memberVariable(variable), ParentClass() {};
+
+int tw::ClassName::getMemberVariable () const {
+
+    return m_memberVariable;
+
+}
 ```
