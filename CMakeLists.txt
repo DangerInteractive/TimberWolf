@@ -94,6 +94,7 @@ list (APPEND SOURCES
     ${TimberWolf_SOURCE_DIR}/Core/Console.cpp
     ${TimberWolf_SOURCE_DIR}/Core/File.cpp
     ${TimberWolf_SOURCE_DIR}/Core/Gradient.cpp
+    ${TimberWolf_SOURCE_DIR}/Core/Projection.cpp
     ${TimberWolf_SOURCE_DIR}/Core/Rotation.cpp
     ${TimberWolf_SOURCE_DIR}/Core/SpeedGovernor.cpp
     ${TimberWolf_SOURCE_DIR}/Core/Transformation.cpp
@@ -182,12 +183,14 @@ list (APPEND HEADERS
     ${TimberWolf_INCLUDE_DIR}/Core/File.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/GlobalVertex.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Gradient.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Math.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Matrix3.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Matrix3Double.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Matrix4.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Matrix4Double.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Quaternion.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/QuaternionDouble.hpp
+    ${TimberWolf_INCLUDE_DIR}/Core/Projection.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Rotation.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/SpeedGovernor.hpp
     ${TimberWolf_INCLUDE_DIR}/Core/Transformation.hpp

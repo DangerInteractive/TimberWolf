@@ -111,18 +111,24 @@ tw::Transformation tw::Transformation::Builder::build () & {
 
 }
 
+tw::Transformation::Transformation (Matrix4&& from)
+: Matrix4(std::move(from)) {}
+
+tw::Transformation::Transformation (const Matrix4& from)
+: Matrix4(from) {}
+
 tw::Transformation::Transformation (float scale, const Rotation& rotation, const Vector3& translation) {
 
-    glm::scale(*this, {scale, scale, scale});
+    *this = glm::scale(*this, {scale, scale, scale});
     *this *= glm::mat4_cast(rotation);
-    glm::translate(*this, translation);
+    *this = glm::translate(*this, translation);
 
 }
 
 tw::Transformation::Transformation (const Vector3& scale, const Rotation& rotation, const Vector3& translation) {
 
-    glm::scale(*this, scale);
+    *this = glm::scale(*this, scale);
     *this *= glm::mat4_cast(rotation);
-    glm::translate(*this, translation);
+    *this = glm::translate(*this, translation);
 
 }

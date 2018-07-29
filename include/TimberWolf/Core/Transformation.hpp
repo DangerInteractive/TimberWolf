@@ -54,6 +54,8 @@ public:
     };
 
     Transformation () = default;
+    Transformation (Matrix4&&); // implicit
+    Transformation (const Matrix4&); // implicit
     Transformation (float, const Rotation&, const Vector3&);
     Transformation (const Vector3&, const Rotation&, const Vector3&);
     ~Transformation () = default;
