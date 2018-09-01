@@ -39,8 +39,8 @@ project (
 set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_CXX_EXTENSIONS OFF)
-set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fstack-protector -Wl,-z,relro -Wl,-z,now -Wformat-security -W -Wall -Wno-unused-parameter -Wno-unused-function -Wno-unused-label -Wpointer-arith -Wformat -Wreturn-type -Wsign-compare -Wmultichar -Wformat-nonliteral -Winit-self -Wuninitialized -Wno-deprecated -Werror")
-set (CMAKE_CXX_FLAGS_DEBUG "-g -Og")
+set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-fstack-protector -Wl,-z,relro -Wl,-z,now -Werror -Wall -Wextra -Wpointer-arith -Wformat-security -Wformat -Wreturn-type -Wsign-compare -Wmultichar -Wformat-nonliteral -Winit-self -Wuninitialized -Wreturn-local-addr -Wno-unused-parameter -Wno-unused-function -Wno-unused-label")
+set (CMAKE_CXX_FLAGS_DEBUG "-Og")
 set (CMAKE_CXX_FLAGS_RELEASE "-O3")
 set (CMAKE_CXX_FLAGS_COMPACT "-Os")
 set (TimberWolf_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/TimberWolf)
@@ -54,26 +54,6 @@ include_directories (
     ${PROJECT_SOURCE_DIR}
     ${PROJECT_BINARY_DIR}
 )
-
-# debug mode testing/analysis
-unset (CMAKE_CXX_CPPCHECK CACHE)
-if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    message (STATUS "Testing/Analysis Enabled")
-    find_program (CMAKE_CXX_CPPCHECK NAMES cppcheck)
-    if (CMAKE_CXX_CPPCHECK)
-        list (APPEND CMAKE_CXX_CPPCHECK
-            "--enable=warning"
-            "--inconclusive"
-            "--force"
-            "--inline-suppr"
-        )
-    else ()
-        message (WARNING "Could not find CPPCheck executable. CPPCheck testing disabled.")
-    endif ()
-else ()
-    message (STATUS "Testing/Analysis Disabled")
-    set (CMAKE_CXX_CPPCHECK)
-endif ()
 
 # documentation
 configure_file (
@@ -152,10 +132,11 @@ list (APPEND SOURCES
     ${TimberWolf_SOURCE_DIR}/World/World.cpp
 
 )
+
 set_source_files_properties(
     ${PROJECT_SOURCE_DIR}/lib/FastNoise/FastNoise.cpp
     PROPERTIES COMPILE_FLAGS
-        "-Wno-implicit-fallthrough -Wno-maybe-uninitialized"
+        "-Wno-implicit-fallthrough -Wno-maybe-uninitialized -Wno-strict-aliasing" # lots of warnings in this library, but that's not our problem
 )
 
 # list of header files (the public API)
@@ -299,6 +280,8 @@ configure_file (
 )
 
 # dependencies
+set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package (Threads REQUIRED)
 set (OpenGL_GL_PREFERENCE "GLVND")
 find_package (OpenGL REQUIRED)
@@ -307,7 +290,7 @@ find_package (glfw3 REQUIRED)
 find_package (glm REQUIRED)
 include_directories (${OPENGL_INCLUDE_DIR})
 target_link_libraries (${LIBRARY_NAME}
-    ${CMAKE_THREAD_LIBS_INIT}
+    Threads::Threads
     ${OPENGL_gl_LIBRARY}
     glfw
     GLEW
