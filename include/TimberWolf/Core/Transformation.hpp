@@ -42,8 +42,7 @@ public:
         Builder& setTranslationY (float);
         Builder& setTranslationZ (float);
 
-        Transformation&& build () &&;
-        Transformation build () &;
+        Transformation build ();
 
     private:
 

@@ -35,14 +35,7 @@ tw::Projection::Builder& tw::Projection::Builder::setFarPlane (float distance) {
 
 }
 
-tw::Projection&& tw::Projection::Builder::build () && {
-
-    auto proj = Projection(std::move(m_fovDegrees), std::move(m_aspectRatio), std::move(m_nearPlane), std::move(m_farPlane));
-    return std::move(proj);
-
-}
-
-tw::Projection tw::Projection::Builder::build () & {
+tw::Projection tw::Projection::Builder::build () {
 
     return Projection(m_fovDegrees, m_aspectRatio, m_nearPlane, m_farPlane);
 

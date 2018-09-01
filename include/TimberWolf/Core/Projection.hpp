@@ -31,8 +31,7 @@ public:
         Builder& setNearPlane (float);
         Builder& setFarPlane (float);
 
-        Projection&& build () &&;
-        Projection build () &;
+        Projection build ();
 
     private:
 

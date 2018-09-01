@@ -98,14 +98,7 @@ tw::Transformation::Builder& tw::Transformation::Builder::setTranslationZ (float
 
 }
 
-tw::Transformation&& tw::Transformation::Builder::build () && {
-
-    auto tf = Transformation(m_scale, m_rotation, m_translation);
-    return std::move(tf);
-
-}
-
-tw::Transformation tw::Transformation::Builder::build () & {
+tw::Transformation tw::Transformation::Builder::build () {
 
     return Transformation(m_scale, m_rotation, m_translation);
 
