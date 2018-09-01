@@ -66,7 +66,7 @@ configure_file (
 list (APPEND SOURCES
 
     # Bundled Libraries
-    ${PROJECT_SOURCE_DIR}/lib/FastNoise/FastNoise.cpp
+    ${TimberWolf_SOURCE_DIR}/External/FastNoise/FastNoise.cpp
 
     # Engine Core Classes
     ${TimberWolf_SOURCE_DIR}/Core/Clock.cpp
@@ -134,7 +134,7 @@ list (APPEND SOURCES
 )
 
 set_source_files_properties(
-    ${PROJECT_SOURCE_DIR}/lib/FastNoise/FastNoise.cpp
+    ${TimberWolf_SOURCE_DIR}/External/FastNoise/FastNoise.cpp
     PROPERTIES COMPILE_FLAGS
         "-Wno-implicit-fallthrough -Wno-maybe-uninitialized -Wno-strict-aliasing" # lots of warnings in this library, but that's not our problem
 )
@@ -146,10 +146,12 @@ list (APPEND HEADERS
     ${TimberWolf_INCLUDE_DIR}/TimberWolf.hpp
 
     # Bundled Libraries
-    ${PROJECT_SOURCE_DIR}/lib/FastNoise/FastNoise.h
+    ${TimberWolf_INCLUDE_DIR}/External/FastNoise.hpp
+    ${TimberWolf_INCLUDE_DIR}/External/FastNoise/FastNoise.h
 
     # Engine Auto-Include Headers
     ${TimberWolf_INCLUDE_DIR}/Core.hpp
+    ${TimberWolf_INCLUDE_DIR}/External.hpp
     ${TimberWolf_INCLUDE_DIR}/GameLoop.hpp
     ${TimberWolf_INCLUDE_DIR}/Graphics.hpp
     ${TimberWolf_INCLUDE_DIR}/Log.hpp

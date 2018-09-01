@@ -26,7 +26,7 @@
 // off every 'zix'.)
 //
 
-#include "FastNoise.h"
+#include "../../../../include/TimberWolf/External/FastNoise/FastNoise.h"
 
 #include <math.h>
 #include <assert.h>
@@ -469,9 +469,9 @@ FN_DECIMAL FastNoise::GetNoise(FN_DECIMAL x, FN_DECIMAL y) const
 		{
 		case FBM:
 			return SingleCubicFractalFBM(x, y);
-		case Billow:	 
+		case Billow:
 			return SingleCubicFractalBillow(x, y);
-		case RigidMulti: 
+		case RigidMulti:
 			return SingleCubicFractalRigidMulti(x, y);
 		}
 	}
@@ -1444,9 +1444,9 @@ FN_DECIMAL FastNoise::GetCubicFractal(FN_DECIMAL x, FN_DECIMAL y, FN_DECIMAL z) 
 	{
 	case FBM:
 		return SingleCubicFractalFBM(x, y, z);
-	case Billow:	 
+	case Billow:
 		return SingleCubicFractalBillow(x, y, z);
-	case RigidMulti: 
+	case RigidMulti:
 		return SingleCubicFractalRigidMulti(x, y, z);
 	default:
 		return 0;
@@ -1575,9 +1575,9 @@ FN_DECIMAL FastNoise::GetCubicFractal(FN_DECIMAL x, FN_DECIMAL y) const
 	{
 	case FBM:
 		return SingleCubicFractalFBM(x, y);
-	case Billow:	 
+	case Billow:
 		return SingleCubicFractalBillow(x, y);
-	case RigidMulti: 
+	case RigidMulti:
 		return SingleCubicFractalRigidMulti(x, y);
 	default:
 		return 0;
@@ -1828,7 +1828,7 @@ FN_DECIMAL FastNoise::SingleCellular2Edge(FN_DECIMAL x, FN_DECIMAL y, FN_DECIMAL
 
 					for (int i = m_cellularDistanceIndex1; i > 0; i--)
 						distance[i] = fmax(fmin(distance[i], newDistance), distance[i - 1]);
-					distance[0] = fmin(distance[0], newDistance); 
+					distance[0] = fmin(distance[0], newDistance);
 				}
 			}
 		}
@@ -1934,7 +1934,7 @@ FN_DECIMAL FastNoise::SingleCellular(FN_DECIMAL x, FN_DECIMAL y) const
 
 				FN_DECIMAL vecX = xi - x + CELL_2D_X[lutPos] * m_cellularJitter;
 				FN_DECIMAL vecY = yi - y + CELL_2D_Y[lutPos] * m_cellularJitter;
-															
+
 				FN_DECIMAL newDistance = vecX * vecX + vecY * vecY;
 
 				if (newDistance < distance)
