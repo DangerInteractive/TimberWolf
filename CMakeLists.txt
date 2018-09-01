@@ -45,7 +45,7 @@ set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
 set (CMAKE_CXX_FLAGS_COMPACT "${CMAKE_CXX_FLAGS_COMPACT} -Os")
 set (TimberWolf_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/TimberWolf)
 set (TimberWolf_PUBLIC_HEADER ${PROJECT_SOURCE_DIR}/include)
-set (TimberWolf_SOURCE_DIR ${PROJECT_SOURCE_DIR}/src/TimberWolf)
+set (TimberWolf_SOURCE_DIR ${PROJECT_SOURCE_DIR}/source/TimberWolf)
 configure_file (
     ${PROJECT_SOURCE_DIR}/TimberWolf.hpp.in
     ${TimberWolf_INCLUDE_DIR}/TimberWolf.hpp
