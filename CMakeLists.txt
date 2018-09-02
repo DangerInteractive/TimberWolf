@@ -21,34 +21,37 @@ endforeach ()
 
 # build type selection
 if (NOT CMAKE_BUILD_TYPE)
-    set (CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build (Debug, Release, Compact)" FORCE)
+    set (CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build (Debug, Release, ReleaseNative, ReleaseCompact)" FORCE)
 endif ()
 
 # notify of the build type in use
 message (STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 
 # project definition
-set (TimberWolf_VERSION_MAJOR 0)
-set (TimberWolf_VERSION_MINOR 0)
-set (TimberWolf_VERSION_PATCH 0)
+set (LIBTIMBERWOLF_VERSION_MAJOR 0)
+set (LIBTIMBERWOLF_VERSION_MINOR 0)
+set (LIBTIMBERWOLF_VERSION_PATCH 0)
 project (
     TimberWolf
-    VERSION ${TimberWolf_VERSION_MAJOR}.${TimberWolf_VERSION_MINOR}.${TimberWolf_VERSION_PATCH}
+    VERSION ${LIBTIMBERWOLF_VERSION_MAJOR}.${LIBTIMBERWOLF_VERSION_MINOR}.${LIBTIMBERWOLF_VERSION_PATCH}
     DESCRIPTION "high-performance C++ OpenGL/Vulkan game engine"
 )
 set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 set (CMAKE_CXX_EXTENSIONS OFF)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fstack-protector -Wl,-z,relro -Wl,-z,now -Werror -Wall -Wextra -Wpointer-arith -Wformat-security -Wformat -Wreturn-type -Wsign-compare -Wmultichar -Wformat-nonliteral -Winit-self -Wuninitialized -Wreturn-local-addr -Wno-unused-parameter -Wno-unused-function -Wno-unused-label")
+set (CMAKE_CXX_FLAGS_DEBUG_ORIGINAL "${CMAKE_CXX_FLAGS_DEBUG}")
 set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Og")
-set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
-set (CMAKE_CXX_FLAGS_COMPACT "${CMAKE_CXX_FLAGS_COMPACT} -Os")
-set (TimberWolf_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/TimberWolf)
-set (TimberWolf_PUBLIC_HEADER ${PROJECT_SOURCE_DIR}/include)
-set (TimberWolf_SOURCE_DIR ${PROJECT_SOURCE_DIR}/source/TimberWolf)
+set (CMAKE_CXX_FLAGS_RELEASE_ORIGINAL "${CMAKE_CXX_FLAGS_RELEASE}")
+set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -march=core2 -mtune=generic")
+set (CMAKE_CXX_FLAGS_RELEASENATIVE "${CMAKE_CXX_FLAGS_RELEASE_ORIGINAL} -O3 -march=native")
+set (CMAKE_CXX_FLAGS_RELEASECOMPACT "${CMAKE_CXX_FLAGS_RELEASE_ORIGINAL} -Os -march=core2 -mtune=generic")
+set (LIBTIMBERWOLF_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include/TimberWolf)
+set (LIBTIMBERWOLF_PUBLIC_HEADER ${PROJECT_SOURCE_DIR}/include)
+set (LIBTIMBERWOLF_SOURCE_DIR ${PROJECT_SOURCE_DIR}/source/TimberWolf)
 configure_file (
     ${PROJECT_SOURCE_DIR}/TimberWolf.hpp.in
-    ${TimberWolf_INCLUDE_DIR}/TimberWolf.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/TimberWolf.hpp
 )
 include_directories (
     ${PROJECT_SOURCE_DIR}
@@ -66,75 +69,75 @@ configure_file (
 list (APPEND SOURCES
 
     # Bundled Libraries
-    ${TimberWolf_SOURCE_DIR}/External/FastNoise/FastNoise.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/External/FastNoise/FastNoise.cpp
 
     # Engine Core Classes
-    ${TimberWolf_SOURCE_DIR}/Core/Clock.cpp
-    ${TimberWolf_SOURCE_DIR}/Core/Color.cpp
-    ${TimberWolf_SOURCE_DIR}/Core/Console.cpp
-    ${TimberWolf_SOURCE_DIR}/Core/File.cpp
-    ${TimberWolf_SOURCE_DIR}/Core/Gradient.cpp
-    ${TimberWolf_SOURCE_DIR}/Core/Projection.cpp
-    ${TimberWolf_SOURCE_DIR}/Core/Rotation.cpp
-    ${TimberWolf_SOURCE_DIR}/Core/SpeedGovernor.cpp
-    ${TimberWolf_SOURCE_DIR}/Core/Transformation.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Clock.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Color.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Console.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Core/File.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Gradient.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Projection.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Rotation.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Core/SpeedGovernor.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Transformation.cpp
 
     # Engine Log Subsystem
-    ${TimberWolf_SOURCE_DIR}/Log/ConsoleLogObserver.cpp
-    ${TimberWolf_SOURCE_DIR}/Log/FileLogObserver.cpp
-    ${TimberWolf_SOURCE_DIR}/Log/FunctionLogObserver.cpp
-    ${TimberWolf_SOURCE_DIR}/Log/Log.cpp
-    ${TimberWolf_SOURCE_DIR}/Log/LogObserver.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Log/ConsoleLogObserver.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Log/FileLogObserver.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Log/FunctionLogObserver.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Log/Log.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Log/LogObserver.cpp
 
     # Engine Game Loop Subsystem
-    ${TimberWolf_SOURCE_DIR}/GameLoop/Controller.cpp
-    ${TimberWolf_SOURCE_DIR}/GameLoop/GameLoop.cpp
-    ${TimberWolf_SOURCE_DIR}/GameLoop/GameState.cpp
-    ${TimberWolf_SOURCE_DIR}/GameLoop/GameStateManager.cpp
-    ${TimberWolf_SOURCE_DIR}/GameLoop/GameStateStore.cpp
-    ${TimberWolf_SOURCE_DIR}/GameLoop/Keybinding.cpp
-    ${TimberWolf_SOURCE_DIR}/GameLoop/KeyMod.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/GameLoop/Controller.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/GameLoop/GameLoop.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/GameLoop/GameState.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/GameLoop/GameStateManager.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/GameLoop/GameStateStore.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/GameLoop/Keybinding.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/GameLoop/KeyMod.cpp
 
     # Engine Graphics Subsystem
-    ${TimberWolf_SOURCE_DIR}/Graphics/Camera.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/GraphicsBufferable.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/Material.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/Mesh.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/Model.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/Puppet.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/Renderer.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/Scene.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/Texture.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/TexturePoint.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/VertexSet.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Camera.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/GraphicsBufferable.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Material.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Mesh.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Model.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Puppet.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Renderer.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Scene.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Texture.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/TexturePoint.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/VertexSet.cpp
 
     # Engine OpenGL Graphics Backend
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLComputeShader.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLFragmentShader.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLGeometryShader.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLRenderer.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLShader.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLShaderProgram.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLShaderStore.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLTesselationControlShader.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLTesselationEvaluationShader.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLVertexArray.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLVertexBuffer.cpp
-    ${TimberWolf_SOURCE_DIR}/Graphics/OpenGL/GLVertexShader.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLComputeShader.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLFragmentShader.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLGeometryShader.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLRenderer.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLShader.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLShaderProgram.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLShaderStore.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLTesselationControlShader.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLTesselationEvaluationShader.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLVertexArray.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLVertexBuffer.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLVertexShader.cpp
 
     # Engine Window Subsystem
-    ${TimberWolf_SOURCE_DIR}/Window/Window.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Window/Window.cpp
 
     # Engine World Subsystem
-    ${TimberWolf_SOURCE_DIR}/World/Entity.cpp
-    ${TimberWolf_SOURCE_DIR}/World/EntityComponent.cpp
-    ${TimberWolf_SOURCE_DIR}/World/PhysicsEntityComponent.cpp
-    ${TimberWolf_SOURCE_DIR}/World/World.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/World/Entity.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/World/EntityComponent.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/World/PhysicsEntityComponent.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/World/World.cpp
 
 )
 
 set_source_files_properties(
-    ${TimberWolf_SOURCE_DIR}/External/FastNoise/FastNoise.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/External/FastNoise/FastNoise.cpp
     PROPERTIES COMPILE_FLAGS
         "-Wno-implicit-fallthrough -Wno-maybe-uninitialized -Wno-strict-aliasing" # lots of warnings in this library, but that's not our problem
 )
@@ -143,105 +146,105 @@ set_source_files_properties(
 list (APPEND HEADERS
 
     # Library Metadata
-    ${TimberWolf_INCLUDE_DIR}/TimberWolf.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/TimberWolf.hpp
 
     # Bundled Libraries
-    ${TimberWolf_INCLUDE_DIR}/External/FastNoise.hpp
-    ${TimberWolf_INCLUDE_DIR}/External/FastNoise/FastNoise.h
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/External/FastNoise.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/External/FastNoise/FastNoise.h
 
     # Engine Auto-Include Headers
-    ${TimberWolf_INCLUDE_DIR}/Core.hpp
-    ${TimberWolf_INCLUDE_DIR}/External.hpp
-    ${TimberWolf_INCLUDE_DIR}/GameLoop.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics.hpp
-    ${TimberWolf_INCLUDE_DIR}/Log.hpp
-    ${TimberWolf_INCLUDE_DIR}/OpenGL.hpp
-    ${TimberWolf_INCLUDE_DIR}/Window.hpp
-    ${TimberWolf_INCLUDE_DIR}/World.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/External.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/GameLoop.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Log.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/OpenGL.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Window.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/World.hpp
 
     # Engine Core Classes
-    ${TimberWolf_INCLUDE_DIR}/Core/Clock.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Color.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Console.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/File.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/GlobalVertex.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Gradient.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Math.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Matrix3.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Matrix3Double.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Matrix4.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Matrix4Double.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Quaternion.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/QuaternionDouble.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Projection.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Rotation.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/SpeedGovernor.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Transformation.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Vector2.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Vector2Double.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Vector3.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Vector3Double.hpp
-    ${TimberWolf_INCLUDE_DIR}/Core/Vertex.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Clock.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Color.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Console.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/File.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/GlobalVertex.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Gradient.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Math.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Matrix3.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Matrix3Double.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Matrix4.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Matrix4Double.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Quaternion.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/QuaternionDouble.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Projection.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Rotation.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/SpeedGovernor.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Transformation.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Vector2.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Vector2Double.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Vector3.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Vector3Double.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Vertex.hpp
 
     # Engine Log Subsystem
-    ${TimberWolf_INCLUDE_DIR}/Log/ConsoleLogObserver.hpp
-    ${TimberWolf_INCLUDE_DIR}/Log/FileLogObserver.hpp
-    ${TimberWolf_INCLUDE_DIR}/Log/FunctionLogObserver.hpp
-    ${TimberWolf_INCLUDE_DIR}/Log/Log.hpp
-    ${TimberWolf_INCLUDE_DIR}/Log/LogObserver.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Log/ConsoleLogObserver.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Log/FileLogObserver.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Log/FunctionLogObserver.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Log/Log.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Log/LogObserver.hpp
 
     # Engine Game Loop Subsystem
-    ${TimberWolf_INCLUDE_DIR}/GameLoop/Controller.hpp
-    ${TimberWolf_INCLUDE_DIR}/GameLoop/GameLoop.hpp
-    ${TimberWolf_INCLUDE_DIR}/GameLoop/GameState.hpp
-    ${TimberWolf_INCLUDE_DIR}/GameLoop/GameStateManager.hpp
-    ${TimberWolf_INCLUDE_DIR}/GameLoop/GameStateStore.hpp
-    ${TimberWolf_INCLUDE_DIR}/GameLoop/Keybinding.hpp
-    ${TimberWolf_INCLUDE_DIR}/GameLoop/KeyMod.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/GameLoop/Controller.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/GameLoop/GameLoop.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/GameLoop/GameState.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/GameLoop/GameStateManager.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/GameLoop/GameStateStore.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/GameLoop/Keybinding.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/GameLoop/KeyMod.hpp
 
     # Engine Graphics Subsystem
-    ${TimberWolf_INCLUDE_DIR}/Graphics/Camera.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/GraphicsBufferable.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/Material.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/Mesh.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/Model.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/Puppet.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/Renderer.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/Scene.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/Texture.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/TexturePoint.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/VertexSet.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Camera.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/GraphicsBufferable.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Material.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Mesh.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Model.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Puppet.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Renderer.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Scene.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Texture.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/TexturePoint.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/VertexSet.hpp
 
     # Engine OpenGL Graphics Backend
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLComputeShader.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLFragmentShader.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLGeometryShader.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLRenderer.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLShader.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLShaderProgram.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLShaderStore.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLTesselationControlShader.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLTesselationEvaluationShader.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLVertexArray.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLVertexBuffer.hpp
-    ${TimberWolf_INCLUDE_DIR}/Graphics/OpenGL/GLVertexShader.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLComputeShader.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLFragmentShader.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLGeometryShader.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLRenderer.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLShader.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLShaderProgram.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLShaderStore.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLTesselationControlShader.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLTesselationEvaluationShader.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLVertexArray.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLVertexBuffer.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLVertexShader.hpp
 
     # Engine Window Subsystem
-    ${TimberWolf_INCLUDE_DIR}/Window/Window.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Window/Window.hpp
 
     # Engine World Subsystem
-    ${TimberWolf_INCLUDE_DIR}/World/Entity.hpp
-    ${TimberWolf_INCLUDE_DIR}/World/EntityComponent.hpp
-    ${TimberWolf_INCLUDE_DIR}/World/PhysicsEntityComponent.hpp
-    ${TimberWolf_INCLUDE_DIR}/World/World.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/World/Entity.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/World/EntityComponent.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/World/PhysicsEntityComponent.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/World/World.hpp
 
 )
 
 # library output
 set (LIBRARY_NAME "TimberWolf")
-add_library (${LIBRARY_NAME} SHARED ${SOURCES} ${HEADERS})
+add_library (${LIBRARY_NAME} SHARED ${SOURCES})
 set_target_properties (${LIBRARY_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
-set_target_properties (${LIBRARY_NAME} PROPERTIES SOVERSION ${TimberWolf_VERSION_MAJOR})
+set_target_properties (${LIBRARY_NAME} PROPERTIES SOVERSION ${LIBTIMBERWOLF_VERSION_MAJOR})
 set_target_properties (${LIBRARY_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
 configure_file (
     ${PROJECT_SOURCE_DIR}/TimberWolf.pc.in
@@ -268,7 +271,7 @@ configure_file (
     @ONLY
 )
 set (CONF_INCLUDE_DIRS
-    "\${TimberWolf_CMAKE_DIR}/${REL_INCLUDE_DIR}"
+    "\${LIBTIMBERWOLF_CMAKE_DIR}/${REL_INCLUDE_DIR}"
 )
 configure_file (
     ${PROJECT_SOURCE_DIR}/TimberWolfConfig.cmake.in
@@ -282,8 +285,8 @@ configure_file (
 )
 
 # dependencies
-set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
-set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+set (CMAKE_THREAD_PREFER_PTHREAD TRUE)
+set (THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package (Threads REQUIRED)
 set (OpenGL_GL_PREFERENCE "GLVND")
 find_package (OpenGL REQUIRED)
@@ -305,7 +308,7 @@ install (TARGETS ${LIBRARY_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 install (
-    DIRECTORY ${TimberWolf_PUBLIC_HEADER}/ # trailing slash intended, don't remove
+    DIRECTORY ${LIBTIMBERWOLF_PUBLIC_HEADER}/ # trailing slash intended, don't remove
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 install (
@@ -323,7 +326,7 @@ install (
 # packaging
 include (InstallRequiredSystemLibraries)
 set (CPACK_RESOURCE_FILE_LICENSE ${PROJECT_SOURCE_DIR}/LICENSE)
-set (CPACK_RESOURCE_VERSION_MAJOR ${TimberWolf_VERSION_MAJOR})
-set (CPACK_RESOURCE_VERSION_MINOR ${TimberWolf_VERSION_MINOR})
-set (CPACK_RESOURCE_VERSION_PATCH ${TimberWolf_VERSION_PATCH})
+set (CPACK_RESOURCE_VERSION_MAJOR ${LIBTIMBERWOLF_VERSION_MAJOR})
+set (CPACK_RESOURCE_VERSION_MINOR ${LIBTIMBERWOLF_VERSION_MINOR})
+set (CPACK_RESOURCE_VERSION_PATCH ${LIBTIMBERWOLF_VERSION_PATCH})
 include (CPack)

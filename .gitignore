@@ -18,5 +18,7 @@ Makefile
 Doxyfile
 /docs/generated
 /docs/uml/**/*.png
-/TimberWolf.cbp
-/TimberWolf.layout
+TimberWolf.cbp
+TimberWolf.layout
+vgcore.*
+cachegrind.out.*
