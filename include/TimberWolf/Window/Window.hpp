@@ -72,12 +72,11 @@ public:
     static void render (Scene&);
 
     static void clear ();
-    static void clear (const Color&);
-    static void clear (float, float, float, float);
     static void clearColor ();
-    static void clearColor (const Color&);
-    static void clearColor (float, float, float, float);
     static void clearDepth ();
+
+    static void setClearColor (const Color&);
+    static void setClearColor (float, float, float, float);
 
     static int getWidth ();
     static int getHeight ();

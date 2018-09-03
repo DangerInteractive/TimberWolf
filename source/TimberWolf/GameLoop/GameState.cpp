@@ -9,17 +9,6 @@
  */
 
 /**
- * Clear the window.
- */
-void tw::GameState::clearWindow () {
-
-    if (m_clearWindow) {
-        Window::clear(m_clearColor);
-    }
-
-}
-
-/**
  * Get the attached tw::Controller, which handles input.
  *
  * @return controller (input handler)

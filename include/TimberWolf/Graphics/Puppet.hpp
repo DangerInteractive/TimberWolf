@@ -23,6 +23,14 @@ public:
     Puppet (const Puppet&) = default;
     Puppet& operator = (const Puppet&) = default;
 
+    Model* getModel ();
+    std::shared_ptr<Model> getModelShared ();
+    void setModel (const std::shared_ptr<Model>&);
+
+    Material* getMaterial ();
+    std::shared_ptr<Material> getMaterialShared ();
+    void setMaterial (const std::shared_ptr<Material>&);
+
 private:
 
     std::shared_ptr<Model> m_model;

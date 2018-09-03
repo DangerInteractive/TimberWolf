@@ -195,8 +195,8 @@ void tw::Mesh::disableTextureBuffer () {
 uint16_t tw::Mesh::getTracksToBuffer () {
 
     unsigned int set = FLAG_VERTEX;
-    set &= indexBufferEnabled() ? FLAG_INDEX : 0;
-    set &= textureBufferEnabled() ? FLAG_TEXTURE : 0;
+    set |= indexBufferEnabled() ? FLAG_INDEX : 0;
+    set |= textureBufferEnabled() ? FLAG_TEXTURE : 0;
     return set;
 
 }

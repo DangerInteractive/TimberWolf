@@ -43,7 +43,6 @@ public:
     virtual void onDescend () = 0;
 
     // game loop callbacks
-    void clearWindow ();
     virtual void render (double) = 0;
     virtual void update (double) = 0;
 
@@ -56,8 +55,6 @@ public:
 protected:
 
     Controller m_controller;
-    bool m_clearWindow {false};
-    Color m_clearColor {0.f, 0.f, 0.f, 1.f};
 
 };
 }

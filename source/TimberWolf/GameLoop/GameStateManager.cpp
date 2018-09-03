@@ -182,17 +182,6 @@ void tw::GameStateManager::refreshLiveStates () {
 }
 
 /**
- * Clear the window.
- */
-void tw::GameStateManager::clearWindow () {
-
-    for (unsigned int i = m_statesLiveRender.size(); i > 0; --i) {
-        m_statesLiveRender[i - 1]->clearWindow();
-    }
-
-}
-
-/**
  * Execute an iteration of the active game state(s) render loop, passing the
  * number of seconds since the last iteration of the update loop for the purpose
  * of preventing rendering stutter. This should only be called by tw::GameLoop.

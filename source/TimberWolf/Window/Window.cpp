@@ -199,40 +199,6 @@ void tw::Window::clear () {
 }
 
 /**
- * Clear the color and depth buffers between draws, given a clear color.
- *
- * @param color clear color
- */
-void tw::Window::clear (const Color& color) {
-
-    if (isOpen()) {
-        if (m_renderer != nullptr) {
-            m_renderer->clear(color);
-        }
-    }
-
-}
-
-/**
- * Clear the color and depth buffers between draws, given a clear color as red,
- * green, blue, and alpha channels, respectively.
- *
- * @param r normalized value for red channel (0-1)
- * @param g normalized value for green channel (0-1)
- * @param b normalized value for blue channel (0-1)
- * @param a normalized value for alpha channel (0-1)
- */
-void tw::Window::clear (float r, float g, float b, float a) {
-
-    if (isOpen()) {
-        if (m_renderer != nullptr) {
-            m_renderer->clear(Color(r, g, b, a));
-        }
-    }
-
-}
-
-/**
  * Clear the color buffer between draws using the default clear color.
  */
 void tw::Window::clearColor () {
@@ -240,40 +206,6 @@ void tw::Window::clearColor () {
     if (isOpen()) {
         if (m_renderer != nullptr) {
             m_renderer->clearColor();
-        }
-    }
-
-}
-
-/**
- * Clear the color buffer between draws, given a clear color.
- *
- * @param color clear color
- */
-void tw::Window::clearColor (const Color& color) {
-
-    if (isOpen()) {
-        if (m_renderer != nullptr) {
-            m_renderer->clearColor(color);
-        }
-    }
-
-}
-
-/**
- * Clear the color buffer between draws, given a clear color as normalized red,
- * green, blue, and alpha channels respectively.
- *
- * @param r normalized red channel value (0-1)
- * @param g normalized green channel value (0-1)
- * @param b normalized blue channel value (0-1)
- * @param a normalized alpha channel value (0-1)
- */
-void tw::Window::clearColor (float r, float g, float b, float a) {
-
-    if (isOpen()) {
-        if (m_renderer != nullptr) {
-            m_renderer->clearColor(Color(r, g, b, a));
         }
     }
 
@@ -288,6 +220,28 @@ void tw::Window::clearDepth () {
         if (m_renderer != nullptr) {
             m_renderer->clearDepth();
         }
+    }
+
+}
+
+/**
+ * Set the color buffer clear color (persists to all folllowing draws).
+ */
+void tw::Window::setClearColor (const Color& color) {
+
+    if (m_renderer != nullptr) {
+        m_renderer->setClearColor(color);
+    }
+
+}
+
+/**
+ * Set the color buffer clear color (persists to all following draws).
+ */
+void tw::Window::setClearColor (float r, float g, float b, float a) {
+
+    if (m_renderer != nullptr) {
+        m_renderer->setClearColor(r, g, b, a);
     }
 
 }

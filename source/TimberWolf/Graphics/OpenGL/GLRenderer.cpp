@@ -7,65 +7,28 @@
  * to the game window.
  */
 
-void tw::GLRenderer::render (const Scene*) {
+void tw::GLRenderer::render (const Scene* scene) {
 
-    // TODO: implement OpenGL rendering of Scenes
+    // TODO: OpenGL specific scene setup here?
 
-}
-
-/**
- * Render a tw::Model object with OpenGL to the window.
- *
- * @param model model to render
- */
-void tw::GLRenderer::render (const Model* model) {
-
-    // TODO: relegate this to a protected method rendering objects in the world
-    auto vao = model->getVAO();
-
-    vao->bind();
-    glEnableVertexAttribArray(0);
-
-    if (model->getShaderProgram() != nullptr) {
-        model->getShaderProgram()->use();
-    }
-
-    glDrawArrays(GL_TRIANGLES, 0, model->getVertexCount());
-
-    GLShaderProgram::unuse();
-    glDisableVertexAttribArray(0);
-    vao->unbind();
+    Renderer::render(scene);
 
 }
 
-void tw::GLRenderer::clearColor (const Color& color) {
+void tw::GLRenderer::render (const Puppet* puppet) {
 
-    if (m_lastClearColor != color) {
-        glClearColor(
-            color.getR(),
-            color.getG(),
-            color.getB(),
-            color.getA()
-        );
-        m_lastClearColor = color;
-    }
-    glClear(GL_COLOR_BUFFER_BIT);
+    // TODO
+
+}
+
+void tw::GLRenderer::clear () {
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 }
 
 void tw::GLRenderer::clearColor () {
 
-    auto defaultClearColor = getDefaultClearColor();
-
-    if (m_lastClearColor != defaultClearColor) {
-        glClearColor(
-            defaultClearColor.getR(),
-            defaultClearColor.getG(),
-            defaultClearColor.getB(),
-            defaultClearColor.getA()
-        );
-        m_lastClearColor = defaultClearColor;
-    }
     glClear(GL_COLOR_BUFFER_BIT);
 
 }
@@ -98,6 +61,37 @@ void tw::GLRenderer::onWindowOpen () {
 void tw::GLRenderer::onWindowClose () {
 
     return;
+
+}
+
+void tw::GLRenderer::setClearColor (const Color& color) {
+
+    glClearColor(color.getR(), color.getG(), color.getB(), color.getA());
+    Renderer::setClearColor(color);
+
+}
+
+/**
+ * Render a tw::Model object with OpenGL to the window.
+ *
+ * @param model model to render
+ */
+void tw::GLRenderer::drawModel (const Model* model) {
+
+    auto vao = model->getVAO();
+
+    vao->bind();
+    glEnableVertexAttribArray(0);
+
+    if (model->getShaderProgram() != nullptr) {
+        model->getShaderProgram()->use();
+    }
+
+    glDrawArrays(GL_TRIANGLES, 0, model->getVertexCount());
+
+    GLShaderProgram::unuse();
+    glDisableVertexAttribArray(0);
+    vao->unbind();
 
 }
 

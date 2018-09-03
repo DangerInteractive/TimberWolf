@@ -26,20 +26,22 @@ class GLRenderer : public Renderer {
     GLRenderer& operator = (const GLRenderer&) = default;
 
     virtual void render (const Scene*) override;
-    virtual void render (const Model*);
+    virtual void render (const Puppet*) override = 0;
 
-    virtual void clearColor (const Color&) override;
+    virtual void clear () override;
     virtual void clearColor () override;
     virtual void clearDepth () override;
 
     virtual void onWindowOpen () override;
     virtual void onWindowClose () override;
 
+    virtual void setClearColor (const Color&) override;
+
 protected:
 
-    static void glLiveDebug (GLenum, GLenum, GLuint, GLenum, GLsizei, const GLchar*, const void*);
+    void drawModel (const Model*);
 
-    Color m_lastClearColor { getDefaultClearColor() };
+    static void glLiveDebug (GLenum, GLenum, GLuint, GLenum, GLsizei, const GLchar*, const void*);
 
 };
 }

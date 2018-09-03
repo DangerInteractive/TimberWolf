@@ -8,9 +8,10 @@
  */
 
 #include "../Core/Color.hpp"
-#include "Scene.hpp"
-#include "Model.hpp"
+
 #include "Mesh.hpp"
+#include "Puppet.hpp"
+#include "Scene.hpp"
 
 namespace tw {
 class Renderer {
@@ -26,18 +27,24 @@ public:
     Renderer (const Renderer&) = default;
     Renderer& operator = (const Renderer&) = default;
 
-    virtual void render (const Scene*) = 0;
+    virtual void render (const Scene*);
+    virtual void render (const Puppet*) = 0;
 
-    virtual void clear (const Color&);
-    virtual void clear ();
-    virtual void clearColor (const Color&) = 0;
+    virtual void clear () = 0;
     virtual void clearColor () = 0;
     virtual void clearDepth () = 0;
 
     virtual void onWindowOpen ();
     virtual void onWindowClose ();
 
-    static Color getDefaultClearColor ();
+    const Color& getClearColor () const;
+    virtual void setClearColor (const Color&);
+    void setClearColor (float, float, float, float);
+    void resetClearColor ();
+
+protected:
+
+    Color m_clearColor {0.f, 0.f, 0.f, 1.f};
 
 };
 }
