@@ -50,8 +50,8 @@ public:
 
     bool indexBufferEnabled () const;
     unsigned int getIndexCount () const;
-    const std::vector<unsigned int>& getIndices () const;
-    unsigned int getIndex (unsigned int) const;
+    const std::vector<uint32_t>& getIndices () const;
+    uint32_t getIndex (unsigned int) const;
 
     bool textureBufferEnabled () const;
     unsigned int getTexturePointCount () const;
@@ -59,11 +59,11 @@ public:
     const TexturePoint& getTexturePoint (unsigned int) const;
 
     void addVertices (const Vertex&...);
-    void addIndices (unsigned int...);
+    void addIndices (uint32_t...);
     void addTexturePoints (const TexturePoint&...);
 
     void setVertex (unsigned int, const Vertex&);
-    void setIndex (unsigned int, unsigned int);
+    void setIndex (unsigned int, uint32_t);
     void setTexturePoint (unsigned int, const TexturePoint&);
 
     void clearVertices ();
@@ -77,23 +77,23 @@ public:
     void disableTextureBuffer ();
 
     // implementations for GraphicsBufferable interface
-    unsigned int getTracksToBuffer () override;
-    void* getDataPointer (unsigned int = 0) override;
-    size_t getDataBytes (unsigned int = 0) override;
-    unsigned int getSegmentCount (unsigned int = 0) override;
-    int getSegmentSize (unsigned int = 0) override;
-    GraphicsBufferable::DataType getDataType (unsigned int = 0) override;
-    size_t getDataTypeBytes (unsigned int = 0) override;
-    bool isNormalized (unsigned int = 0) override;
-    size_t getStride (unsigned int = 0) override;
-    size_t getOffset (unsigned int = 0) override;
+    uint16_t getTracksToBuffer () override;
+    void* getDataPointer (uint8_t = 0) override;
+    size_t getDataBytes (uint8_t = 0) override;
+    unsigned int getSegmentCount (uint8_t = 0) override;
+    int32_t getSegmentSize (uint8_t = 0) override;
+    GraphicsBufferable::DataType getDataType (uint8_t = 0) override;
+    size_t getDataTypeBytes (uint8_t = 0) override;
+    bool isNormalized (uint8_t = 0) override;
+    size_t getStride (uint8_t = 0) override;
+    size_t getOffset (uint8_t = 0) override;
 
 protected:
 
     std::vector<Vertex> m_vertices;
 
     bool m_indexBufferEnabled = false;
-    std::vector<unsigned int> m_indices;
+    std::vector<uint32_t> m_indices;
 
     bool m_textureBufferEnabled = false;
     std::vector<TexturePoint> m_texturePoints;

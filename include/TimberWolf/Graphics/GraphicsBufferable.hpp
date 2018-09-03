@@ -8,6 +8,7 @@
  */
 
 #include <cstddef>
+#include <cstdint>
 
 namespace tw {
 class GraphicsBufferable {
@@ -42,7 +43,7 @@ public:
         ATTRIB_13 = 1 << 13,
         ATTRIB_14 = 1 << 14,
         ATTRIB_15 = 1 << 15,
-        ATTRIB_ALL = 0x0000FFFF
+        ATTRIB_ALL = 0xFFFF
     };
 
     GraphicsBufferable () = default;
@@ -55,20 +56,20 @@ public:
     GraphicsBufferable& operator = (const GraphicsBufferable&) = default;
 
     // pure virtual methods, must be implemented by subclass
-    virtual unsigned int getTracksToBuffer () = 0;
-    virtual void* getDataPointer (unsigned int = 0) = 0;
-    virtual size_t getDataBytes (unsigned int = 0) = 0;
-    virtual unsigned int getSegmentCount (unsigned int = 0) = 0;
-    virtual int getSegmentSize (unsigned int = 0) = 0;
-    virtual DataType getDataType (unsigned int = 0) = 0;
-    virtual size_t getDataTypeBytes (unsigned int = 0) = 0;
-    virtual bool isNormalized (unsigned int = 0) = 0;
-    virtual size_t getStride (unsigned int = 0) = 0;
-    virtual size_t getOffset (unsigned int = 0) = 0;
+    virtual uint16_t getTracksToBuffer () = 0;
+    virtual void* getDataPointer (uint8_t = 0) = 0;
+    virtual size_t getDataBytes (uint8_t = 0) = 0;
+    virtual unsigned int getSegmentCount (uint8_t = 0) = 0;
+    virtual int32_t getSegmentSize (uint8_t = 0) = 0;
+    virtual DataType getDataType (uint8_t = 0) = 0;
+    virtual size_t getDataTypeBytes (uint8_t = 0) = 0;
+    virtual bool isNormalized (uint8_t = 0) = 0;
+    virtual size_t getStride (uint8_t = 0) = 0;
+    virtual size_t getOffset (uint8_t = 0) = 0;
 
     // derivative of the pure virtuals, but can be overridden if needed
-    virtual size_t getStoreBytes (unsigned int = 0);
-    virtual size_t getSegmentBytes (unsigned int = 0);
+    virtual size_t getStoreBytes (uint8_t = 0);
+    virtual size_t getSegmentBytes (uint8_t = 0);
 
 };
 }

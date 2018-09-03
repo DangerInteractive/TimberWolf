@@ -36,13 +36,13 @@ unsigned int tw::Mesh::getIndexCount () const {
 
 }
 
-const std::vector<unsigned int>& tw::Mesh::getIndices () const {
+const std::vector<uint32_t>& tw::Mesh::getIndices () const {
 
     return m_indices;
 
 }
 
-unsigned int tw::Mesh::getIndex (unsigned int index) const {
+uint32_t tw::Mesh::getIndex (unsigned int index) const {
 
     return m_indices.at(index);
 
@@ -78,7 +78,7 @@ void tw::Mesh::addVertices (const Vertex& vertices...) {
 
 }
 
-void tw::Mesh::addIndices (unsigned int indices...) {
+void tw::Mesh::addIndices (uint32_t indices...) {
 
     m_indices.emplace_back(indices);
     m_indexBufferEnabled = true;
@@ -98,7 +98,7 @@ void tw::Mesh::setVertex (unsigned int index, const Vertex& vertex) {
 
 }
 
-void tw::Mesh::setIndex (unsigned int indexOfIndex, unsigned int index) {
+void tw::Mesh::setIndex (unsigned int indexOfIndex, uint32_t index) {
 
     m_indices.at(indexOfIndex) = index;
 
@@ -154,7 +154,7 @@ void tw::Mesh::disableTextureBuffer () {
 
 }
 
-unsigned int tw::Mesh::getTracksToBuffer () {
+uint16_t tw::Mesh::getTracksToBuffer () {
 
     unsigned int set = FLAG_VERTEX;
     set &= indexBufferEnabled() ? FLAG_INDEX : 0;
@@ -163,7 +163,7 @@ unsigned int tw::Mesh::getTracksToBuffer () {
 
 }
 
-void* tw::Mesh::getDataPointer (unsigned int attrib) {
+void* tw::Mesh::getDataPointer (uint8_t attrib) {
 
     switch (attrib) {
 
@@ -183,7 +183,7 @@ void* tw::Mesh::getDataPointer (unsigned int attrib) {
 
 }
 
-size_t tw::Mesh::getDataBytes (unsigned int attrib) {
+size_t tw::Mesh::getDataBytes (uint8_t attrib) {
 
     switch (attrib) {
 
@@ -203,7 +203,7 @@ size_t tw::Mesh::getDataBytes (unsigned int attrib) {
 
 }
 
-unsigned int tw::Mesh::getSegmentCount (unsigned int attrib) {
+unsigned int tw::Mesh::getSegmentCount (uint8_t attrib) {
 
     switch (attrib) {
 
@@ -223,7 +223,7 @@ unsigned int tw::Mesh::getSegmentCount (unsigned int attrib) {
 
 }
 
-int tw::Mesh::getSegmentSize (unsigned int attrib) {
+int32_t tw::Mesh::getSegmentSize (uint8_t attrib) {
 
     switch (attrib) {
 
@@ -243,7 +243,7 @@ int tw::Mesh::getSegmentSize (unsigned int attrib) {
 
 }
 
-tw::GraphicsBufferable::DataType tw::Mesh::getDataType (unsigned int attrib) {
+tw::GraphicsBufferable::DataType tw::Mesh::getDataType (uint8_t attrib) {
 
     switch (attrib) {
 
@@ -263,7 +263,7 @@ tw::GraphicsBufferable::DataType tw::Mesh::getDataType (unsigned int attrib) {
 
 }
 
-size_t tw::Mesh::getDataTypeBytes (unsigned int attrib) {
+size_t tw::Mesh::getDataTypeBytes (uint8_t attrib) {
 
     switch (attrib) {
 
@@ -271,7 +271,7 @@ size_t tw::Mesh::getDataTypeBytes (unsigned int attrib) {
             return sizeof(float);
 
         case ATTRIB_INDEX:
-            return sizeof(unsigned int);
+            return sizeof(uint32_t);
 
         case ATTRIB_TEXTURE:
             return sizeof(float);
@@ -283,19 +283,19 @@ size_t tw::Mesh::getDataTypeBytes (unsigned int attrib) {
 
 }
 
-bool tw::Mesh::isNormalized (unsigned int attrib) {
+bool tw::Mesh::isNormalized (uint8_t attrib) {
 
     return false;
 
 }
 
-size_t tw::Mesh::getStride (unsigned int attrib) {
+size_t tw::Mesh::getStride (uint8_t attrib) {
 
     return 0;
 
 }
 
-size_t tw::Mesh::getOffset (unsigned int attrib) {
+size_t tw::Mesh::getOffset (uint8_t attrib) {
 
     return 0;
 
