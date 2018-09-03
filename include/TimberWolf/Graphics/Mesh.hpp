@@ -12,6 +12,7 @@
 
 #include <GL/glew.h>
 
+#include "../Core/Normal.hpp"
 #include "../Core/Vertex.hpp"
 
 #include "GraphicsBufferable.hpp"
@@ -25,13 +26,15 @@ public:
     enum AttribIndex {
         ATTRIB_VERTEX = 0,
         ATTRIB_INDEX = 1,
-        ATTRIB_TEXTURE = 2
+        ATTRIB_NORMAL = 2,
+        ATTRIB_TEXTURE = 3
     };
 
     enum AttribFlag {
-        FLAG_VERTEX = GraphicsBufferable::ToBuffer::ATTRIB_0,
-        FLAG_INDEX = GraphicsBufferable::ToBuffer::ATTRIB_1,
-        FLAG_TEXTURE = GraphicsBufferable::ToBuffer::ATTRIB_2
+        FLAG_VERTEX = ATTRIB_0,
+        FLAG_INDEX = ATTRIB_1,
+        FLAG_NORMAL = ATTRIB_2,
+        FLAG_TEXTURE = ATTRIB_3
     };
 
     Mesh () = default;
@@ -53,6 +56,11 @@ public:
     const std::vector<uint32_t>& getIndices () const;
     uint32_t getIndex (unsigned int) const;
 
+    bool normalBufferEnabled () const;
+    unsigned int getNormalCount () const;
+    const std::vector<Normal>& getNormals () const;
+    const Normal& getNormal (unsigned int) const;
+
     bool textureBufferEnabled () const;
     unsigned int getTexturePointCount () const;
     const std::vector<TexturePoint>& getTexturePoints () const;
@@ -60,18 +68,24 @@ public:
 
     void addVertices (const Vertex&...);
     void addIndices (uint32_t...);
+    void addNormals (const Normal&...);
     void addTexturePoints (const TexturePoint&...);
 
     void setVertex (unsigned int, const Vertex&);
     void setIndex (unsigned int, uint32_t);
+    void setNormal (unsigned int, const Normal&);
     void setTexturePoint (unsigned int, const TexturePoint&);
 
     void clearVertices ();
     void clearIndices ();
+    void clearNormals ();
     void clearTexturePoints ();
 
     void enableIndexBuffer ();
     void disableIndexBuffer ();
+
+    void enableNormalBuffer ();
+    void disableNormalBuffer ();
 
     void enableTextureBuffer ();
     void disableTextureBuffer ();
@@ -90,13 +104,16 @@ public:
 
 protected:
 
-    std::vector<Vertex> m_vertices;
+    std::vector<Vertex> m_vertices {};
 
-    bool m_indexBufferEnabled = false;
-    std::vector<uint32_t> m_indices;
+    bool m_indexBufferEnabled {false};
+    std::vector<uint32_t> m_indices {};
 
-    bool m_textureBufferEnabled = false;
-    std::vector<TexturePoint> m_texturePoints;
+    bool m_normalBufferEnabled {false};
+    std::vector<Normal> m_normals {};
+
+    bool m_textureBufferEnabled {false};
+    std::vector<TexturePoint> m_texturePoints {};
 
 };
 }

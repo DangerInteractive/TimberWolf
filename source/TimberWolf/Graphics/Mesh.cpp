@@ -48,6 +48,30 @@ uint32_t tw::Mesh::getIndex (unsigned int index) const {
 
 }
 
+bool tw::Mesh::normalBufferEnabled () const {
+
+    return m_normalBufferEnabled;
+
+}
+
+unsigned int tw::Mesh::getNormalCount () const {
+
+    return m_normals.size();
+
+}
+
+const std::vector<tw::Normal>& tw::Mesh::getNormals () const {
+
+    return m_normals;
+
+}
+
+const tw::Normal& tw::Mesh::getNormal (unsigned int index) const {
+
+    return m_normals.at(index);
+
+}
+
 bool tw::Mesh::textureBufferEnabled () const {
 
     return m_textureBufferEnabled;
@@ -82,6 +106,13 @@ void tw::Mesh::addIndices (uint32_t indices...) {
 
     m_indices.emplace_back(indices);
     m_indexBufferEnabled = true;
+
+}
+
+void tw::Mesh::addNormals (const Normal& normals...) {
+
+    m_normals.emplace_back(normals);
+    m_normalBufferEnabled = true;
 
 }
 
@@ -120,6 +151,13 @@ void tw::Mesh::clearIndices () {
 
     m_indexBufferEnabled = false;
     m_indices.clear();
+
+}
+
+void tw::Mesh::clearNormals () {
+
+    m_normalBufferEnabled = false;
+    m_normals.clear();
 
 }
 
@@ -168,13 +206,16 @@ void* tw::Mesh::getDataPointer (uint8_t attrib) {
     switch (attrib) {
 
         case ATTRIB_VERTEX:
-            return &m_vertices;
+            return &m_vertices.front();
 
         case ATTRIB_INDEX:
-            return &m_indices;
+            return &m_indices.front();
+
+        case ATTRIB_NORMAL:
+            return &m_normals.front();
 
         case ATTRIB_TEXTURE:
-            return &m_texturePoints;
+            return &m_texturePoints.front();
 
         default:
             return nullptr;
@@ -191,7 +232,10 @@ size_t tw::Mesh::getDataBytes (uint8_t attrib) {
             return getVertexCount() * sizeof(Vertex);
 
         case ATTRIB_INDEX:
-            return getIndexCount() * sizeof(unsigned int);
+            return getIndexCount() * sizeof(uint32_t);
+
+        case ATTRIB_NORMAL:
+            return getNormalCount() * sizeof(Normal);
 
         case ATTRIB_TEXTURE:
             return getTexturePointCount() * sizeof(TexturePoint);
@@ -213,6 +257,9 @@ unsigned int tw::Mesh::getSegmentCount (uint8_t attrib) {
         case ATTRIB_INDEX:
             return getIndexCount();
 
+        case ATTRIB_NORMAL:
+            return getNormalCount();
+
         case ATTRIB_TEXTURE:
             return getTexturePointCount();
 
@@ -228,16 +275,19 @@ int32_t tw::Mesh::getSegmentSize (uint8_t attrib) {
     switch (attrib) {
 
         case ATTRIB_VERTEX:
-            return 3;
+            return 3; // x, y, and z
 
         case ATTRIB_INDEX:
-            return 1;
+            return 1; // index
+
+        case ATTRIB_NORMAL:
+            return 3; // x, y, and z
 
         case ATTRIB_TEXTURE:
-            return 2;
+            return 2; // x and y
 
         default:
-            return 0;
+            return 0; // who knows
 
     }
 
@@ -247,14 +297,8 @@ tw::GraphicsBufferable::DataType tw::Mesh::getDataType (uint8_t attrib) {
 
     switch (attrib) {
 
-        case ATTRIB_VERTEX:
-            return DataType::FLOAT;
-
         case ATTRIB_INDEX:
             return DataType::UINT;
-
-        case ATTRIB_TEXTURE:
-            return DataType::FLOAT;
 
         default:
             return DataType::FLOAT;
@@ -267,14 +311,8 @@ size_t tw::Mesh::getDataTypeBytes (uint8_t attrib) {
 
     switch (attrib) {
 
-        case ATTRIB_VERTEX:
-            return sizeof(float);
-
         case ATTRIB_INDEX:
             return sizeof(uint32_t);
-
-        case ATTRIB_TEXTURE:
-            return sizeof(float);
 
         default:
             return sizeof(float);
@@ -285,7 +323,15 @@ size_t tw::Mesh::getDataTypeBytes (uint8_t attrib) {
 
 bool tw::Mesh::isNormalized (uint8_t attrib) {
 
-    return false;
+    switch (attrib) {
+
+        case ATTRIB_NORMAL:
+            return true; // you better actually normalize those normals
+
+        default:
+            return false;
+
+    }
 
 }
 

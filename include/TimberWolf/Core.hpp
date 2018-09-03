@@ -21,6 +21,7 @@
 #include "Core/Matrix3Double.hpp"
 #include "Core/Matrix4.hpp"
 #include "Core/Matrix4Double.hpp"
+#include "Core/Normal.hpp"
 #include "Core/Projection.hpp"
 #include "Core/Quaternion.hpp"
 #include "Core/QuaternionDouble.hpp"

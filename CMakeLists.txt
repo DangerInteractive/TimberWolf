@@ -174,6 +174,7 @@ list (APPEND HEADERS
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Matrix3Double.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Matrix4.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Matrix4Double.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Normal.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Quaternion.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/QuaternionDouble.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Projection.hpp
