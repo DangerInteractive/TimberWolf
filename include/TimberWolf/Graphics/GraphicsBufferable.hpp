@@ -25,6 +25,26 @@ public:
         DOUBLE // 64-bit IEEE-754
     };
 
+    enum ToBuffer {
+        ATTRIB_0 = 1 << 0,
+        ATTRIB_1 = 1 << 1,
+        ATTRIB_2 = 1 << 2,
+        ATTRIB_3 = 1 << 3,
+        ATTRIB_4 = 1 << 4,
+        ATTRIB_5 = 1 << 5,
+        ATTRIB_6 = 1 << 6,
+        ATTRIB_7 = 1 << 7,
+        ATTRIB_8 = 1 << 8,
+        ATTRIB_9 = 1 << 9,
+        ATTRIB_10 = 1 << 10,
+        ATTRIB_11 = 1 << 11,
+        ATTRIB_12 = 1 << 12,
+        ATTRIB_13 = 1 << 13,
+        ATTRIB_14 = 1 << 14,
+        ATTRIB_15 = 1 << 15,
+        ATTRIB_ALL = 0x0000FFFF
+    };
+
     GraphicsBufferable () = default;
     virtual ~GraphicsBufferable () = default;
 
@@ -35,9 +55,10 @@ public:
     GraphicsBufferable& operator = (const GraphicsBufferable&) = default;
 
     // pure virtual methods, must be implemented by subclass
-    virtual void* getDataPointer () = 0;
-    virtual size_t getDataBytes () = 0;
-    virtual unsigned int getSegmentCount () = 0;
+    virtual unsigned int getTracksToBuffer () = 0;
+    virtual void* getDataPointer (unsigned int = 0) = 0;
+    virtual size_t getDataBytes (unsigned int = 0) = 0;
+    virtual unsigned int getSegmentCount (unsigned int = 0) = 0;
     virtual int getSegmentSize (unsigned int = 0) = 0;
     virtual DataType getDataType (unsigned int = 0) = 0;
     virtual size_t getDataTypeBytes (unsigned int = 0) = 0;

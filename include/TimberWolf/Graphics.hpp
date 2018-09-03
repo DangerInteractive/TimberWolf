@@ -25,6 +25,4 @@
 #include "Graphics/Scene.hpp"
 #include "Graphics/Texture.hpp"
 #include "Graphics/TexturePoint.hpp"
-#include "Graphics/VertexSet.hpp"
-
 #endif

@@ -1,1 +1,302 @@
 #include "../../../include/TimberWolf/Graphics/Mesh.hpp"
+
+tw::Mesh::Mesh (tw::Vertex vertices...) {
+
+    m_vertices.emplace_back(vertices);
+
+}
+
+unsigned int tw::Mesh::getVertexCount () const {
+
+    return m_vertices.size();
+
+}
+
+const std::vector<tw::Vertex>& tw::Mesh::getVertices () const {
+
+    return m_vertices;
+
+}
+
+const tw::Vertex& tw::Mesh::getVertex (unsigned int index) const {
+
+    return m_vertices.at(index);
+
+}
+
+bool tw::Mesh::indexBufferEnabled () const {
+
+    return m_indexBufferEnabled;
+
+}
+
+unsigned int tw::Mesh::getIndexCount () const {
+
+    return m_indices.size();
+
+}
+
+const std::vector<unsigned int>& tw::Mesh::getIndices () const {
+
+    return m_indices;
+
+}
+
+unsigned int tw::Mesh::getIndex (unsigned int index) const {
+
+    return m_indices.at(index);
+
+}
+
+bool tw::Mesh::textureBufferEnabled () const {
+
+    return m_textureBufferEnabled;
+
+}
+
+unsigned int tw::Mesh::getTexturePointCount () const {
+
+    return m_texturePoints.size();
+
+}
+
+const std::vector<tw::TexturePoint>& tw::Mesh::getTexturePoints () const {
+
+    return m_texturePoints;
+
+}
+
+const tw::TexturePoint& tw::Mesh::getTexturePoint (unsigned int index) const {
+
+    return m_texturePoints.at(index);
+
+}
+
+void tw::Mesh::addVertices (const Vertex& vertices...) {
+
+    m_vertices.emplace_back(vertices);
+
+}
+
+void tw::Mesh::addIndices (unsigned int indices...) {
+
+    m_indices.emplace_back(indices);
+    m_indexBufferEnabled = true;
+
+}
+
+void tw::Mesh::addTexturePoints (const TexturePoint& texturePoints...) {
+
+    m_texturePoints.emplace_back(texturePoints);
+    m_textureBufferEnabled = true;
+
+}
+
+void tw::Mesh::setVertex (unsigned int index, const Vertex& vertex) {
+
+    m_vertices.at(index) = vertex;
+
+}
+
+void tw::Mesh::setIndex (unsigned int indexOfIndex, unsigned int index) {
+
+    m_indices.at(indexOfIndex) = index;
+
+}
+
+void tw::Mesh::setTexturePoint (unsigned int index, const TexturePoint& texturePoint) {
+
+    m_texturePoints.at(index) = texturePoint;
+
+}
+
+void tw::Mesh::clearVertices () {
+
+    m_vertices.clear();
+
+}
+
+void tw::Mesh::clearIndices () {
+
+    m_indexBufferEnabled = false;
+    m_indices.clear();
+
+}
+
+void tw::Mesh::clearTexturePoints () {
+
+    m_textureBufferEnabled = false;
+    m_texturePoints.clear();
+
+}
+
+void tw::Mesh::enableIndexBuffer () {
+
+    m_indexBufferEnabled = true;
+
+}
+
+void tw::Mesh::disableIndexBuffer () {
+
+    m_indexBufferEnabled = false;
+
+}
+
+void tw::Mesh::enableTextureBuffer () {
+
+    m_textureBufferEnabled = true;
+
+}
+
+void tw::Mesh::disableTextureBuffer () {
+
+    m_textureBufferEnabled = false;
+
+}
+
+unsigned int tw::Mesh::getTracksToBuffer () {
+
+    unsigned int set = FLAG_VERTEX;
+    set &= indexBufferEnabled() ? FLAG_INDEX : 0;
+    set &= textureBufferEnabled() ? FLAG_TEXTURE : 0;
+    return set;
+
+}
+
+void* tw::Mesh::getDataPointer (unsigned int attrib) {
+
+    switch (attrib) {
+
+        case ATTRIB_VERTEX:
+            return &m_vertices;
+
+        case ATTRIB_INDEX:
+            return &m_indices;
+
+        case ATTRIB_TEXTURE:
+            return &m_texturePoints;
+
+        default:
+            return nullptr;
+
+    }
+
+}
+
+size_t tw::Mesh::getDataBytes (unsigned int attrib) {
+
+    switch (attrib) {
+
+        case ATTRIB_VERTEX:
+            return getVertexCount() * sizeof(Vertex);
+
+        case ATTRIB_INDEX:
+            return getIndexCount() * sizeof(unsigned int);
+
+        case ATTRIB_TEXTURE:
+            return getTexturePointCount() * sizeof(TexturePoint);
+
+        default:
+            return 0;
+
+    }
+
+}
+
+unsigned int tw::Mesh::getSegmentCount (unsigned int attrib) {
+
+    switch (attrib) {
+
+        case ATTRIB_VERTEX:
+            return getVertexCount();
+
+        case ATTRIB_INDEX:
+            return getIndexCount();
+
+        case ATTRIB_TEXTURE:
+            return getTexturePointCount();
+
+        default:
+            return 0;
+
+    }
+
+}
+
+int tw::Mesh::getSegmentSize (unsigned int attrib) {
+
+    switch (attrib) {
+
+        case ATTRIB_VERTEX:
+            return 3;
+
+        case ATTRIB_INDEX:
+            return 1;
+
+        case ATTRIB_TEXTURE:
+            return 2;
+
+        default:
+            return 0;
+
+    }
+
+}
+
+tw::GraphicsBufferable::DataType tw::Mesh::getDataType (unsigned int attrib) {
+
+    switch (attrib) {
+
+        case ATTRIB_VERTEX:
+            return DataType::FLOAT;
+
+        case ATTRIB_INDEX:
+            return DataType::UINT;
+
+        case ATTRIB_TEXTURE:
+            return DataType::FLOAT;
+
+        default:
+            return DataType::FLOAT;
+
+    }
+
+}
+
+size_t tw::Mesh::getDataTypeBytes (unsigned int attrib) {
+
+    switch (attrib) {
+
+        case ATTRIB_VERTEX:
+            return sizeof(float);
+
+        case ATTRIB_INDEX:
+            return sizeof(unsigned int);
+
+        case ATTRIB_TEXTURE:
+            return sizeof(float);
+
+        default:
+            return sizeof(float);
+
+    }
+
+}
+
+bool tw::Mesh::isNormalized (unsigned int attrib) {
+
+    return false;
+
+}
+
+size_t tw::Mesh::getStride (unsigned int attrib) {
+
+    return 0;
+
+}
+
+size_t tw::Mesh::getOffset (unsigned int attrib) {
+
+    return 0;
+
+}

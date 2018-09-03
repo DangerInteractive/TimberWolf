@@ -109,7 +109,6 @@ list (APPEND SOURCES
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Scene.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Texture.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/TexturePoint.cpp
-    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/VertexSet.cpp
 
     # Engine OpenGL Graphics Backend
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLComputeShader.cpp

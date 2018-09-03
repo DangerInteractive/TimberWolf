@@ -7,13 +7,18 @@
  * Header file for the tw::Mesh class.
  */
 
+#include <memory>
 #include <vector>
+
 #include <GL/glew.h>
+
 #include "../Core/Vertex.hpp"
+
+#include "GraphicsBufferable.hpp"
 #include "TexturePoint.hpp"
 
 namespace tw {
-class Mesh {
+class Mesh : public GraphicsBufferable {
 
 public:
 
@@ -23,12 +28,14 @@ public:
         ATTRIB_TEXTURE = 2
     };
 
+    enum AttribFlag {
+        FLAG_VERTEX = GraphicsBufferable::ToBuffer::ATTRIB_0,
+        FLAG_INDEX = GraphicsBufferable::ToBuffer::ATTRIB_1,
+        FLAG_TEXTURE = GraphicsBufferable::ToBuffer::ATTRIB_2
+    };
+
     Mesh () = default;
     explicit Mesh (Vertex...);
-    explicit Mesh (const std::vector<Vertex>&);
-    Mesh (const std::vector<Vertex>&, unsigned int...);
-    Mesh (const std::vector<Vertex>&, const std::vector<unsigned int>&);
-    Mesh (const std::vector<Vertex>&, const std::vector<unsigned int>&, const std::vector<TexturePoint>&);
     virtual ~Mesh () = default;
 
     Mesh (Mesh&&) = default;
@@ -37,10 +44,58 @@ public:
     Mesh (const Mesh&) = default;
     Mesh& operator = (const Mesh&) = default;
 
+    unsigned int getVertexCount () const;
+    const std::vector<Vertex>& getVertices () const;
+    const Vertex& getVertex (unsigned int) const;
+
+    bool indexBufferEnabled () const;
+    unsigned int getIndexCount () const;
+    const std::vector<unsigned int>& getIndices () const;
+    unsigned int getIndex (unsigned int) const;
+
+    bool textureBufferEnabled () const;
+    unsigned int getTexturePointCount () const;
+    const std::vector<TexturePoint>& getTexturePoints () const;
+    const TexturePoint& getTexturePoint (unsigned int) const;
+
+    void addVertices (const Vertex&...);
+    void addIndices (unsigned int...);
+    void addTexturePoints (const TexturePoint&...);
+
+    void setVertex (unsigned int, const Vertex&);
+    void setIndex (unsigned int, unsigned int);
+    void setTexturePoint (unsigned int, const TexturePoint&);
+
+    void clearVertices ();
+    void clearIndices ();
+    void clearTexturePoints ();
+
+    void enableIndexBuffer ();
+    void disableIndexBuffer ();
+
+    void enableTextureBuffer ();
+    void disableTextureBuffer ();
+
+    // implementations for GraphicsBufferable interface
+    unsigned int getTracksToBuffer () override;
+    void* getDataPointer (unsigned int = 0) override;
+    size_t getDataBytes (unsigned int = 0) override;
+    unsigned int getSegmentCount (unsigned int = 0) override;
+    int getSegmentSize (unsigned int = 0) override;
+    GraphicsBufferable::DataType getDataType (unsigned int = 0) override;
+    size_t getDataTypeBytes (unsigned int = 0) override;
+    bool isNormalized (unsigned int = 0) override;
+    size_t getStride (unsigned int = 0) override;
+    size_t getOffset (unsigned int = 0) override;
+
 protected:
 
     std::vector<Vertex> m_vertices;
+
+    bool m_indexBufferEnabled = false;
     std::vector<unsigned int> m_indices;
+
+    bool m_textureBufferEnabled = false;
     std::vector<TexturePoint> m_texturePoints;
 
 };
