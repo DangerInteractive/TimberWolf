@@ -1,5 +1,5 @@
-#ifndef H_TW_CONTROLLER
-#define H_TW_CONTROLLER
+#ifndef TW_CLASS_CONTROLLER
+#define TW_CLASS_CONTROLLER
 
 /**
  * @file

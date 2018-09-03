@@ -1,5 +1,5 @@
-#ifndef H_TW_KEYBINDING
-#define H_TW_KEYBINDING
+#ifndef TW_CLASS_KEYBINDING
+#define TW_CLASS_KEYBINDING
 
 /**
  * @file

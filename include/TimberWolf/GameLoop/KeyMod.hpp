@@ -1,5 +1,5 @@
-#ifndef H_TW_KEYMOD
-#define H_TW_KEYMOD
+#ifndef TW_CLASS_KEYMOD
+#define TW_CLASS_KEYMOD
 
 /**
  * @file

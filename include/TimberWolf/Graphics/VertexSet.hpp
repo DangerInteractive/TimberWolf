@@ -1,5 +1,5 @@
-#ifndef H_TW_VERTEXSET
-#define H_TW_VERTEXSET
+#ifndef TW_CLASS_VERTEXSET
+#define TW_CLASS_VERTEXSET
 
 /**
  * @file

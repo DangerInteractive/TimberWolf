@@ -16,6 +16,7 @@
 
 #include "Graphics/OpenGL/GLComputeShader.hpp"
 #include "Graphics/OpenGL/GLFragmentShader.hpp"
+#include "Graphics/OpenGL/GLFrameBuffer.hpp"
 #include "Graphics/OpenGL/GLGeometryShader.hpp"
 #include "Graphics/OpenGL/GLShader.hpp"
 #include "Graphics/OpenGL/GLShaderProgram.hpp"

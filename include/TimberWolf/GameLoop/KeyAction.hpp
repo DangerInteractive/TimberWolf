@@ -1,5 +1,5 @@
-#ifndef H_TW_KEYACTION
-#define H_TW_KEYACTION
+#ifndef TW_CLASS_KEYACTION
+#define TW_CLASS_KEYACTION
 
 /**
  * @file

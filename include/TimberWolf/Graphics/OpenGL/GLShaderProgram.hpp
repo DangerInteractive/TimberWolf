@@ -1,5 +1,5 @@
-#ifndef H_TW_SHADERPROGRAM
-#define H_TW_SHADERPROGRAM
+#ifndef TW_CLASS_SHADERPROGRAM
+#define TW_CLASS_SHADERPROGRAM
 
 /**
  * @file

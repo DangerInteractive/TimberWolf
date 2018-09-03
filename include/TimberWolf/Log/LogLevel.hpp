@@ -1,5 +1,5 @@
-#ifndef H_TW_LOGLEVEL
-#define H_TW_LOGLEVEL
+#ifndef TW_CLASS_LOGLEVEL
+#define TW_CLASS_LOGLEVEL
 
 /**
  * @file

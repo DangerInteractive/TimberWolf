@@ -1,5 +1,5 @@
-#ifndef H_TW_CLOCK
-#define H_TW_CLOCK
+#ifndef TW_CLASS_CLOCK
+#define TW_CLASS_CLOCK
 
 /**
  * @file

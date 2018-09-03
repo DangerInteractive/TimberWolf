@@ -114,6 +114,7 @@ list (APPEND SOURCES
     # Engine OpenGL Graphics Backend
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLComputeShader.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLFragmentShader.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLFrameBuffer.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLGeometryShader.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLRenderer.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLShader.cpp
@@ -218,6 +219,7 @@ list (APPEND HEADERS
     # Engine OpenGL Graphics Backend
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLComputeShader.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLFragmentShader.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLFrameBuffer.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLGeometryShader.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLRenderer.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLShader.hpp

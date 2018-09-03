@@ -1,5 +1,5 @@
-#ifndef H_TW_CONSOLE
-#define H_TW_CONSOLE
+#ifndef TW_CLASS_CONSOLE
+#define TW_CLASS_CONSOLE
 
 /**
  * @file

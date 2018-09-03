@@ -1,5 +1,5 @@
-#ifndef H_TW_MODEL
-#define H_TW_MODEL
+#ifndef TW_CLASS_MODEL
+#define TW_CLASS_MODEL
 
 /**
  * @file

@@ -1,5 +1,5 @@
-#ifndef H_TW_KEYTYPE
-#define H_TW_KEYTYPE
+#ifndef TW_CLASS_KEYTYPE
+#define TW_CLASS_KEYTYPE
 
 /**
  * @file

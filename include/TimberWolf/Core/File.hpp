@@ -1,5 +1,5 @@
-#ifndef H_TW_FILE
-#define H_TW_FILE
+#ifndef TW_CLASS_FILE
+#define TW_CLASS_FILE
 
 /**
  * @file

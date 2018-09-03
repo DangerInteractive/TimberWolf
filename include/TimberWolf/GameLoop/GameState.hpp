@@ -1,5 +1,5 @@
-#ifndef H_TW_GameState
-#define H_TW_GameState
+#ifndef TW_CLASS_GameState
+#define TW_CLASS_GameState
 
 /**
  * @file

@@ -1,5 +1,5 @@
-#ifndef H_TW_COLOR
-#define H_TW_COLOR
+#ifndef TW_CLASS_COLOR
+#define TW_CLASS_COLOR
 
 /**
  * @file

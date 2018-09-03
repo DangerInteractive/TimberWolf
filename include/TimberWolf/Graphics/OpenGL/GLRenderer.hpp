@@ -1,5 +1,5 @@
-#ifndef H_TW_GLRENDERER
-#define H_TW_GLRENDERER
+#ifndef TW_CLASS_GLRENDERER
+#define TW_CLASS_GLRENDERER
 
 /**
  * @file

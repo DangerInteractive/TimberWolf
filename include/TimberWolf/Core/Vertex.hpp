@@ -1,5 +1,5 @@
-#ifndef H_TW_VERTEX
-#define H_TW_VERTEX
+#ifndef TW_CLASS_VERTEX
+#define TW_CLASS_VERTEX
 
 /**
  * @file

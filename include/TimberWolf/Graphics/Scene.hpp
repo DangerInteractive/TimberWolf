@@ -1,5 +1,5 @@
-#ifndef H_TW_SCENE
-#define H_TW_SCENE
+#ifndef TW_CLASS_SCENE
+#define TW_CLASS_SCENE
 
 /**
  * @file

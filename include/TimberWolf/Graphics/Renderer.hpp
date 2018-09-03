@@ -1,5 +1,5 @@
-#ifndef H_TW_RENDERER
-#define H_TW_RENDERER
+#ifndef TW_CLASS_RENDERER
+#define TW_CLASS_RENDERER
 
 /**
  * @file

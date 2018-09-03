@@ -1,5 +1,5 @@
-#ifndef H_TW_GLSHADERSTORE
-#define H_TW_GLSHADERSTORE
+#ifndef TW_CLASS_GLSHADERSTORE
+#define TW_CLASS_GLSHADERSTORE
 
 /**
  * @file

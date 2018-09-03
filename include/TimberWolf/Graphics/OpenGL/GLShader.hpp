@@ -1,5 +1,5 @@
-#ifndef H_TW_GLSHADER
-#define H_TW_GLSHADER
+#ifndef TW_CLASS_GLSHADER
+#define TW_CLASS_GLSHADER
 
 /**
  * @file

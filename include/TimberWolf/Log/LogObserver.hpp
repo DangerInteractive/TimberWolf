@@ -1,5 +1,5 @@
-#ifndef H_TW_LOGOBSERVER
-#define H_TW_LOGOBSERVER
+#ifndef TW_CLASS_LOGOBSERVER
+#define TW_CLASS_LOGOBSERVER
 
 /**
  * @file

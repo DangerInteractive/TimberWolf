@@ -1,5 +1,5 @@
-#ifndef H_TW_GAMELOOP
-#define H_TW_GAMELOOP
+#ifndef TW_CLASS_GAMELOOP
+#define TW_CLASS_GAMELOOP
 
 /**
  * @file

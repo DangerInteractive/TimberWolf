@@ -1,5 +1,5 @@
-#ifndef H_TW_MESH
-#define H_TW_MESH
+#ifndef TW_CLASS_MESH
+#define TW_CLASS_MESH
 
 /**
  * @file

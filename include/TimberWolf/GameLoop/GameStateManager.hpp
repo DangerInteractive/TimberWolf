@@ -1,5 +1,5 @@
-#ifndef H_TW_STATEMANAGER
-#define H_TW_STATEMANAGER
+#ifndef TW_CLASS_STATEMANAGER
+#define TW_CLASS_STATEMANAGER
 
 /**
  * @file

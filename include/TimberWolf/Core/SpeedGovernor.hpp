@@ -1,5 +1,5 @@
-#ifndef H_TW_SPEEDGOVERNOR
-#define H_TW_SPEEDGOVERNOR
+#ifndef TW_CLASS_SPEEDGOVERNOR
+#define TW_CLASS_SPEEDGOVERNOR
 
 /**
  * @file

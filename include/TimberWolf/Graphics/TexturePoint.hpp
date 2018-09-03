@@ -1,5 +1,5 @@
-#ifndef H_TW_TEXTUREPOINT
-#define H_TW_TEXTUREPOINT
+#ifndef TW_CLASS_TEXTUREPOINT
+#define TW_CLASS_TEXTUREPOINT
 
 /**
  * @file

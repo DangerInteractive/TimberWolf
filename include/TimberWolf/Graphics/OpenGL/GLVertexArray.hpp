@@ -1,5 +1,5 @@
-#ifndef H_TW_GLVERTEXARRAY
-#define H_TW_GLVERTEXARRAY
+#ifndef TW_CLASS_GLVERTEXARRAY
+#define TW_CLASS_GLVERTEXARRAY
 
 /**
  * @file

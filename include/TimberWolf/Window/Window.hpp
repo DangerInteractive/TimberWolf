@@ -1,5 +1,5 @@
-#ifndef H_TW_WINDOW
-#define H_TW_WINDOW
+#ifndef TW_CLASS_WINDOW
+#define TW_CLASS_WINDOW
 
 /**
  * @file

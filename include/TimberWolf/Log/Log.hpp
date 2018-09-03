@@ -1,5 +1,5 @@
-#ifndef H_TW_LOG
-#define H_TW_LOG
+#ifndef TW_CLASS_LOG
+#define TW_CLASS_LOG
 
 /**
  * @file
