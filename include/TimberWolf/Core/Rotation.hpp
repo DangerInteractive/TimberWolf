@@ -1,17 +1,16 @@
 #ifndef TW_CLASS_ROTATION
 #define TW_CLASS_ROTATION
 
+#include "Math.hpp"
 #include "Quaternion.hpp"
 #include "Vector3.hpp"
 
 namespace tw {
-class Rotation : public Quaternion {
+class Rotation {
 
 public:
 
     Rotation () = default;
-    Rotation (float, float, float, float) = delete;
-    Rotation (float, Vector3) = delete;
     ~Rotation () = default;
 
     Rotation (Rotation&&) = default;
@@ -26,6 +25,8 @@ public:
     static Rotation fromRadians (float, const Vector3&);
     static Rotation fromDegrees (float, const Vector3&);
 
+    const Quaternion& getQuaternion () const;
+
     void rotateBy (const tw::Rotation&);
     void rotateByRadians (float, const Vector3&);
     void rotateByDegrees (float, const Vector3&);
@@ -35,6 +36,16 @@ public:
     void rotateToDegrees (float, const Vector3&);
 
     void reset ();
+
+    operator Quaternion (); // implicit
+
+protected:
+
+    static Quaternion normalize (Quaternion);
+
+private:
+
+    Quaternion m_quat {};
 
 };
 }

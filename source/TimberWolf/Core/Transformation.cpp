@@ -113,7 +113,7 @@ tw::Transformation::Transformation (const Matrix4& from)
 tw::Transformation::Transformation (float scale, const Rotation& rotation, const Vector3& translation) {
 
     *this = glm::scale(*this, {scale, scale, scale});
-    *this *= glm::mat4_cast(rotation);
+    *this *= glm::mat4_cast(rotation.getQuaternion());
     *this = glm::translate(*this, translation);
 
 }
@@ -121,7 +121,7 @@ tw::Transformation::Transformation (float scale, const Rotation& rotation, const
 tw::Transformation::Transformation (const Vector3& scale, const Rotation& rotation, const Vector3& translation) {
 
     *this = glm::scale(*this, scale);
-    *this *= glm::mat4_cast(rotation);
+    *this *= glm::mat4_cast(rotation.getQuaternion());
     *this = glm::translate(*this, translation);
 
 }

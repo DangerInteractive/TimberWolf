@@ -8,7 +8,7 @@ void tw::PhysicsEntityComponent::update (double deltaTime) {
     if (entity != nullptr) {
 
         entity->translate(m_velocity * floatDeltaTime);
-        entity->rotate(m_angularVelocity * floatDeltaTime);
+        entity->rotate(m_angularVelocity.getQuaternion() * floatDeltaTime);
 
     }
 
