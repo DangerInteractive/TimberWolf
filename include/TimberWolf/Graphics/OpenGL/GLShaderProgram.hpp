@@ -26,14 +26,6 @@ class GLShaderProgram : public MaterialHandle {
 public:
 
     GLShaderProgram ();
-    GLShaderProgram (
-        const std::shared_ptr<GLVertexShader>& = nullptr,
-        const std::shared_ptr<GLFragmentShader>& = nullptr,
-        const std::shared_ptr<GLGeometryShader>& = nullptr,
-        const std::shared_ptr<GLTesselationEvaluationShader>& = nullptr,
-        const std::shared_ptr<GLTesselationControlShader>& = nullptr,
-        const std::shared_ptr<GLComputeShader>& = nullptr
-    );
     ~GLShaderProgram () = default;
 
     GLShaderProgram (GLShaderProgram&&) = default;
@@ -61,8 +53,8 @@ public:
 
     bool link ();
 
-    bool bind ();
-    bool unbind ();
+    virtual bool bind () override;
+    virtual bool unbind () override;
     static void clearBound ();
 
 private:

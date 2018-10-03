@@ -7,6 +7,20 @@
  * to the game window.
  */
 
+std::shared_ptr<tw::MaterialHandle> tw::GLRenderer::put (const Material& material) {
+
+    // TODO: actually do something useful here, instead of placeholder code
+    return std::static_pointer_cast<MaterialHandle>(std::make_shared<GLShaderProgram>());
+
+}
+
+std::shared_ptr<tw::MeshHandle> tw::GLRenderer::put (const Mesh& mesh) {
+
+    // TODO: actually do something useful here, instead of placeholder code
+    return std::static_pointer_cast<MeshHandle>(std::make_shared<GLVertexArray>());
+
+}
+
 void tw::GLRenderer::render (const Scene* scene) {
 
     // TODO: OpenGL specific scene setup here?

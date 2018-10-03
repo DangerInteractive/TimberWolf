@@ -655,43 +655,6 @@ void tw::GLShaderStore::deleteComputeShader (const std::string& key) {
  */
 
 /**
- * Factory method that creates a shader program using std::string keys for each
- * of the shader types (or empty strings to disable), and then stores the new
- * std::shared_ptr to the shader program handle in the cache under the given
- * std::string key.
- *
- * @param key                            shader program key
- * @param vertexShaderKey                vertex shader key
- * @param fragmentShaderKey              fragment shader key
- * @param geometryShaderKey              geometry shader key
- * @param tesselationEvaluationShaderKey tesselation evaluation shader key
- * @param tesselationControlShaderKey    tesselation control shader key
- * @param computeShaderKey               compute shader key
- * @return shared pointer to the created shader program handle, or nullptr on failure
- */
-std::shared_ptr<tw::GLShaderProgram> tw::GLShaderStore::makeShaderProgramByKeys (
-    const std::string& key,
-    const std::string& vertexShaderKey,
-    const std::string& fragmentShaderKey,
-    const std::string& geometryShaderKey,
-    const std::string& tesselationEvaluationShaderKey,
-    const std::string& tesselationControlShaderKey,
-    const std::string& computeShaderKey
-) {
-
-    return makeShaderProgram(
-        key,
-        (vertexShaderKey.size() > 0 ? getVertexShader(vertexShaderKey) : nullptr),
-        (fragmentShaderKey.size() > 0 ? getFragmentShader(fragmentShaderKey) : nullptr),
-        (geometryShaderKey.size() > 0 ? getGeometryShader(geometryShaderKey) : nullptr),
-        (tesselationEvaluationShaderKey.size() > 0 ? getTesselationEvaluationShader(tesselationEvaluationShaderKey) : nullptr),
-        (tesselationControlShaderKey.size() > 0 ? getTesselationControlShader(tesselationControlShaderKey) : nullptr),
-        (computeShaderKey.size() > 0 ? getComputeShader(computeShaderKey) : nullptr)
-    );
-
-}
-
-/**
  * Store a given std::shared_ptr to a shader program handle in the cache under
  * the given std::string key.
  *

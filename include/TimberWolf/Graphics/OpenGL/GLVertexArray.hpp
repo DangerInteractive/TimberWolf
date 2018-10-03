@@ -30,8 +30,8 @@ public:
 
     GLuint getId () const noexcept;
 
-    bool bind ();
-    bool unbind ();
+    virtual bool bind () override;
+    virtual bool unbind () override;
     static void clearBound ();
 
 private:

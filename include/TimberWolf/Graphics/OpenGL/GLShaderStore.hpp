@@ -191,15 +191,6 @@ public:
         }
 
     }
-    static std::shared_ptr<GLShaderProgram> makeShaderProgramByKeys (
-        const std::string&,
-        const std::string& = "",
-        const std::string& = "",
-        const std::string& = "",
-        const std::string& = "",
-        const std::string& = "",
-        const std::string& = ""
-    );
     static bool registerShaderProgram (const std::string&, const std::shared_ptr<GLShaderProgram>&);
     static bool registerShaderProgram (const std::string&, GLShaderProgram*);
     static void deleteShaderProgram (const std::string&);

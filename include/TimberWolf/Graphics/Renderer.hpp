@@ -7,9 +7,14 @@
  * Header for the tw::Renderer class.
  */
 
+#include <memory>
+
 #include "../Core/Color.hpp"
 
+#include "Material.hpp"
+#include "MaterialHandle.hpp"
 #include "Mesh.hpp"
+#include "MeshHandle.hpp"
 #include "Puppet.hpp"
 #include "Scene.hpp"
 
@@ -26,6 +31,9 @@ public:
 
     Renderer (const Renderer&) = default;
     Renderer& operator = (const Renderer&) = default;
+
+    virtual std::shared_ptr<MaterialHandle> put (const Material&);
+    virtual std::shared_ptr<MeshHandle> put (const Mesh&);
 
     virtual void render (const Scene*);
     virtual void render (const Puppet*) = 0;

@@ -17,39 +17,6 @@ tw::GLShaderProgram::GLShaderProgram () {
 }
 
 /**
- * Constructor taking in optional std::shared_ptrs to one of each handle: vertex
- * shader, fragment shader, geometry shader, tesselation evaluation shader,
- * tesselation control shader, compute shader.
- *
- * @param vertexShader                vertex shader handle (optional) (pass nullptr to disable)
- * @param fragmentShader              fragment shader handle (optional) (pass nullptr to disable)
- * @param geometryShader              geometry shader handle (optional) (pass nullptr to disable)
- * @param tesselationEvaluationShader tesselation evaluation shader handle (optional) (pass nullptr to disable)
- * @param tesselationControlShader    tesselation control shader handle (optional) (pass nullptr to disable)
- * @param computeShader               conpute shader handle (optional) (pass nullptr to disable)
- */
-tw::GLShaderProgram::GLShaderProgram (
-    const std::shared_ptr<GLVertexShader>& vertexShader,
-    const std::shared_ptr<GLFragmentShader>& fragmentShader,
-    const std::shared_ptr<GLGeometryShader>& geometryShader,
-    const std::shared_ptr<GLTesselationEvaluationShader>& tesselationEvaluationShader,
-    const std::shared_ptr<GLTesselationControlShader>& tesselationControlShader,
-    const std::shared_ptr<GLComputeShader>& computeShader
-)
-:   m_vertexShader(vertexShader),
-    m_fragmentShader(fragmentShader),
-    m_geometryShader(geometryShader),
-    m_tesselationEvaluationShader(tesselationEvaluationShader),
-    m_tesselationControlShader(tesselationControlShader),
-    m_computeShader(computeShader)
-{
-
-    m_id = glCreateProgram();
-    link();
-
-}
-
-/**
  * Get the ID of the shader program.
  *
  * @return shader program ID
