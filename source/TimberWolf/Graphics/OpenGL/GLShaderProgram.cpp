@@ -322,7 +322,7 @@ bool tw::GLShaderProgram::link () {
  *
  * @return true if shader program was successfully activated, false if not
  */
-bool tw::GLShaderProgram::use () {
+bool tw::GLShaderProgram::bind () {
 
     if (!isLinked()) {
         if (!link()) {
@@ -341,10 +341,15 @@ bool tw::GLShaderProgram::use () {
  *
  * @return true if shader was successfully deactivated, false if not
  */
-bool tw::GLShaderProgram::unuse () {
+bool tw::GLShaderProgram::unbind () {
 
     glUseProgram(0);
-
     return true;
+
+}
+
+void tw::GLShaderProgram::clearBound () {
+
+    glUseProgram(0);
 
 }

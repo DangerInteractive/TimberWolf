@@ -84,12 +84,12 @@ void tw::GLRenderer::drawModel (const Model* model) {
     glEnableVertexAttribArray(0);
 
     if (model->getShaderProgram() != nullptr) {
-        model->getShaderProgram()->use();
+        model->getShaderProgram()->bind();
     }
 
     glDrawArrays(GL_TRIANGLES, 0, model->getVertexCount());
 
-    GLShaderProgram::unuse();
+    GLShaderProgram::clearBound();
     glDisableVertexAttribArray(0);
     vao->unbind();
 

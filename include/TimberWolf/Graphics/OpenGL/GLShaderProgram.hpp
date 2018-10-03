@@ -9,6 +9,9 @@
 
 #include <memory>
 #include <array>
+
+#include "../MaterialHandle.hpp"
+
 #include "GLShader.hpp"
 #include "GLVertexShader.hpp"
 #include "GLFragmentShader.hpp"
@@ -18,7 +21,7 @@
 #include "GLComputeShader.hpp"
 
 namespace tw {
-class GLShaderProgram {
+class GLShaderProgram : public MaterialHandle {
 
 public:
 
@@ -57,8 +60,10 @@ public:
     bool setComputeShader (const std::shared_ptr<GLComputeShader>&);
 
     bool link ();
-    bool use ();
-    static bool unuse ();
+
+    bool bind ();
+    bool unbind ();
+    static void clearBound ();
 
 private:
 
