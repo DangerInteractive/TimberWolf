@@ -19,6 +19,7 @@
 #include "Graphics/GraphicsBufferable.hpp"
 #include "Graphics/Material.hpp"
 #include "Graphics/Mesh.hpp"
+#include "Graphics/MeshHandle.hpp"
 #include "Graphics/Model.hpp"
 #include "Graphics/Puppet.hpp"
 #include "Graphics/Renderer.hpp"

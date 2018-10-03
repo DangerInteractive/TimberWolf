@@ -8,10 +8,13 @@
  */
 
 #include <GL/glew.h>
+
+#include "../MeshHandle.hpp"
+
 #include "GLVertexBuffer.hpp"
 
 namespace tw {
-class GLVertexArray {
+class GLVertexArray : public MeshHandle {
 
 public:
 
@@ -25,10 +28,11 @@ public:
     GLVertexArray (const GLVertexArray&) = delete; // not copyable
     GLVertexArray& operator = (const GLVertexArray&) = delete;
 
-    GLuint getId () const;
+    GLuint getId () const noexcept;
 
-    void bind ();
-    static void unbind ();
+    bool bind ();
+    bool unbind ();
+    static void clearBound ();
 
 private:
 

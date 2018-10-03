@@ -208,6 +208,7 @@ list (APPEND HEADERS
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/GraphicsBufferable.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Material.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Mesh.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/MeshHandle.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Model.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Puppet.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Renderer.hpp

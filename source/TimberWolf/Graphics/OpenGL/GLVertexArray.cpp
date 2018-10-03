@@ -38,7 +38,7 @@ tw::GLVertexArray::~GLVertexArray () {
  *
  * @return VAO ID
  */
-GLuint tw::GLVertexArray::getId () const {
+GLuint tw::GLVertexArray::getId () const noexcept {
 
     return m_id;
 
@@ -47,16 +47,27 @@ GLuint tw::GLVertexArray::getId () const {
 /**
  * Bind the VAO (make it the currently selected VAO).
  */
-void tw::GLVertexArray::bind () {
+bool tw::GLVertexArray::bind () {
 
     glBindVertexArray(m_id);
+    return true;
 
 }
 
 /**
  * Unbind the currently bound VAO (bind null VAO).
  */
-void tw::GLVertexArray::unbind () {
+bool tw::GLVertexArray::unbind () {
+
+    glBindVertexArray(0);
+    return true;
+
+}
+
+/**
+ * Unbind the currently bound VAO (bind null VAO).
+ */
+void tw::GLVertexArray::clearBound () {
 
     glBindVertexArray(0);
 
