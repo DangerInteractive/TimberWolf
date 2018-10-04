@@ -20,7 +20,6 @@
 #include "Graphics/OpenGL/GLGeometryShader.hpp"
 #include "Graphics/OpenGL/GLShader.hpp"
 #include "Graphics/OpenGL/GLShaderProgram.hpp"
-#include "Graphics/OpenGL/GLShaderStore.hpp"
 #include "Graphics/OpenGL/GLTesselationControlShader.hpp"
 #include "Graphics/OpenGL/GLTesselationEvaluationShader.hpp"
 #include "Graphics/OpenGL/GLVertexArray.hpp"

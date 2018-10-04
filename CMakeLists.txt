@@ -118,7 +118,6 @@ list (APPEND SOURCES
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLRenderer.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLShader.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLShaderProgram.cpp
-    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLShaderStore.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLTesselationControlShader.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLTesselationEvaluationShader.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLVertexArray.cpp
@@ -226,7 +225,6 @@ list (APPEND HEADERS
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLRenderer.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLShader.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLShaderProgram.hpp
-    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLShaderStore.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLTesselationControlShader.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLTesselationEvaluationShader.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLVertexArray.hpp

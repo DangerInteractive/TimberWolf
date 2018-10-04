@@ -37,16 +37,6 @@ tw::Model::Model (GLVertexArray&& vao, const std::shared_ptr<GLShaderProgram>& s
 : m_vao(std::make_shared<GLVertexArray>(std::move(vao))), m_shader(shader) {}
 
 /**
- * Constructor taking in an rvalue to a handle to a vertex array object and a
- * std::string key to a shader program handle stored in tw::GLShaderStore.
- *
- * @param vao    rvalue vertex array object handle
- * @param shader shader program key
- */
-tw::Model::Model (GLVertexArray&& vao, const std::string& shader)
-: m_vao(std::make_shared<GLVertexArray>(std::move(vao))), m_shader(GLShaderStore::getShaderProgram(shader)) {}
-
-/**
  * Constructor taking in a std::shared_ptr to a handle to a vertex array object
  * and a std::shared_ptr to a handle to a shader program.
  *
@@ -55,17 +45,6 @@ tw::Model::Model (GLVertexArray&& vao, const std::string& shader)
  */
 tw::Model::Model (const std::shared_ptr<GLVertexArray>& vao, const std::shared_ptr<GLShaderProgram>& shader)
 : m_vao(vao), m_shader(shader) {}
-
-/**
- * Constructor taking in a std::shared_ptr to a handle to a vertex array object
- * and a std::string key to a handle to a shader program stored in
- * tw::GLShaderStore.
- *
- * @param vao    shared pointer to a vertex array object handle
- * @param shader key to a shader program handle
- */
-tw::Model::Model (const std::shared_ptr<GLVertexArray>& vao, const std::string& shader)
-: m_vao(vao), m_shader(GLShaderStore::getShaderProgram(shader)) {}
 
 /**
  * Get a std::shared_ptr to the vertex array object handle.
@@ -133,18 +112,6 @@ void tw::Model::setVAO (const std::shared_ptr<GLVertexArray>& vao) {
 void tw::Model::setShaderProgram (const std::shared_ptr<GLShaderProgram>& shader) {
 
     m_shader = shader;
-
-}
-
-/**
- * Set the shader program handle to a given std::string key to a shader program
- * handle stored in tw::GLShaderStore.
- *
- * @param shader key to a shader program handle
- */
-void tw::Model::setShaderProgram (const std::string& shader) {
-
-    m_shader = GLShaderStore::getShaderProgram(shader);
 
 }
 

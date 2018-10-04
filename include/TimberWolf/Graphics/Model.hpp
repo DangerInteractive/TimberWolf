@@ -11,7 +11,6 @@
 #include <string>
 #include "OpenGL/GLVertexArray.hpp" // TODO: decouple OpenGL from here
 #include "OpenGL/GLVertexBuffer.hpp"
-#include "OpenGL/GLShaderStore.hpp"
 #include "OpenGL/GLShaderProgram.hpp"
 
 namespace tw {
@@ -23,9 +22,7 @@ public:
     explicit Model (GLVertexArray&&);
     explicit Model (const std::shared_ptr<GLVertexArray>&);
     Model (GLVertexArray&&, const std::shared_ptr<GLShaderProgram>&);
-    Model (GLVertexArray&&, const std::string&);
     Model (const std::shared_ptr<GLVertexArray>&, const std::shared_ptr<GLShaderProgram>&);
-    Model (const std::shared_ptr<GLVertexArray>&, const std::string&);
     ~Model () = default;
 
     Model (Model&&) = default;
@@ -41,7 +38,6 @@ public:
     void setVAO (GLVertexArray&&);
     void setVAO (const std::shared_ptr<GLVertexArray>&);
     void setShaderProgram (const std::shared_ptr<GLShaderProgram>&);
-    void setShaderProgram (const std::string&);
     void setVertexCount (unsigned int);
 
 private:
