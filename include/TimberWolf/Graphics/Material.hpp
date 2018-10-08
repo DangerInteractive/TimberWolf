@@ -2,7 +2,9 @@
 #define TW_CLASS_MATERIAL
 
 #include <memory>
+
 #include "../Core/Color.hpp"
+
 #include "Texture.hpp"
 
 namespace tw {

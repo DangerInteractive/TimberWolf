@@ -8,14 +8,14 @@
  */
 
 #include <memory>
+#include <stdexcept>
 #include <vector>
-
-#include <GL/glew.h>
 
 #include "../Core/Normal.hpp"
 #include "../Core/Vertex.hpp"
 
 #include "GraphicsBufferable.hpp"
+#include "MeshHandle.hpp"
 #include "TexturePoint.hpp"
 
 namespace tw {
@@ -39,6 +39,7 @@ public:
 
     Mesh () = default;
     explicit Mesh (Vertex...);
+    Mesh (bool, Vertex...);
     virtual ~Mesh () = default;
 
     Mesh (Mesh&&) = default;
@@ -65,6 +66,13 @@ public:
     unsigned int getTexturePointCount () const;
     const std::vector<TexturePoint>& getTexturePoints () const;
     const TexturePoint& getTexturePoint (unsigned int) const;
+
+    void makePersistent ();
+    void makeEphemeral ();
+
+    MeshHandle* getHandle () const;
+    void setHandle (std::unique_ptr<MeshHandle>&&);
+    void setHandle (MeshHandle*);
 
     void addVertices (const Vertex&...);
     void addIndices (uint32_t...);
@@ -103,6 +111,11 @@ public:
     size_t getOffset (uint8_t = 0) override;
 
 protected:
+
+    void eraseOriginalData ();
+
+    bool m_persist {false};
+    std::unique_ptr<MeshHandle> m_handle {nullptr};
 
     std::vector<Vertex> m_vertices {};
 

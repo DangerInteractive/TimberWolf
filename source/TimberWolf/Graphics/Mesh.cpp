@@ -96,6 +96,46 @@ const tw::TexturePoint& tw::Mesh::getTexturePoint (unsigned int index) const {
 
 }
 
+void tw::Mesh::makePersistent () {
+
+    if (m_handle != nullptr) {
+        throw std::runtime_error("Cannot make mesh persistent after handle was obtained");
+    }
+
+    m_persist = true;
+
+}
+
+void tw::Mesh::makeEphemeral () {
+
+    m_persist = false;
+
+    eraseOriginalData();
+
+}
+
+tw::MeshHandle* tw::Mesh::getHandle () const {
+
+    return m_handle.get();
+
+}
+
+void tw::Mesh::setHandle (std::unique_ptr<MeshHandle>&& handle) {
+
+    m_handle = std::move(handle);
+
+    if (!m_persist) {
+        eraseOriginalData();
+    }
+
+}
+
+void tw::Mesh::setHandle (MeshHandle* handle) {
+
+    setHandle(std::unique_ptr<MeshHandle>(handle));
+
+}
+
 void tw::Mesh::addVertices (const Vertex& vertices...) {
 
     m_vertices.emplace_back(vertices);
@@ -194,6 +234,10 @@ void tw::Mesh::disableTextureBuffer () {
 
 uint16_t tw::Mesh::getTracksToBuffer () {
 
+    if (m_handle != nullptr && !m_persist) {
+        throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
+    }
+
     unsigned int set = FLAG_VERTEX;
     set |= indexBufferEnabled() ? FLAG_INDEX : 0;
     set |= textureBufferEnabled() ? FLAG_TEXTURE : 0;
@@ -202,6 +246,10 @@ uint16_t tw::Mesh::getTracksToBuffer () {
 }
 
 void* tw::Mesh::getDataPointer (uint8_t attrib) {
+
+    if (m_handle != nullptr && !m_persist) {
+        throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
+    }
 
     switch (attrib) {
 
@@ -226,6 +274,10 @@ void* tw::Mesh::getDataPointer (uint8_t attrib) {
 
 size_t tw::Mesh::getDataBytes (uint8_t attrib) {
 
+    if (m_handle != nullptr && !m_persist) {
+        throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
+    }
+
     switch (attrib) {
 
         case ATTRIB_VERTEX:
@@ -248,6 +300,10 @@ size_t tw::Mesh::getDataBytes (uint8_t attrib) {
 }
 
 unsigned int tw::Mesh::getSegmentCount (uint8_t attrib) {
+
+    if (m_handle != nullptr && !m_persist) {
+        throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
+    }
 
     switch (attrib) {
 
@@ -272,6 +328,10 @@ unsigned int tw::Mesh::getSegmentCount (uint8_t attrib) {
 
 int32_t tw::Mesh::getSegmentSize (uint8_t attrib) {
 
+    if (m_handle != nullptr && !m_persist) {
+        throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
+    }
+
     switch (attrib) {
 
         case ATTRIB_VERTEX:
@@ -295,6 +355,10 @@ int32_t tw::Mesh::getSegmentSize (uint8_t attrib) {
 
 tw::GraphicsBufferable::DataType tw::Mesh::getDataType (uint8_t attrib) {
 
+    if (m_handle != nullptr && !m_persist) {
+        throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
+    }
+
     switch (attrib) {
 
         case ATTRIB_INDEX:
@@ -308,6 +372,10 @@ tw::GraphicsBufferable::DataType tw::Mesh::getDataType (uint8_t attrib) {
 }
 
 size_t tw::Mesh::getDataTypeBytes (uint8_t attrib) {
+
+    if (m_handle != nullptr && !m_persist) {
+        throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
+    }
 
     switch (attrib) {
 
@@ -323,6 +391,10 @@ size_t tw::Mesh::getDataTypeBytes (uint8_t attrib) {
 
 bool tw::Mesh::isNormalized (uint8_t attrib) {
 
+    if (m_handle != nullptr && !m_persist) {
+        throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
+    }
+
     switch (attrib) {
 
         case ATTRIB_NORMAL:
@@ -337,12 +409,29 @@ bool tw::Mesh::isNormalized (uint8_t attrib) {
 
 size_t tw::Mesh::getStride (uint8_t attrib) {
 
+    if (m_handle != nullptr && !m_persist) {
+        throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
+    }
+
     return 0;
 
 }
 
 size_t tw::Mesh::getOffset (uint8_t attrib) {
 
+    if (m_handle != nullptr && !m_persist) {
+        throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
+    }
+
     return 0;
+
+}
+
+void tw::Mesh::eraseOriginalData () {
+
+    std::vector<Vertex>().swap(m_vertices);
+    std::vector<uint32_t>().swap(m_indices);
+    std::vector<Normal>().swap(m_normals);
+    std::vector<TexturePoint>().swap(m_texturePoints);
 
 }
