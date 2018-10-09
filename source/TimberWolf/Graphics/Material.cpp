@@ -1,5 +1,29 @@
 #include "../../../include/TimberWolf/Graphics/Material.hpp"
 
+bool tw::Material::hasHandle () const {
+
+    return m_handle != nullptr;
+
+}
+
+tw::MaterialHandle* tw::Material::getHandle () const {
+
+    return m_handle.get();
+
+}
+
+void tw::Material::setHandle (std::unique_ptr<MaterialHandle>&& handle) {
+
+    m_handle = std::move(handle);
+
+}
+
+void tw::Material::setHandle (MaterialHandle* handle) {
+
+    setHandle(std::unique_ptr<MaterialHandle>(handle));
+
+}
+
 bool tw::Material::hasAmbience () const {
 
     return m_ambience != 0.f;

@@ -5,6 +5,7 @@
 
 #include "../Core/Color.hpp"
 
+#include "MaterialHandle.hpp"
 #include "Texture.hpp"
 
 namespace tw {
@@ -20,6 +21,12 @@ public:
 
     Material (const Material&) = default;
     Material& operator = (const Material&) = default;
+
+    bool hasHandle () const;
+
+    MaterialHandle* getHandle () const;
+    void setHandle (std::unique_ptr<MaterialHandle>&&);
+    void setHandle (MaterialHandle*);
 
     bool hasAmbience () const;
     bool hasAmbientTexture () const;
@@ -95,7 +102,9 @@ public:
     Material& enableTransparency ();
     Material& disableTransparency ();
 
-private:
+protected:
+
+    std::unique_ptr<MaterialHandle> m_handle {nullptr};
 
     // ambient illumination
     Color m_ambientColor {};

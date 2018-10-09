@@ -48,6 +48,17 @@ public:
     Mesh (const Mesh&) = default;
     Mesh& operator = (const Mesh&) = default;
 
+    bool isPersistent () const;
+    bool hasHandle () const;
+    bool hasOriginalData () const;
+
+    void makePersistent ();
+    void makeEphemeral ();
+
+    MeshHandle* getHandle () const;
+    void setHandle (std::unique_ptr<MeshHandle>&&);
+    void setHandle (MeshHandle*);
+
     unsigned int getVertexCount () const;
     const std::vector<Vertex>& getVertices () const;
     const Vertex& getVertex (unsigned int) const;
@@ -66,13 +77,6 @@ public:
     unsigned int getTexturePointCount () const;
     const std::vector<TexturePoint>& getTexturePoints () const;
     const TexturePoint& getTexturePoint (unsigned int) const;
-
-    void makePersistent ();
-    void makeEphemeral ();
-
-    MeshHandle* getHandle () const;
-    void setHandle (std::unique_ptr<MeshHandle>&&);
-    void setHandle (MeshHandle*);
 
     void addVertices (const Vertex&...);
     void addIndices (uint32_t...);
