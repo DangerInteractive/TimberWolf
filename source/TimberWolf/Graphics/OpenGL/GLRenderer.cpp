@@ -7,17 +7,25 @@
  * to the game window.
  */
 
-std::shared_ptr<tw::MaterialHandle> tw::GLRenderer::put (const Material& material) {
+tw::MaterialHandle* tw::GLRenderer::put (Material& material) {
 
     // TODO: actually do something useful here, instead of placeholder code
-    return std::static_pointer_cast<MaterialHandle>(std::make_shared<GLShaderProgram>());
+
+    auto handle = std::unique_ptr<MaterialHandle>(static_cast<MaterialHandle*>(new GLShaderProgram()));
+    material.setHandle(std::move(handle));
+
+    return material.getHandle();
 
 }
 
-std::shared_ptr<tw::MeshHandle> tw::GLRenderer::put (const Mesh& mesh) {
+tw::MeshHandle* tw::GLRenderer::put (Mesh& mesh) {
 
     // TODO: actually do something useful here, instead of placeholder code
-    return std::static_pointer_cast<MeshHandle>(std::make_shared<GLVertexArray>());
+
+    auto handle = std::unique_ptr<MeshHandle>(static_cast<MeshHandle*>(new GLVertexArray()));
+    mesh.setHandle(std::move(handle));
+
+    return mesh.getHandle();
 
 }
 

@@ -8,6 +8,7 @@
  */
 
 #include <memory>
+
 #include <GL/glew.h>
 
 #include "../Material.hpp"
@@ -31,8 +32,8 @@ class GLRenderer : public Renderer {
     GLRenderer (const GLRenderer&) = default;
     GLRenderer& operator = (const GLRenderer&) = default;
 
-    virtual std::shared_ptr<MaterialHandle> put (const Material&) override;
-    virtual std::shared_ptr<MeshHandle> put (const Mesh&) override;
+    virtual MaterialHandle* put (Material&) override;
+    virtual MeshHandle* put (Mesh&) override;
 
     virtual void render (const Scene*) override;
     virtual void render (const Puppet*) override = 0;
