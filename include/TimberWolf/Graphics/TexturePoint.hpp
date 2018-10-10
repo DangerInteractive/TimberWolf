@@ -7,7 +7,6 @@
  * Header file for the tw::TexturePoint class.
  */
 
-#include <GL/glew.h>
 #include <algorithm>
 
 namespace tw {
@@ -16,7 +15,7 @@ class TexturePoint {
 public:
 
     TexturePoint () = default;
-    TexturePoint (GLfloat, GLfloat);
+    TexturePoint (float, float);
     ~TexturePoint () = default;
 
     TexturePoint (TexturePoint&&) = default;
@@ -32,8 +31,6 @@ public:
     void setV (float);
 
 private:
-
-    static float clamp (float);
 
     float m_u = 0.f;
     float m_v = 0.f;

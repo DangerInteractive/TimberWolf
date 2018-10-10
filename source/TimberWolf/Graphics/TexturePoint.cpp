@@ -7,7 +7,7 @@
  * @param v normalized texture V coordinate (0-1)
  */
 tw::TexturePoint::TexturePoint (float u, float v)
-: m_u(clamp(u)), m_v(clamp(v)) {}
+: m_u(std::clamp(u, 0.f, 1.f)), m_v(std::clamp(v, 0.f, 1.f)) {}
 
 /**
  * Get the normalized texture coordinate U.
@@ -38,7 +38,7 @@ float tw::TexturePoint::getV () const {
  */
 void tw::TexturePoint::setU (float u) {
 
-    m_u = clamp(u);
+    m_u = std::clamp(u, 0.f, 1.f);
 
 }
 
@@ -49,18 +49,6 @@ void tw::TexturePoint::setU (float u) {
  */
 void tw::TexturePoint::setV (float v) {
 
-    m_v = clamp(v);
-
-}
-
-/**
- * Clamp a normalized value between 0 and 1.
- *
- * @param value value to clamp
- * @return value clamped between 0 and 1
- */
-float tw::TexturePoint::clamp (float value) {
-
-    return std::clamp(value, 0.f, 1.f);
+    m_v = std::clamp(v, 0.f, 1.f);
 
 }
