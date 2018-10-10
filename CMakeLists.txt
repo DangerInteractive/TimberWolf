@@ -104,6 +104,7 @@ list (APPEND SOURCES
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Material.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Mesh.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Model.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/ModelFragment.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Puppet.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Renderer.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Scene.cpp
@@ -210,6 +211,7 @@ list (APPEND HEADERS
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Mesh.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/MeshHandle.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Model.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/ModelFragment.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Puppet.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Renderer.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Scene.hpp

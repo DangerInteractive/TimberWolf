@@ -100,20 +100,32 @@ void tw::GLRenderer::setClearColor (const Color& color) {
  */
 void tw::GLRenderer::drawModel (const Model* model) {
 
-    auto vao = model->getVAO();
+    for (unsigned int i = 0; i < model->getFragmentCount(); ++i) {
 
-    vao->bind();
-    glEnableVertexAttribArray(0);
+        auto fragment = model->getFragment(i);
+        auto mesh = fragment.getMesh();
+        auto material = fragment.getMaterial();
 
-    if (model->getShaderProgram() != nullptr) {
-        model->getShaderProgram()->bind();
+        if (mesh->hasHandle()) {
+            mesh->getHandle()->bind();
+        } else {
+            continue;
+        }
+
+        if (material->hasHandle()) {
+            material->getHandle()->bind();
+        } else {
+            continue;
+        }
+
+        // TODO: we need to pass stuff to the shader (via uniforms) to actually position the model fragments.
+
+        glDrawArrays(GL_TRIANGLES, 0, mesh->getVertexCount());
+
     }
 
-    glDrawArrays(GL_TRIANGLES, 0, model->getVertexCount());
-
+    GLVertexArray::clearBound();
     GLShaderProgram::clearBound();
-    glDisableVertexAttribArray(0);
-    vao->unbind();
 
 }
 
