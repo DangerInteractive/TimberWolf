@@ -116,11 +116,14 @@ list (APPEND SOURCES
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLFragmentShader.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLFrameBuffer.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLGeometryShader.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLMaterialHandle.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLMeshHandle.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLRenderer.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLShader.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLShaderProgram.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLTesselationControlShader.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLTesselationEvaluationShader.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLUtil.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLVertexArray.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLVertexBuffer.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/OpenGL/GLVertexShader.cpp
@@ -224,11 +227,14 @@ list (APPEND HEADERS
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLFragmentShader.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLFrameBuffer.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLGeometryShader.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLMaterialHandle.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLMeshHandle.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLRenderer.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLShader.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLShaderProgram.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLTesselationControlShader.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLTesselationEvaluationShader.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLUtil.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLVertexArray.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLVertexBuffer.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/OpenGL/GLVertexShader.hpp

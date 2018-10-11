@@ -22,7 +22,7 @@ tw::MeshHandle* tw::GLRenderer::put (Mesh& mesh) {
 
     // TODO: actually do something useful here, instead of placeholder code
 
-    auto handle = std::unique_ptr<MeshHandle>(static_cast<MeshHandle*>(new GLVertexArray()));
+    auto handle = std::unique_ptr<MeshHandle>(static_cast<MeshHandle*>(new GLMeshHandle(mesh)));
     mesh.setHandle(std::move(handle));
 
     return mesh.getHandle();
@@ -124,7 +124,7 @@ void tw::GLRenderer::drawModel (const Model* model) {
 
     }
 
-    GLVertexArray::clearBound();
+    GLMeshHandle::clearBound();
     GLShaderProgram::clearBound();
 
 }

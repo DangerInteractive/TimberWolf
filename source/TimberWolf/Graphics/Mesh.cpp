@@ -356,7 +356,7 @@ void tw::Mesh::disableSkeletalBuffer () {
 
 }
 
-uint16_t tw::Mesh::getTracksToBuffer () {
+uint16_t tw::Mesh::getTracksToBuffer () const {
 
     if (m_handle != nullptr && !m_persist) {
         throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
@@ -404,7 +404,7 @@ void* tw::Mesh::getDataPointer (uint8_t attrib) {
 
 }
 
-size_t tw::Mesh::getDataBytes (uint8_t attrib) {
+size_t tw::Mesh::getDataBytes (uint8_t attrib) const {
 
     if (m_handle != nullptr && !m_persist) {
         throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
@@ -437,7 +437,7 @@ size_t tw::Mesh::getDataBytes (uint8_t attrib) {
 
 }
 
-unsigned int tw::Mesh::getSegmentCount (uint8_t attrib) {
+unsigned int tw::Mesh::getSegmentCount (uint8_t attrib) const {
 
     if (m_handle != nullptr && !m_persist) {
         throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
@@ -470,7 +470,7 @@ unsigned int tw::Mesh::getSegmentCount (uint8_t attrib) {
 
 }
 
-int32_t tw::Mesh::getSegmentSize (uint8_t attrib) {
+int32_t tw::Mesh::getSegmentSize (uint8_t attrib) const {
 
     if (!hasOriginalData()) {
         throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
@@ -503,7 +503,7 @@ int32_t tw::Mesh::getSegmentSize (uint8_t attrib) {
 
 }
 
-tw::GraphicsBufferable::DataType tw::Mesh::getDataType (uint8_t attrib) {
+tw::GraphicsBufferable::DataType tw::Mesh::getDataType (uint8_t attrib) const {
 
     if (!hasOriginalData()) {
         throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
@@ -524,7 +524,7 @@ tw::GraphicsBufferable::DataType tw::Mesh::getDataType (uint8_t attrib) {
 
 }
 
-size_t tw::Mesh::getDataTypeBytes (uint8_t attrib) {
+size_t tw::Mesh::getDataTypeBytes (uint8_t attrib) const {
 
     if (!hasOriginalData()) {
         throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
@@ -545,7 +545,7 @@ size_t tw::Mesh::getDataTypeBytes (uint8_t attrib) {
 
 }
 
-bool tw::Mesh::isNormalized (uint8_t attrib) {
+bool tw::Mesh::isNormalized (uint8_t attrib) const {
 
     if (!hasOriginalData()) {
         throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
@@ -563,7 +563,7 @@ bool tw::Mesh::isNormalized (uint8_t attrib) {
 
 }
 
-size_t tw::Mesh::getStride (uint8_t attrib) {
+size_t tw::Mesh::getStride (uint8_t attrib) const {
 
     if (!hasOriginalData()) {
         throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");
@@ -573,7 +573,7 @@ size_t tw::Mesh::getStride (uint8_t attrib) {
 
 }
 
-size_t tw::Mesh::getOffset (uint8_t attrib) {
+size_t tw::Mesh::getOffset (uint8_t attrib) const {
 
     if (!hasOriginalData()) {
         throw std::runtime_error("Cannot get bufferable data after handle is set when not persistent.");

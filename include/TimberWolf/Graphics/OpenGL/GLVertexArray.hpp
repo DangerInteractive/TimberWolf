@@ -9,12 +9,14 @@
 
 #include <GL/glew.h>
 
+#include "../GraphicsBufferable.hpp"
 #include "../MeshHandle.hpp"
 
+#include "GLUtil.hpp"
 #include "GLVertexBuffer.hpp"
 
 namespace tw {
-class GLVertexArray : public MeshHandle {
+class GLVertexArray {
 
 public:
 
@@ -30,9 +32,11 @@ public:
 
     GLuint getId () const noexcept;
 
-    virtual bool bind () override;
-    virtual bool unbind () override;
-    static void clearBound ();
+    void bind ();
+    static void unbind ();
+
+    void buffer (unsigned int, GLVertexBuffer&);
+    void buffer (GraphicsBufferable*);
 
 private:
 

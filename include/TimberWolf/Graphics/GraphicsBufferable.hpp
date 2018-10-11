@@ -56,20 +56,20 @@ public:
     GraphicsBufferable& operator = (const GraphicsBufferable&) = default;
 
     // pure virtual methods, must be implemented by subclass
-    virtual uint16_t getTracksToBuffer () = 0;
+    virtual uint16_t getTracksToBuffer () const = 0;
     virtual void* getDataPointer (uint8_t = 0) = 0;
-    virtual size_t getDataBytes (uint8_t = 0) = 0;
-    virtual unsigned int getSegmentCount (uint8_t = 0) = 0;
-    virtual int32_t getSegmentSize (uint8_t = 0) = 0;
-    virtual DataType getDataType (uint8_t = 0) = 0;
-    virtual size_t getDataTypeBytes (uint8_t = 0) = 0;
-    virtual bool isNormalized (uint8_t = 0) = 0;
-    virtual size_t getStride (uint8_t = 0) = 0;
-    virtual size_t getOffset (uint8_t = 0) = 0;
+    virtual size_t getDataBytes (uint8_t = 0) const = 0;
+    virtual unsigned int getSegmentCount (uint8_t = 0) const = 0;
+    virtual int32_t getSegmentSize (uint8_t = 0) const = 0;
+    virtual DataType getDataType (uint8_t = 0) const = 0;
+    virtual size_t getDataTypeBytes (uint8_t = 0) const = 0;
+    virtual bool isNormalized (uint8_t = 0) const = 0;
+    virtual size_t getStride (uint8_t = 0) const = 0;
+    virtual size_t getOffset (uint8_t = 0) const = 0;
 
     // derivative of the pure virtuals, but can be overridden if needed
-    virtual size_t getStoreBytes (uint8_t = 0);
-    virtual size_t getSegmentBytes (uint8_t = 0);
+    virtual size_t getStoreBytes (uint8_t = 0) const;
+    virtual size_t getSegmentBytes (uint8_t = 0) const;
 
 };
 }

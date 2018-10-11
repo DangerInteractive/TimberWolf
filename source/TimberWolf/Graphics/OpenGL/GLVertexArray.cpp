@@ -47,28 +47,43 @@ GLuint tw::GLVertexArray::getId () const noexcept {
 /**
  * Bind the VAO (make it the currently selected VAO).
  */
-bool tw::GLVertexArray::bind () {
+void tw::GLVertexArray::bind () {
 
     glBindVertexArray(m_id);
-    return true;
 
 }
 
 /**
  * Unbind the currently bound VAO (bind null VAO).
  */
-bool tw::GLVertexArray::unbind () {
+void tw::GLVertexArray::unbind () {
 
     glBindVertexArray(0);
-    return true;
 
 }
 
-/**
- * Unbind the currently bound VAO (bind null VAO).
- */
-void tw::GLVertexArray::clearBound () {
+void tw::GLVertexArray::buffer (unsigned int attribute, GLVertexBuffer& vbo) {
 
-    glBindVertexArray(0);
+    auto dataType = GLUtil::getType(vbo.getDataType());
+
+    bind();
+    vbo.bind();
+    glVertexAttribPointer(attribute, vbo.getSegmentSize(), dataType, vbo.isNormalized(), 0, (void*) 0);
+    GLVertexBuffer::unbind();
+    unbind();
+
+}
+
+void tw::GLVertexArray::buffer (GraphicsBufferable* buff) {
+
+    auto tracks = buff->getTracksToBuffer();
+
+    for (unsigned int i = 0; i < 15; ++i) {
+        if ((tracks & (1 << i)) != 0) {
+            auto vbo = GLVertexBuffer();
+            vbo.buffer(buff, i);
+            buffer(i, vbo);
+        }
+    }
 
 }

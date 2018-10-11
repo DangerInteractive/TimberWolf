@@ -44,6 +44,24 @@ GLuint tw::GLVertexBuffer::getId () const {
 
 }
 
+uint32_t tw::GLVertexBuffer::getSegmentSize () const {
+
+    return m_segmentSize;
+
+}
+
+tw::GraphicsBufferable::DataType tw::GLVertexBuffer::getDataType () const {
+
+    return m_type;
+
+}
+
+bool tw::GLVertexBuffer::isNormalized () const {
+
+    return m_normalized;
+
+}
+
 /**
  * Bind the VBO (make it the currently selected VBO).
  */
@@ -59,5 +77,17 @@ void tw::GLVertexBuffer::bind () {
 void tw::GLVertexBuffer::unbind () {
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+}
+
+void tw::GLVertexBuffer::buffer (GraphicsBufferable* buff, uint8_t track) {
+
+    m_segmentSize = buff->getSegmentSize(track);
+    m_type = buff->getDataType(track);
+    m_normalized = buff->isNormalized(track);
+
+    bind();
+    glBufferData(GL_ARRAY_BUFFER, buff->getDataBytes(track), buff->getDataPointer(track), GL_STATIC_DRAW);
+    unbind();
 
 }

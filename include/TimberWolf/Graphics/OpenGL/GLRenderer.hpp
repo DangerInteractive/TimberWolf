@@ -20,8 +20,8 @@
 #include "../Renderer.hpp"
 #include "../../Window/Window.hpp"
 
+#include "GLMeshHandle.hpp"
 #include "GLShaderProgram.hpp"
-#include "GLVertexArray.hpp"
 
 namespace tw {
 class GLRenderer : public Renderer {

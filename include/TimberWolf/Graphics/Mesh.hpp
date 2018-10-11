@@ -131,16 +131,16 @@ public:
     void disableSkeletalBuffer ();
 
     // implementations for GraphicsBufferable interface
-    uint16_t getTracksToBuffer () override;
+    uint16_t getTracksToBuffer () const override;
     void* getDataPointer (uint8_t = 0) override;
-    size_t getDataBytes (uint8_t = 0) override;
-    unsigned int getSegmentCount (uint8_t = 0) override;
-    int32_t getSegmentSize (uint8_t = 0) override;
-    GraphicsBufferable::DataType getDataType (uint8_t = 0) override;
-    size_t getDataTypeBytes (uint8_t = 0) override;
-    bool isNormalized (uint8_t = 0) override;
-    size_t getStride (uint8_t = 0) override;
-    size_t getOffset (uint8_t = 0) override;
+    size_t getDataBytes (uint8_t = 0) const override;
+    unsigned int getSegmentCount (uint8_t = 0) const override;
+    int32_t getSegmentSize (uint8_t = 0) const override;
+    GraphicsBufferable::DataType getDataType (uint8_t = 0) const override;
+    size_t getDataTypeBytes (uint8_t = 0) const override;
+    bool isNormalized (uint8_t = 0) const override;
+    size_t getStride (uint8_t = 0) const override;
+    size_t getOffset (uint8_t = 0) const override;
 
 protected:
 
