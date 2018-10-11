@@ -7,14 +7,14 @@
  * Header file for the tw::Mesh class.
  */
 
+#include <array>
+#include <cstdint>
 #include <memory>
 #include <stdexcept>
 #include <vector>
 
 #include "../Core/Normal.hpp"
 #include "../Core/Vertex.hpp"
-#include "../Core/Vector3.hpp"
-#include "../Core/Vector3Integer.hpp"
 
 #include "GraphicsBufferable.hpp"
 #include "MeshHandle.hpp"
@@ -24,6 +24,9 @@ namespace tw {
 class Mesh : public GraphicsBufferable {
 
 public:
+
+    typedef std::array<uint8_t, 3> JointBindingListType;
+    typedef std::array<float, 3> JointWeightListType;
 
     enum AttribIndex {
         ATTRIB_VERTEX = 0,
@@ -89,24 +92,24 @@ public:
     bool skeletalBufferEnabled () const;
     unsigned int getJointBindingCount () const;
     unsigned int getJointWeightCount () const;
-    const std::vector<Vector3Integer>& getJointBindings () const;
-    const std::vector<Vector3>& getJointWeights () const;
-    const Vector3Integer& getJointBinding (unsigned int) const;
-    const Vector3& getJointWeight (unsigned int) const;
+    const std::vector<JointBindingListType>& getJointBindings () const;
+    const std::vector<JointWeightListType>& getJointWeights () const;
+    const JointBindingListType& getJointBinding (unsigned int) const;
+    const JointWeightListType& getJointWeight (unsigned int) const;
 
     void addVertices (const Vertex&...);
     void addIndices (uint32_t...);
     void addNormals (const Normal&...);
     void addTexturePoints (const TexturePoint&...);
-    void addJointBindings (const Vector3Integer&...);
-    void addJointWeights (const Vector3&...);
+    void addJointBindings (const JointBindingListType&...);
+    void addJointWeights (const JointWeightListType&...);
 
     void setVertex (unsigned int, const Vertex&);
     void setIndex (unsigned int, uint32_t);
     void setNormal (unsigned int, const Normal&);
     void setTexturePoint (unsigned int, const TexturePoint&);
-    void setJointBinding (unsigned int, const Vector3Integer&);
-    void setJointWeight (unsigned int, const Vector3&);
+    void setJointBinding (unsigned int, const JointBindingListType&);
+    void setJointWeight (unsigned int, const JointWeightListType&);
 
     void clearVertices ();
     void clearIndices ();
@@ -158,8 +161,8 @@ protected:
     std::vector<TexturePoint> m_texturePoints {};
 
     bool m_skeletalBufferEnabled {false};
-    std::vector<Vector3Integer> m_jointBindings {};
-    std::vector<Vector3> m_jointWeights {};
+    std::vector<JointBindingListType> m_jointBindings {};
+    std::vector<JointWeightListType> m_jointWeights {};
 
 };
 }

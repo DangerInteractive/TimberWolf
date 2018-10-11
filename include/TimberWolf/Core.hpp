@@ -32,7 +32,6 @@
 #include "Core/Vector2Double.hpp"
 #include "Core/Vector3.hpp"
 #include "Core/Vector3Double.hpp"
-#include "Core/Vector3Integer.hpp"
 #include "Core/Vertex.hpp"
 
 #endif

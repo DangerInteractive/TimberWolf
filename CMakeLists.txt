@@ -185,7 +185,6 @@ list (APPEND HEADERS
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Vector2Double.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Vector3.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Vector3Double.hpp
-    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Vector3Integer.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Vertex.hpp
 
     # Engine Log Subsystem
