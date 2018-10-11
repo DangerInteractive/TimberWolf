@@ -13,6 +13,8 @@
 
 #include "../Core/Normal.hpp"
 #include "../Core/Vertex.hpp"
+#include "../Core/Vector3.hpp"
+#include "../Core/Vector3Integer.hpp"
 
 #include "GraphicsBufferable.hpp"
 #include "MeshHandle.hpp"
@@ -27,14 +29,18 @@ public:
         ATTRIB_VERTEX = 0,
         ATTRIB_INDEX = 1,
         ATTRIB_NORMAL = 2,
-        ATTRIB_TEXTURE = 3
+        ATTRIB_TEXTURE = 3,
+        ATTRIB_JOINT_BINDING = 4,
+        ATTRIB_JOINT_WEIGHT = 5
     };
 
     enum AttribFlag {
         FLAG_VERTEX = ATTRIB_0,
         FLAG_INDEX = ATTRIB_1,
         FLAG_NORMAL = ATTRIB_2,
-        FLAG_TEXTURE = ATTRIB_3
+        FLAG_TEXTURE = ATTRIB_3,
+        FLAG_JOINT_BINDING = ATTRIB_4,
+        FLAG_JOINT_WEIGHT = ATTRIB_5
     };
 
     Mesh () = default;
@@ -59,6 +65,8 @@ public:
     void setHandle (std::unique_ptr<MeshHandle>&&);
     void setHandle (MeshHandle*);
 
+    unsigned int getVertexDrawCount () const;
+
     unsigned int getVertexCount () const;
     const std::vector<Vertex>& getVertices () const;
     const Vertex& getVertex (unsigned int) const;
@@ -78,20 +86,34 @@ public:
     const std::vector<TexturePoint>& getTexturePoints () const;
     const TexturePoint& getTexturePoint (unsigned int) const;
 
+    bool skeletalBufferEnabled () const;
+    unsigned int getJointBindingCount () const;
+    unsigned int getJointWeightCount () const;
+    const std::vector<Vector3Integer>& getJointBindings () const;
+    const std::vector<Vector3>& getJointWeights () const;
+    const Vector3Integer& getJointBinding (unsigned int) const;
+    const Vector3& getJointWeight (unsigned int) const;
+
     void addVertices (const Vertex&...);
     void addIndices (uint32_t...);
     void addNormals (const Normal&...);
     void addTexturePoints (const TexturePoint&...);
+    void addJointBindings (const Vector3Integer&...);
+    void addJointWeights (const Vector3&...);
 
     void setVertex (unsigned int, const Vertex&);
     void setIndex (unsigned int, uint32_t);
     void setNormal (unsigned int, const Normal&);
     void setTexturePoint (unsigned int, const TexturePoint&);
+    void setJointBinding (unsigned int, const Vector3Integer&);
+    void setJointWeight (unsigned int, const Vector3&);
 
     void clearVertices ();
     void clearIndices ();
     void clearNormals ();
     void clearTexturePoints ();
+    void clearJointBindings ();
+    void clearJointWeights ();
 
     void enableIndexBuffer ();
     void disableIndexBuffer ();
@@ -101,6 +123,9 @@ public:
 
     void enableTextureBuffer ();
     void disableTextureBuffer ();
+
+    void enableSkeletalBuffer ();
+    void disableSkeletalBuffer ();
 
     // implementations for GraphicsBufferable interface
     uint16_t getTracksToBuffer () override;
@@ -131,6 +156,10 @@ protected:
 
     bool m_textureBufferEnabled {false};
     std::vector<TexturePoint> m_texturePoints {};
+
+    bool m_skeletalBufferEnabled {false};
+    std::vector<Vector3Integer> m_jointBindings {};
+    std::vector<Vector3> m_jointWeights {};
 
 };
 }

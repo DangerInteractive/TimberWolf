@@ -154,6 +154,48 @@ const tw::TexturePoint& tw::Mesh::getTexturePoint (unsigned int index) const {
 
 }
 
+bool tw::Mesh::skeletalBufferEnabled () const {
+
+    return m_skeletalBufferEnabled;
+
+}
+
+unsigned int tw::Mesh::getJointBindingCount () const {
+
+    return m_jointBindings.size();
+
+}
+
+unsigned int tw::Mesh::getJointWeightCount () const {
+
+    return m_jointWeights.size();
+
+}
+
+const std::vector<tw::Vector3Integer>& tw::Mesh::getJointBindings () const {
+
+    return m_jointBindings;
+
+}
+
+const std::vector<tw::Vector3>& tw::Mesh::getJointWeights () const {
+
+    return m_jointWeights;
+
+}
+
+const tw::Vector3Integer& tw::Mesh::getJointBinding (unsigned int index) const {
+
+    return m_jointBindings.at(index);
+
+}
+
+const tw::Vector3& tw::Mesh::getJointWeight (unsigned int index) const {
+
+    return m_jointWeights.at(index);
+
+}
+
 void tw::Mesh::addVertices (const Vertex& vertices...) {
 
     m_vertices.emplace_back(vertices);
@@ -181,6 +223,20 @@ void tw::Mesh::addTexturePoints (const TexturePoint& texturePoints...) {
 
 }
 
+void tw::Mesh::addJointBindings (const Vector3Integer& jointBindings...) {
+
+    m_jointBindings.emplace_back(jointBindings);
+    m_skeletalBufferEnabled = true;
+
+}
+
+void tw::Mesh::addJointWeights (const Vector3& jointWeights...) {
+
+    m_jointWeights.emplace_back(jointWeights);
+    m_skeletalBufferEnabled = true;
+
+}
+
 void tw::Mesh::setVertex (unsigned int index, const Vertex& vertex) {
 
     m_vertices.at(index) = vertex;
@@ -196,6 +252,18 @@ void tw::Mesh::setIndex (unsigned int indexOfIndex, uint32_t index) {
 void tw::Mesh::setTexturePoint (unsigned int index, const TexturePoint& texturePoint) {
 
     m_texturePoints.at(index) = texturePoint;
+
+}
+
+void tw::Mesh::setJointBinding (unsigned int index, const Vector3Integer& jointBinding) {
+
+    m_jointBindings.at(index) = jointBinding;
+
+}
+
+void tw::Mesh::setJointWeight (unsigned int index, const Vector3& jointWeight) {
+
+    m_jointWeights.at(index) = jointWeight;
 
 }
 
@@ -226,6 +294,20 @@ void tw::Mesh::clearTexturePoints () {
 
 }
 
+void tw::Mesh::clearJointBindings () {
+
+    m_skeletalBufferEnabled = false;
+    m_jointBindings.clear();
+
+}
+
+void tw::Mesh::clearJointWeights () {
+
+    m_skeletalBufferEnabled = false;
+    m_jointWeights.clear();
+
+}
+
 void tw::Mesh::enableIndexBuffer () {
 
     m_indexBufferEnabled = true;
@@ -235,6 +317,18 @@ void tw::Mesh::enableIndexBuffer () {
 void tw::Mesh::disableIndexBuffer () {
 
     m_indexBufferEnabled = false;
+
+}
+
+void tw::Mesh::enableNormalBuffer () {
+
+    m_normalBufferEnabled = true;
+
+}
+
+void tw::Mesh::disableNormalBuffer () {
+
+    m_normalBufferEnabled = false;
 
 }
 
@@ -250,6 +344,18 @@ void tw::Mesh::disableTextureBuffer () {
 
 }
 
+void tw::Mesh::enableSkeletalBuffer () {
+
+    m_skeletalBufferEnabled = true;
+
+}
+
+void tw::Mesh::disableSkeletalBuffer () {
+
+    m_skeletalBufferEnabled = false;
+
+}
+
 uint16_t tw::Mesh::getTracksToBuffer () {
 
     if (m_handle != nullptr && !m_persist) {
@@ -258,7 +364,9 @@ uint16_t tw::Mesh::getTracksToBuffer () {
 
     unsigned int set = FLAG_VERTEX;
     set |= indexBufferEnabled() ? FLAG_INDEX : 0;
+    set |= normalBufferEnabled () ? FLAG_NORMAL : 0;
     set |= textureBufferEnabled() ? FLAG_TEXTURE : 0;
+    set |= skeletalBufferEnabled() ? FLAG_JOINT_BINDING | FLAG_JOINT_WEIGHT : 0;
     return set;
 
 }
@@ -282,6 +390,12 @@ void* tw::Mesh::getDataPointer (uint8_t attrib) {
 
         case ATTRIB_TEXTURE:
             return &m_texturePoints.front();
+
+        case ATTRIB_JOINT_BINDING:
+            return &m_jointBindings.front();
+
+        case ATTRIB_JOINT_WEIGHT:
+            return &m_jointWeights.front();
 
         default:
             return nullptr;
@@ -310,6 +424,12 @@ size_t tw::Mesh::getDataBytes (uint8_t attrib) {
         case ATTRIB_TEXTURE:
             return getTexturePointCount() * sizeof(TexturePoint);
 
+        case ATTRIB_JOINT_BINDING:
+            return getJointBindingCount() * sizeof(Vector3Integer);
+
+        case ATTRIB_JOINT_WEIGHT:
+            return getJointWeightCount() * sizeof(Vector3);
+
         default:
             return 0;
 
@@ -337,6 +457,12 @@ unsigned int tw::Mesh::getSegmentCount (uint8_t attrib) {
         case ATTRIB_TEXTURE:
             return getTexturePointCount();
 
+        case ATTRIB_JOINT_BINDING:
+            return getJointBindingCount();
+
+        case ATTRIB_JOINT_WEIGHT:
+            return getJointWeightCount();
+
         default:
             return 0;
 
@@ -362,7 +488,13 @@ int32_t tw::Mesh::getSegmentSize (uint8_t attrib) {
             return 3; // x, y, and z
 
         case ATTRIB_TEXTURE:
-            return 2; // x and y
+            return 2; // u and v
+
+        case ATTRIB_JOINT_BINDING:
+            return 3; // first, second, and third
+
+        case ATTRIB_JOINT_WEIGHT:
+            return 3; // first, second, and third
 
         default:
             return 0; // who knows
@@ -382,6 +514,9 @@ tw::GraphicsBufferable::DataType tw::Mesh::getDataType (uint8_t attrib) {
         case ATTRIB_INDEX:
             return DataType::UINT;
 
+        case ATTRIB_JOINT_BINDING:
+            return DataType::INT;
+
         default:
             return DataType::FLOAT;
 
@@ -399,6 +534,9 @@ size_t tw::Mesh::getDataTypeBytes (uint8_t attrib) {
 
         case ATTRIB_INDEX:
             return sizeof(uint32_t);
+
+        case ATTRIB_JOINT_BINDING:
+            return sizeof(int32_t);
 
         default:
             return sizeof(float);
@@ -451,5 +589,7 @@ void tw::Mesh::eraseOriginalData () {
     std::vector<uint32_t>().swap(m_indices);
     std::vector<Normal>().swap(m_normals);
     std::vector<TexturePoint>().swap(m_texturePoints);
+    std::vector<Vector3Integer>().swap(m_jointBindings);
+    std::vector<Vector3>().swap(m_jointWeights);
 
 }
