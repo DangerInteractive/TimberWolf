@@ -53,7 +53,7 @@ void tw::GLMaterialHandle::init () {
     } else {
 
         // get existing copy
-        std::shared_ptr<GLVertexShader> vert = std::shared_ptr<GLVertexShader>(m_vert);
+        vert = std::shared_ptr<GLVertexShader>(m_vert);
 
     }
 
@@ -68,6 +68,11 @@ void tw::GLMaterialHandle::init () {
                 "color = vec4(1.0, 0.0, 0.0, 1.0);"
             "}");
         frag->compile();
+
+    } else {
+
+        // get existing copy
+        frag = std::shared_ptr<GLFragmentShader>(m_frag);
 
     }
 
