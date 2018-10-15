@@ -11,7 +11,7 @@ tw::MaterialHandle* tw::GLRenderer::put (Material& material) {
 
     // TODO: actually do something useful here, instead of placeholder code
 
-    auto handle = std::unique_ptr<MaterialHandle>(static_cast<MaterialHandle*>(new GLShaderProgram()));
+    auto handle = std::unique_ptr<MaterialHandle>(static_cast<MaterialHandle*>(new GLMaterialHandle()));
     material.setHandle(std::move(handle));
 
     return material.getHandle();

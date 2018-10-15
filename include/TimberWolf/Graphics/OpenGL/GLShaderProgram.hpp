@@ -21,7 +21,7 @@
 #include "GLComputeShader.hpp"
 
 namespace tw {
-class GLShaderProgram : public MaterialHandle {
+class GLShaderProgram {
 
 public:
 
@@ -53,8 +53,8 @@ public:
 
     bool link ();
 
-    virtual bool bind () override;
-    virtual bool unbind () override;
+    bool bind ();
+    bool unbind ();
     static void clearBound ();
 
 private:
