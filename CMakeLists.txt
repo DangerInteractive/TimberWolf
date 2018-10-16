@@ -77,6 +77,8 @@ list (APPEND SOURCES
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Console.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/File.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Gradient.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Image.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Pixel.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Projection.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Rotation.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/SpeedGovernor.cpp
@@ -172,6 +174,7 @@ list (APPEND HEADERS
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/File.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/GlobalVertex.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Gradient.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Image.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Math.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Matrix3.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Matrix3Double.hpp
@@ -180,6 +183,7 @@ list (APPEND HEADERS
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Normal.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Quaternion.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/QuaternionDouble.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Pixel.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Projection.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/Rotation.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Core/SpeedGovernor.hpp
