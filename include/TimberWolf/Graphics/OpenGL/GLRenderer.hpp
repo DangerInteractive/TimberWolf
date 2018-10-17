@@ -8,6 +8,7 @@
  */
 
 #include <memory>
+#include <stdexcept>
 
 #include <GL/glew.h>
 
@@ -39,7 +40,6 @@ class GLRenderer : public Renderer {
     virtual MeshHandle* put (Mesh&) override;
 
     virtual void render (const Scene*) override;
-    virtual void render (const Puppet*) override = 0;
 
     virtual void clear () override;
     virtual void clearColor () override;
@@ -52,7 +52,7 @@ class GLRenderer : public Renderer {
 
 protected:
 
-    void drawModel (const Model*);
+    void drawModel (Model*);
 
     static void glLiveDebug (GLenum, GLenum, GLuint, GLenum, GLsizei, const GLchar*, const void*);
 

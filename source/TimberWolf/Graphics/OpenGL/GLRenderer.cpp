@@ -31,14 +31,6 @@ tw::MeshHandle* tw::GLRenderer::put (Mesh& mesh) {
 
 void tw::GLRenderer::render (const Scene* scene) {
 
-    // TODO: OpenGL specific scene setup here?
-
-    Renderer::render(scene);
-
-}
-
-void tw::GLRenderer::render (const Puppet* puppet) {
-
     // TODO
 
 }
@@ -98,31 +90,36 @@ void tw::GLRenderer::setClearColor (const Color& color) {
  *
  * @param model model to render
  */
-void tw::GLRenderer::drawModel (const Model* model) {
+void tw::GLRenderer::drawModel (Model* model) {
 
-    for (unsigned int i = 0; i < model->getFragmentCount(); ++i) {
+    auto mesh = model->getMesh();
+    auto material = model->getMaterial();
 
-        auto fragment = model->getFragment(i);
-        auto mesh = fragment.getMesh();
-        auto material = fragment.getMaterial();
-
+    if (mesh->hasHandle()) {
+        mesh->getHandle()->bind();
+    } else {
+        put(*mesh);
         if (mesh->hasHandle()) {
             mesh->getHandle()->bind();
         } else {
-            continue;
+            throw std::runtime_error("GLRenderer failed to generate a handle to the mesh.");
         }
+    }
 
+    if (material->hasHandle()) {
+        material->getHandle()->bind();
+    } else {
+        put(*material);
         if (material->hasHandle()) {
             material->getHandle()->bind();
         } else {
-            continue;
+            throw std::runtime_error("GLRenderer failed to generate a handle to the material.");
         }
-
-        // TODO: we need to pass stuff to the shader (via uniforms) to actually position the model fragments.
-
-        glDrawArrays(GL_TRIANGLES, 0, mesh->getVertexCount());
-
     }
+
+    // TODO: we need to pass stuff to the shader (via uniforms) to actually position the model fragments.
+
+    glDrawArrays(GL_TRIANGLES, 0, mesh->getVertexCount());
 
     GLMeshHandle::clearBound();
     GLShaderProgram::clearBound();

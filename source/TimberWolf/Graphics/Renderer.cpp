@@ -12,14 +12,6 @@ void tw::Renderer::onWindowClose () {
 
 }
 
-void tw::Renderer::render (const tw::Scene* scene) {
-
-    for (auto puppet : scene->getPuppets()) {
-        render(puppet.get());
-    }
-
-}
-
 const tw::Color& tw::Renderer::getClearColor () const {
 
     return m_clearColor;

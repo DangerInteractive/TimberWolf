@@ -22,8 +22,6 @@
 #include "Graphics/Mesh.hpp"
 #include "Graphics/MeshHandle.hpp"
 #include "Graphics/Model.hpp"
-#include "Graphics/ModelFragment.hpp"
-#include "Graphics/Puppet.hpp"
 #include "Graphics/Renderer.hpp"
 #include "Graphics/Scene.hpp"
 #include "Graphics/Texture.hpp"

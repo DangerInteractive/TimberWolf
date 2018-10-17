@@ -7,38 +7,38 @@
  * not complete yet.
  */
 
-unsigned int tw::Scene::getPuppetCount () const {
+unsigned int tw::Scene::getModelCount () const {
 
-    return m_puppets.size();
-
-}
-
-const std::vector<std::shared_ptr<tw::Puppet>>& tw::Scene::getPuppets () const {
-
-    return m_puppets;
+    return m_models.size();
 
 }
 
-tw::Puppet* tw::Scene::getPuppet (unsigned int index) const {
+std::vector<tw::Model>& tw::Scene::getModels () {
 
-    return m_puppets.at(index).get();
-
-}
-
-void tw::Scene::addPuppets (std::shared_ptr<Puppet> puppets...) {
-
-    m_puppets.emplace_back(puppets);
+    return m_models;
 
 }
 
-void tw::Scene::setPuppet (unsigned int index, std::shared_ptr<Puppet> puppet) {
+tw::Model& tw::Scene::getModel (unsigned int index) {
 
-    m_puppets.at(index) = puppet;
+    return m_models.at(index);
 
 }
 
-void tw::Scene::clearPuppets () {
+void tw::Scene::addModels (const Model& models...) {
 
-    m_puppets.clear();
+    m_models.emplace_back(models);
+
+}
+
+void tw::Scene::setModel (unsigned int index, const Model& model) {
+
+    m_models.at(index) = model;
+
+}
+
+void tw::Scene::clearModels () {
+
+    m_models.clear();
 
 }

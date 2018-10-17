@@ -7,10 +7,9 @@
  * Header file for the tw::Scene class.
  */
 
-#include <memory>
 #include <vector>
 
-#include "Puppet.hpp"
+#include "Model.hpp"
 
 namespace tw {
 class Scene {
@@ -26,18 +25,18 @@ public:
     Scene (const Scene&) = default;
     Scene& operator = (const Scene&) = default;
 
-    unsigned int getPuppetCount () const;
-    const std::vector<std::shared_ptr<Puppet>>& getPuppets () const;
-    Puppet* getPuppet (unsigned int) const;
+    unsigned int getModelCount () const;
+    std::vector<Model>& getModels ();
+    Model& getModel (unsigned int);
 
-    void addPuppets (std::shared_ptr<Puppet>...);
-    void setPuppet (unsigned int, std::shared_ptr<Puppet>);
+    void addModels (const Model&...);
+    void setModel (unsigned int, const Model&);
 
-    void clearPuppets ();
+    void clearModels ();
 
 private:
 
-    std::vector<std::shared_ptr<Puppet>> m_puppets {};
+    std::vector<Model> m_models {};
 
 };
 }

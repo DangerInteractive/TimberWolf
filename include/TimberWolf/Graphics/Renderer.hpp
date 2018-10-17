@@ -13,7 +13,6 @@
 #include "MaterialHandle.hpp"
 #include "Mesh.hpp"
 #include "MeshHandle.hpp"
-#include "Puppet.hpp"
 #include "Scene.hpp"
 
 namespace tw {
@@ -33,8 +32,7 @@ public:
     virtual MaterialHandle* put (Material&);
     virtual MeshHandle* put (Mesh&);
 
-    virtual void render (const Scene*);
-    virtual void render (const Puppet*) = 0;
+    virtual void render (const Scene*) = 0;
 
     virtual void clear () = 0;
     virtual void clearColor () = 0;
