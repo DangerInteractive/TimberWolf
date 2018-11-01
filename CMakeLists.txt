@@ -103,6 +103,7 @@ list (APPEND SOURCES
     # Engine Graphics Subsystem
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Camera.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/GraphicsBufferable.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Light.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Material.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Mesh.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Graphics/Model.cpp
@@ -211,6 +212,7 @@ list (APPEND HEADERS
     # Engine Graphics Subsystem
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Camera.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/GraphicsBufferable.hpp
+    ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Light.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Material.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/MaterialHandle.hpp
     ${LIBTIMBERWOLF_INCLUDE_DIR}/Graphics/Mesh.hpp
