@@ -18,7 +18,7 @@ class Color {
 public:
 
     Color () = default;
-    Color (float, float, float, float);
+    Color (float, float, float, float) noexcept;
     ~Color () = default;
 
     Color (Color&&) = default;
@@ -27,97 +27,97 @@ public:
     Color (const Color&) = default;
     Color& operator = (const Color&) = default;
 
-    std::tuple<float, float, float, float> getRGBA () const;
-    std::tuple<float, float, float, float> getLinearRGBA () const;
-    std::tuple<uint8_t, uint8_t, uint8_t, uint8_t> getRGBA8 () const;
-    std::tuple<uint16_t, uint16_t, uint16_t, uint16_t> getRGBA16 () const;
-    float getR () const;
-    float getLinearR () const;
-    uint8_t getR8 () const;
-    uint16_t getR16 () const;
-    float getG () const;
-    float getLinearG () const;
-    uint8_t getG8 () const;
-    uint16_t getG16 () const;
-    float getB () const;
-    float getLinearB () const;
-    uint8_t getB8 () const;
-    uint16_t getB16 () const;
-    float getA () const;
-    uint8_t getA8 () const;
-    uint16_t getA16 () const;
+    std::tuple<float, float, float, float> getRGBA () const noexcept;
+    std::tuple<float, float, float, float> getLinearRGBA () const noexcept;
+    std::tuple<uint8_t, uint8_t, uint8_t, uint8_t> getRGBA8 () const noexcept;
+    std::tuple<uint16_t, uint16_t, uint16_t, uint16_t> getRGBA16 () const noexcept;
+    float getR () const noexcept;
+    float getLinearR () const noexcept;
+    uint8_t getR8 () const noexcept;
+    uint16_t getR16 () const noexcept;
+    float getG () const noexcept;
+    float getLinearG () const noexcept;
+    uint8_t getG8 () const noexcept;
+    uint16_t getG16 () const noexcept;
+    float getB () const noexcept;
+    float getLinearB () const noexcept;
+    uint8_t getB8 () const noexcept;
+    uint16_t getB16 () const noexcept;
+    float getA () const noexcept;
+    uint8_t getA8 () const noexcept;
+    uint16_t getA16 () const noexcept;
 
-    void setRGBA (float, float, float, float);
-    void setLinearRGBA (float, float, float, float);
-    void setRGBA8 (uint8_t, uint8_t, uint8_t, uint8_t);
-    void setRGBA16 (uint16_t, uint16_t, uint16_t, uint16_t);
-    void setR (float);
-    void setLinearR (float);
-    void setR8 (uint8_t);
-    void setR16 (uint16_t);
-    void setG (float);
-    void setLinearG (float);
-    void setG8 (uint8_t);
-    void setG16 (uint16_t);
-    void setB (float);
-    void setLinearB (float);
-    void setB8 (uint8_t);
-    void setB16 (uint16_t);
-    void setA (float);
-    void setA8 (uint8_t);
-    void setA16 (uint16_t);
+    void setRGBA (float, float, float, float) noexcept;
+    void setLinearRGBA (float, float, float, float) noexcept;
+    void setRGBA8 (uint8_t, uint8_t, uint8_t, uint8_t) noexcept;
+    void setRGBA16 (uint16_t, uint16_t, uint16_t, uint16_t) noexcept;
+    void setR (float) noexcept;
+    void setLinearR (float) noexcept;
+    void setR8 (uint8_t) noexcept;
+    void setR16 (uint16_t) noexcept;
+    void setG (float) noexcept;
+    void setLinearG (float) noexcept;
+    void setG8 (uint8_t) noexcept;
+    void setG16 (uint16_t) noexcept;
+    void setB (float) noexcept;
+    void setLinearB (float) noexcept;
+    void setB8 (uint8_t) noexcept;
+    void setB16 (uint16_t) noexcept;
+    void setA (float) noexcept;
+    void setA8 (uint8_t) noexcept;
+    void setA16 (uint16_t) noexcept;
 
-    void lighten (float);
-    Color makeLighten (float) const;
+    void lighten (float) noexcept;
+    Color makeLighten (float) const noexcept;
 
-    void darken (float);
-    Color makeDarken (float) const;
+    void darken (float) noexcept;
+    Color makeDarken (float) const noexcept;
 
-    void saturate (float);
-    Color makeSaturate (float) const;
+    void saturate (float) noexcept;
+    Color makeSaturate (float) const noexcept;
 
-    void desaturate (float);
-    Color makeDesaturate (float) const;
+    void desaturate (float) noexcept;
+    Color makeDesaturate (float) const noexcept;
 
-    void interpolate (const Color&, float);
-    Color makeInterpolate (const Color&, float) const;
+    void interpolate (const Color&, float) noexcept;
+    Color makeInterpolate (const Color&, float) const noexcept;
 
-    static Color lighten (const Color&, float);
-    static Color darken (const Color&, float);
-    static Color saturate (const Color&, float);
-    static Color desaturate (const Color&, float);
-    static Color interpolate (const Color&, const Color&, float);
+    static Color lighten (const Color&, float) noexcept;
+    static Color darken (const Color&, float) noexcept;
+    static Color saturate (const Color&, float) noexcept;
+    static Color desaturate (const Color&, float) noexcept;
+    static Color interpolate (const Color&, const Color&, float) noexcept;
 
-    bool operator == (const Color&) const;
-    bool operator != (const Color&) const;
+    bool operator == (const Color&) const noexcept;
+    bool operator != (const Color&) const noexcept;
 
-    Color operator + (const Color&) const;
-    Color operator + (Color&&) const;
-    Color operator + (float) const;
+    Color operator + (const Color&) const noexcept;
+    Color operator + (Color&&) const noexcept;
+    Color operator + (float) const noexcept;
 
-    Color& operator += (const Color&);
-    Color& operator += (float);
+    Color& operator += (const Color&) noexcept;
+    Color& operator += (float) noexcept;
 
-    Color operator - (const Color&) const;
-    Color operator - (Color&&) const;
-    Color operator - (float) const;
+    Color operator - (const Color&) const noexcept;
+    Color operator - (Color&&) const noexcept;
+    Color operator - (float) const noexcept;
 
-    Color& operator -= (const Color&);
-    Color& operator -= (float);
+    Color& operator -= (const Color&) noexcept;
+    Color& operator -= (float) noexcept;
 
-    Color operator * (const Color&) const;
-    Color operator * (Color&&) const;
-    Color operator * (float) const;
+    Color operator * (const Color&) const noexcept;
+    Color operator * (Color&&) const noexcept;
+    Color operator * (float) const noexcept;
 
-    Color& operator *= (const Color&);
-    Color& operator *= (float);
+    Color& operator *= (const Color&) noexcept;
+    Color& operator *= (float) noexcept;
 
-    Color operator / (const Color&) const;
-    Color operator / (Color&&) const;
-    Color operator / (float) const;
+    Color operator / (const Color&) const noexcept;
+    Color operator / (Color&&) const noexcept;
+    Color operator / (float) const noexcept;
 
-    Color& operator /= (const Color&);
-    Color& operator /= (float);
+    Color& operator /= (const Color&) noexcept;
+    Color& operator /= (float) noexcept;
 
 private:
 

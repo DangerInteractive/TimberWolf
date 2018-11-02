@@ -14,7 +14,7 @@
  * @param b normalized (0-1) blue channel value
  * @param a normalized (0-1) alpha channel value
  */
-tw::Color::Color (float r, float g, float b, float a) {
+tw::Color::Color (float r, float g, float b, float a) noexcept {
 
     setRGBA(r, g, b, a);
 
@@ -25,7 +25,7 @@ tw::Color::Color (float r, float g, float b, float a) {
  *
  * @return a 4-element tuple containing the normalized (0-1) values of the red, green, blue, and alpha channels, in that order
  */
-std::tuple<float, float, float, float> tw::Color::getRGBA () const {
+std::tuple<float, float, float, float> tw::Color::getRGBA () const noexcept {
 
     return std::make_tuple<float, float, float, float>(
         getR(), getG(), getB(), getA()
@@ -33,7 +33,7 @@ std::tuple<float, float, float, float> tw::Color::getRGBA () const {
 
 }
 
-std::tuple<float, float, float, float> tw::Color::getLinearRGBA () const {
+std::tuple<float, float, float, float> tw::Color::getLinearRGBA () const noexcept {
 
     return std::make_tuple<float, float, float, float>(
         getLinearR(), getLinearG(), getLinearB(), getA()
@@ -46,7 +46,7 @@ std::tuple<float, float, float, float> tw::Color::getLinearRGBA () const {
  *
  * @return a 4-element tuple containing the 8-bit integral (0-255) values of the red, green, blue, and alpha channels, in that order
  */
-std::tuple<uint8_t, uint8_t, uint8_t, uint8_t> tw::Color::getRGBA8 () const {
+std::tuple<uint8_t, uint8_t, uint8_t, uint8_t> tw::Color::getRGBA8 () const noexcept {
 
     return std::make_tuple<uint8_t, uint8_t, uint8_t, uint8_t>(
         getR8(), getG8(), getB8(), getA8()
@@ -59,7 +59,7 @@ std::tuple<uint8_t, uint8_t, uint8_t, uint8_t> tw::Color::getRGBA8 () const {
  *
  * @return a 4-element tuple containing the 16-bit integral (0-65535) values of the red, green, blue, and alpha channels, in that order
  */
-std::tuple<uint16_t, uint16_t, uint16_t, uint16_t> tw::Color::getRGBA16 () const {
+std::tuple<uint16_t, uint16_t, uint16_t, uint16_t> tw::Color::getRGBA16 () const noexcept {
 
     return std::make_tuple<uint16_t, uint16_t, uint16_t, uint16_t>(
         getR16(), getG16(), getB16(), getA16()
@@ -72,13 +72,13 @@ std::tuple<uint16_t, uint16_t, uint16_t, uint16_t> tw::Color::getRGBA16 () const
  *
  * @return the normalized (0-1) value of the red channel
  */
-float tw::Color::getR () const {
+float tw::Color::getR () const noexcept {
 
     return m_r;
 
 }
 
-float tw::Color::getLinearR () const {
+float tw::Color::getLinearR () const noexcept {
 
     return pow(getR(), 2.2f);
 
@@ -89,7 +89,7 @@ float tw::Color::getLinearR () const {
  *
  * @return the 8-bit integral (0-255) value of the red channel
  */
-uint8_t tw::Color::getR8 () const {
+uint8_t tw::Color::getR8 () const noexcept {
 
     return static_cast<uint8_t>(m_r * 255.f);
 
@@ -100,7 +100,7 @@ uint8_t tw::Color::getR8 () const {
  *
  * @return the 16-bit integral (0-65535) value of the red channel
  */
-uint16_t tw::Color::getR16 () const {
+uint16_t tw::Color::getR16 () const noexcept {
 
     return static_cast<uint16_t>(m_r * 65535.f);
 
@@ -111,13 +111,13 @@ uint16_t tw::Color::getR16 () const {
  *
  * @return the normalized (0-1) value of the green channel
  */
-float tw::Color::getG () const {
+float tw::Color::getG () const noexcept {
 
     return m_g;
 
 }
 
-float tw::Color::getLinearG () const {
+float tw::Color::getLinearG () const noexcept {
 
     return pow(getG(), 2.2f);
 
@@ -128,7 +128,7 @@ float tw::Color::getLinearG () const {
  *
  * @return the 8-bit integral (0-255) value of the green channel
  */
-uint8_t tw::Color::getG8 () const {
+uint8_t tw::Color::getG8 () const noexcept {
 
     return static_cast<uint8_t>(m_g * 255.f);
 
@@ -139,7 +139,7 @@ uint8_t tw::Color::getG8 () const {
  *
  * @return the 16-bit integral (0-65535) value of the green channel
  */
-uint16_t tw::Color::getG16 () const {
+uint16_t tw::Color::getG16 () const noexcept {
 
     return static_cast<uint16_t>(m_g * 65535.f);
 
@@ -150,13 +150,13 @@ uint16_t tw::Color::getG16 () const {
  *
  * @return the normalized (0-1) value of the blue channel
  */
-float tw::Color::getB () const {
+float tw::Color::getB () const noexcept {
 
     return m_b;
 
 }
 
-float tw::Color::getLinearB () const {
+float tw::Color::getLinearB () const noexcept {
 
     return pow(getB(), 2.2);
 
@@ -167,7 +167,7 @@ float tw::Color::getLinearB () const {
  *
  * @return the 8-bit integral (0-255) value of the blue channel
  */
-uint8_t tw::Color::getB8 () const {
+uint8_t tw::Color::getB8 () const noexcept {
 
     return static_cast<uint8_t>(m_b * 255.f);
 
@@ -178,7 +178,7 @@ uint8_t tw::Color::getB8 () const {
  *
  * @return the 16-bit integral (0-65535) value of the blue channel
  */
-uint16_t tw::Color::getB16 () const {
+uint16_t tw::Color::getB16 () const noexcept {
 
     return static_cast<uint16_t>(m_b * 65535.f);
 
@@ -188,7 +188,7 @@ uint16_t tw::Color::getB16 () const {
  *
  * @return the normalized (0-1) value of the alpha channel
  */
-float tw::Color::getA () const {
+float tw::Color::getA () const noexcept {
 
     return m_a;
 
@@ -199,7 +199,7 @@ float tw::Color::getA () const {
  *
  * @return the 8-bit integral (0-255) value of the alpha channel
  */
-uint8_t tw::Color::getA8 () const {
+uint8_t tw::Color::getA8 () const noexcept {
 
     return static_cast<uint8_t>(m_a * 255.f);
 
@@ -210,7 +210,7 @@ uint8_t tw::Color::getA8 () const {
  *
  * @return the 16-bit integral (0-65535) value of the alpha channel
  */
-uint16_t tw::Color::getA16 () const {
+uint16_t tw::Color::getA16 () const noexcept {
 
     return static_cast<uint16_t>(m_a * 65535.f);
 
@@ -224,7 +224,7 @@ uint16_t tw::Color::getA16 () const {
  * @param b the normalized (0-1) value of the blue channel
  * @param a the normalized (0-1) value of the alpha channel
  */
-void tw::Color::setRGBA (float r, float g, float b, float a) {
+void tw::Color::setRGBA (float r, float g, float b, float a) noexcept {
 
     setR(r);
     setG(g);
@@ -233,7 +233,7 @@ void tw::Color::setRGBA (float r, float g, float b, float a) {
 
 }
 
-void tw::Color::setLinearRGBA (float r, float g, float b, float a) {
+void tw::Color::setLinearRGBA (float r, float g, float b, float a) noexcept {
 
     setLinearR(r);
     setLinearG(g);
@@ -250,7 +250,7 @@ void tw::Color::setLinearRGBA (float r, float g, float b, float a) {
  * @param b the 8-bit integral (0-255) value of the blue channel
  * @param a the 8-bit integral (0-255) value of the alpha channel
  */
-void tw::Color::setRGBA8 (uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+void tw::Color::setRGBA8 (uint8_t r, uint8_t g, uint8_t b, uint8_t a) noexcept {
 
     setR8(r);
     setG8(g);
@@ -267,7 +267,7 @@ void tw::Color::setRGBA8 (uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
  * @param b the 16-bit integral (0-65535) value of the blue channel
  * @param a the 16-bit integral (0-65535) value of the alpha channel
  */
-void tw::Color::setRGBA16 (uint16_t r, uint16_t g, uint16_t b, uint16_t a) {
+void tw::Color::setRGBA16 (uint16_t r, uint16_t g, uint16_t b, uint16_t a) noexcept {
 
     setR16(r);
     setG16(g);
@@ -281,13 +281,13 @@ void tw::Color::setRGBA16 (uint16_t r, uint16_t g, uint16_t b, uint16_t a) {
  *
  * @param r the normalized (0-1) value of the red channel
  */
-void tw::Color::setR (float r) {
+void tw::Color::setR (float r) noexcept {
 
     m_r = std::clamp(r, 0.f, 1.f);
 
 }
 
-void tw::Color::setLinearR (float r) {
+void tw::Color::setLinearR (float r) noexcept {
 
     setR(pow(r, 1.f / 2.2f));
 
@@ -298,7 +298,7 @@ void tw::Color::setLinearR (float r) {
  *
  * @param r the 8-bit integral (0-255) value of the red channel
  */
-void tw::Color::setR8 (uint8_t r) {
+void tw::Color::setR8 (uint8_t r) noexcept {
 
     setR(static_cast<float>(r) / 255.f);
 
@@ -309,7 +309,7 @@ void tw::Color::setR8 (uint8_t r) {
  *
  * @param r the 16-bit integral (0-65535) value of the red channel
  */
-void tw::Color::setR16 (uint16_t r) {
+void tw::Color::setR16 (uint16_t r) noexcept {
 
     setR(static_cast<float>(r) / 65535.f);
 
@@ -320,13 +320,13 @@ void tw::Color::setR16 (uint16_t r) {
  *
  * @param g the normalized (0-1) value of the green channel
  */
-void tw::Color::setG (float g) {
+void tw::Color::setG (float g) noexcept {
 
     m_g = std::clamp(g, 0.f, 1.f);
 
 }
 
-void tw::Color::setLinearG (float g) {
+void tw::Color::setLinearG (float g) noexcept {
 
     setG(pow(g, 1.f / 2.2f));
 
@@ -337,7 +337,7 @@ void tw::Color::setLinearG (float g) {
  *
  * @param g the 8-bit integral (0-255) value of the green channel
  */
-void tw::Color::setG8 (uint8_t g) {
+void tw::Color::setG8 (uint8_t g) noexcept {
 
     setG(static_cast<float>(g) / 255.f);
 
@@ -348,7 +348,7 @@ void tw::Color::setG8 (uint8_t g) {
  *
  * @param g the 16-bit integral (0-65535) value of the green channel
  */
-void tw::Color::setG16 (uint16_t g) {
+void tw::Color::setG16 (uint16_t g) noexcept {
 
     setG(static_cast<float>(g) / 65535.f);
 
@@ -359,13 +359,13 @@ void tw::Color::setG16 (uint16_t g) {
  *
  * @param b the normalized (0-1) value of the blue channel
  */
-void tw::Color::setB (float b) {
+void tw::Color::setB (float b) noexcept {
 
     m_b = std::clamp(b, 0.f, 1.f);
 
 }
 
-void tw::Color::setLinearB (float b) {
+void tw::Color::setLinearB (float b) noexcept {
 
     setB(pow(b, 1.f / 2.2f));
 
@@ -376,7 +376,7 @@ void tw::Color::setLinearB (float b) {
  *
  * @param b the 8-bit integral (0-255) value of the blue channel
  */
-void tw::Color::setB8 (uint8_t b) {
+void tw::Color::setB8 (uint8_t b) noexcept {
 
     setB(static_cast<float>(b) / 255.f);
 
@@ -387,7 +387,7 @@ void tw::Color::setB8 (uint8_t b) {
  *
  * @param b the 16-bit integral (0-65535) value of the blue channel
  */
-void tw::Color::setB16 (uint16_t b) {
+void tw::Color::setB16 (uint16_t b) noexcept {
 
     setB(static_cast<float>(b) / 65535.f);
 
@@ -398,7 +398,7 @@ void tw::Color::setB16 (uint16_t b) {
  *
  * @param a the normalized (0-1) value of the blue channel
  */
-void tw::Color::setA (float a) {
+void tw::Color::setA (float a) noexcept {
 
     if (a > 1.f) {
         m_a = 1.f;
@@ -415,7 +415,7 @@ void tw::Color::setA (float a) {
  *
  * @param a the 8-bit integral (0-255) value of the alpha channel
  */
-void tw::Color::setA8 (uint8_t a) {
+void tw::Color::setA8 (uint8_t a) noexcept {
 
     setA(static_cast<float>(a) / 255.f);
 
@@ -426,7 +426,7 @@ void tw::Color::setA8 (uint8_t a) {
  *
  * @param a the 16-bit integral (0-65535) value of the alpha channel
  */
-void tw::Color::setA16 (uint16_t a) {
+void tw::Color::setA16 (uint16_t a) noexcept {
 
     setA(static_cast<float>(a) / 65535.f);
 
@@ -437,7 +437,7 @@ void tw::Color::setA16 (uint16_t a) {
  *
  * @param multiplier value to add
  */
-void tw::Color::lighten (float multiplier) {
+void tw::Color::lighten (float multiplier) noexcept {
 
     float actual = 1.f + multiplier;
 
@@ -456,7 +456,7 @@ void tw::Color::lighten (float multiplier) {
  * @param multiplier value to add to copy
  * @return lightened copy of color
  */
-tw::Color tw::Color::makeLighten (float multiplier) const {
+tw::Color tw::Color::makeLighten (float multiplier) const noexcept {
 
     auto copy = *this;
     copy.lighten(multiplier);
@@ -469,7 +469,7 @@ tw::Color tw::Color::makeLighten (float multiplier) const {
  *
  * @param multiplier value to remove
  */
-void tw::Color::darken (float multiplier) {
+void tw::Color::darken (float multiplier) noexcept {
 
     float actual = 1.f - multiplier;
 
@@ -488,7 +488,7 @@ void tw::Color::darken (float multiplier) {
  * @param multiplier value to remove from copy
  * @return darkened copy of color
  */
-tw::Color tw::Color::makeDarken (float multiplier) const {
+tw::Color tw::Color::makeDarken (float multiplier) const noexcept {
 
     auto copy = *this;
     copy.darken(multiplier);
@@ -501,7 +501,7 @@ tw::Color tw::Color::makeDarken (float multiplier) const {
  *
  * @param multiplier saturation to add
  */
-void tw::Color::saturate (float multiplier) {
+void tw::Color::saturate (float multiplier) noexcept {
 
     float r = getLinearR();
     float g = getLinearG();
@@ -537,7 +537,7 @@ void tw::Color::saturate (float multiplier) {
  * @param multiplier saturation to add to copy
  * @return saturated copy of color
  */
-tw::Color tw::Color::makeSaturate (float multiplier) const {
+tw::Color tw::Color::makeSaturate (float multiplier) const noexcept {
 
     auto copy = *this;
     copy.saturate(multiplier);
@@ -550,7 +550,7 @@ tw::Color tw::Color::makeSaturate (float multiplier) const {
  *
  * @param multiplier saturation to remove
  */
-void tw::Color::desaturate (float multiplier) {
+void tw::Color::desaturate (float multiplier) noexcept {
 
     saturate(-multiplier);
 
@@ -562,7 +562,7 @@ void tw::Color::desaturate (float multiplier) {
  * @param multiplier saturation to remove from copy
  * @return desaturated copy of color
  */
-tw::Color tw::Color::makeDesaturate (float multiplier) const {
+tw::Color tw::Color::makeDesaturate (float multiplier) const noexcept {
 
     auto copy = *this;
     copy.desaturate(multiplier);
@@ -570,7 +570,7 @@ tw::Color tw::Color::makeDesaturate (float multiplier) const {
 
 }
 
-void tw::Color::interpolate (const Color& toColor, float lerp) {
+void tw::Color::interpolate (const Color& toColor, float lerp) noexcept {
 
     float r = getLinearR();
     float g = getLinearG();
@@ -587,7 +587,7 @@ void tw::Color::interpolate (const Color& toColor, float lerp) {
 
 }
 
-tw::Color tw::Color::makeInterpolate (const Color& toColor, float lerp) const {
+tw::Color tw::Color::makeInterpolate (const Color& toColor, float lerp) const noexcept {
 
     auto copy = *this;
     copy.interpolate(toColor, lerp);
@@ -595,31 +595,31 @@ tw::Color tw::Color::makeInterpolate (const Color& toColor, float lerp) const {
 
 }
 
-tw::Color tw::Color::lighten (const Color& fromColor, float multiplier) {
+tw::Color tw::Color::lighten (const Color& fromColor, float multiplier) noexcept {
 
     return fromColor.makeLighten(multiplier);
 
 }
 
-tw::Color tw::Color::darken (const Color& fromColor, float multiplier) {
+tw::Color tw::Color::darken (const Color& fromColor, float multiplier) noexcept {
 
     return fromColor.makeDarken(multiplier);
 
 }
 
-tw::Color tw::Color::saturate (const Color& fromColor, float multiplier) {
+tw::Color tw::Color::saturate (const Color& fromColor, float multiplier) noexcept {
 
     return fromColor.makeSaturate(multiplier);
 
 }
 
-tw::Color tw::Color::desaturate (const Color& fromColor, float multiplier) {
+tw::Color tw::Color::desaturate (const Color& fromColor, float multiplier) noexcept {
 
     return fromColor.makeDesaturate(multiplier);
 
 }
 
-tw::Color tw::Color::interpolate (const Color& fromColor, const Color& toColor, float lerp) {
+tw::Color tw::Color::interpolate (const Color& fromColor, const Color& toColor, float lerp) noexcept {
 
     return fromColor.makeInterpolate(toColor, lerp);
 
@@ -631,7 +631,7 @@ tw::Color tw::Color::interpolate (const Color& fromColor, const Color& toColor, 
  * @param other color with which to compare
  * @return equality of tw::Color objects
  */
-bool tw::Color::operator == (const tw::Color& other) const {
+bool tw::Color::operator == (const tw::Color& other) const noexcept {
 
     if (
         getR() == other.getR() &&
@@ -652,7 +652,7 @@ bool tw::Color::operator == (const tw::Color& other) const {
  * @param other color with which to compare
  * @return inequality of tw::Color objects
  */
-bool tw::Color::operator != (const tw::Color& other) const {
+bool tw::Color::operator != (const tw::Color& other) const noexcept {
 
     return !(*this == other);
 
@@ -664,7 +664,7 @@ bool tw::Color::operator != (const tw::Color& other) const {
  * @param other color with which to add
  * @return color with combined values
  */
-tw::Color tw::Color::operator + (const tw::Color& other) const {
+tw::Color tw::Color::operator + (const tw::Color& other) const noexcept {
 
     auto copy = *this;
 
@@ -685,7 +685,7 @@ tw::Color tw::Color::operator + (const tw::Color& other) const {
  * @param other color with which to add
  * @return color with combined values
  */
-tw::Color tw::Color::operator + (tw::Color&& other) const {
+tw::Color tw::Color::operator + (tw::Color&& other) const noexcept {
 
     other.setRGBA(
         getR() + other.getR(),
@@ -704,7 +704,7 @@ tw::Color tw::Color::operator + (tw::Color&& other) const {
  * @param other scalar with which to add
  * @return color with combined values
  */
-tw::Color tw::Color::operator + (float other) const {
+tw::Color tw::Color::operator + (float other) const noexcept {
 
     auto copy = *this;
 
@@ -725,7 +725,7 @@ tw::Color tw::Color::operator + (float other) const {
  * @param other color with which to increment
  * @return self reference after incrementing
  */
-tw::Color& tw::Color::operator += (const tw::Color& other) {
+tw::Color& tw::Color::operator += (const tw::Color& other) noexcept {
 
     setRGBA(
         getR() + other.getR(),
@@ -744,7 +744,7 @@ tw::Color& tw::Color::operator += (const tw::Color& other) {
  * @param other scalar with which to increment
  * @return self reference after incrementing
  */
-tw::Color& tw::Color::operator += (float other) {
+tw::Color& tw::Color::operator += (float other) noexcept {
 
     setRGBA(
         getR() + other,
@@ -763,7 +763,7 @@ tw::Color& tw::Color::operator += (float other) {
  * @param other color by which to subtract
  * @return color with subtracted value
  */
-tw::Color tw::Color::operator - (const tw::Color& other) const {
+tw::Color tw::Color::operator - (const tw::Color& other) const noexcept {
 
     auto copy = *this;
 
@@ -784,7 +784,7 @@ tw::Color tw::Color::operator - (const tw::Color& other) const {
  * @param other color by which to subtract
  * @return color with subtracted value
  */
-tw::Color tw::Color::operator - (tw::Color&& other) const {
+tw::Color tw::Color::operator - (tw::Color&& other) const noexcept {
 
     other.setRGBA(
         getR() - other.getR(),
@@ -803,7 +803,7 @@ tw::Color tw::Color::operator - (tw::Color&& other) const {
  * @param other scalar by which to subtract
  * @return color with subtracted value
  */
-tw::Color tw::Color::operator - (float other) const {
+tw::Color tw::Color::operator - (float other) const noexcept {
 
     auto copy = *this;
 
@@ -824,7 +824,7 @@ tw::Color tw::Color::operator - (float other) const {
  * @param other color by which to decrement
  * @return self reference after decrementing
  */
-tw::Color& tw::Color::operator -= (const tw::Color& other) {
+tw::Color& tw::Color::operator -= (const tw::Color& other) noexcept {
 
     setRGBA(
         getR() - other.getR(),
@@ -843,7 +843,7 @@ tw::Color& tw::Color::operator -= (const tw::Color& other) {
  * @param other scalar by which to decrement
  * @return self reference after decrementing
  */
-tw::Color& tw::Color::operator -= (float other) {
+tw::Color& tw::Color::operator -= (float other) noexcept {
 
     setRGBA(
         getR() - other,
@@ -862,7 +862,7 @@ tw::Color& tw::Color::operator -= (float other) {
  * @param other color with which to multiply
  * @return color with multiplied values
  */
-tw::Color tw::Color::operator * (const tw::Color& other) const {
+tw::Color tw::Color::operator * (const tw::Color& other) const noexcept {
 
     auto copy = *this;
 
@@ -883,7 +883,7 @@ tw::Color tw::Color::operator * (const tw::Color& other) const {
  * @param other color with which to multiply
  * @return color with multiplied values
  */
-tw::Color tw::Color::operator * (tw::Color&& other) const {
+tw::Color tw::Color::operator * (tw::Color&& other) const noexcept {
 
     other.setRGBA(
         getR() * other.getR(),
@@ -902,7 +902,7 @@ tw::Color tw::Color::operator * (tw::Color&& other) const {
  * @param other scalar with which to multiply
  * @return color with multiplied values
  */
-tw::Color tw::Color::operator * (float other) const {
+tw::Color tw::Color::operator * (float other) const noexcept {
 
     auto copy = *this;
 
@@ -923,7 +923,7 @@ tw::Color tw::Color::operator * (float other) const {
  * @param other color with which to multiply
  * @return self reference after multiply-assigning
  */
-tw::Color& tw::Color::operator *= (const tw::Color& other) {
+tw::Color& tw::Color::operator *= (const tw::Color& other) noexcept {
 
     setRGBA(
         getR() * other.getR(),
@@ -942,7 +942,7 @@ tw::Color& tw::Color::operator *= (const tw::Color& other) {
  * @param other scalar with which to multiply
  * @return self reference after multiply-assigning
  */
-tw::Color& tw::Color::operator *= (float other) {
+tw::Color& tw::Color::operator *= (float other) noexcept {
 
     setRGBA(
         getR() * other,
@@ -961,7 +961,7 @@ tw::Color& tw::Color::operator *= (float other) {
  * @param other color by which to divide
  * @return color with divided values
  */
-tw::Color tw::Color::operator / (const tw::Color& other) const {
+tw::Color tw::Color::operator / (const tw::Color& other) const noexcept {
 
     auto copy = *this;
 
@@ -982,7 +982,7 @@ tw::Color tw::Color::operator / (const tw::Color& other) const {
  * @param other color by which to divide
  * @return color with divided values
  */
-tw::Color tw::Color::operator / (tw::Color&& other) const {
+tw::Color tw::Color::operator / (tw::Color&& other) const noexcept {
 
     other.setRGBA(
         getR() / (other.getR()),
@@ -1001,7 +1001,7 @@ tw::Color tw::Color::operator / (tw::Color&& other) const {
  * @param other scalar by which to divide
  * @return color with divided values
  */
-tw::Color tw::Color::operator / (float other) const {
+tw::Color tw::Color::operator / (float other) const noexcept {
 
     auto copy = *this;
 
@@ -1022,7 +1022,7 @@ tw::Color tw::Color::operator / (float other) const {
  * @param other color by which to divide
  * @return self reference after divide-assigning
  */
-tw::Color& tw::Color::operator /= (const tw::Color& other) {
+tw::Color& tw::Color::operator /= (const tw::Color& other) noexcept {
 
     setRGBA(
         getR() / other.getR(),
@@ -1041,7 +1041,7 @@ tw::Color& tw::Color::operator /= (const tw::Color& other) {
  * @param other scalar by which to divide
  * @return self reference after divide-assigning
  */
-tw::Color& tw::Color::operator /= (float other) {
+tw::Color& tw::Color::operator /= (float other) noexcept {
 
     setRGBA(
         getR() / other,
