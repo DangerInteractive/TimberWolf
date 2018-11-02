@@ -302,10 +302,11 @@ set (THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package (Threads REQUIRED)
 set (OpenGL_GL_PREFERENCE "GLVND")
 find_package (OpenGL REQUIRED)
-find_package (GLEW REQUIRED)
-find_package (glfw3 REQUIRED)
-find_package (glm REQUIRED)
-include_directories (${OPENGL_INCLUDE_DIR})
+find_package (GLEW 2.1.0 REQUIRED)
+find_package (glfw3 3.2.1 REQUIRED)
+find_package (glm 0.9.9 REQUIRED)
+find_package (Boost 1.68 REQUIRED)
+include_directories (${OPENGL_INCLUDE_DIR} ${Boost_INCLUDE_DIR})
 target_link_libraries (${LIBRARY_NAME}
     Threads::Threads
     ${OPENGL_gl_LIBRARY}

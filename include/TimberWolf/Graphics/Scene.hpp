@@ -9,6 +9,8 @@
 
 #include <vector>
 
+#include "Camera.hpp"
+#include "Light.hpp"
 #include "Model.hpp"
 
 namespace tw {
@@ -31,12 +33,17 @@ public:
 
     void addModels (const Model&...);
     void setModel (unsigned int, const Model&);
-
     void clearModels ();
+
+    void addLights (const Light&...);
+    void setLight (unsigned int, const Light&);
+    void clearLights ();
 
 private:
 
     std::vector<Model> m_models {};
+    std::vector<Light> m_lights {};
+    std::vector<Camera> m_cameras {};
 
 };
 }
