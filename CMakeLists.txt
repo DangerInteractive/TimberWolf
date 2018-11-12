@@ -24,6 +24,11 @@ if (NOT CMAKE_BUILD_TYPE)
     set (CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build (Debug, Release, ReleaseNative, ReleaseCompact)" FORCE)
 endif ()
 
+# enable/disable test suite
+if (NOT ENABLE_TESTS)
+    set (ENABLE_TESTS Disable CACHE STRING "Enable or disable the test suite (True to enable, anything else to disable)" FORCE)
+endif()
+
 # notify of the build type in use
 message (STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 
@@ -57,6 +62,11 @@ include_directories (
     ${PROJECT_SOURCE_DIR}
     ${PROJECT_BINARY_DIR}
 )
+
+# test suite definition
+set (TEST_SUITE_NAME twtsuite)
+set (TEST_SUITE_DIR ${PROJECT_SOURCE_DIR}/test)
+set (TEST_SUITE_ENTRYPOINT ${TEST_SUITE_DIR}/suite.cpp)
 
 # documentation
 configure_file (
@@ -190,7 +200,7 @@ configure_file (
     @ONLY
 )
 
-# dependencies
+# libTimberWolf dependencies
 set (CMAKE_THREAD_PREFER_PTHREAD TRUE)
 set (THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package (Threads REQUIRED)
@@ -214,6 +224,22 @@ target_link_libraries (${LIBRARY_NAME}
     GLEW
     glm
 )
+
+# test suite setup
+if (${ENABLE_TESTS} STREQUAL "True")
+    message (STATUS "Test Suite: ENABLED")
+    find_package (Catch2 2.4.2 REQUIRED)
+    add_executable (${TEST_SUITE_NAME} ${TEST_SUITE_ENTRYPOINT})
+    target_link_libraries (${TEST_SUITE_NAME}
+        Catch2::Catch2
+        ${LIBRARY_NAME}
+    )
+    include (CTest)
+    include (Catch)
+    catch_discover_tests(${TEST_SUITE_NAME})
+else ()
+    message (STATUS "Test Suite: DISABLED (-DENABLE_TESTS=True to enable)")
+endif()
 
 # installation
 include (GNUInstallDirs)

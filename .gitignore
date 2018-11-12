@@ -9,6 +9,12 @@ cmake_install.cmake
 install_manifest.txt
 CPackConfig.cmake
 CPackSourceConfig.cmake
+CTestTestfile.cmake
+DartConfiguration.tcl
+Testing
+twtsuite
+twtsuite.exe
+twtsuite_include-*.cmake
 /include/TimberWolf/TimberWolf.hpp
 TimberWolf.pc
 TimberWolfConfig.cmake
