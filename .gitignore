@@ -15,6 +15,7 @@ Testing
 twtsuite
 twtsuite.exe
 twtsuite_include-*.cmake
+twtsuite_tests-*.cmake
 /include/TimberWolf/TimberWolf.hpp
 TimberWolf.pc
 TimberWolfConfig.cmake

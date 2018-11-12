@@ -43,8 +43,6 @@ public:
     };
 
     Projection () = default;
-    Projection (Matrix4&&); // implicit
-    Projection (const Matrix4&); // implicit
     Projection (float, float, float, float);
     ~Projection () = default;
 

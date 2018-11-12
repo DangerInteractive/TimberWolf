@@ -3,6 +3,12 @@
 tw::EntityComponent::EntityComponent (Entity* entity)
 : m_entity(entity) {}
 
+tw::Entity* tw::EntityComponent::getEntity () {
+
+    return m_entity;
+
+}
+
 tw::EntityComponent& tw::EntityComponent::attachToEntity (Entity* entity) {
 
     m_entity = entity;

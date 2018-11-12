@@ -43,6 +43,6 @@ tw::Projection tw::Projection::Builder::build () {
 
 tw::Projection::Projection (float fovDegrees, float aspectRatio, float nearPlane, float farPlane) {
 
-    *this = glm::perspective(fovDegrees, aspectRatio, nearPlane, farPlane);
+    Matrix4::operator=(glm::perspective(fovDegrees, aspectRatio, nearPlane, farPlane));
 
 }

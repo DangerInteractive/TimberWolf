@@ -34,29 +34,29 @@ public:
     float getPositionY () const;
     float getPositionZ () const;
 
-    Entity& setPosition (const Vertex&);
-    Entity& setPosition (float, float, float);
-    Entity& setPositionX (float);
-    Entity& setPositionY (float);
-    Entity& setPositionZ (float);
+    void setPosition (const Vertex&);
+    void setPosition (float, float, float);
+    void setPositionX (float);
+    void setPositionY (float);
+    void setPositionZ (float);
 
-    Entity& translate (const Vertex&);
-    Entity& translate (float, float, float);
-    Entity& translateX (float);
-    Entity& translateY (float);
-    Entity& translateZ (float);
+    void translate (const Vertex&);
+    void translate (float, float, float);
+    void translateX (float);
+    void translateY (float);
+    void translateZ (float);
 
     // rotation
     Rotation getOrientation () const;
     const Rotation& getOrientationRef () const;
 
-    Entity& setOrientation (const Rotation&);
-    Entity& setOrientationRadians (float, const Vertex&);
-    Entity& setOrientationDegrees (float, const Vertex&);
+    void setOrientation (const Rotation&);
+    void setOrientationRadians (float, const Vertex&);
+    void setOrientationDegrees (float, const Vertex&);
 
-    Entity& rotate (const Rotation&);
-    Entity& rotateRadians (float, const Vertex&);
-    Entity& rotateDegrees (float, const Vertex&);
+    void rotate (const Rotation&);
+    void rotateRadians (float, const Vertex&);
+    void rotateDegrees (float, const Vertex&);
 
     // scaling
     Vertex getScale () const;
@@ -65,19 +65,19 @@ public:
     float getScaleY () const;
     float getScaleZ () const;
 
-    Entity& setScale (const Vertex&);
-    Entity& setScale (float, float, float);
-    Entity& setScale (float);
-    Entity& setScaleX (float);
-    Entity& setScaleY (float);
-    Entity& setScaleZ (float);
+    void setScale (const Vertex&);
+    void setScale (float, float, float);
+    void setScale (float);
+    void setScaleX (float);
+    void setScaleY (float);
+    void setScaleZ (float);
 
-    Entity& scale (const Vertex&);
-    Entity& scale (float, float, float);
-    Entity& scale (float);
-    Entity& scaleX (float);
-    Entity& scaleY (float);
-    Entity& scaleZ (float);
+    void scale (const Vertex&);
+    void scale (float, float, float);
+    void scale (float);
+    void scaleX (float);
+    void scaleY (float);
+    void scaleZ (float);
 
 private:
 

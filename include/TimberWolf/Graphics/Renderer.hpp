@@ -29,8 +29,8 @@ public:
     Renderer (const Renderer&) = default;
     Renderer& operator = (const Renderer&) = default;
 
-    virtual MaterialHandle* put (Material&);
-    virtual MeshHandle* put (Mesh&);
+    virtual MaterialHandle* put (Material&) = 0;
+    virtual MeshHandle* put (Mesh&) = 0;
 
     virtual void render (const Scene*) = 0;
 

@@ -7,7 +7,7 @@ class MeshHandle {
 public:
 
     MeshHandle () = default;
-    virtual ~MeshHandle () = 0;
+    virtual ~MeshHandle () = default;
 
     MeshHandle (MeshHandle&&) = default;
     MeshHandle& operator = (MeshHandle&&) = default;

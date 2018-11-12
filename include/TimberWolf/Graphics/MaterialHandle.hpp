@@ -7,7 +7,7 @@ class MaterialHandle {
 public:
 
     MaterialHandle () = default;
-    virtual ~MaterialHandle () = 0;
+    virtual ~MaterialHandle () = default;
 
     MaterialHandle (MaterialHandle&&) = default;
     MaterialHandle& operator = (MaterialHandle&&) = default;
