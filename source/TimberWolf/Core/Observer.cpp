@@ -1,5 +1,7 @@
 #include "../../../include/TimberWolf/Core/Observer.hpp"
 
+tw::Observer::~Observer () {} // we still want pure virtual
+
 std::unique_lock<std::mutex> tw::Observer::getLock () {
 
     return std::unique_lock<std::mutex>(m_mutex);

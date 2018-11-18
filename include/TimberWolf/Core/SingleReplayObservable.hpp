@@ -15,7 +15,7 @@ class SingleReplayObservable : public SingleObservable<T> {
 public:
 
     SingleReplayObservable () = default;
-    virtual ~SingleReplayObservable () = 0; // pure virtual class
+    virtual ~SingleReplayObservable () = default; // pure virtual class
 
     SingleReplayObservable (SingleReplayObservable&&) = default;
     SingleReplayObservable& operator = (SingleReplayObservable&&) = default;

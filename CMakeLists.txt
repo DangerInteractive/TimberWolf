@@ -88,6 +88,7 @@ list (APPEND SOURCES
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/File.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Gradient.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Image.cpp
+    ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Observer.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Pixel.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Projection.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Rotation.cpp

@@ -13,13 +13,17 @@ class SingleObservable {
 public:
 
     SingleObservable () = default;
-    virtual ~SingleObservable () = 0; // pure virtual class
+    virtual ~SingleObservable () = default; // pure virtual class
 
     SingleObservable (SingleObservable&&) = default;
     SingleObservable& operator = (SingleObservable&&) = default;
 
     SingleObservable (const SingleObservable&) = default;
     SingleObservable& operator = (const SingleObservable&) = default;
+
+    T* getObserver () {
+        return m_observer.get();
+    }
 
     virtual void setObserver (std::unique_ptr<T>&& observer) {
         auto lock = getLock();
@@ -47,7 +51,7 @@ protected:
     void notifyObserver (const ObserverAction<T>& action) {
         auto lock = getLock();
         if (m_observer != nullptr) {
-            if (m_observer.isAlive()) {
+            if (m_observer->isAlive()) {
                 action(m_observer.get());
             } else {
                 m_observer.reset();

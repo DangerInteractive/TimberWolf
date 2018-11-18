@@ -15,7 +15,7 @@ class MultiReplayObservable : public MultiObservable<T> {
 public:
 
     MultiReplayObservable () = default;
-    virtual ~MultiReplayObservable () = 0; // pure virtual class
+    virtual ~MultiReplayObservable () = default; // pure virtual class
 
     MultiReplayObservable (MultiReplayObservable&&) = default;
     MultiReplayObservable& operator = (MultiReplayObservable&&) = default;
@@ -31,7 +31,7 @@ public:
             }
         }
         lock.release();
-        MultiObservable<T>::setObserver(std::move(observer));
+        MultiObservable<T>::addObserver(std::move(observer));
     }
 
 protected:

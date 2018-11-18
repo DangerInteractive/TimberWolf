@@ -14,7 +14,7 @@ class MultiObservable {
 public:
 
     MultiObservable () = default;
-    virtual ~MultiObservable () = 0; // pure virtual class
+    virtual ~MultiObservable () = default; // pure virtual class
 
     MultiObservable (MultiObservable&&) = default;
     MultiObservable& operator = (MultiObservable&&) = default;
@@ -22,15 +22,15 @@ public:
     MultiObservable (const MultiObservable&) = default;
     MultiObservable& operator = (const MultiObservable&) = default;
 
-    virtual void addObserver (std::unique_ptr<T>&& observer) {
+    virtual void addObserver (std::unique_ptr<T>&& newObserver) {
         auto lock = getLock();
         for (auto observer = m_observers.begin(); observer != m_observers.end(); ++observer) {
             if (*observer == nullptr) {
-                *observer = std::move(observer);
+                *observer = std::move(newObserver);
                 return;
             }
         }
-        m_observers.emplace_back(std::move(observer));
+        m_observers.emplace_back(std::move(newObserver));
     }
 
     void addObserver (T* observer) {
@@ -58,7 +58,7 @@ protected:
         auto lock = getLock();
         for (auto observer = m_observers.begin(); observer != m_observers.end(); ++observer) {
             if (*observer != nullptr) {
-                if (observer->isAlive()) {
+                if ((*observer)->isAlive()) {
                     action(observer->get());
                 } else {
                     observer->reset();
