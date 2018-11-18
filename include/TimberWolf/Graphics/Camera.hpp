@@ -9,6 +9,8 @@
 #include "../Core/Vector3.hpp"
 #include "../Core/Vertex.hpp"
 
+namespace tw { class Scene; }
+
 namespace tw {
 class Camera {
 
@@ -23,39 +25,46 @@ public:
     Camera (const Camera&) = default;
     Camera& operator = (const Camera&) = default;
 
-    Matrix4 getViewProjection () const;
-    const Matrix4& getViewProjectionRef () const;
+    Matrix4 getViewProjection ();
+    const Matrix4& getViewProjectionRef ();
 
-    Transformation getView () const;
-    const Transformation& getViewRef () const;
+    Transformation getView ();
+    const Transformation& getViewRef ();
 
-    Projection getProjection () const;
-    const Projection& getProjectionRef () const;
+    Projection getProjection ();
+    const Projection& getProjectionRef ();
 
-    // transactional changes
+    void placeInScene (Scene*);
+    void removeFromScene ();
 
-    Camera& setPosition (const Vertex&);
-    Camera& setPosition (float, float, float);
-    Camera& setPositionX (float);
-    Camera& setPositionY (float);
-    Camera& setPositionZ (float);
+    void setPosition (const Vertex&);
+    void setPosition (float, float, float);
+    void setPositionX (float);
+    void setPositionY (float);
+    void setPositionZ (float);
 
-    Camera& setOrientation (const Rotation&);
-    Camera& setOrientationRadians (float, const Vector3&);
-    Camera& setOrientationDegrees (float, const Vector3&);
+    void setOrientation (const Rotation&);
+    void setOrientationRadians (float, const Vector3&);
+    void setOrientationDegrees (float, const Vector3&);
 
-    Camera& setFieldOfViewRadians (float);
-    Camera& setFieldOfViewDegrees (float);
+    void setFieldOfViewRadians (float);
+    void setFieldOfViewDegrees (float);
 
-    Camera& setAspectRatio (float);
-    Camera& setDimensions (unsigned int, unsigned int);
+    void setAspectRatio (float);
+    void setDimensions (unsigned int, unsigned int);
 
-    Camera& setFrontPlane (float);
-    Camera& setBackPlane (float);
+    void setFrontPlane (float);
+    void setBackPlane (float);
 
-    void commit ();
+protected:
+
+    void calculateViewMatrix ();
+    void calculateProjectionMatrix ();
+    void calculateViewProjectionMatrix ();
 
 private:
+
+    Scene* m_scene {nullptr};
 
     Vertex m_position {};
     Rotation m_orientation {};
