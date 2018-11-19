@@ -24,13 +24,11 @@ public:
     SingleReplayObservable& operator = (const SingleReplayObservable&) = default;
 
     virtual void setObserver (std::unique_ptr<T>&& observer) override {
-        auto lock = this->getLock();
         if (observer != nullptr) {
             for (auto action : m_replays) {
                 action(observer.get());
             }
         }
-        lock.release();
         SingleObservable<T>::setObserver(std::move(observer));
     }
 

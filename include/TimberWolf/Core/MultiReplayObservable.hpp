@@ -24,13 +24,11 @@ public:
     MultiReplayObservable& operator = (const MultiReplayObservable&) = default;
 
     virtual void addObserver (std::unique_ptr<T>&& observer) override {
-        auto lock = this->getLock();
         if (observer != nullptr) {
             for (auto action : m_replays) {
                 action(observer.get());
             }
         }
-        lock.release();
         MultiObservable<T>::addObserver(std::move(observer));
     }
 
