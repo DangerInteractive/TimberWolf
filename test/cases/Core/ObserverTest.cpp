@@ -122,7 +122,7 @@ public:
 
 SCENARIO ("Observers can be registered and notified by Observables", "[core][observer]") {
 
-    GIVEN ("a default constructed TestSingleObservable given a TestObserver") {
+    GIVEN ("a TestSingleObservable given a TestObserver") {
         TestSingleObservable observable;
         TestObserver* observer = new TestObserver();
         observable.setObserver(std::unique_ptr<TestObserver>(observer));

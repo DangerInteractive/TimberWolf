@@ -66,7 +66,6 @@ include_directories (
 # test suite definition
 set (TEST_SUITE_NAME twtsuite)
 set (TEST_SUITE_DIR ${PROJECT_SOURCE_DIR}/test)
-set (TEST_SUITE_ENTRYPOINT ${TEST_SUITE_DIR}/suite.cpp)
 
 # documentation
 configure_file (
@@ -75,7 +74,7 @@ configure_file (
     @ONLY
 )
 
-# list of sources (just for compilation)
+# list of libTimberWolf sources (just for compilation)
 list (APPEND SOURCES
 
     # Bundled Libraries
@@ -148,6 +147,18 @@ list (APPEND SOURCES
     ${LIBTIMBERWOLF_SOURCE_DIR}/World/EntityComponent.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/World/PhysicsEntityComponent.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/World/World.cpp
+
+)
+
+# list of test suite sources (only used when building the test suite)
+list (APPEND TEST_SUITE_SOURCES
+
+    # Engine Core Tests
+    ${TEST_SUITE_DIR}/cases/Core/ColorTest.cpp
+    ${TEST_SUITE_DIR}/cases/Core/ObserverTest.cpp
+
+    # Entry Point
+    ${TEST_SUITE_DIR}/main.cpp
 
 )
 
@@ -230,7 +241,7 @@ target_link_libraries (${LIBRARY_NAME}
 if (${ENABLE_TESTS} STREQUAL "True")
     message (STATUS "Test Suite: ENABLED")
     find_package (Catch2 2.4.2 REQUIRED)
-    add_executable (${TEST_SUITE_NAME} ${TEST_SUITE_ENTRYPOINT})
+    add_executable (${TEST_SUITE_NAME} ${TEST_SUITE_SOURCES})
     target_link_libraries (${TEST_SUITE_NAME}
         Catch2::Catch2
         ${LIBRARY_NAME}

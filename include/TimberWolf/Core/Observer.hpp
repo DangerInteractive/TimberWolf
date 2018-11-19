@@ -1,7 +1,6 @@
 #ifndef TW_CLASS_OBSERVER
 #define TW_CLASS_OBSERVER
 
-#include <atomic>
 #include <mutex>
 
 namespace tw {
@@ -26,7 +25,7 @@ public:
 private:
 
     std::mutex m_mutex {};
-    std::atomic<bool> m_isAlive {false};
+    bool m_isAlive {false};
 
 };
 }
