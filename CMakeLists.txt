@@ -153,7 +153,14 @@ list (APPEND SOURCES
 # list of test suite sources (only used when building the test suite)
 list (APPEND TEST_SUITE_SOURCES
 
-    # Engine Core Tests
+    # Engine Core Test Classes
+    ${TEST_SUITE_DIR}/source/Core/TestMultiObservable.cpp
+    ${TEST_SUITE_DIR}/source/Core/TestMultiReplayObservable.cpp
+    ${TEST_SUITE_DIR}/source/Core/TestObserver.cpp
+    ${TEST_SUITE_DIR}/source/Core/TestSingleObservable.cpp
+    ${TEST_SUITE_DIR}/source/Core/TestSingleReplayObservable.cpp
+
+    # Engine Core Test Cases
     ${TEST_SUITE_DIR}/cases/Core/ColorTest.cpp
     ${TEST_SUITE_DIR}/cases/Core/ObserverTest.cpp
 
