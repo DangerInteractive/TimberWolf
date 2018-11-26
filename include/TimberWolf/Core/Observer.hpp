@@ -25,7 +25,7 @@ public:
 private:
 
     std::mutex m_mutex {};
-    bool m_isAlive {false};
+    bool m_isAlive {true};
 
 };
 }

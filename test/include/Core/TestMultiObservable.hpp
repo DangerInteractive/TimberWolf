@@ -20,7 +20,7 @@ public:
     TestMultiObservable (const TestMultiObservable&) = default;
     TestMultiObservable& operator = (const TestMultiObservable&) = default;
 
-    void testNotify (const tw::ObserverAction<TestObserver>&);
+    void notifyValue (int);
 
 };
 }

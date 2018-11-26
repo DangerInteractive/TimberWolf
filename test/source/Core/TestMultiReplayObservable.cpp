@@ -1,13 +1,17 @@
 #include "../../include/Core/TestMultiReplayObservable.hpp"
 
-void twt::TestMultiReplayObservable::testNotify (const tw::ObserverAction<TestObserver>& action) {
+void twt::TestMultiReplayObservable::notifyValue (int value) {
 
-    notifyObservers(action);
+    notifyObservers([value] (TestObserver* observer) {
+        observer->onTestNotification(value);
+    });
 
 }
 
-void twt::TestMultiReplayObservable::testNotifyAndReplay (const tw::ObserverAction<TestObserver>& action) {
+void twt::TestMultiReplayObservable::notifyAndReplayValue (int value) {
 
-    notifyObserversAndReplay(action);
+    notifyObserversAndReplay([value] (TestObserver* observer) {
+        observer->onTestNotification(value);
+    });
 
 }

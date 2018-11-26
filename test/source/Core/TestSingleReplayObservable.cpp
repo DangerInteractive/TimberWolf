@@ -1,13 +1,17 @@
 #include "../../include/Core/TestSingleReplayObservable.hpp"
 
-void twt::TestSingleReplayObservable::testNotify (const tw::ObserverAction<TestObserver>& action) {
+void twt::TestSingleReplayObservable::notifyValue (int value) {
 
-    notifyObserver(action);
+    notifyObserver([value] (TestObserver* observer) {
+        observer->onTestNotification(value);
+    });
 
 }
 
-void twt::TestSingleReplayObservable::testNotifyAndReplay (const tw::ObserverAction<TestObserver>& action) {
+void twt::TestSingleReplayObservable::notifyAndReplayValue (int value) {
 
-    notifyObserverAndReplay(action);
+    notifyObserverAndReplay([value] (TestObserver* observer) {
+        observer->onTestNotification(value);
+    });
 
 }

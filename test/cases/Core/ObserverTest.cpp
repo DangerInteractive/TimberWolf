@@ -20,9 +20,7 @@ SCENARIO ("Observers can be registered and notified by Observables", "[core][obs
         REQUIRE (observer == observable.getObserver());
 
         WHEN ("the observer is notified via the observable") {
-            observable.testNotify([] (twt::TestObserver* observer) {
-                observer->onTestNotification(50);
-            });
+            observable.notifyValue(50);
 
             THEN ("The observer was notified") {
                 REQUIRE (observer->wasNotified() == true);
@@ -45,9 +43,7 @@ SCENARIO ("Observers can be registered and notified by Observables", "[core][obs
         REQUIRE (observer2->getNotifiedValue() == 0);
 
         WHEN ("the observer is notified via the observable") {
-            observable.testNotify([] (twt::TestObserver* observer) {
-                observer->onTestNotification(50);
-            });
+            observable.notifyValue(50);
 
             THEN ("the observers were both notified") {
                 REQUIRE (observer1->wasNotified() == true);
@@ -65,13 +61,11 @@ SCENARIO ("Observers can be registered and notified by Observables", "[core][obs
         observable.setObserver(std::unique_ptr<twt::TestObserver>(observer));
 
         REQUIRE (observer->wasNotified() == false);
-        REQUIRE (observer->getNotifiedValue() == 50);
+        REQUIRE (observer->getNotifiedValue() == 0);
         REQUIRE (observer == observable.getObserver());
 
         WHEN ("the observer is notified via the observable") {
-            observable.testNotify([] (twt::TestObserver* observer) {
-                observer->onTestNotification(50);
-            });
+            observable.notifyValue(50);
 
             THEN ("The observer was notified") {
                 REQUIRE (observer->wasNotified() == true);
@@ -94,9 +88,7 @@ SCENARIO ("Observers can be registered and notified by Observables", "[core][obs
         REQUIRE (observer2->getNotifiedValue() == 0);
 
         WHEN ("the observer is notified via the observable") {
-            observable.testNotify([] (twt::TestObserver* observer) {
-                observer->onTestNotification(50);
-            });
+            observable.notifyValue(50);
 
             THEN ("the observers were both notified") {
                 REQUIRE (observer1->wasNotified() == true);

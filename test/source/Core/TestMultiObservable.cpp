@@ -1,7 +1,9 @@
 #include "../../include/Core/TestMultiObservable.hpp"
 
-void twt::TestMultiObservable::testNotify (const tw::ObserverAction<TestObserver>& action) {
+void twt::TestMultiObservable::notifyValue (int value) {
 
-    notifyObservers(action);
+    notifyObservers([value] (TestObserver* observer) {
+        observer->onTestNotification(value);
+    });
 
 }

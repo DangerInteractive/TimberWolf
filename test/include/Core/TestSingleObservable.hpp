@@ -1,6 +1,8 @@
 #ifndef TWT_CLASS_TESTSINGLEOBSERVABLE
 #define TWT_CLASS_TESTSINGLEOBSERVABLE
 
+#include <iostream>
+
 #include "../../../include/TimberWolf/Core/ObserverAction.hpp"
 #include "../../../include/TimberWolf/Core/SingleObservable.hpp"
 
@@ -20,7 +22,7 @@ public:
     TestSingleObservable (const TestSingleObservable&) = default;
     TestSingleObservable& operator = (const TestSingleObservable&) = default;
 
-    void testNotify (const tw::ObserverAction<TestObserver>&);
+    void notifyValue (int);
 
 };
 }

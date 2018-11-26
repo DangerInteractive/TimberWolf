@@ -20,8 +20,8 @@ public:
     TestSingleReplayObservable (const TestSingleReplayObservable&) = default;
     TestSingleReplayObservable& operator = (const TestSingleReplayObservable&) = default;
 
-    void testNotify (const tw::ObserverAction<TestObserver>&);
-    void testNotifyAndReplay (const tw::ObserverAction<TestObserver>&);
+    void notifyValue (int);
+    void notifyAndReplayValue (int);
 
 };
 }

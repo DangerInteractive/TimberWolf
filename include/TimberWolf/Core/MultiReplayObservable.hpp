@@ -39,7 +39,7 @@ protected:
         m_replays.emplace_back(std::move(action));
     }
 
-    void notifyObserversAndReplay (ObserverAction<T>&& action) {
+    void notifyObserversAndReplay (ObserverAction<T>&& action) && {
         this->notifyObservers(action);
         m_replays.emplace_back(std::move(action));
     }

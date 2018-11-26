@@ -1,7 +1,9 @@
 #include "../../include/Core/TestSingleObservable.hpp"
 
-void twt::TestSingleObservable::testNotify (const tw::ObserverAction<TestObserver>& action) {
+void twt::TestSingleObservable::notifyValue (int value) {
 
-    notifyObserver(action);
+    notifyObserver([value] (TestObserver* observer) {
+        observer->onTestNotification(value);
+    });
 
 }

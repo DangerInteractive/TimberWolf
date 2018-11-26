@@ -23,6 +23,9 @@ public:
     void testNotify (const tw::ObserverAction<TestObserver>&);
     void testNotifyAndReplay (const tw::ObserverAction<TestObserver>&);
 
+    void notifyValue (int);
+    void notifyAndReplayValue (int);
+
 };
 }
 
