@@ -1,8 +1,6 @@
 #ifndef TWT_CLASS_TESTSINGLEOBSERVABLE
 #define TWT_CLASS_TESTSINGLEOBSERVABLE
 
-#include <iostream>
-
 #include "../../../include/TimberWolf/Core/ObserverAction.hpp"
 #include "../../../include/TimberWolf/Core/SingleObservable.hpp"
 
