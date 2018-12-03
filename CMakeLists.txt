@@ -84,7 +84,6 @@ list (APPEND SOURCES
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Clock.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Color.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Console.cpp
-    ${LIBTIMBERWOLF_SOURCE_DIR}/Core/File.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Gradient.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Image.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Observer.cpp
@@ -93,6 +92,9 @@ list (APPEND SOURCES
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Rotation.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/SpeedGovernor.cpp
     ${LIBTIMBERWOLF_SOURCE_DIR}/Core/Transformation.cpp
+
+    # Engine File Subsystem
+    ${LIBTIMBERWOLF_SOURCE_DIR}/FileSystem/File.cpp
 
     # Engine Log Subsystem
     ${LIBTIMBERWOLF_SOURCE_DIR}/Log/ConsoleLogObserver.cpp

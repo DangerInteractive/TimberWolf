@@ -13,7 +13,6 @@
 #include "Core/Clock.hpp"
 #include "Core/Color.hpp"
 #include "Core/Console.hpp"
-#include "Core/File.hpp"
 #include "Core/GlobalVertex.hpp"
 #include "Core/Gradient.hpp"
 #include "Core/Image.hpp"

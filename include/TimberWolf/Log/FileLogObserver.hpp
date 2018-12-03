@@ -12,7 +12,7 @@
 #include <ctime>
 #include <iomanip>
 #include "LogObserver.hpp"
-#include "../Core/File.hpp"
+#include "../FileSystem/File.hpp"
 
 namespace tw {
 class FileLogObserver : public LogObserver {
@@ -43,7 +43,7 @@ protected:
 
     virtual std::string formatMessage (LogLevel, const std::string&, const std::string&);
 
-    File m_file {"./log.txt", File::ENABLE_WRITE | File::ENABLE_APPEND};
+    File m_file {"./log.txt", File::ENABLE_WRITE | File::ENABLE_APPEND, false};
 
 };
 }

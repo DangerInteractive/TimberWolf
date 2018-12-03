@@ -25,10 +25,21 @@ public:
     static inline constexpr std::ios_base::openmode ENABLE_BINARY = std::ios::binary;
     static inline constexpr std::ios_base::openmode ENABLE_WIPE =   std::ios::trunc;
 
-    File () = default;
+    static File openReadOnly (std::string);
+    static File openReadWrite (std::string);
+    static File openTempFile (std::string);
+    static File createTempFileInDir (std::string);
 
-    explicit File (const std::string&);
-    File (const std::string&, std::ios_base::openmode);
+    File () = default;
+    ~File ();
+    File (std::string, std::ios_base::openmode = ENABLE_READ, bool = false);
+
+    File (File&&) = default;
+    File& operator = (File&&) = default;
+
+    // not copyable (just use the same file object)
+    File (const File&) = delete;
+    File& operator = (const File&) = delete;
 
     std::string readString ();
 
@@ -73,9 +84,13 @@ public:
     bool isOpen () const;
     bool open ();
     bool close ();
+    bool empty ();
+    bool remove ();
+
+    std::fstream* getStream ();
 
     std::string getPath () const;
-    bool setPath (const std::string&);
+    bool setPath (std::string);
 
     bool readEnabled () const;
     bool enableRead ();
@@ -101,6 +116,7 @@ private:
     std::mutex m_metadata_mutex;
     std::string m_path {"./undefined.txt"};
     std::ios_base::openmode m_flags {ENABLE_READ};
+    bool m_temporary {false};
 
     std::mutex m_fstream_mutex;
     std::fstream m_fstream;

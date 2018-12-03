@@ -1,18 +1,29 @@
-#include "../../../include/TimberWolf/Core/File.hpp"
+#include "../../../include/TimberWolf/FileSystem/File.hpp"
+#include <ctime>
 
-/**
- * @class tw::File
- *
- * Handle for an operating system file, providing manipulation and data access.
- */
+tw::File tw::File::openReadOnly (std::string path) {
 
-/**
- * Constructor taking in a std::string of the path to the file.
- *
- * @param path file path
- */
-tw::File::File (const std::string& path)
-: m_path(path) {}
+    return File(std::move(path), ENABLE_READ, false);
+
+}
+
+tw::File tw::File::openReadWrite (std::string path) {
+
+    return File(std::move(path), ENABLE_READ | ENABLE_WRITE, false);
+
+}
+
+tw::File tw::File::openTempFile (std::string path) {
+
+    return File(std::move(path), ENABLE_READ | ENABLE_WRITE, true);
+
+}
+
+tw::File tw::File::createTempFileInDir (std::string path) {
+
+    return File::openTempFile(std::move(path).append(std::to_string(std::time(nullptr))));
+
+}
 
 /**
  * Constructor taking in a std::string of the path to the file and file opening
@@ -21,8 +32,16 @@ tw::File::File (const std::string& path)
  * @param path      file path
  * @param openFlags file opening flags
  */
-tw::File::File (const std::string& path, std::ios_base::openmode openFlags)
-: m_path(path), m_flags(openFlags) {}
+tw::File::File (std::string path, std::ios_base::openmode openFlags, bool temporary)
+: m_path(std::move(path)), m_flags(openFlags), m_temporary(temporary) {}
+
+tw::File::~File () {
+
+    if (m_temporary) {
+        remove();
+    }
+
+}
 
 /**
  * Check if the file is open.
@@ -98,6 +117,48 @@ bool tw::File::close () {
 
 }
 
+bool tw::File::empty () {
+
+    std::scoped_lock lock(m_metadata_mutex, m_fstream_mutex);
+
+    auto wasOpen = isOpen();
+    auto originalFlags = m_flags;
+
+    if (!close()) { return false; }
+    if (!enableWrite()) { return false; }
+    if (!enableWipe()) { return false; }
+    if (!open()) { return false; }
+    if (!close()) { return false; }
+
+    m_flags = originalFlags;
+    if (wasOpen) {
+        if (!open()) { return false; }
+    }
+
+    return true;
+
+}
+
+bool tw::File::remove () {
+
+    std::scoped_lock lock(m_metadata_mutex, m_fstream_mutex);
+
+    if (!close()) {
+        return false;
+    }
+
+    // TODO: this is going to need <filesystem> to work. This will require some refactoring.
+
+    return false;
+
+}
+
+std::fstream* tw::File::getStream () {
+
+    return &m_fstream;
+
+}
+
 /**
  * Get the path of the file as a std::string.
  *
@@ -116,7 +177,7 @@ std::string tw::File::getPath () const {
  * @param path file path
  * @return true if path is set successfully, false if not
  */
-bool tw::File::setPath (const std::string& path) {
+bool tw::File::setPath (std::string path) {
 
     std::unique_lock<std::mutex> metadata_lock(m_metadata_mutex);
 
@@ -124,7 +185,7 @@ bool tw::File::setPath (const std::string& path) {
         return false;
     }
 
-    m_path = path;
+    m_path = std::move(path);
 
     return true;
 
