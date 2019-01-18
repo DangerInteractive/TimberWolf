@@ -1,0 +1,7 @@
+[package]
+name = "TimberWolf"
+version = "0.2.0"
+authors = ["Alexander Barber <alex@dangerzonegames.com>"]
+edition = "2019"
+
+[dependencies]
