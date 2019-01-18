@@ -53,7 +53,7 @@ package "Storage Subsystem" #c0c0fa {
     class MatrixCrate {
     }
 
-    class BinTagCrate {
+    class BinaryTagCrate {
     }
 
     class MapCrate {
@@ -61,7 +61,7 @@ package "Storage Subsystem" #c0c0fa {
 
 }
 
-package "Core Subsystem" #eeeeee {
+package "FileSystem Subsystem" #eeeeee {
 
     class File {
     }
@@ -80,7 +80,7 @@ CrateStore o-- CrateFile
 CrateStore *-- Crate
 VectorCrate --|> Crate
 MatrixCrate --|> Crate
-BinTagCrate --|> Crate
+BinaryTagCrate --|> Crate
 MapCrate --|> Crate
 JSONFile *-- JSONNode
 JSONNode *-- JSONNode
