@@ -1,7 +1,8 @@
 [package]
-name = "TimberWolf"
+name = "timberwolf"
 version = "0.2.0"
 authors = ["Alexander Barber <alex@dangerzonegames.com>"]
-edition = "2019"
+edition = "2018"
 
 [dependencies]
+chrono = "0.4.6"
