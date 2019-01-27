@@ -3,6 +3,9 @@ name = "timberwolf"
 version = "0.2.0"
 authors = ["Alexander Barber <alex@dangerzonegames.com>"]
 edition = "2018"
+description = "a high-performance 3D-focused game engine"
+license = "MIT"
+repository = "https://github.com/dzgames/TimberWolf"
 
 [dependencies]
 chrono = "0.4.6"
