@@ -34,7 +34,7 @@ message (STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 
 # project definition
 set (LIBTIMBERWOLF_VERSION_MAJOR 0)
-set (LIBTIMBERWOLF_VERSION_MINOR 0)
+set (LIBTIMBERWOLF_VERSION_MINOR 1)
 set (LIBTIMBERWOLF_VERSION_PATCH 0)
 project (
     TimberWolf
