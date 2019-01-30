@@ -12,17 +12,35 @@ macro_rules! write_log_event {
             minute = &$event.time.minute(),
             second = &$event.time.second(),
             severity = match &$event.severity {
-                Severity::Debug => "DEBUG",
-                Severity::Verbose => "VERBOSE",
-                Severity::Info => "INFO",
-                Severity::Warning => "WARNING",
-                Severity::Error => "ERROR",
-                Severity::Fatal => "FATAL"
+                Severity::Debug => "Debug",
+                Severity::Verbose => "Verbose",
+                Severity::Info => "Info",
+                Severity::Warning => "Warning",
+                Severity::Error => "Error",
+                Severity::Fatal => "Fatal"
             },
             context = &$event.context,
             message = &$event.message
         )
     }
+}
+
+/// subsystem for printing log data to strings
+pub mod string {
+    use super::super::event::{Event, Severity};
+    use chrono::{Datelike, Timelike};
+    use std::io::Write;
+
+    /// write a log event to a character vector
+    pub fn format_event (event: &Event) -> Vec<u8> {
+
+        let mut stream = Vec::new();
+        let _ = write_log_event!(&mut stream, event);
+
+        return stream;
+
+    }
+
 }
 
 /// subsystem for printing log data to the console

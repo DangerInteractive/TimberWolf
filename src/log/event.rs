@@ -1,7 +1,7 @@
 //! the log event-handling subsystem
 
 extern crate chrono;
-use chrono::{DateTime, Local};
+use chrono::{DateTime, FixedOffset, Local, Utc};
 use super::output::console::write_event;
 
 /// the severity level of a log event
@@ -31,7 +31,7 @@ pub enum Severity {
 pub struct Event {
 
     /// the date and time that the log message was created
-    pub time: DateTime<Local>,
+    pub time: DateTime<Utc>,
 
     /// the severity level of the log event
     pub severity: Severity,
@@ -41,6 +41,50 @@ pub struct Event {
 
     /// the human-readable message about whatever the log event is trying to say
     pub message: String
+
+}
+
+impl Event {
+
+    /// create a new event marked with the current time
+    pub fn now (severity: Severity, context: &str, message: &str) -> Self {
+        return Event {
+            time: Utc::now(),
+            severity,
+            context: context.to_owned(),
+            message: message.to_owned()
+        };
+    }
+
+    /// create a new event marked with a given UTC date and time
+    pub fn with_utc_time (time: DateTime<Utc>, severity: Severity, context: &str, message: &str) -> Self {
+        return Event {
+            time,
+            severity,
+            context: context.to_owned(),
+            message: message.to_owned()
+        };
+    }
+
+    /// create a new event marked with a given local date and time
+    pub fn with_local_time (time: DateTime<Local>, severity: Severity, context: &str, message: &str) -> Self {
+        return Event {
+            time: time.with_timezone(&Utc),
+            severity,
+            context: context.to_owned(),
+            message: message.to_owned()
+        };
+    }
+
+    /// create a new event marked with a given fixed offset date and time
+    pub fn with_time (time: DateTime<FixedOffset>, severity: Severity, context: &str, message: &str) -> Self {
+        return Event {
+            time: time.with_timezone(&Utc),
+            severity,
+            context: context.to_owned(),
+            message: message.to_owned()
+        };
+    }
 
 }
 
