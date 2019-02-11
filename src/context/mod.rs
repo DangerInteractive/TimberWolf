@@ -4,25 +4,31 @@
 pub trait Context {
 
     /// whether or not this context allows lower contexts to render
-    fn is_render_transparent (&self) -> bool;
+    fn is_render_transparent (&self) -> bool {
+        return false;
+    }
 
     /// whether or not this context allows lower contexts to update
-    fn is_update_transparent (&self) -> bool;
+    fn is_update_transparent (&self) -> bool {
+        return false;
+    }
 
     /// whether or not this context allows lower contexts to receive input
-    fn is_input_transparent (&self) -> bool;
+    fn is_input_transparent (&self) -> bool {
+        return false;
+    }
 
     /// event indicating that the context has become the topmost context
-    fn on_focus (&mut self);
+    fn on_focus (&mut self) {}
 
     /// event indicating that the context is no longer the topmost context
-    fn on_unfocus (&mut self);
+    fn on_unfocus (&mut self) {}
 
-    /// event indicating that the context has been pushed onto a stack
-    fn on_push (&mut self);
+    /// event indicating that the context has been pushed onto a story (and is given a reference to said story)
+    fn on_push (&mut self, _story: &Story) {}
 
-    /// event indicating that the context has been popped off of a stack
-    fn on_pop (&mut self);
+    /// event indicating that the context has been popped off of a story
+    fn on_pop (&mut self) {}
 
     /// render the visual portion of the context according to a number of seconds since the last update call
     fn render (&mut self, delta: f64);
@@ -47,6 +53,37 @@ impl Story {
         return Self {
             contexts: vec![]
         }
+    }
+
+    /// push a context onto the top of the story
+    pub fn push_context <T: 'static + Context> (&mut self, context: T) {
+        self.push_boxed_context(Box::new(context));
+    }
+
+    /// push a (boxed) context onto the top of the story
+    pub fn push_boxed_context (&mut self, mut context: Box<Context>) {
+        context.on_push(self);
+        self.contexts.push(context);
+    }
+
+    /// pop the topmost context off of the story and return it
+    pub fn pop_context (&mut self) -> Option<Box<Context>> {
+        match self.contexts.pop() {
+            Some (mut context) => {
+                context.on_pop();
+                return Some(context);
+            }
+            None => {
+                return None;
+            }
+        }
+    }
+
+    /// swrap the topmost context for a new one, and return the old one
+    pub fn swap_context <T: 'static + Context> (&mut self, context: T) -> Option<Box<Context>> {
+        let old_context = self.pop_context();
+        self.push_context(context);
+        return old_context;
     }
 
     /// render the visual portion of the story (which means to correctly render the contexts it contains)

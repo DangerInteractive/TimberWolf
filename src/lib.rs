@@ -1,7 +1,7 @@
+//! TimberWolf -  A high-performance 3D focused cross-platform game engine based on Rust
+
 #![warn(dead_code)]
 #![deny(missing_docs)]
-
-//! TimberWolf -  A high-performance 3D focused cross-platform game engine based on Rust
 
 pub mod context;
 pub mod log;
