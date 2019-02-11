@@ -15,22 +15,22 @@ pub trait Rotor {
 pub struct Throttle {
 
     /// whether or not each iteration advances by the same interval despite jitter (deterministic loops)
-    lockstep_enabled: bool,
+    pub lockstep_enabled: bool,
 
     /// whether or not the loop should attempt to catch up after incurring lag
-    catchup_enabled: bool,
+    pub catchup_enabled: bool,
 
     /// the target duration between each iteration of the loop
-    interval: Duration,
+    pub interval: Duration,
 
     /// the last time the loop completed an iteration
-    last_call: Instant,
+    pub last_call: Instant,
 
     /// the duration of lag incurred behind the real-world elapsed time
-    lag: Duration,
+    pub lag: Duration,
 
     /// the ratio of passing time in the loop to passing real time
-    speed: f64
+    pub speed: f64
 
 }
 
@@ -137,10 +137,10 @@ impl Throttle {
 pub struct Turbine {
 
     /// the object that controls the speed of the loop
-    throttle: Throttle,
+    pub throttle: Throttle,
 
     /// the object that determines what the loop does
-    rotor: Box<Rotor>,
+    pub rotor: Box<Rotor>
 
 }
 
