@@ -55,13 +55,8 @@ impl Story {
         }
     }
 
-    /// push a context onto the top of the story
-    pub fn push_context <T: 'static + Context> (&mut self, context: T) {
-        self.push_boxed_context(Box::new(context));
-    }
-
     /// push a (boxed) context onto the top of the story
-    pub fn push_boxed_context (&mut self, mut context: Box<Context>) {
+    pub fn push_context (&mut self, mut context: Box<Context>) {
         context.on_push(self);
         self.contexts.push(context);
     }
@@ -74,7 +69,7 @@ impl Story {
                 return Some(context);
             }
             None => {
-                return None;
+                return None
             }
         }
     }
@@ -82,7 +77,7 @@ impl Story {
     /// swrap the topmost context for a new one, and return the old one
     pub fn swap_context <T: 'static + Context> (&mut self, context: T) -> Option<Box<Context>> {
         let old_context = self.pop_context();
-        self.push_context(context);
+        self.push_context(Box::new(context));
         return old_context;
     }
 
