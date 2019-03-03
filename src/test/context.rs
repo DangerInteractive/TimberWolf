@@ -77,216 +77,124 @@ impl TestContext {
 
 }
 
-#[test]
-fn test_both_transparencies () {
+struct ContextSimulation {
 
-    // monitor status
-    let status_both = Rc::new(RefCell::new(Status::new()));
-    let status_control = Rc::new(RefCell::new(Status::new()));
+    // configure the context
+    render_transparent: bool,
+    update_transparent: bool,
 
+    // configure the assertions
+    gets_rendered: bool,
+    gets_updated: bool,
+
+    // store the status
+    status: Rc<RefCell<Status>>
+
+}
+impl ContextSimulation {
+
+    fn new (render_transparent: bool, update_transparent: bool, gets_rendered: bool, gets_updated: bool) -> Self {
+        return Self {
+            render_transparent,
+            update_transparent,
+            gets_rendered,
+            gets_updated,
+            status: Rc::new(RefCell::new(Status::new()))
+        };
+    }
+
+}
+
+fn simulate_with_asserts (context_simulations: &[ContextSimulation]) {
+
+    // nothing has happened yet, so nothing should have been rendered or updated yet
+    for csim in context_simulations {
+        assert!(csim.status.borrow().was_rendered() == false);
+        assert!(csim.status.borrow().was_updated() == false);
+    }
+
+    // run the simulation (in own scope due to mutable borrows)
     {
-        // create the experimental contexts
-        let context_both = TestContext::new(true, true, status_both.clone());
-        let context_control = TestContext::new(false, false, status_control.clone());
-
-        // setup the story
         let mut story = Story::new();
-        story.push_context(Box::new(context_control));
-        story.push_context(Box::new(context_both));
 
-        // simulate a render and update
+        for csim in context_simulations {
+            story.push_context(Box::new(TestContext::new(csim.render_transparent, csim.update_transparent, csim.status.clone())))
+        }
+
         story.render(0f64);
         story.update(0f64);
     }
 
-    // as top context, context_both receives both render and update
-    assert!(status_both.borrow().was_rendered());
-    assert!(status_both.borrow().was_updated());
+    // check that things were rendered and updated as expected
+    for csim in context_simulations {
+        assert!(csim.status.borrow().was_rendered() == csim.gets_rendered);
+        assert!(csim.status.borrow().was_updated() == csim.gets_updated);
+    }
 
-    // context_both allows the render and update to pass through to control
-    assert!(status_control.borrow().was_rendered());
-    assert!(status_control.borrow().was_updated());
+}
 
+#[test]
+fn test_both_transparencies () {
+    simulate_with_asserts(&[
+        // both render and update pass through to this one
+        ContextSimulation::new(false, false, true, true),
+        // top context gets rendered and updated
+        ContextSimulation::new(true, true, true, true)
+    ]);
 }
 
 #[test]
 fn test_render_transparency_only () {
-
-    // monitor status
-    let status_render = Rc::new(RefCell::new(Status::new()));
-    let status_control = Rc::new(RefCell::new(Status::new()));
-
-    {
-        // create the experimental contexts
-        let context_render = TestContext::new(true, false, status_render.clone());
-        let context_control = TestContext::new(false, false, status_control.clone());
-
-        // setup the story
-        let mut story = Story::new();
-        story.push_context(Box::new(context_control));
-        story.push_context(Box::new(context_render));
-
-        // simulate a render and update
-        story.render(0f64);
-        story.update(0f64);
-    }
-
-    // as top context, context_render receives both render and update
-    assert!(status_render.borrow().was_rendered());
-    assert!(status_render.borrow().was_updated());
-
-    // context_render allows the render to pass through to control, but not update
-    assert!(status_control.borrow().was_rendered());
-    assert!(!status_control.borrow().was_updated());
-
+    simulate_with_asserts(&[
+        // render passes through to this one, but not update
+        ContextSimulation::new(false, false, true, false),
+        // top context gets rendered and updated
+        ContextSimulation::new(true, false, true, true)
+    ]);
 }
 
 #[test]
 fn test_update_transparency_only () {
-
-    // monitor status
-    let status_update = Rc::new(RefCell::new(Status::new()));
-    let status_control = Rc::new(RefCell::new(Status::new()));
-
-    {
-        // create the experimental contexts
-        let context_update = TestContext::new(false, true, status_update.clone());
-        let context_control = TestContext::new(false, false, status_control.clone());
-
-        // setup the story
-        let mut story = Story::new();
-        story.push_context(Box::new(context_control));
-        story.push_context(Box::new(context_update));
-
-        // simulate a render and update
-        story.render(0f64);
-        story.update(0f64);
-    }
-
-    // as top context, context_update receives both render and update
-    assert!(status_update.borrow().was_rendered());
-    assert!(status_update.borrow().was_updated());
-
-    // context_update allows the update to pass through to control, but not render
-    assert!(!status_control.borrow().was_rendered());
-    assert!(status_control.borrow().was_updated());
-
+    simulate_with_asserts(&[
+        // update passes through to this one, but not render
+        ContextSimulation::new(false, false, false, true),
+        // top context gets rendered and updated
+        ContextSimulation::new(false, true, true, true)
+    ]);
 }
 
 #[test]
 fn test_both_opaque () {
-
-    // monitor status
-    let status_none = Rc::new(RefCell::new(Status::new()));
-    let status_control = Rc::new(RefCell::new(Status::new()));
-
-    {
-        // create the experimental contexts
-        let context_none = TestContext::new(false, false, status_none.clone());
-        let context_control = TestContext::new(false, false, status_control.clone());
-
-        // setup the story
-        let mut story = Story::new();
-        story.push_context(Box::new(context_control));
-        story.push_context(Box::new(context_none));
-
-        // simulate a render and update
-        story.render(0f64);
-        story.update(0f64);
-    }
-
-    // as top context, context_none receives both render and update
-    assert!(status_none.borrow().was_rendered());
-    assert!(status_none.borrow().was_updated());
-
-    // context_none doesn't allow either render or update to pass through
-    assert!(!status_control.borrow().was_rendered());
-    assert!(!status_control.borrow().was_updated());
-
+    simulate_with_asserts(&[
+        // nothing passes through to this one
+        ContextSimulation::new(false, false, false, false),
+        // top context gets rendered and updated
+        ContextSimulation::new(false, false, true, true)
+    ]);
 }
 
 #[test]
 fn test_deep_transparency () {
-
-    // monitor status
-    let status_both = Rc::new(RefCell::new(Status::new()));
-    let status_render = Rc::new(RefCell::new(Status::new()));
-    let status_control = Rc::new(RefCell::new(Status::new()));
-
-    {
-        // create the experimental contexts
-        let context_both = TestContext::new(true, true, status_both.clone());
-        let context_render = TestContext::new(true, false, status_render.clone());
-        let context_control = TestContext::new(false, false, status_control.clone());
-
-        // setup the story
-        let mut story = Story::new();
-        story.push_context(Box::new(context_control));
-        story.push_context(Box::new(context_render));
-        story.push_context(Box::new(context_both));
-
-        // simulate a render and update
-        story.update(0f64);
-        story.render(0f64);
-    }
-
-    // as top context, context_both receives both render and update...
-    assert!(status_both.borrow().was_rendered());
-    assert!(status_both.borrow().was_updated());
-
-    // context_both passes both update and render to context_render...
-    assert!(status_render.borrow().was_rendered());
-    assert!(status_render.borrow().was_updated());
-
-    // context_render passes render to context_control, but not update
-    assert!(status_control.borrow().was_rendered());
-    assert!(!status_control.borrow().was_updated());
-
+    simulate_with_asserts(&[
+        // render passes through to this one, but not update
+        ContextSimulation::new(false, false, true, false),
+        // both render and update pass through to this one
+        ContextSimulation::new(true, false, true, true),
+        // top context gets rendered and updated
+        ContextSimulation::new(true, true, true, true)
+    ]);
 }
 
 #[test]
 fn test_overhang_occlusion () {
-
-    // monitor status
-    let status_both = Rc::new(RefCell::new(Status::new()));
-    let status_render = Rc::new(RefCell::new(Status::new()));
-    let status_update = Rc::new(RefCell::new(Status::new()));
-    let status_control = Rc::new(RefCell::new(Status::new()));
-
-    {
-        // create the experimental contexts
-        let context_both = TestContext::new(true, true, status_both.clone());
-        let context_render = TestContext::new(true, false, status_render.clone());
-        let context_update = TestContext::new(false, true, status_update.clone());
-        let context_control = TestContext::new(false, false, status_control.clone());
-
-        // setup the story
-        let mut story = Story::new();
-        story.push_context(Box::new(context_control));
-        story.push_context(Box::new(context_update));
-        story.push_context(Box::new(context_render));
-        story.push_context(Box::new(context_both));
-
-        // simulate a render and update
-        story.update(0f64);
-        story.render(0f64);
-    }
-
-    // as top context, context_both receives both render and update...
-    assert!(status_both.borrow().was_rendered());
-    assert!(status_both.borrow().was_updated());
-
-    // context_both passes both update and render to context_render...
-    assert!(status_render.borrow().was_rendered());
-    assert!(status_render.borrow().was_updated());
-
-    // context_render passes render to context_update, but not update...
-    assert!(status_update.borrow().was_rendered());
-    assert!(!status_update.borrow().was_updated());
-
-    // context_update doesn't pass render, and is occluded from update by context_render, so
-    // doesn't pass update to context_control
-    assert!(!status_control.borrow().was_rendered());
-    assert!(!status_control.borrow().was_updated());
-
+    simulate_with_asserts(&[
+        // nothing passes through to this one because the last one wasn't updated
+        ContextSimulation::new(false, false, false, false),
+        // render passes through to this one, but not update
+        ContextSimulation::new(false, true, true, false),
+        // both render and update pass through to this one
+        ContextSimulation::new(true, false, true, true),
+        // top context gets rendered and updated
+        ContextSimulation::new(true, true, true, true)
+    ]);
 }
