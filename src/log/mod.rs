@@ -7,7 +7,7 @@ pub mod output;
 pub struct Log {
 
     /// receivers to which events will be dispatched
-    receivers: Vec<Box<event::Receiver>>
+    receivers: Vec<Box<event::Receiver + Send + Sync>>
 
 }
 
@@ -19,7 +19,7 @@ impl Log {
     }
 
     /// add a receiver to an existing log handler
-    pub fn add_receiver (&mut self, receiver: Box<event::Receiver>) {
+    pub fn add_receiver (&mut self, receiver: Box<event::Receiver + Send + Sync>) {
         self.receivers.push(receiver);
     }
 

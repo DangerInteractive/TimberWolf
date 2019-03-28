@@ -31,10 +31,10 @@ pub trait Context {
     fn on_pop (&mut self) {}
 
     /// render the visual portion of the context according to a number of seconds since the last update call
-    fn render (&mut self, delta: f64);
+    fn render (&mut self, delta: f64) -> bool;
 
     /// update the state of the context according to a number of passed seconds
-    fn update (&mut self, delta: f64);
+    fn update (&mut self, delta: f64) -> bool;
 
 }
 
@@ -42,7 +42,7 @@ pub trait Context {
 pub struct Story {
 
     /// an ordered list of contexts from bottom to top
-    contexts: Vec<Box<Context>>
+    contexts: Vec<Box<Context + Send + Sync>>
 
 }
 
@@ -56,13 +56,13 @@ impl Story {
     }
 
     /// push a (boxed) context onto the top of the story
-    pub fn push_context (&mut self, mut context: Box<Context>) {
+    pub fn push_context (&mut self, mut context: Box<Context + Send + Sync>) {
         context.on_push(self);
         self.contexts.push(context);
     }
 
     /// pop the topmost context off of the story and return it
-    pub fn pop_context (&mut self) -> Option<Box<Context>> {
+    pub fn pop_context (&mut self) -> Option<Box<Context + Send + Sync>> {
         match self.contexts.pop() {
             Some (mut context) => {
                 context.on_pop();
@@ -75,14 +75,14 @@ impl Story {
     }
 
     /// swrap the topmost context for a new one, and return the old one
-    pub fn swap_context <T: 'static + Context> (&mut self, context: T) -> Option<Box<Context>> {
+    pub fn swap_context <T: 'static + Context + Send + Sync> (&mut self, context: T) -> Option<Box<Context + Send + Sync>> {
         let old_context = self.pop_context();
         self.push_context(Box::new(context));
         return old_context;
     }
 
     /// render the visual portion of the story (which means to correctly render the contexts it contains)
-    pub fn render (&mut self, delta: f64) {
+    pub fn render (&mut self, delta: f64) -> bool {
 
         // create a list of contexts to be rendered by searching in reverse order
         let mut to_render = vec![];
@@ -94,15 +94,21 @@ impl Story {
             }
         }
 
+        let mut out = true;
+
         // render those contexts in forward order
         for context in to_render {
-            context.render(delta);
+            if !context.render(delta) {
+                out = false;
+            }
         }
+
+        return out;
 
     }
 
     /// update the state portion of the story (which means to correctly update the state of the contexts it contains)
-    pub fn update (&mut self, delta: f64) {
+    pub fn update (&mut self, delta: f64) -> bool {
 
         // create a list of contexts to be updated by searching in reverse order
         let mut to_update = vec![];
@@ -114,10 +120,16 @@ impl Story {
             }
         }
 
+        let mut out = true;
+
         // render those contexts in forward order
         for context in to_update {
-            context.update(delta);
+            if !context.update(delta) {
+                out = false;
+            }
         }
+
+        return out;
 
     }
 

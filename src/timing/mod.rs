@@ -1,18 +1,29 @@
-//! the subsystem that runs the hot and fast inner loops of the game engine
+//! the subsystem that governs the timing of the game engine
 
 use std::time::{Duration, Instant};
-use std::thread::sleep;
 
-/// the action which is repeatedly executed inside of a turbine loop
-pub trait Rotor {
+/// an object that represents a requested condition for the next iteration of a simulation loop
+pub struct Rev {
 
-    /// execute a single iteration of the action, and return whether or not the loop should continue
-    fn spin (&mut self, delta_seconds: f64) -> bool;
+    /// number of seconds that the simulation should elapse during the iteration
+    pub delta_seconds: f64,
+
+    /// time to wait before running the next iteration
+    pub wait: Duration
+
+}
+
+impl Rev {
+
+    /// create a new rev
+    pub fn new (delta_seconds: f64, wait: Duration) -> Self {
+        return Self { delta_seconds, wait };
+    }
 
 }
 
 /// an object that provides a means of controlling the rate at which a loop is run
-pub struct Throttle {
+pub struct RevLimiter {
 
     /// whether or not each iteration advances by the same interval despite jitter (deterministic loops)
     pub lockstep_enabled: bool,
@@ -34,9 +45,9 @@ pub struct Throttle {
 
 }
 
-impl Throttle {
+impl RevLimiter {
 
-    /// create a new loop
+    /// create a new rev limiter
     pub fn new (
         lockstep_enabled: bool,
         catchup_enabled: bool,
@@ -124,45 +135,25 @@ impl Throttle {
     }
 
     /// execute the next iteration of the loop, waiting if necessary (this is the heart of the loop)
-    pub fn next (&mut self) -> (f64, Duration) {
-        let rev = (self.get_delta(), self.get_wait());
+    pub fn next (&mut self) -> Rev {
+        let rev = Rev::new(self.get_delta(), self.get_wait());
         self.reset_timer();
         self.calc_lag();
         return rev;
     }
 
-}
-
-/// an object that handles the looping of loops
-pub struct Turbine {
-
-    /// the object that controls the speed of the loop
-    pub throttle: Throttle,
-
-    /// the object that determines what the loop does
-    pub rotor: Box<Rotor>
-
-}
-
-impl Turbine {
-
-    /// create a new turbine given a throttle and a rotor
-    pub fn new <T: 'static + Rotor> (throttle: Throttle, rotor: T) -> Self {
-        return Self {
-            throttle,
-            rotor: Box::new(rotor)
-        };
+    /// set the interval in seconds
+    pub fn set_interval (&mut self, seconds: f64) {
+        self.interval = Duration::from_nanos(
+            (seconds * 1_000_000_000.0) as u64
+        );
     }
 
-    /// run the turbine
-    pub fn run (&mut self) {
-        loop {
-            let (delta, wait) = self.throttle.next();
-            sleep(wait);
-            if !self.rotor.spin(delta) {
-                break; // returning false kills the loop
-            }
-        }
+    /// set the frequency in iterations per second
+    pub fn set_frequency (&mut self, per_second: u32) {
+        self.interval = Duration::from_nanos(
+            ((1.0 / (per_second as f64)) * 1_000_000_000.0) as u64
+        );
     }
 
 }

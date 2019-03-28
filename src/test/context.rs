@@ -47,12 +47,14 @@ struct TestContext {
 
 impl Context for TestContext {
 
-    fn render (&mut self, _delta: f64) {
+    fn render (&mut self, _delta: f64) -> bool {
         self.status.borrow_mut().on_render();
+        return true;
     }
 
-    fn update (&mut self, _delta: f64) {
+    fn update (&mut self, _delta: f64) -> bool {
         self.status.borrow_mut().on_update();
+        return true;
     }
 
     fn is_render_transparent (&self) -> bool {
