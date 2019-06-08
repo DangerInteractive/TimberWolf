@@ -1,8 +1,8 @@
 //! the log event-handling subsystem
 
 extern crate chrono;
-use chrono::{DateTime, FixedOffset, Local, Utc};
 use super::output::console::write_event;
+use chrono::{DateTime, FixedOffset, Local, Utc};
 
 /// the severity level of a log event
 pub enum Severity {
@@ -23,7 +23,7 @@ pub enum Severity {
     Error,
 
     /// something went wrong, and the program will fail
-    Fatal
+    Fatal,
 
 }
 
@@ -40,7 +40,7 @@ pub struct Event {
     pub context: String,
 
     /// the human-readable message about whatever the log event is trying to say
-    pub message: String
+    pub message: String,
 
 }
 
@@ -52,7 +52,7 @@ impl Event {
             time: Utc::now(),
             severity,
             context: context.to_owned(),
-            message: message.to_owned()
+            message: message.to_owned(),
         };
     }
 
@@ -62,7 +62,7 @@ impl Event {
             time,
             severity,
             context: context.to_owned(),
-            message: message.to_owned()
+            message: message.to_owned(),
         };
     }
 
@@ -72,7 +72,7 @@ impl Event {
             time: time.with_timezone(&Utc),
             severity,
             context: context.to_owned(),
-            message: message.to_owned()
+            message: message.to_owned(),
         };
     }
 
@@ -82,7 +82,7 @@ impl Event {
             time: time.with_timezone(&Utc),
             severity,
             context: context.to_owned(),
-            message: message.to_owned()
+            message: message.to_owned(),
         };
     }
 

@@ -7,7 +7,7 @@ pub mod output;
 pub struct Log {
 
     /// receivers to which events will be dispatched
-    receivers: Vec<Box<event::Receiver + Send + Sync>>
+    receivers: Vec<Box<event::Receiver + Send + Sync>>,
 
 }
 

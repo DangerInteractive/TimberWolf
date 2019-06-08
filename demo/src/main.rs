@@ -1,5 +1,5 @@
 extern crate timberwolf;
 
-fn main() {
+fn main () {
     println!("Hello, world!");
 }

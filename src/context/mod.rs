@@ -35,7 +35,6 @@ pub trait Context {
 
     /// update the state of the context according to a number of passed seconds
     fn update (&mut self, delta: f64) -> bool;
-
 }
 
 /// a stack-like collection of contexts that determines which controls what and when contexts do things
@@ -50,9 +49,7 @@ impl Story {
 
     /// create a new context story
     pub fn new () -> Self {
-        return Self {
-            contexts: vec![]
-        }
+        return Self { contexts: vec![] };
     }
 
     /// push a (boxed) context onto the top of the story
@@ -68,9 +65,7 @@ impl Story {
                 context.on_pop();
                 return Some(context);
             }
-            None => {
-                return None
-            }
+            None => return None,
         }
     }
 

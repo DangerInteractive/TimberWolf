@@ -17,12 +17,12 @@ macro_rules! write_log_event {
                 Severity::Info => "Info",
                 Severity::Warning => "Warning",
                 Severity::Error => "Error",
-                Severity::Fatal => "Fatal"
+                Severity::Fatal => "Fatal",
             },
             context = &$event.context,
             message = &$event.message
         )
-    }
+    };
 }
 
 /// subsystem for printing log data to strings
@@ -33,12 +33,9 @@ pub mod string {
 
     /// write a log event to a character vector
     pub fn format_event (event: &Event) -> Vec<u8> {
-
         let mut stream = Vec::new();
         let _ = write_log_event!(&mut stream, event);
-
         return stream;
-
     }
 
 }
@@ -52,17 +49,8 @@ pub mod console {
     /// write a log event to the console (stdout or stderr, depending on severity)
     pub fn write_event (event: &Event) -> std::result::Result<(), std::io::Error> {
         return match &event.severity {
-
-            Severity::Debug |
-            Severity::Verbose |
-            Severity::Info |
-            Severity::Warning =>
-                write_log_event!(std::io::stdout(), event),
-
-            Severity::Error |
-            Severity::Fatal =>
-                write_log_event!(std::io::stderr(), event)
-
+            Severity::Debug | Severity::Verbose | Severity::Info | Severity::Warning => write_log_event!(std::io::stdout(), event),
+            Severity::Error | Severity::Fatal => write_log_event!(std::io::stderr(), event),
         };
     }
 
