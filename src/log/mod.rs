@@ -1,7 +1,7 @@
 //! the log subsystem
 
 extern crate chrono;
-use std::sync::{Mutex};
+use std::sync::{RwLock};
 use chrono::{DateTime, FixedOffset, Local, Utc};
 use event::{Event, Receiver, Severity};
 
@@ -12,7 +12,7 @@ pub mod output;
 pub struct Log {
 
     /// receivers to which events will be dispatched
-    receivers: Vec<Mutex<Box<Receiver + Send + Sync>>>,
+    receivers: RwLock<Vec<RwLock<Box<Receiver + Send + Sync>>>>,
 
 }
 
@@ -20,12 +20,15 @@ impl Log {
 
     /// create a new log handler service
     pub fn new () -> Log {
-        return Log { receivers: Vec::new() };
+        return Log { receivers: RwLock::new(Vec::new()) };
     }
 
     /// add a receiver to an existing log handler
-    pub fn add_receiver (&mut self, receiver: Box<Receiver + Send + Sync>) {
-        self.receivers.push(Mutex::new(receiver));
+    pub fn add_receiver (&self, receiver: Box<Receiver + Send + Sync>) {
+        match self.receivers.write() {
+            Ok (mut receivers) => receivers.push(RwLock::new(receiver)),
+            Err (_) => ()
+        }
     }
 
     /// create and notify a log event for the current instant
@@ -84,11 +87,16 @@ impl Log {
 
     /// notify all receivers of a log event
     pub fn notify (&self, event: &Event) {
-        for receiver in self.receivers.iter() {
-            match receiver.lock() {
-                Ok(mut receiver) => receiver.notify(event),
-                Err(_) => continue
-            }
+        match self.receivers.read() {
+            Ok (receivers) => {
+                for receiver in receivers.iter() {
+                    match receiver.write() {
+                        Ok(mut receiver) => receiver.notify(event),
+                        Err(_) => continue
+                    }
+                }
+            },
+            Err (_) => ()
         }
     }
 

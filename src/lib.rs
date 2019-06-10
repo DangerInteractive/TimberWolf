@@ -11,10 +11,10 @@ pub mod timing;
 mod test;
 
 use context::{Story, Request};
-use log::Log;
+use log::{Log, event::{Receiver}};
 use std::sync::{Arc};
 use std::thread::{sleep, spawn};
-use timing::RevLimiter;
+use timing::{RevLimiter};
 
 struct GameState {
     pub log: Log,
@@ -36,6 +36,11 @@ impl Game {
                 story: Story::new()
             })
         };
+    }
+
+    /// add a receiver to the log subsystem
+    pub fn add_log_receiver (&mut self, receiver: Box<Receiver + Send + Sync>) {
+        self.state.log.add_receiver(receiver);
     }
 
     /// run the game!
