@@ -10,48 +10,46 @@ pub mod timing;
 #[cfg(test)]
 mod test;
 
-use context::Story;
+use context::{Story, Request};
 use log::Log;
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc};
 use std::thread::{sleep, spawn};
 use timing::RevLimiter;
 
+struct GameState {
+    pub log: Log,
+    pub story: Story
+}
+
 /// represents a game as collection of subsystems
 pub struct Game {
-    log: Arc<Mutex<Log>>,
-    story: Arc<Mutex<Story>>,
+    state: Arc<GameState>
 }
 
 impl Game {
 
     /// create a new game
     pub fn new () -> Self {
-        let game = Self {
-            log: Arc::new(Mutex::new(Log::new())),
-            story: Arc::new(Mutex::new(Story::new())),
+        return Self {
+            state: Arc::new(GameState {
+                log: Log::new(),
+                story: Story::new()
+            })
         };
-        return game;
     }
 
     /// run the game!
     pub fn run (&mut self, frames_per_second: u32, ticks_per_second: u32) {
 
         // start the update loop (on another thread)
-        let update_loop_story = self.story.clone();
+        let update_loop_state = self.state.clone();
         let update_loop = spawn(move || {
             let mut rev_limiter = RevLimiter::new_from_frequency(true, true, ticks_per_second, 1.0);
             loop {
                 let rev = rev_limiter.next();
-                let end;
-                {
-                    let story = update_loop_story.lock();
-                    end = match story {
-                        Ok (mut locked_story) => locked_story.update(rev.delta_seconds),
-                        Err (_) => true,
-                    }
-                }
-                if end {
-                    break;
+                match update_loop_state.story.update(rev.delta_seconds, &update_loop_state.log) {
+                    Request::Continue => (),
+                    Request::Stop => break,
                 }
                 sleep(rev.wait);
             }
@@ -60,31 +58,17 @@ impl Game {
         // start the render loop (on this thread)
         let mut rev_limiter = RevLimiter::new_from_frequency(false, false, frames_per_second, 1.0);
         loop {
-
             let rev = rev_limiter.next();
-            let end;
-            {
-                let story = self.story.lock();
-                end = match story {
-                    Ok (mut locked_story) => locked_story.render(rev.delta_seconds),
-                    Err (_) => true,
-                }
-            }
-            if end {
-                break;
+            match self.state.story.render(rev.delta_seconds, &self.state.log) {
+                Request::Continue => (),
+                Request::Stop => break,
             }
             sleep(rev.wait);
-
         }
 
         // make sure the threads don't outlive the game
         let _ = update_loop.join();
 
-    }
-
-    /// get the log service for the game
-    pub fn get_log (&self) -> Arc<Mutex<Log>> {
-        return self.log.clone();
     }
 
 }

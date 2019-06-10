@@ -1,5 +1,10 @@
 //! the log subsystem
 
+extern crate chrono;
+use std::sync::{Mutex};
+use chrono::{DateTime, FixedOffset, Local, Utc};
+use event::{Event, Receiver, Severity};
+
 pub mod event;
 pub mod output;
 
@@ -7,7 +12,7 @@ pub mod output;
 pub struct Log {
 
     /// receivers to which events will be dispatched
-    receivers: Vec<Box<event::Receiver + Send + Sync>>,
+    receivers: Vec<Mutex<Box<Receiver + Send + Sync>>>,
 
 }
 
@@ -19,8 +24,81 @@ impl Log {
     }
 
     /// add a receiver to an existing log handler
-    pub fn add_receiver (&mut self, receiver: Box<event::Receiver + Send + Sync>) {
-        self.receivers.push(receiver);
+    pub fn add_receiver (&mut self, receiver: Box<Receiver + Send + Sync>) {
+        self.receivers.push(Mutex::new(receiver));
+    }
+
+    /// create and notify a log event for the current instant
+    pub fn now (&self, severity: Severity, context: &str, message: &str) {
+        let event = Event::now(severity, context, message);
+        self.notify(&event);
+    }
+
+    /// create and notify a log event for a given time in UTC
+    pub fn with_utc_time (&self, time: DateTime<Utc>, severity: Severity, context: &str, message: &str) {
+        let event = Event::with_utc_time(time, severity, context, message);
+        self.notify(&event);
+    }
+
+    /// create and notify a log event for a given time in local time
+    pub fn with_local_time (&self, time: DateTime<Local>, severity: Severity, context: &str, message: &str) {
+        let event = Event::with_local_time(time, severity, context, message);
+        self.notify(&event);
+    }
+
+    /// create and notify a log event for a given arbitrary time
+    pub fn with_time (&self, time: DateTime<FixedOffset>, severity: Severity, context: &str, message: &str) {
+        let event = Event::with_time(time, severity, context, message);
+        self.notify(&event);
+    }
+
+    /// helper function for logging a debug message
+    pub fn debug (&self, context: &str, message: &str) {
+        self.now(Severity::Debug, context, message);
+    }
+
+    /// helper function for logging a verbose message
+    pub fn verbose (&self, context: &str, message: &str) {
+        self.now(Severity::Verbose, context, message);
+    }
+
+    /// helper function for logging an info message
+    pub fn info (&self, context: &str, message: &str) {
+        self.now(Severity::Info, context, message);
+    }
+
+    /// helper function for logging a warning message
+    pub fn warning (&self, context: &str, message: &str) {
+        self.now(Severity::Warning, context, message);
+    }
+
+    /// helper function for logging an error message
+    pub fn error (&self, context: &str, message: &str) {
+        self.now(Severity::Error, context, message);
+    }
+
+    /// helper function for logging a fatal error message
+    pub fn fatal (&self, context: &str, message: &str) {
+        self.now(Severity::Fatal, context, message);
+    }
+
+    /// notify all receivers of a log event
+    pub fn notify (&self, event: &Event) {
+        for receiver in self.receivers.iter() {
+            match receiver.lock() {
+                Ok(mut receiver) => receiver.notify(event),
+                Err(_) => continue
+            }
+        }
+    }
+
+}
+
+impl Receiver for Log {
+
+    /// notify all receivers of a log event
+    fn notify (&mut self, event: &Event) {
+        Log::notify(self, event);
     }
 
 }

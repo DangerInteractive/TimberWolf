@@ -92,7 +92,7 @@ impl Event {
 pub trait Receiver {
 
     /// called in order to notify of a log event
-    fn notify (event: &Event) where Self: Sized;
+    fn notify (&mut self, event: &Event);
 
 }
 
@@ -100,7 +100,7 @@ pub trait Receiver {
 pub struct ConsoleReceiver;
 impl Receiver for ConsoleReceiver {
 
-    fn notify (event: &Event) {
+    fn notify (&mut self, event: &Event) {
         let _ = write_event(&event);
     }
 
