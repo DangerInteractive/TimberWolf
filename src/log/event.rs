@@ -98,6 +98,14 @@ pub trait Receiver {
 
 /// a receiver that displays log messages on the system console (stdout and stderr)
 pub struct ConsoleReceiver;
+impl ConsoleReceiver {
+
+    /// create a new console log receiver
+    pub fn new () -> Self {
+        return Self;
+    }
+
+}
 impl Receiver for ConsoleReceiver {
 
     fn notify (&mut self, event: &Event) {

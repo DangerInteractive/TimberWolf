@@ -1,10 +1,23 @@
 extern crate timberwolf;
 
-use timberwolf::{Game, context::{Context, Request}, log::{Log}};
+use timberwolf::{
+    Game,
+    context::{
+        Context,
+        Request
+    },
+    log::{
+        Log,
+        event::{
+            ConsoleReceiver
+        }
+    }
+};
 
 fn main () {
 
     let mut game = Game::new();
+    game.add_log_receiver(Box::new(ConsoleReceiver::new()));
     game.push_story_context(Box::new(LoadingContext::new()));
     game.run(60, 20);
 
@@ -13,7 +26,8 @@ fn main () {
 struct LoadingContext;
 impl LoadingContext {
 
-    fn new () -> Self {
+    /// create a new loading context
+    pub fn new () -> Self {
         return Self;
     }
 

@@ -125,15 +125,16 @@ impl RevLimiter {
     /// wait until the next iteration can be run
     fn get_wait (&self) -> Duration {
 
-        let delta = self.interval - self.clock.elapsed();
-
-        if delta >= self.interval {
+        let elapsed = self.clock.elapsed();
+        if elapsed >= self.interval {
             return Duration::new(0, 0);
         } else {
+            let delta = self.interval - elapsed;
             if self.lag > delta {
                 return Duration::new(0, 0);
+            } else {
+                return delta - self.lag;
             }
-            return delta - self.lag;
         }
 
     }
