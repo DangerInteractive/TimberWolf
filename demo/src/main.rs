@@ -1,5 +1,10 @@
 extern crate timberwolf;
 
+use timberwolf::{Game};
+
 fn main () {
-    println!("Hello, world!");
+
+    let game = Game::new();
+    game.run(60, 20);
+
 }

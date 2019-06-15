@@ -10,7 +10,7 @@ pub mod timing;
 #[cfg(test)]
 mod test;
 
-use context::{Story, Request};
+use context::{Context, Story, Request};
 use log::{Log, event::{Receiver}};
 use std::sync::{Arc};
 use std::thread::{sleep, spawn};
@@ -36,6 +36,11 @@ impl Game {
                 story: Story::new()
             })
         };
+    }
+
+    /// push a context onto the game's story stack
+    pub fn push_story_context (&mut self, context: Box<Context + Send + Sync>) {
+        self.state.story.push_context(context);
     }
 
     /// add a receiver to the log subsystem
