@@ -8,6 +8,9 @@ use event::{Event, Receiver, Severity};
 pub mod event;
 pub mod output;
 
+#[cfg(test)]
+mod test;
+
 /// centralized log handler service which receives log messages and dispatches them to receivers
 pub struct Log {
 

@@ -3,6 +3,9 @@
 use std::sync::{RwLock};
 use crate::log::{Log};
 
+#[cfg(test)]
+mod test;
+
 /// notify the thread running the story what to do next
 pub enum Request {
 

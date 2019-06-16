@@ -7,9 +7,6 @@ pub mod context;
 pub mod log;
 pub mod timing;
 
-#[cfg(test)]
-mod test;
-
 use context::{Context, Story, Request};
 use log::{Log, event::{Receiver}};
 use std::sync::{Arc};

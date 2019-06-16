@@ -1,8 +1,8 @@
 //! unit test the context subsystem
 
-use crate::context::{Context, Story};
-use std::cell::RefCell;
-use std::rc::Rc;
+use crate::context::{Context, Story, Request};
+use crate::log::{Log};
+use std::sync::{Arc, RwLock};
 
 /// store record of whether a TestContext was rendered or updated
 struct Status {
@@ -42,19 +42,25 @@ impl Status {
 struct TestContext {
     transparent_render: bool,
     transparent_update: bool,
-    status: Rc<RefCell<Status>>,
+    status: Arc<RwLock<Status>>,
 }
 
 impl Context for TestContext {
 
-    fn render (&mut self, _delta: f64) -> bool {
-        self.status.borrow_mut().on_render();
-        return true;
+    fn render (&self, _delta: f64, _log: &Log) -> Request {
+        self.status
+            .write()
+            .expect("could not write status")
+            .on_render();
+        Request::Continue
     }
 
-    fn update (&mut self, _delta: f64) -> bool {
-        self.status.borrow_mut().on_update();
-        return true;
+    fn update (&mut self, _delta: f64, _log: &Log) -> Request {
+        self.status
+            .write()
+            .expect("could not write status")
+            .on_update();
+        Request::Continue
     }
 
     fn is_render_transparent (&self) -> bool {
@@ -69,7 +75,7 @@ impl Context for TestContext {
 
 impl TestContext {
 
-    fn new (transparent_render: bool, transparent_update: bool, status: Rc<RefCell<Status>>) -> Self {
+    fn new (transparent_render: bool, transparent_update: bool, status: Arc<RwLock<Status>>) -> Self {
         return Self {
             transparent_render,
             transparent_update,
@@ -90,7 +96,7 @@ struct ContextSimulation {
     gets_updated: bool,
 
     // store the status
-    status: Rc<RefCell<Status>>,
+    status: Arc<RwLock<Status>>,
 
 }
 impl ContextSimulation {
@@ -101,7 +107,7 @@ impl ContextSimulation {
             update_transparent,
             gets_rendered,
             gets_updated,
-            status: Rc::new(RefCell::new(Status::new())),
+            status: Arc::new(RwLock::new(Status::new())),
         };
     }
 
@@ -111,13 +117,22 @@ fn simulate_with_asserts (context_simulations: &[ContextSimulation]) {
 
     // nothing has happened yet, so nothing should have been rendered or updated yet
     for csim in context_simulations {
-        assert!(csim.status.borrow().was_rendered() == false);
-        assert!(csim.status.borrow().was_updated() == false);
+        assert!(csim.status
+            .read()
+            .expect("could not read status")
+            .was_rendered() == false
+        );
+        assert!(csim.status
+            .read()
+            .expect("could not read status")
+            .was_updated() == false
+        );
     }
 
     // run the simulation (in own scope due to mutable borrows)
     {
-        let mut story = Story::new();
+        let story = Story::new();
+        let log = Log::new();
 
         for csim in context_simulations {
             story.push_context(Box::new(TestContext::new(
@@ -127,14 +142,22 @@ fn simulate_with_asserts (context_simulations: &[ContextSimulation]) {
             )));
         }
 
-        story.render(0f64);
-        story.update(0f64);
+        story.render(0f64, &log);
+        story.update(0f64, &log);
     }
 
     // check that things were rendered and updated as expected
     for csim in context_simulations {
-        assert!(csim.status.borrow().was_rendered() == csim.gets_rendered);
-        assert!(csim.status.borrow().was_updated() == csim.gets_updated);
+        assert!(csim.status
+            .read()
+            .expect("could not read status")
+            .was_rendered() == csim.gets_rendered
+        );
+        assert!(csim.status
+            .read()
+            .expect("could not read status")
+            .was_updated() == csim.gets_updated
+        );
     }
 }
 
