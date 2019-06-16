@@ -3,6 +3,9 @@
 use std::cell::{Cell};
 use std::time::{Duration, Instant};
 
+#[cfg(test)]
+mod test;
+
 /// convert a duration to a 64-bit float representing a number of seconds (not multithread-friendly)
 pub fn duration_to_seconds (duration: Duration) -> f64 {
     return duration.as_secs() as f64 + (duration.subsec_nanos() as f64 * 1E-9f64);
@@ -26,7 +29,7 @@ impl Clock {
     }
 
     /// reset the clock back to its 0-state (no elapsed time)
-    pub fn reset (&mut self) {
+    pub fn reset (&self) {
         self.reset_time.set(Instant::now());
     }
 
@@ -122,44 +125,58 @@ impl RevLimiter {
         return self.clock.elapsed_seconds() * self.speed;
     }
 
-    /// wait until the next iteration can be run
-    fn get_wait (&self) -> Duration {
-
-        let elapsed = self.clock.elapsed();
-        if elapsed >= self.interval {
+    /// calculate a sleep duration after a loop iteration
+    fn calculate_wait (
+        current_elapsed: Duration,
+        target_interval: Duration,
+        current_lag: Duration
+    ) -> Duration {
+        if current_elapsed >= target_interval {
             return Duration::new(0, 0);
         } else {
-            let delta = self.interval - elapsed;
-            if self.lag > delta {
+            let delta = target_interval - current_elapsed;
+            if current_lag > delta {
                 return Duration::new(0, 0);
             } else {
-                return delta - self.lag;
+                return delta - current_lag;
             }
         }
+    }
 
+    /// get the time to wait until the next loop iteration should run
+    fn get_wait (&self) -> Duration {
+        Self::calculate_wait(self.clock.elapsed(), self.interval, self.lag)
+    }
+
+    /// calculate the remaining lag after a loop iteration
+    fn calculate_lag (last_wait: Duration, target_interval: Duration, current_lag: Duration,) -> Duration {
+        if last_wait >= target_interval {
+            let lost_time = last_wait - target_interval;
+            return current_lag + lost_time;
+        } else {
+            let gained_time = target_interval - last_wait;
+            if current_lag > gained_time {
+                return current_lag - gained_time;
+            } else {
+                return Duration::new(0, 0);
+            }
+        }
     }
 
     /// calculate and store the current lag of this loop
-    fn calc_lag (&mut self) {
+    fn update_lag (&mut self) {
         if self.catchup_enabled {
-            let wait = self.get_wait();
-            if wait > Duration::new(0, 0) {
-                self.lag = Duration::new(0, 0);
-            } else {
-                if self.lag > self.interval {
-                    self.lag -= self.interval;
-                } else {
-                    self.lag = Duration::new(0, 0);
-                }
-            }
+            self.lag = Self::calculate_lag(self.get_wait(), self.interval, self.lag);
+        } else {
+            self.lag = Duration::new(0, 0);
         }
     }
 
     /// execute the next iteration of the loop, waiting if necessary (this is the heart of the loop)
     pub fn next (&mut self) -> Rev {
+        self.update_lag();
         let rev = Rev::new(self.get_delta(), self.get_wait());
         self.clock.reset();
-        self.calc_lag();
         return rev;
     }
 
