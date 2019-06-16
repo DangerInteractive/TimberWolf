@@ -5,4 +5,4 @@ authors = ["Alexander Barber <alex@dangerzonegames.com>"]
 edition = "2018"
 
 [dependencies]
-timberwolf = { version="0.2.0", path="../" }
+timberwolf = { version="*", path="../" }
