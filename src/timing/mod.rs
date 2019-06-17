@@ -7,11 +7,13 @@ use std::time::{Duration, Instant};
 mod test;
 
 /// convert a duration to a 64-bit float representing a number of seconds (not multithread-friendly)
+/// NOTE: this will be replaced with Duration::as_seconds_f64 as soon as issue github.com/rust-lang/rust/issues/54361 is stabilized.
 pub fn duration_to_seconds (duration: Duration) -> f64 {
     return duration.as_secs() as f64 + (duration.subsec_nanos() as f64 * 1E-9f64);
 }
 
 /// convert a floating point number of seconds to a duration (not multithread-friendly)
+/// NOTE: this will be replaced with Duration::from_seconds_f64 as soon as issue github.com/rust-lang/rust/issues/54361 is stabilized.
 pub fn seconds_to_duration (seconds: f64) -> Duration {
     return Duration::from_nanos((seconds * 1_000_000_000f64) as u64);
 }
@@ -41,26 +43,6 @@ impl Clock {
     /// get the number of elapsed seconds as a 64-bit float
     pub fn elapsed_seconds (&self) -> f64 {
         return duration_to_seconds(self.elapsed());
-    }
-
-}
-
-/// an object that represents a requested condition for the next iteration of a simulation loop
-pub struct Rev {
-
-    /// number of seconds that the simulation should elapse during the iteration
-    pub delta_seconds: f64,
-
-    /// time to wait before running the next iteration
-    pub wait: Duration,
-
-}
-
-impl Rev {
-
-    /// create a new rev
-    pub fn new (delta_seconds: f64, wait: Duration) -> Self {
-        return Self { delta_seconds, wait };
     }
 
 }
@@ -118,11 +100,11 @@ impl RevLimiter {
     }
 
     /// call the callback, automatically calculating delta time
-    fn get_delta (&self) -> f64 {
+    fn get_delta (&self, current_elapsed: Duration) -> f64 {
         if self.lockstep_enabled {
             return duration_to_seconds(self.interval) * self.speed;
         }
-        return self.clock.elapsed_seconds() * self.speed;
+        return duration_to_seconds(current_elapsed) * self.speed;
     }
 
     /// calculate a sleep duration after a loop iteration
@@ -144,40 +126,57 @@ impl RevLimiter {
     }
 
     /// get the time to wait until the next loop iteration should run
-    fn get_wait (&self) -> Duration {
-        Self::calculate_wait(self.clock.elapsed(), self.interval, self.lag)
+    fn get_wait (&self, current_elapsed: Duration) -> Duration {
+        Self::calculate_wait(current_elapsed, self.interval, self.lag)
     }
 
     /// calculate the remaining lag after a loop iteration
-    fn calculate_lag (last_wait: Duration, target_interval: Duration, current_lag: Duration,) -> Duration {
-        if last_wait >= target_interval {
-            let lost_time = last_wait - target_interval;
-            return current_lag + lost_time;
-        } else {
-            let gained_time = target_interval - last_wait;
-            if current_lag > gained_time {
-                return current_lag - gained_time;
+    fn calculate_lag (
+        last_wait: Duration,
+        target_interval: Duration,
+        current_lag: Duration,
+        catchup_enabled: bool
+    ) -> Duration {
+        if catchup_enabled {
+            if last_wait >= target_interval {
+                let lost_time = last_wait - target_interval;
+                return current_lag + lost_time;
             } else {
-                return Duration::new(0, 0);
+                let gained_time = target_interval - last_wait;
+                if current_lag > gained_time {
+                    return current_lag - gained_time;
+                } else {
+                    return Duration::new(0, 0);
+                }
             }
+        } else {
+            return Duration::new(0, 0);
         }
     }
 
     /// calculate and store the current lag of this loop
-    fn update_lag (&mut self) {
-        if self.catchup_enabled {
-            self.lag = Self::calculate_lag(self.get_wait(), self.interval, self.lag);
-        } else {
-            self.lag = Duration::new(0, 0);
-        }
+    fn update_lag (&mut self, current_wait: Duration) {
+        self.lag = Self::calculate_lag(
+            current_wait,
+            self.interval,
+            self.lag,
+            self.catchup_enabled
+        );
     }
 
-    /// execute the next iteration of the loop, waiting if necessary (this is the heart of the loop)
-    pub fn next (&mut self) -> Rev {
-        self.update_lag();
-        let rev = Rev::new(self.get_delta(), self.get_wait());
+    /// signal that execution for this iteration of the loop has started, mainly for the purpose of starting a timer
+    pub fn begin (&mut self) -> f64 {
+        let delta = self.get_delta(self.clock.elapsed());
         self.clock.reset();
-        return rev;
+        return delta;
+    }
+
+    /// signal that execution for this iteration of the loop has completed, and prepare for the next iteration
+    pub fn next (&mut self) -> Duration {
+        let wait = self.get_wait(self.clock.elapsed());
+        self.clock.reset();
+        self.update_lag(wait);
+        return wait;
     }
 
     /// set the interval in seconds

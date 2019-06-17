@@ -45,7 +45,8 @@ fn revlimiter_decreases_lag_when_ahead () {
         RevLimiter::calculate_lag(
             Duration::from_millis(1),
             Duration::from_millis(15),
-            Duration::from_millis(100)
+            Duration::from_millis(100),
+            true
         ),
         Duration::from_millis(86)
     );
@@ -57,7 +58,8 @@ fn revlimiter_keeps_lag_when_on_time () {
         RevLimiter::calculate_lag(
             Duration::from_millis(15),
             Duration::from_millis(15),
-            Duration::from_millis(100)
+            Duration::from_millis(100),
+            true
         ),
         Duration::from_millis(100)
     );
@@ -69,8 +71,22 @@ fn revlimiter_increases_lag_when_behind () {
         RevLimiter::calculate_lag(
             Duration::from_millis(27),
             Duration::from_millis(15),
-            Duration::from_millis(100)
+            Duration::from_millis(100),
+            true
         ),
         Duration::from_millis(112)
+    );
+}
+
+#[test]
+fn revlimiter_has_no_lag_without_catchup () {
+    assert_eq!(
+        RevLimiter::calculate_lag(
+            Duration::from_millis(27),
+            Duration::from_millis(15),
+            Duration::from_millis(100),
+            false
+        ),
+        Duration::from_millis(0)
     );
 }

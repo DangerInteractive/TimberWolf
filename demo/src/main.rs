@@ -19,7 +19,7 @@ fn main () {
     let mut game = Game::new();
     game.add_log_receiver(Box::new(ConsoleReceiver::new()));
     game.push_story_context(Box::new(LoadingContext::new()));
-    game.run(2, 1);
+    game.run(60, 20);
 
 }
 

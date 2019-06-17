@@ -53,24 +53,26 @@ impl Game {
         let update_loop = spawn(move || {
             let mut rev_limiter = RevLimiter::new_from_frequency(true, true, ticks_per_second, 1.0);
             loop {
-                let rev = rev_limiter.next();
-                match update_loop_state.story.update(rev.delta_seconds, &update_loop_state.log) {
+                let delta = rev_limiter.begin();
+                match update_loop_state.story.update(delta, &update_loop_state.log) {
                     Request::Continue => (),
                     Request::Stop => break,
                 }
-                sleep(rev.wait);
+                let wait = rev_limiter.next();
+                sleep(wait);
             }
         });
 
         // start the render loop (on this thread)
         let mut rev_limiter = RevLimiter::new_from_frequency(false, false, frames_per_second, 1.0);
         loop {
-            let rev = rev_limiter.next();
-            match self.state.story.render(rev.delta_seconds, &self.state.log) {
+            let delta = rev_limiter.begin();
+            match self.state.story.render(delta, &self.state.log) {
                 Request::Continue => (),
                 Request::Stop => break,
             }
-            sleep(rev.wait);
+            let wait = rev_limiter.next();
+            sleep(wait);
         }
 
         // make sure the threads don't outlive the game
