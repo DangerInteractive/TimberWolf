@@ -1,6 +1,6 @@
 [package]
 name = "timberwolf"
-version = "0.3.0"
+version = "0.3.1"
 authors = ["Alexander Barber <alex@dangerzonegames.com>"]
 edition = "2018"
 description = "a high-performance 3D-focused game engine"

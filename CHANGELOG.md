@@ -36,3 +36,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Log subsystem functional
 - Timing subsystem functional
 - Demo app that logs the timing of the render and update loops
+
+
+## [0.3.1] - 2019-06-16
+
+### Fixed
+- Game loop timing not separated into two measurements, causing double execution
