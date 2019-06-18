@@ -42,3 +42,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Game loop timing not separated into two measurements, causing double execution
+
+## [0.3.2] - 2019-06-17
+
+### Fixed
+- Stopping the game loop from one thread would leave the other running
