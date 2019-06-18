@@ -5,30 +5,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 
-## [0.1.0] - 2019-01-27
+## [0.3.2] - 2019-06-17
+**The *Don't Stop Me Now* Release**
 
-### Added
-- Core game loop.
-- Game state subsystem.
-- Logging subsystem.
-- Input processing subsystem.
-- OpenGL rendering subsystem.
-- CMake 3.10+ build system.
-
-### Notes
-- Final C++ release, engine is switching to Rust
+### Fixed
+- Stopping the game loop from one thread would leave the other running
 
 
-## [0.2.0] - 2019-01-27
+## [0.3.1] - 2019-06-16
+**The *Time is Relative* Release**
 
-### Added
-- Rust project created
-
-### Changes
-- C++ codebase deprecated
+### Fixed
+- Game loop timing not separated into two measurements, causing double execution
 
 
 ## [0.3.0] - 2019-06-15
+**The *Rust N00b* Release**
 
 ### Added
 - Game struct functional
@@ -38,12 +30,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Demo app that logs the timing of the render and update loops
 
 
-## [0.3.1] - 2019-06-16
+## [0.2.0] - 2019-01-27
+**The *C++ is dead; long live Rust!* Release**
 
-### Fixed
-- Game loop timing not separated into two measurements, causing double execution
+### Added
+- Rust project created
 
-## [0.3.2] - 2019-06-17
+### Deprecated
+- C++ codebase deprecated
 
-### Fixed
-- Stopping the game loop from one thread would leave the other running
+
+## [0.1.0] - 2019-01-27
+**The *Last Stand of C++* Release**
+
+### Added
+- Core game loop.
+- Game state subsystem.
+- Logging subsystem.
+- Input processing subsystem.
+- OpenGL rendering subsystem.
+- CMake 3.10+ build system.
