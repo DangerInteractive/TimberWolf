@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Game loop timing not separated into two measurements, causing double execution
 
+### Removed
+- the old C++ codebase
+
 
 ## [0.3.0] - 2019-06-15
 **The *Rust N00b* Release**
