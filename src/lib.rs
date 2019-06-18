@@ -9,13 +9,40 @@ pub mod timing;
 
 use context::{Context, Story, Request};
 use log::{Log, event::{Receiver}};
-use std::sync::{Arc};
+use std::sync::{Arc, RwLock};
 use std::thread::{sleep, spawn};
 use timing::{RevLimiter};
 
+/// run the inner loop for the current thread
+macro_rules! inner_loop {
+    ($method: ident, $state: ident, $cycles_per_second: ident) => {
+        let mut rev_limiter = RevLimiter::new_from_frequency(false, false, $cycles_per_second, 1.0);
+        loop {
+            let delta = rev_limiter.begin();
+            match $state.story.$method(delta, &$state.log) {
+                Request::Continue => (),
+                Request::Stop => {
+                    match $state.stop_request.write() {
+                        Ok (mut stop) => *stop = true,
+                        Err (_) => ()
+                    }
+                    break;
+                }
+            }
+            match $state.stop_request.read() {
+                Ok (stop) => if *stop { break; },
+                Err (_) => ()
+            }
+            let wait = rev_limiter.next();
+            sleep(wait);
+        }
+    };
+}
+
 struct GameState {
     pub log: Log,
-    pub story: Story
+    pub story: Story,
+    pub stop_request: RwLock<bool>
 }
 
 /// represents a game as collection of subsystems
@@ -30,7 +57,8 @@ impl Game {
         return Self {
             state: Arc::new(GameState {
                 log: Log::new(),
-                story: Story::new()
+                story: Story::new(),
+                stop_request: RwLock::new(false)
             })
         };
     }
@@ -48,32 +76,19 @@ impl Game {
     /// run the game!
     pub fn run (&mut self, frames_per_second: u32, ticks_per_second: u32) {
 
+        match self.state.stop_request.write() {
+            Ok (mut stop) => *stop = false,
+            Err (_) => ()
+        }
+
         // start the update loop (on another thread)
         let update_loop_state = self.state.clone();
         let update_loop = spawn(move || {
-            let mut rev_limiter = RevLimiter::new_from_frequency(true, true, ticks_per_second, 1.0);
-            loop {
-                let delta = rev_limiter.begin();
-                match update_loop_state.story.update(delta, &update_loop_state.log) {
-                    Request::Continue => (),
-                    Request::Stop => break,
-                }
-                let wait = rev_limiter.next();
-                sleep(wait);
-            }
+            inner_loop!(update, update_loop_state, ticks_per_second);
         });
 
-        // start the render loop (on this thread)
-        let mut rev_limiter = RevLimiter::new_from_frequency(false, false, frames_per_second, 1.0);
-        loop {
-            let delta = rev_limiter.begin();
-            match self.state.story.render(delta, &self.state.log) {
-                Request::Continue => (),
-                Request::Stop => break,
-            }
-            let wait = rev_limiter.next();
-            sleep(wait);
-        }
+        let render_loop_state = self.state.clone();
+        inner_loop!(render, render_loop_state, frames_per_second);
 
         // make sure the threads don't outlive the game
         let _ = update_loop.join();
