@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 
+## [0.4.0] - Unreleased
+**The *Liquid Hwite* Release**
+
+### Added
+- Graphics/rendering abstraction layer using gfx
+- Window creation and management using winit
+
+
 ## [0.3.2] - 2019-06-17
 **The *Don't Stop Me Now* Release**
 
