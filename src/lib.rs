@@ -4,6 +4,7 @@
 #![deny(missing_docs)]
 
 pub mod context;
+pub mod graphics;
 pub mod log;
 pub mod timing;
 

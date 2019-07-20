@@ -8,7 +8,7 @@ license = "MIT"
 repository = "https://github.com/dzgames/TimberWolf"
 
 [features]
-default = ["gfx-backend-vulkan"]
+default = []
 vulkan = ['gfx-backend-vulkan']
 metal = ["gfx-backend-metal"]
 gl = ["gfx-backend-gl"]
@@ -20,11 +20,12 @@ chrono = "0.4.6"
 gfx-hal = "0.2.1"
 gfx-backend-empty = "0.2.0"
 gfx-backend-vulkan = { version = "0.2.2", optional = true }
+cgmath = "0.17.0"
 
 # Native (not WebAssembly)
-[target.'cfg(not(target_arch = "wasm32"))'.depdencies]
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 gfx-backend-gl = { version = "0.2.0", features = ["glutin"], optional = true }
-winit = "0.19"
+winit = "0.19.1"
 glsl-to-spirv = "0.1.4"
 
 # WebAssembly
