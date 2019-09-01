@@ -1,79 +1,78 @@
 //! Windowing subsystem
 
-use std::string::{String};
+use std::string::String;
+use gfx_hal::format::{Rgba8Srgb as ColorFormat};
 
 #[cfg(not(target_arch = "wasm32"))]
 use winit::{
-    Window as WinitWindow,
-    WindowBuilder as WinitWindowBuilder,
-    EventsLoop as WinitEventLoop,
-    dpi::{
-        LogicalSize
-    }
+    Window as Winit_Window,
+    WindowBuilder as Winit_WindowBuilder,
+    EventsLoop as Winit_EventsLoop
 };
 
-struct WindowSize {
-    width: u16,
-    height: u16
+struct Size {
+    pub height: u16,
+    pub width: u16
 }
 
-/// abstraction of an OS window
-pub struct WindowBuilder {
+pub struct Window {
     title: Option<String>,
-    min_size: Option<WindowSize>,
-    init_size: Option<WindowSize>,
-    max_size: Option<WindowSize>
+    size: Option<Size>,
+    min_size: Option<Size>,
+    max_size: Option<Size>
 }
-impl WindowBuilder {
+impl Window {
 
-    /// create a new window, given a name, min/max width/height, and current width/height
     pub fn new () -> Self {
-        return Self {
+        Self {
             title: None,
+            size: None,
             min_size: None,
-            init_size: None,
-            max_size: None
-        };
+            max_size: None,
+        }
     }
 
-    pub fn with_title (&mut self, title: &str) -> &mut Self {
-        self.title = Some(String::from_str(title));
-        return self;
-    }
+}
 
-    pub fn with_minimum_size (&mut self, width: u16, height: u16) -> &mut Self {
-        self.min_size = Some(WindowSize{ width, height });
-        return self;
-    }
+/// handle for a native window (not WebAssembly, not OpenGL)
+#[cfg(not(target_arch = "wasm32"))]
+pub struct NativeWindow {
+    /// the winit window object
+    pub context: Window,
+    /// the winit event loop
+    pub event_loop: EventsLoop
+}
+impl NativeWindow {
 
-    pub fn with_initial_size (&mut self, width: u16, height: u16) -> &mut Self {
-        self.init_size = Some(WindowSize{ width, height });
-        return self;
-    }
-
-    pub fn with_maximum_size (&mut self, width: u16, height: u16) -> &mut Self {
-        self.max_size = Some(WindowSize{ width, height });
-        return self;
-    }
-
-    /// create a native window context
-    pub fn into_native (self) -> NativeWindow {
+    /// create a new native window, given a winit WindowBuilder
+    fn new (wb: WindowBuilder) -> Self {
         let event_loop = WinitEventLoop::new();
-        return NativeWindow {
-            winit: self.to_native_builder()
+        return Self {
+            context: wb
                 .build(&event_loop)
                 .expect("cannot create winit window"),
             event_loop
         }
     }
 
-    /// create an OpenGL-specific window context (because OpenGL does things differently)
-    #[cfg(feature = "gl")]
-    pub fn into_opengl (self) -> OpenGLWindow {
+}
+
+/// handle for an OpenGL window (because it does things a little differently)
+#[cfg(all(not(target_arch = "wasm32"), feature = "gl"))]
+pub struct OpenGLWindow {
+    /// the glutin window context
+    pub context: gfx_backend_gl::glutin::WindowedContext,
+    /// the winit event loop
+    pub event_loop: WinitEventLoop
+}
+impl OpenGLWindow {
+
+    /// create a new OpenGL-specific window, given a winit WindowBuilder
+    fn new (wb: WindowBuilder) -> Self {
         let event_loop = WinitEventLoop::new();
-        return OpenGLWindow {
+        return Self {
             context: gfx_backend_gl::glutin::WindowedContext::new_windowed(
-                self.to_native_builder(),
+                wb,
                 gfx_backend_gl::config_context(
                     gfx_backend_gl::glutin::ContextBuilder::new(),
                     ColorFormat::SELF,
@@ -85,64 +84,4 @@ impl WindowBuilder {
         }
     }
 
-    fn to_native_builder (&self) -> WinitWindowBuilder {
-        let mut wb = WinitWindowBuilder::new();
-
-        // conditionally set the title
-        match &self.title {
-            Some (title) => wb.with_title(title),
-            None => ()
-        };
-
-        // conditionally set the minimum size
-        match &self.min_size {
-            Some (dimensions) => wb.with(
-                LogicalSize::new(
-                    dimensions.width as _,
-                    dimensions.height as _
-                )
-            ),
-            None => ()
-        };
-
-        // conditionally set the initial size
-        match &self.init_size {
-            Some (dimensions) => wb.with_dimensions(
-                LogicalSize::new(
-                    dimensions.width as _,
-                    dimensions.height as _
-                )
-            ),
-            None => ()
-        };
-
-        // conditionally set the maximum size
-        match &self.max_size {
-            Some (dimensions) => wb.with_max_dimensions(
-                LogicalSize::new(
-                    dimensions.width as _,
-                    dimensions.height as _
-                )
-            ),
-            None => ()
-        };
-
-        return wb;
-
-    }
-
-}
-
-/// handle for a native window (not WebAssembly, not OpenGL)
-#[cfg(not(target_arch = "wasm32"))]
-pub struct NativeWindow {
-    winit: WinitWindow,
-    event_loop: WinitEventLoop
-}
-
-/// handle for an OpenGL window (because it does things a little differently)
-#[cfg(feature = "gl")]
-pub struct OpenGLWindow {
-    context: gfx_backend_gl::glutin::WindowedContext,
-    event_loop: WinitEventLoop
 }

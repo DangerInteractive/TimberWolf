@@ -14,7 +14,5 @@ pub mod vulkan;
 #[cfg(feature = "gl")]
 pub mod opengl;
 
-#[cfg(not(target_arch = "wasm32"))]
-pub trait NativeWindowBackend {
-    fn bind_to_window (&self, window: &Window);
-}
+#[cfg(feature = "metal")]
+pub mod metal;
