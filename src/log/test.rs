@@ -5,8 +5,7 @@ use crate::log::output::string::format_event;
 use chrono::DateTime;
 
 #[test]
-fn test_log_event_to_string () {
-
+fn test_log_event_to_string() {
     let time = match DateTime::parse_from_rfc3339("2019-01-29T21:09:30+00:00") {
         Ok(time) => time,
         Err(_error) => {
@@ -25,5 +24,4 @@ fn test_log_event_to_string () {
     let prototype = "2019-01-29 21:09:30 Debug   -> test    : this is a test message\n";
 
     assert_eq!(prototype, string);
-
 }

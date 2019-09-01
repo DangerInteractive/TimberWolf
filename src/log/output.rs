@@ -32,7 +32,7 @@ pub mod string {
     use std::io::Write;
 
     /// write a log event to a character vector
-    pub fn format_event (event: &Event) -> Vec<u8> {
+    pub fn format_event(event: &Event) -> Vec<u8> {
         let mut stream = Vec::new();
         let _ = write_log_event!(&mut stream, event);
         return stream;
@@ -47,9 +47,11 @@ pub mod console {
     use std::io::Write;
 
     /// write a log event to the console (stdout or stderr, depending on severity)
-    pub fn write_event (event: &Event) -> std::result::Result<(), std::io::Error> {
+    pub fn write_event(event: &Event) -> std::result::Result<(), std::io::Error> {
         return match &event.severity {
-            Severity::Debug | Severity::Verbose | Severity::Info | Severity::Warning => write_log_event!(std::io::stdout(), event),
+            Severity::Debug | Severity::Verbose | Severity::Info | Severity::Warning => {
+                write_log_event!(std::io::stdout(), event)
+            }
             Severity::Error | Severity::Fatal => write_log_event!(std::io::stderr(), event),
         };
     }

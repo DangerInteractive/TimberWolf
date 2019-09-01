@@ -1,17 +1,17 @@
-//! Vulkan graphics backend
+//! DirectX 12 graphics backend
 
-use gfx_backend_vulkan as gfx_backend;
+use gfx_backend_dx12 as gfx_backend;
 use gfx_hal::Surface;
 
 #[cfg(not(target_arch = "wasm32"))]
 use winit::Window;
 
-#[cfg(all(feature = "vulkan", not(target_arch = "wasm32")))]
+#[cfg(all(feature = "dx12", not(target_arch = "wasm32")))]
 pub struct Backend {
     instance: gfx_backend::Instance,
 }
 impl Backend {
-    /// create a new instance of the Vulkan graphics backend
+    /// create a new instance of the DirectX12 graphics backend
     pub fn new(name: &str, version: u32) -> Self {
         Self {
             instance: gfx_backend::Instance::create(name, version),
