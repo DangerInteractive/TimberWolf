@@ -3,10 +3,13 @@
 #![warn(dead_code)]
 #![deny(missing_docs)]
 
+pub mod color;
 pub mod context;
 pub mod graphics;
+pub mod input;
 pub mod log;
 pub mod timing;
+pub mod window;
 
 use context::{Context, Request, Story};
 use log::{event::Receiver, Log};

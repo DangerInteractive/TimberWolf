@@ -8,29 +8,7 @@ use winit::{
     EventsLoop as Winit_EventsLoop, Window as Winit_Window, WindowBuilder as Winit_WindowBuilder,
 };
 
-struct Size {
-    pub height: u16,
-    pub width: u16,
-}
-
-pub struct Window {
-    title: Option<String>,
-    size: Option<Size>,
-    min_size: Option<Size>,
-    max_size: Option<Size>,
-}
-impl Window {
-    pub fn new() -> Self {
-        Self {
-            title: None,
-            size: None,
-            min_size: None,
-            max_size: None,
-        }
-    }
-}
-
-/// handle for a native window (not WebAssembly, not OpenGL)
+/// handle for a native window
 #[cfg(not(target_arch = "wasm32"))]
 pub struct NativeWindow {
     /// the winit window object

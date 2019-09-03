@@ -1,7 +1,8 @@
 //! Vulkan graphics backend
 
+use crate::graphics::Context;
+use gfx_backend::Instance::Surface as RawSurface;
 use gfx_backend_vulkan as gfx_backend;
-use gfx_hal::Surface;
 
 #[cfg(not(target_arch = "wasm32"))]
 use winit::Window;
@@ -19,7 +20,27 @@ impl Backend {
     }
 
     /// create a new window surface from a window
-    pub fn create_window_surface(&self, window: &Window) -> Surface {
-        self.instance.create_surface(window)
+    pub fn create_window_surface(&self, window: &Window) -> NativeSurface {
+        NativeSurface {
+            raw_surface: self.instance.create_surface(window),
+        }
+    }
+}
+
+pub struct Surface {
+    raw_surface: RawSurface,
+}
+impl Context for Surface {
+    fn clear_color_buffer(&mut self, color: &Color) {
+        unimplemented!()
+    }
+    fn clear_depth_buffer(&mut self) {
+        unimplemented!()
+    }
+    fn clear_all_buffers(&mut self, color: &Color) {
+        unimplemented!()
+    }
+    fn render(&mut self, subject: &Renderable) {
+        unimplemented!()
     }
 }
