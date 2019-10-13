@@ -7,6 +7,11 @@
       <sourceFolder url="file://$MODULE_DIR$/examples" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/benches" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/timberwolf-vulkan/timberwolf-vulkan/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/timberwolf-vulkan/timberwolf-vulkan/examples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/timberwolf-vulkan/timberwolf-vulkan/tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/modules/timberwolf-vulkan/timberwolf-vulkan/benches" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/modules/timberwolf-vulkan/timberwolf-vulkan/target" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

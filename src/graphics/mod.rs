@@ -4,19 +4,7 @@ use gfx_hal::Surface as RawSurface;
 use std::cell::Cell;
 
 use crate::color::Color;
-#[cfg(not(target_arch = "wasm32"))]
-use winit::Window;
 
-#[cfg(feature = "directx11")]
-pub mod directx11;
-#[cfg(feature = "directx12")]
-pub mod directx12;
-#[cfg(feature = "metal")]
-pub mod metal;
-#[cfg(feature = "gl")]
-pub mod opengl;
-#[cfg(feature = "vulkan")]
-pub mod vulkan;
 pub mod window;
 
 /// an object that can be rendered to a Context
