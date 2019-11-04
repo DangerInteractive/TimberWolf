@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TimberWolf.iml" filepath="$PROJECT_DIR$/TimberWolf.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../TimberWolf-DirectX11/TimberWolf-DirectX11.iml" filepath="$PROJECT_DIR$/../TimberWolf-DirectX11/TimberWolf-DirectX11.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../TimberWolf-DirectX12/TimberWolf-DirectX12.iml" filepath="$PROJECT_DIR$/../TimberWolf-DirectX12/TimberWolf-DirectX12.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../TimberWolf-Metal/TimberWolf-Metal.iml" filepath="$PROJECT_DIR$/../TimberWolf-Metal/TimberWolf-Metal.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../TimberWolf-OpenGL/TimberWolf-OpenGL.iml" filepath="$PROJECT_DIR$/../TimberWolf-OpenGL/TimberWolf-OpenGL.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../TimberWolf-Vulkan/TimberWolf-Vulkan.iml" filepath="$PROJECT_DIR$/../TimberWolf-Vulkan/TimberWolf-Vulkan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/TimberWolf.iml" filepath="$PROJECT_DIR$/.idea/TimberWolf.iml" />
     </modules>
   </component>
 </project>
