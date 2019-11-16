@@ -10,5 +10,4 @@ repository = "https://github.com/dzgames/TimberWolf"
 [dependencies]
 chrono = "0.4.6"
 cgmath = "0.17.0"
-rendy = "0.4.0"
 winit = "0.19.1"
