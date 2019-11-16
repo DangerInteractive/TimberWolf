@@ -14,19 +14,19 @@ mod test;
 /// centralized log handler service which receives log messages and dispatches them to receivers
 pub struct Log {
     /// receivers to which events will be dispatched
-    receivers: RwLock<Vec<RwLock<Box<Receiver + Send + Sync>>>>,
+    receivers: RwLock<Vec<RwLock<Box<dyn Receiver + Send + Sync>>>>,
 }
 
 impl Log {
     /// create a new log handler service
     pub fn new() -> Log {
-        return Log {
+        Log {
             receivers: RwLock::new(Vec::new()),
-        };
+        }
     }
 
     /// add a receiver to an existing log handler
-    pub fn add_receiver(&self, receiver: Box<Receiver + Send + Sync>) {
+    pub fn add_receiver(&self, receiver: Box<dyn Receiver + Send + Sync>) {
         match self.receivers.write() {
             Ok(mut receivers) => receivers.push(RwLock::new(receiver)),
             Err(_) => (),

@@ -35,12 +35,12 @@ pub struct Event {
 impl Event {
     /// create a new event marked with the current time
     pub fn now(severity: Severity, context: &str, message: &str) -> Self {
-        return Event {
+        Event {
             time: Utc::now(),
             severity,
             context: context.to_owned(),
             message: message.to_owned(),
-        };
+        }
     }
 
     /// create a new event marked with a given UTC date and time
@@ -50,12 +50,12 @@ impl Event {
         context: &str,
         message: &str,
     ) -> Self {
-        return Event {
+        Event {
             time,
             severity,
             context: context.to_owned(),
             message: message.to_owned(),
-        };
+        }
     }
 
     /// create a new event marked with a given local date and time
@@ -65,12 +65,12 @@ impl Event {
         context: &str,
         message: &str,
     ) -> Self {
-        return Event {
+        Event {
             time: time.with_timezone(&Utc),
             severity,
             context: context.to_owned(),
             message: message.to_owned(),
-        };
+        }
     }
 
     /// create a new event marked with a given fixed offset date and time
@@ -80,12 +80,12 @@ impl Event {
         context: &str,
         message: &str,
     ) -> Self {
-        return Event {
+        Event {
             time: time.with_timezone(&Utc),
             severity,
             context: context.to_owned(),
             message: message.to_owned(),
-        };
+        }
     }
 }
 
@@ -100,7 +100,7 @@ pub struct ConsoleReceiver;
 impl ConsoleReceiver {
     /// create a new console log receiver
     pub fn new() -> Self {
-        return Self;
+        Self
     }
 }
 impl Receiver for ConsoleReceiver {
