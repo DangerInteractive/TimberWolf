@@ -51,10 +51,10 @@ impl Color {
     /// get a copy of the color in a format with 8-bit unsigned integer channels
     pub fn rgba_u8(&self) -> [u8; 4] {
         [
-            (red * 255.0) as u8,
-            (green * 255.0) as u8,
-            (blue * 255.0) as u8,
-            (alpha * 255.0) as u8,
+            (self.red * 255.0) as u8,
+            (self.green * 255.0) as u8,
+            (self.blue * 255.0) as u8,
+            (self.alpha * 255.0) as u8,
         ]
     }
 }
