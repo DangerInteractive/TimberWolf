@@ -6,18 +6,6 @@ use std::time::{Duration, Instant};
 #[cfg(test)]
 mod test;
 
-/// convert a duration to a 64-bit float representing a number of seconds (not multithread-friendly)
-/// NOTE: this will be replaced with Duration::as_seconds_f64 as soon as issue github.com/rust-lang/rust/issues/54361 is stabilized.
-pub fn duration_to_seconds(duration: Duration) -> f64 {
-    return duration.as_secs() as f64 + (duration.subsec_nanos() as f64 * 1E-9f64);
-}
-
-/// convert a floating point number of seconds to a duration (not multithread-friendly)
-/// NOTE: this will be replaced with Duration::from_seconds_f64 as soon as issue github.com/rust-lang/rust/issues/54361 is stabilized.
-pub fn seconds_to_duration(seconds: f64) -> Duration {
-    return Duration::from_nanos((seconds * 1_000_000_000f64) as u64);
-}
-
 /// keeps track of the passing of time from a recorded instant
 pub struct Clock {
     reset_time: Cell<Instant>,
@@ -26,9 +14,9 @@ pub struct Clock {
 impl Clock {
     /// create a new clock (starting from the moment it's created)
     pub fn new() -> Self {
-        return Self {
+        Self {
             reset_time: Cell::new(Instant::now()),
-        };
+        }
     }
 
     /// reset the clock back to its 0-state (no elapsed time)
@@ -36,14 +24,14 @@ impl Clock {
         self.reset_time.set(Instant::now());
     }
 
-    /// get the elasped duration
+    /// get the elapsed duration
     pub fn elapsed(&self) -> Duration {
-        return Instant::now() - self.reset_time.get();
+        Instant::now() - self.reset_time.get()
     }
 
     /// get the number of elapsed seconds as a 64-bit float
     pub fn elapsed_seconds(&self) -> f64 {
-        return duration_to_seconds(self.elapsed());
+        self.elapsed().as_secs_f64()
     }
 }
 
@@ -67,50 +55,13 @@ pub struct RevLimiter {
     /// the ratio of passing time in the loop to passing real time
     pub speed: f64,
 }
-
 impl RevLimiter {
-    /// create a new rev limiter
-    pub fn new(
-        lockstep_enabled: bool,
-        catchup_enabled: bool,
-        interval_seconds: f64,
-        speed: f64,
-    ) -> Self {
-        return Self {
-            lockstep_enabled,
-            catchup_enabled,
-            interval: Duration::from_nanos((interval_seconds * 1_000_000_000f64) as u64),
-            clock: Clock::new(),
-            lag: Duration::new(0, 0),
-            speed,
-        };
-    }
-
-    /// create a new rev limiter given a custom clock
-
-    /// create a new loop from a frequency (iterations per second) instead of an interval
-    pub fn new_from_frequency(
-        lockstep_enabled: bool,
-        catchup_enabled: bool,
-        per_second: u32,
-        speed: f64,
-    ) -> Self {
-        return Self {
-            lockstep_enabled,
-            catchup_enabled,
-            interval: Duration::from_nanos(((1.0 / (per_second as f64)) * 1_000_000_000.0) as u64),
-            clock: Clock::new(),
-            lag: Duration::new(0, 0),
-            speed,
-        };
-    }
-
     /// call the callback, automatically calculating delta time
     fn get_delta(&self, current_elapsed: Duration) -> f64 {
         if self.lockstep_enabled {
-            return duration_to_seconds(self.interval) * self.speed;
+            return self.interval.as_secs_f64() * self.speed;
         }
-        return duration_to_seconds(current_elapsed) * self.speed;
+        current_elapsed.as_secs_f64() * self.speed
     }
 
     /// calculate a sleep duration after a loop iteration
@@ -120,13 +71,13 @@ impl RevLimiter {
         current_lag: Duration,
     ) -> Duration {
         if current_elapsed >= target_interval {
-            return Duration::new(0, 0);
+            Duration::new(0, 0)
         } else {
             let delta = target_interval - current_elapsed;
             if current_lag > delta {
-                return Duration::new(0, 0);
+                Duration::new(0, 0)
             } else {
-                return delta - current_lag;
+                delta - current_lag
             }
         }
     }
@@ -146,17 +97,17 @@ impl RevLimiter {
         if catchup_enabled {
             if last_wait >= target_interval {
                 let lost_time = last_wait - target_interval;
-                return current_lag + lost_time;
+                current_lag + lost_time
             } else {
                 let gained_time = target_interval - last_wait;
                 if current_lag > gained_time {
-                    return current_lag - gained_time;
+                    current_lag - gained_time
                 } else {
-                    return Duration::new(0, 0);
+                    Duration::new(0, 0)
                 }
             }
         } else {
-            return Duration::new(0, 0);
+            Duration::new(0, 0)
         }
     }
 
@@ -169,7 +120,7 @@ impl RevLimiter {
     pub fn begin(&mut self) -> f64 {
         let delta = self.get_delta(self.clock.elapsed());
         self.clock.reset();
-        return delta;
+        delta
     }
 
     /// signal that execution for this iteration of the loop has completed, and prepare for the next iteration
@@ -177,7 +128,7 @@ impl RevLimiter {
         let wait = self.get_wait(self.clock.elapsed());
         self.clock.reset();
         self.update_lag(wait);
-        return wait;
+        wait
     }
 
     /// set the interval in seconds
@@ -189,5 +140,70 @@ impl RevLimiter {
     pub fn set_frequency(&mut self, per_second: u32) {
         self.interval =
             Duration::from_nanos(((1.0 / (per_second as f64)) * 1_000_000_000.0) as u64);
+    }
+}
+
+pub struct RevLimiterBuilder {
+    wrapped: RevLimiter,
+}
+impl RevLimiterBuilder {
+    pub fn new_from_interval_secs(interval_secs: f64) -> Self {
+        Self {
+            wrapped: RevLimiter {
+                lockstep_enabled: false,
+                catchup_enabled: false,
+                interval: Duration::from_secs_f64(interval_secs),
+                clock: Clock::new(),
+                lag: Duration::new(0, 0),
+                speed: 1.0,
+            },
+        }
+    }
+
+    pub fn new_from_frequency(cycles_per_sec: f64) -> Self {
+        Self {
+            wrapped: RevLimiter {
+                lockstep_enabled: false,
+                catchup_enabled: false,
+                interval: Duration::from_secs_f64(1.0 / cycles_per_sec),
+                clock: Clock::new(),
+                lag: Duration::new(0, 0),
+                speed: 1.0,
+            },
+        }
+    }
+
+    pub fn enable_lockstep(mut self) -> Self {
+        self.wrapped.lockstep_enabled = true;
+        self
+    }
+
+    pub fn disable_lockstep(mut self) -> Self {
+        self.wrapped.lockstep_enabled = false;
+        self
+    }
+
+    pub fn enable_catchup(mut self) -> Self {
+        self.wrapped.catchup_enabled = true;
+        self
+    }
+
+    pub fn disable_catchup(mut self) -> Self {
+        self.wrapped.catchup_enabled = false;
+        self
+    }
+
+    pub fn with_lag_secs(mut self, secs: f64) -> Self {
+        self.wrapped.lag = Duration::from_secs_f64(secs);
+        self
+    }
+
+    pub fn with_speed(mut self, speed: f64) -> Self {
+        self.wrapped.speed = speed;
+        self
+    }
+
+    pub fn build(self) -> RevLimiter {
+        self.wrapped
     }
 }
