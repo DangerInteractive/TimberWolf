@@ -30,7 +30,7 @@ impl SharedGameState {
     }
 
     /// change the context, giving ownership of the previous context to the new one
-    pub fn change_context<'a>(&self, mut context: Option<Box<dyn Context + Send + Sync>>) {
+    pub fn change_context(&self, mut context: Option<Box<dyn Context + Send + Sync>>) {
         let mut lock = self
             .active_context
             .write()
