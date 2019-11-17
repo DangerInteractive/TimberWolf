@@ -1,10 +1,14 @@
-///! utilities for handling colors
+//! utilities for handling colors
 
 /// an RGBA color, stored as four 32-bit float channels between 0-1
 pub struct Color {
+    /// red channel
     pub red: f32,
+    /// green channel
     pub green: f32,
+    /// blue channel
     pub blue: f32,
+    /// alpha channel
     pub alpha: f32,
 }
 impl Color {
