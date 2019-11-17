@@ -19,13 +19,11 @@ use std::thread::{sleep, spawn};
 
 /// container for state that is shared among all loop threads
 #[derive(Default)]
-pub struct SharedGameState {
-    /// service locator for accessing common game service
-    pub services: ServiceLocator,
+pub struct GameState {
     /// the context that the game is currently running, or `None` to signify that the game has stopped
     pub active_context: RwLock<Option<Box<dyn Context + Send + Sync>>>,
 }
-impl SharedGameState {
+impl GameState {
     /// change the context, giving ownership of the previous context to the new one
     pub fn change_context(&self, mut context: Option<Box<dyn Context + Send + Sync>>) {
         let mut lock = self
@@ -42,7 +40,9 @@ impl SharedGameState {
 /// represents a game as collection of subsystems
 #[derive(Default)]
 pub struct Game {
-    shared: Arc<SharedGameState>,
+    /// service locator for accessing common game service
+    pub services: Arc<ServiceLocator>,
+    state: Arc<GameState>,
 }
 impl Game {
     /// create a new game
@@ -50,9 +50,14 @@ impl Game {
         Default::default()
     }
 
-    /// get access to the shared state object
-    pub fn get_shared_state(&self) -> &SharedGameState {
-        &self.shared
+    /// get access to the game's state object
+    pub fn get_state(&self) -> &GameState {
+        &self.state
+    }
+
+    /// get access to the game's service locator
+    pub fn get_services(&self) -> &ServiceLocator {
+        &self.services
     }
 
     /// run the game!
@@ -62,11 +67,12 @@ impl Game {
         frames_per_second: u32,
         ticks_per_second: u32,
     ) {
-        self.shared.change_context(None);
-        self.shared.change_context(Some(context));
+        self.state.change_context(None);
+        self.state.change_context(Some(context));
 
         // start the update loop (on another thread)
-        let shared = self.shared.clone();
+        let services = self.services.clone();
+        let state = self.state.clone();
         let update_loop = spawn(move || {
             let mut rev_limiter = RevLimiterBuilder::new_from_frequency(ticks_per_second as f64)
                 .enable_lockstep()
@@ -79,19 +85,19 @@ impl Game {
                 let mut stop = false;
                 {
                     // read lock scope
-                    let read_lock = shared
+                    let read_lock = state
                         .active_context
                         .read()
                         .expect("active_context is poisoned");
                     if let Some(ref context) = *read_lock {
-                        if let Command::Stop = context.update(delta, &shared.services) {
+                        if let Command::Stop = context.update(delta, &services, &state) {
                             stop = true;
                         }
                     }
                 }
                 if stop {
                     // write lock scope
-                    shared.change_context(None);
+                    state.change_context(None);
                     break;
                 }
                 let wait = rev_limiter.end();
@@ -110,19 +116,19 @@ impl Game {
             {
                 // read lock scope
                 let read_lock = self
-                    .shared
+                    .state
                     .active_context
                     .read()
                     .expect("active_context is poisoned");
                 if let Some(ref context) = *read_lock {
-                    if let Command::Stop = context.render(delta, &self.shared.services) {
+                    if let Command::Stop = context.render(delta, &self.services) {
                         stop = true;
                     }
                 }
             }
             if stop {
                 // write lock scope
-                self.shared.change_context(None);
+                self.state.change_context(None);
                 break;
             }
             let wait = rev_limiter.end();
