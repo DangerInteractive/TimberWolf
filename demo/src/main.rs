@@ -1,45 +1,42 @@
-extern crate timberwolf;
-
 use timberwolf::{
-    context::{Context, Request},
-    log::{event::ConsoleReceiver, Log},
+    lifecycle::{Command, Context},
+    log::event::ConsoleReceiver,
+    services::ServiceLocator,
     Game,
 };
+use winit::Event;
 
 fn main() {
     let mut game = Game::new();
-    game.add_log_receiver(Box::new(ConsoleReceiver::new()));
-    game.push_story_context(Box::new(LoadingContext::new()));
-    game.run(60, 20);
+    game.get_shared_state()
+        .services
+        .log
+        .add_receiver(Box::new(ConsoleReceiver::new()));
+    game.run(Box::new(LoadingContext::new()), 60, 20);
 }
 
+#[derive(Default)]
 struct LoadingContext;
 impl LoadingContext {
     /// create a new loading context
     pub fn new() -> Self {
-        return Self;
+        Default::default()
     }
 }
 impl Context for LoadingContext {
-    fn is_render_transparent(&self) -> bool {
-        false
-    }
-    fn is_update_transparent(&self) -> bool {
-        false
-    }
-    fn is_input_transparent(&self) -> bool {
-        false
-    }
-
-    fn render(&self, delta: f64, log: &Log) -> Request {
+    fn render(&self, delta: f64, services: &ServiceLocator) -> Command {
         let message = format!("render delta: {}", delta);
-        log.verbose("demo", &message);
-        Request::Continue
+        services.log.verbose("demo", &message);
+        Command::Continue
     }
-
-    fn update(&mut self, delta: f64, log: &Log) -> Request {
+    fn update(&self, delta: f64, services: &ServiceLocator) -> Command {
         let message = format!("update delta: {}", delta);
-        log.verbose("demo", &message);
-        Request::Continue
+        services.log.verbose("demo", &message);
+        Command::Continue
+    }
+    fn handle_input(&self, event: Event, services: &ServiceLocator) -> Command {
+        let message = format!("handle input: {:#?}", event);
+        services.log.verbose("demo", &message);
+        Command::Continue
     }
 }
