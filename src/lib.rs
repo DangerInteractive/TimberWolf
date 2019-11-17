@@ -7,11 +7,11 @@ pub mod color;
 pub mod input;
 pub mod lifecycle;
 pub mod log;
-pub mod services;
+pub mod service;
 pub mod timing;
 
 use crate::lifecycle::{Command, Context};
-use crate::services::ServiceLocator;
+use crate::service::ServiceLocator;
 use crate::timing::RevLimiterBuilder;
 use std::mem::swap;
 use std::sync::{Arc, RwLock};
@@ -20,7 +20,7 @@ use std::thread::{sleep, spawn};
 /// container for state that is shared among all loop threads
 #[derive(Default)]
 pub struct SharedGameState {
-    /// service locator for accessing common game services
+    /// service locator for accessing common game service
     pub services: ServiceLocator,
     /// the context that the game is currently running, or `None` to signify that the game has stopped
     pub active_context: RwLock<Option<Box<dyn Context + Send + Sync>>>,
