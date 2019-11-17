@@ -1,7 +1,7 @@
 //! lifecycle and execution subsystem
 
-use crate::service::ServiceLocator;
 use crate::GameState;
+use crate::ServiceLocator;
 use winit::Event;
 
 /// a command that tells one of the game loops what to do before the next iteration.

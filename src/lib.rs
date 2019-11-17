@@ -7,11 +7,10 @@ pub mod color;
 pub mod input;
 pub mod lifecycle;
 pub mod log;
-pub mod service;
 pub mod timing;
 
 use crate::lifecycle::{Command, Context};
-use crate::service::ServiceLocator;
+use crate::log::Log;
 use crate::timing::RevLimiterBuilder;
 use std::mem::swap;
 use std::sync::{Arc, RwLock};
@@ -34,6 +33,19 @@ impl GameState {
         if let Some(ref new_context) = *lock {
             new_context.take_ownership(context);
         }
+    }
+}
+
+/// a collection of services specific to a game
+#[derive(Default)]
+pub struct ServiceLocator {
+    /// logging service
+    pub log: Log,
+}
+impl ServiceLocator {
+    /// create a new service locator (and associated services)
+    pub fn new() -> Self {
+        Default::default()
     }
 }
 
