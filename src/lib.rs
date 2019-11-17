@@ -56,7 +56,15 @@ impl Game {
     }
 
     /// run the game!
-    pub fn run(&self, frames_per_second: u32, ticks_per_second: u32) {
+    pub fn run(
+        &self,
+        context: Box<dyn Context + Send + Sync>,
+        frames_per_second: u32,
+        ticks_per_second: u32,
+    ) {
+        self.shared.change_context(None);
+        self.shared.change_context(Some(context));
+
         // start the update loop (on another thread)
         let shared = self.shared.clone();
         let update_loop = spawn(move || {
