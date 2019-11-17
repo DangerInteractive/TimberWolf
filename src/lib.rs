@@ -50,6 +50,7 @@ impl Game {
         Default::default()
     }
 
+    /// get access to the shared state object
     pub fn get_shared_state(&self) -> &SharedGameState {
         &self.shared
     }
@@ -85,7 +86,7 @@ impl Game {
                     shared.change_context(None);
                     break;
                 }
-                let wait = rev_limiter.next();
+                let wait = rev_limiter.end();
                 sleep(wait);
             }
         });
@@ -116,7 +117,7 @@ impl Game {
                 self.shared.change_context(None);
                 break;
             }
-            let wait = rev_limiter.next();
+            let wait = rev_limiter.end();
             sleep(wait);
         }
 

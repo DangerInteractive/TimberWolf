@@ -96,12 +96,11 @@ pub trait Receiver {
 }
 
 /// a receiver that displays log messages on the system console (stdout and stderr)
+#[derive(Default)]
 pub struct ConsoleReceiver;
 impl ConsoleReceiver {
     /// create a new console log receiver
-    pub fn new() -> Self {
-        Self
-    }
+    pub fn new() -> Self { Default::default() }
 }
 impl Receiver for ConsoleReceiver {
     fn notify(&mut self, event: &Event) {

@@ -1,4 +1,4 @@
-extern crate chrono;
+//! test suite for the log subsystem
 
 use crate::log::event::{Event, Severity};
 use crate::log::output::string::format_event;

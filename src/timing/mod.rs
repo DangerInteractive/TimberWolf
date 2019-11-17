@@ -10,13 +10,17 @@ mod test;
 pub struct Clock {
     reset_time: Cell<Instant>,
 }
-
-impl Clock {
-    /// create a new clock (starting from the moment it's created)
-    pub fn new() -> Self {
+impl Default for Clock {
+    fn default() -> Self {
         Self {
             reset_time: Cell::new(Instant::now()),
         }
+    }
+}
+impl Clock {
+    /// create a new clock (starting from the moment it's created)
+    pub fn new() -> Self {
+        Default::default()
     }
 
     /// reset the clock back to its 0-state (no elapsed time)
@@ -39,19 +43,14 @@ impl Clock {
 pub struct RevLimiter {
     /// whether or not each iteration advances by the same interval despite jitter (deterministic loops)
     pub lockstep_enabled: bool,
-
     /// whether or not the loop should attempt to catch up after incurring lag
     pub catchup_enabled: bool,
-
     /// the target duration between each iteration of the loop
     pub interval: Duration,
-
     /// a clock for keeping track of time elapsed since the last iteration
     pub clock: Clock,
-
     /// the duration of lag incurred behind the real-world elapsed time
     pub lag: Duration,
-
     /// the ratio of passing time in the loop to passing real time
     pub speed: f64,
 }
@@ -124,7 +123,7 @@ impl RevLimiter {
     }
 
     /// signal that execution for this iteration of the loop has completed, and prepare for the next iteration
-    pub fn next(&mut self) -> Duration {
+    pub fn end(&mut self) -> Duration {
         let wait = self.get_wait(self.clock.elapsed());
         self.clock.reset();
         self.update_lag(wait);
@@ -143,10 +142,12 @@ impl RevLimiter {
     }
 }
 
+/// builder for constructing a RevLimiter struct with a fluent API
 pub struct RevLimiterBuilder {
     wrapped: RevLimiter,
 }
 impl RevLimiterBuilder {
+    /// begin building a RevLimiter based off of an interval (time between iterations) in seconds
     pub fn new_from_interval_secs(interval_secs: f64) -> Self {
         Self {
             wrapped: RevLimiter {
@@ -160,6 +161,7 @@ impl RevLimiterBuilder {
         }
     }
 
+    /// begin building a RevLimiter based off of a frequency (iterations per second)
     pub fn new_from_frequency(cycles_per_sec: f64) -> Self {
         Self {
             wrapped: RevLimiter {
@@ -173,36 +175,43 @@ impl RevLimiterBuilder {
         }
     }
 
+    /// enable lockstep functionality: each iteration advances by the same interval despite jitter (deterministic loops)
     pub fn enable_lockstep(mut self) -> Self {
         self.wrapped.lockstep_enabled = true;
         self
     }
 
+    /// disable lockstep functionality: each iteration may advance by a different amount of time depending on conditions (non-deterministic loops)
     pub fn disable_lockstep(mut self) -> Self {
         self.wrapped.lockstep_enabled = false;
         self
     }
 
+    /// enable catchup functionality: the loop attempts to catch up after incurring lag
     pub fn enable_catchup(mut self) -> Self {
         self.wrapped.catchup_enabled = true;
         self
     }
 
+    /// disable catchup functionality: the loop does not attempt to catch up after incurring lag
     pub fn disable_catchup(mut self) -> Self {
         self.wrapped.catchup_enabled = false;
         self
     }
 
+    /// set the initial lag in seconds
     pub fn with_lag_secs(mut self, secs: f64) -> Self {
         self.wrapped.lag = Duration::from_secs_f64(secs);
         self
     }
 
+    /// set the relative speed of time in the loop, where 1.0 is real-time
     pub fn with_speed(mut self, speed: f64) -> Self {
         self.wrapped.speed = speed;
         self
     }
 
+    /// build the RevLimiter, disposing of the builder and returning the RevLimiter struct
     pub fn build(self) -> RevLimiter {
         self.wrapped
     }
