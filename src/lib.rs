@@ -17,8 +17,12 @@ use std::mem::swap;
 use std::sync::{Arc, RwLock};
 use std::thread::{sleep, spawn};
 
+/// container for state that is shared among all loop threads
+#[derive(Default)]
 pub struct SharedGameState {
+    /// service locator for accessing common game services
     pub services: ServiceLocator,
+    /// the context that the game is currently running, or `None` to signify that the game has stopped
     pub active_context: RwLock<Option<Box<dyn Context + Send + Sync>>>,
 }
 impl SharedGameState {
@@ -43,6 +47,7 @@ impl SharedGameState {
 }
 
 /// represents a game as collection of subsystems
+#[derive(Default)]
 pub struct Game {
     shared: Arc<SharedGameState>,
 }

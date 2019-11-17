@@ -2,6 +2,7 @@
 
 use crate::log::Log;
 
+#[derive(Default)]
 pub struct ServiceLocator {
     pub log: Log,
 }

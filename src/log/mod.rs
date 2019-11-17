@@ -12,6 +12,7 @@ pub mod output;
 mod test;
 
 /// centralized log handler service which receives log messages and dispatches them to receivers
+#[derive(Default)]
 pub struct Log {
     /// receivers to which events will be dispatched
     receivers: RwLock<Vec<RwLock<Box<dyn Receiver + Send + Sync>>>>,
