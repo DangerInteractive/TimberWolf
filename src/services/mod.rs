@@ -8,6 +8,6 @@ pub struct ServiceLocator {
 }
 impl ServiceLocator {
     pub fn new() -> Self {
-        Self { log: Log::new() }
+        Default::default()
     }
 }

@@ -26,13 +26,6 @@ pub struct SharedGameState {
     pub active_context: RwLock<Option<Box<dyn Context + Send + Sync>>>,
 }
 impl SharedGameState {
-    fn new() -> Self {
-        Self {
-            services: ServiceLocator::new(),
-            active_context: RwLock::new(None),
-        }
-    }
-
     /// change the context, giving ownership of the previous context to the new one
     pub fn change_context(&self, mut context: Option<Box<dyn Context + Send + Sync>>) {
         let mut lock = self
@@ -54,9 +47,7 @@ pub struct Game {
 impl Game {
     /// create a new game
     pub fn new() -> Self {
-        Self {
-            shared: Arc::new(SharedGameState::new()),
-        }
+        Default::default()
     }
 
     pub fn get_shared_state(&self) -> &SharedGameState {

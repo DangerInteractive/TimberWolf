@@ -1,6 +1,5 @@
 //! the log subsystem
 
-extern crate chrono;
 use chrono::{DateTime, FixedOffset, Local, Utc};
 use event::{Event, Receiver, Severity};
 use std::sync::RwLock;
@@ -21,9 +20,7 @@ pub struct Log {
 impl Log {
     /// create a new log handler service
     pub fn new() -> Log {
-        Log {
-            receivers: RwLock::new(Vec::new()),
-        }
+        Default::default()
     }
 
     /// add a receiver to an existing log handler
