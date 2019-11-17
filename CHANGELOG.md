@@ -4,14 +4,30 @@ All notable changes to this project will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
+## Unreleased
 
 ## [0.4.0] - Unreleased
-**The *Liquid Hwite* Release**
+**The *Different Frame of Mind* Release**
+> You can lift your head up to the sky   <br />
+> Take a deeper breath and give it time  <br />
+> You can walk the path among the lines  <br />
+> With your shattered frame of mind      <br /> - Tristam & Braken, *Frame of Mind*
 
 ### Added
-- Graphics/rendering abstraction layer using gfx
-- Window creation and management using winit
+- contexts can now handle inbound events from winit windows
+- contexts are now responsible for owning and using the contexts they replace
+- project rustfmt.toml and .editorconfig files
 
+### Changed
+- the `timberwolf::Game` struct now keeps only a single boxed context, allows switching contexts via its shared state struct, and
+- the `timberwolf::Game` struct now provides access to services through a `timberwolf::ServiceLocator` struct
+- contexts receive `timberwolf::ServiceLocator` and `timberwolf::GameState` references instead of `timberwolf::log::Log` references in their `render` and `update` methods
+- contexts are now part of `timberwolf::lifecycle` instead of `timberwolf::context`
+- context commands are now `timberwolf::lifecycle::Command` instead of `timberwolf::context::Request`
+
+### Removed
+- the `timberwolf::context::Story` struct no longer exists
+- contexts no longer have simple `is_*_transparent` methods for determining how previous contexts are handled
 
 ## [0.3.2] - 2019-06-17
 **The *Don't Stop Me Now* Release**

@@ -12,7 +12,7 @@ This is a Rust library, available through crates.io. To install as in your
 project you simply need to add it to your Cargo.toml as a dependency:
 ```toml
 [dependencies]
-timberwolf = "0.3.2"
+timberwolf = "0.4.0"
 ```
 
 ## Running the Demo
