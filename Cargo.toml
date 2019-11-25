@@ -8,6 +8,7 @@ license = "MIT"
 repository = "https://github.com/dzgames/TimberWolf"
 
 [dependencies]
-chrono = "0.4.6"
+chrono = "0.4.10"
 cgmath = "0.17.0"
-winit = "0.19.1"
+winit = "0.19.5"
+rendy = "0.5.1"
