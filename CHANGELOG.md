@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.5.0] - Unreleased
+**The *Liquid Hwite* Release**
+
 ## [0.4.0] - 2019-11-16
 **The *Different Frame of Mind* Release**
 > You can lift your head up to the sky   <br />
