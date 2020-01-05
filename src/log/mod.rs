@@ -25,10 +25,10 @@ impl Log {
 
     /// add a receiver to an existing log handler
     pub fn add_receiver(&self, receiver: Box<dyn Receiver + Send + Sync>) {
-        match self.receivers.write() {
-            Ok(mut receivers) => receivers.push(RwLock::new(receiver)),
-            Err(_) => (),
-        }
+        self.receivers
+            .write()
+            .expect("receivers is poisoned")
+            .push(RwLock::new(receiver));
     }
 
     /// create and notify a log event for the current instant
@@ -105,9 +105,12 @@ impl Log {
 
     /// notify all receivers of a log event
     pub fn notify(&self, event: &Event) {
-        self.receivers.read().expect("receivers is poisoned").iter().map(|receiver| {
-            receiver.write().expect("receivers is poisoned").notify(event);
-        });
+        for receiver in self.receivers.read().expect("receivers is poisoned").iter() {
+            receiver
+                .write()
+                .expect("receivers is poisoned")
+                .notify(event);
+        }
     }
 }
 
