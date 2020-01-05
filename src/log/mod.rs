@@ -105,17 +105,9 @@ impl Log {
 
     /// notify all receivers of a log event
     pub fn notify(&self, event: &Event) {
-        match self.receivers.read() {
-            Ok(receivers) => {
-                for receiver in receivers.iter() {
-                    match receiver.write() {
-                        Ok(mut receiver) => receiver.notify(event),
-                        Err(_) => continue,
-                    }
-                }
-            }
-            Err(_) => (),
-        }
+        self.receivers.read().expect("receivers is poisoned").iter().map(|receiver| {
+            receiver.write().expect("receivers is poisoned").notify(event);
+        });
     }
 }
 
