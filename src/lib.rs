@@ -4,9 +4,11 @@
 #![deny(missing_docs)]
 
 pub mod color;
+pub mod graphics;
 pub mod input;
 pub mod lifecycle;
 pub mod log;
+pub mod state;
 pub mod timing;
 
 use crate::lifecycle::{Command, Context};
