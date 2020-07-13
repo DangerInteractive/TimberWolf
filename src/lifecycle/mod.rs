@@ -1,6 +1,6 @@
 //! lifecycle and execution subsystem
 
-use crate::GameState;
+use crate::GlobalState;
 use crate::ServiceLocator;
 use winit::Event;
 

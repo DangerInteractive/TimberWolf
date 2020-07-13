@@ -1,21 +1,29 @@
 //! state management subsystem
 
-pub mod entity;
-
-use crate::state::entity::Entity;
+use std::hash::Hash;
 use std::sync::RwLock;
 
-/// an entire realm of existence, but digital
-pub struct World {
-    /// a scene graph that encompasses the entire entity, not just the visual portion
-    pub graph: Vec<RwLock<WorldGraphNode>>,
+pub struct State {}
+impl State {
+    fn query(&self) -> ScopeBuilder {
+        unimplemented!()
+    }
 }
 
-/// an independent piece of a world, owns descendants that depend on it
-#[derive(Default, Debug)]
-pub struct WorldGraphNode {
-    /// nodes of the scene graph that depend on this one
-    pub children: Vec<RwLock<WorldGraphNode>>,
-    /// the entity that this node of the scene graph represents
-    pub entity: Entity,
+pub struct ScopeBuilder(Scope);
+impl ScopeBuilder {
+    fn with_component_requirement<T>(self) -> Self {
+        self
+    }
+    fn with_component_option<T>(self) -> Self {
+        self
+    }
+    fn with_component_forbid<T>(self) -> Self {
+        self
+    }
+    fn with_filter(self) -> Self {
+        self
+    }
 }
+
+pub struct Scope {}

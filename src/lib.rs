@@ -4,16 +4,16 @@
 #![deny(missing_docs)]
 
 pub mod color;
-pub mod graphics;
+pub mod event;
 pub mod input;
 pub mod lifecycle;
 pub mod log;
+pub mod memory;
 pub mod state;
-pub mod timing;
 
+use crate::event::RevLimiterBuilder;
 use crate::lifecycle::{Command, Context};
 use crate::log::Log;
-use crate::timing::RevLimiterBuilder;
 use std::mem::swap;
 use std::sync::{Arc, RwLock};
 use std::thread::{sleep, spawn};
@@ -53,19 +53,19 @@ impl ServiceLocator {
 
 /// represents a game as collection of subsystems
 #[derive(Default)]
-pub struct Game {
+pub struct App {
     /// service locator for accessing common game service
     pub services: Arc<ServiceLocator>,
-    state: Arc<GameState>,
+    state: Arc<GlobalState>,
 }
-impl Game {
+impl App {
     /// create a new game
     pub fn new() -> Self {
         Default::default()
     }
 
     /// get access to the game's state object
-    pub fn get_state(&self) -> &GameState {
+    pub fn get_state(&self) -> &GlobalState {
         &self.state
     }
 
