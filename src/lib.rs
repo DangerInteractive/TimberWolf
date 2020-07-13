@@ -20,11 +20,11 @@ use std::thread::{sleep, spawn};
 
 /// container for state that is shared among all loop threads
 #[derive(Default)]
-pub struct GameState {
+pub struct GlobalState {
     /// the context that the game is currently running, or `None` to signify that the game has stopped
     pub active_context: RwLock<Option<Box<dyn Context + Send + Sync>>>,
 }
-impl GameState {
+impl GlobalState {
     /// change the context, giving ownership of the previous context to the new one
     pub fn change_context(&self, mut context: Option<Box<dyn Context + Send + Sync>>) {
         let mut lock = self

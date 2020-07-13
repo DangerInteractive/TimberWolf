@@ -19,9 +19,9 @@ pub trait Context: Send + Sync {
     /// function that renders the game
     fn render(&self, delta: f64, services: &ServiceLocator) -> Command;
     /// function that updates game state
-    fn update(&self, delta: f64, services: &ServiceLocator, state: &GameState) -> Command;
+    fn update(&self, delta: f64, services: &ServiceLocator, state: &GlobalState) -> Command;
     /// function that handles inbound window/device events
-    fn handle_input(&self, event: Event, services: &ServiceLocator, state: &GameState) -> Command;
+    fn handle_input(&self, event: Event, services: &ServiceLocator, state: &GlobalState) -> Command;
     /// a function that is called after a context switch, passing ownership of the previous context
     /// into this context (can be used to override the previous context's functionality by proxying)
     fn take_ownership(&self, _context: Option<Box<dyn Context + Send + Sync>>) {}
