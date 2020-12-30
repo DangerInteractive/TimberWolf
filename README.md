@@ -21,7 +21,7 @@ timberwolf = "0.5.0"
 As of now, there is only a single demo app, which shows the game loop timing and
 logging subsystems.
 ```bash
-cd demo
+cd triangle
 cargo run
 ```
 
