@@ -11,7 +11,7 @@ pub mod log;
 pub mod memory;
 pub mod state;
 
-use crate::event::RevLimiterBuilder;
+use crate::event::timing::RevLimiterBuilder;
 use crate::lifecycle::{Command, Context};
 use crate::log::Log;
 use std::mem::swap;
