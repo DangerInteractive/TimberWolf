@@ -8,8 +8,6 @@ pub mod event;
 pub mod input;
 pub mod lifecycle;
 pub mod log;
-pub mod memory;
-pub mod state;
 
 use crate::event::timing::RevLimiterBuilder;
 use crate::lifecycle::{Command, Context};
