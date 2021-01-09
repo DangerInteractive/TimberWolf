@@ -6,12 +6,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.5.0] - 2021-01-09
+**The *Sunrise After Ragnarök* Release**
+
+### Added
+- `event` namespace, which brings tools for implementing the observer pattern generically
+
+### Changed
+- simplified `log::Log::notify`
+- rename `GameState` to `GlobalState` and `Game` to `App` to better reflect the multipurpose nature of TimberWolf
+- split state management into `wyrd` crate, which will be a real ECS system rather than what I had before
+- refactor the timing subsystem to use the observer pattern from `event`
+- move `demo` to `examples/triangle`, because there will be more than one demo, and that one will just display a triangle
+
+### Removed
+- .idea config files are no longer in-repo (and neither should any other IDE-specific configs going forward)
+
 ## [0.4.0] - 2019-11-16
 **The *Different Frame of Mind* Release**
 > You can lift your head up to the sky   <br />
 > Take a deeper breath and give it time  <br />
 > You can walk the path among the lines  <br />
-> With your shattered frame of mind      <br /> - Tristam & Braken, *Frame of Mind*
+> With your shattered frame of mind      <br />
+> &ndash; Tristam & Braken, *Frame of Mind*
 
 ### Added
 - contexts can now handle inbound events from winit windows

@@ -13,7 +13,7 @@ pub struct Color {
 }
 impl Color {
     /// create a new RGBA color using normalized 32-bit float channels
-    pub fn new_rgba(red: f32, green: f32, blue: f32, alpha: f32) -> Self {
+    pub const fn new_rgba(red: f32, green: f32, blue: f32, alpha: f32) -> Self {
         Self {
             red,
             green,
@@ -33,7 +33,7 @@ impl Color {
     }
 
     /// create a new RGB color using normalized 32-bit float channels
-    pub fn new_rgb(red: f32, green: f32, blue: f32) -> Self {
+    pub const fn new_rgb(red: f32, green: f32, blue: f32) -> Self {
         Self {
             red,
             green,

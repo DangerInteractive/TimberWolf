@@ -4,25 +4,25 @@
 #![deny(missing_docs)]
 
 pub mod color;
+pub mod event;
 pub mod input;
 pub mod lifecycle;
 pub mod log;
-pub mod timing;
 
+use crate::event::timing::RevLimiterBuilder;
 use crate::lifecycle::{Command, Context};
 use crate::log::Log;
-use crate::timing::RevLimiterBuilder;
 use std::mem::swap;
 use std::sync::{Arc, RwLock};
 use std::thread::{sleep, spawn};
 
 /// container for state that is shared among all loop threads
 #[derive(Default)]
-pub struct GameState {
+pub struct GlobalState {
     /// the context that the game is currently running, or `None` to signify that the game has stopped
     pub active_context: RwLock<Option<Box<dyn Context + Send + Sync>>>,
 }
-impl GameState {
+impl GlobalState {
     /// change the context, giving ownership of the previous context to the new one
     pub fn change_context(&self, mut context: Option<Box<dyn Context + Send + Sync>>) {
         let mut lock = self
@@ -51,19 +51,19 @@ impl ServiceLocator {
 
 /// represents a game as collection of subsystems
 #[derive(Default)]
-pub struct Game {
+pub struct App {
     /// service locator for accessing common game service
     pub services: Arc<ServiceLocator>,
-    state: Arc<GameState>,
+    state: Arc<GlobalState>,
 }
-impl Game {
+impl App {
     /// create a new game
     pub fn new() -> Self {
         Default::default()
     }
 
     /// get access to the game's state object
-    pub fn get_state(&self) -> &GameState {
+    pub fn get_state(&self) -> &GlobalState {
         &self.state
     }
 
