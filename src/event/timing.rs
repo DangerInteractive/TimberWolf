@@ -2,7 +2,6 @@
 
 use crate::event::{Observable, ObserverStorage, VecObserverStorage};
 use std::cell::Cell;
-use std::fmt::Debug;
 use std::time::{Duration, Instant};
 
 /// keeps track of the passing of time from a recorded instant
@@ -216,27 +215,16 @@ impl RevLimiterBuilder {
     }
 }
 
-pub struct F64TimerEventListener<R: Send + Sync + Debug = ()> {
-    observer_storage: VecObserverStorage<f64, R>,
+/// a timer that generates continuous timing events which can be observed
+#[derive(Default)]
+pub struct F64Timer {
+    observer_storage: VecObserverStorage<f64>,
 }
-impl<'a, R: Send + Sync + Debug> F64TimerEventListener<R> {
-    fn new() -> Self {
-        Self {
-            observer_storage: VecObserverStorage::new(),
-        }
-    }
-}
-impl<R: Send + Sync + Debug> Observable for F64TimerEventListener<R> {
+impl Observable for F64Timer {
     type NotificationType = f64;
-    type ResponseType = R;
 
     fn notify_observers(&self, notification: Self::NotificationType) {
         self.observer_storage.notify_observers(notification)
-    }
-
-    fn map_observers_with_notification(&self, notification: Self::NotificationType) {
-        self.observer_storage
-            .map_observers_with_notification(notification)
     }
 }
 
