@@ -1,9 +1,9 @@
 [package]
-name = "timberwolf-demo"
+name = "timberwolf-demo-triangle"
 version = "0.4.0"
 authors = ["Alexander Barber <alex@dangerzonegames.com>"]
 edition = "2018"
 
 [dependencies]
-timberwolf = { version="*", path="../" }
+timberwolf = { version="*", path="../../" }
 winit = "0.19.5"
