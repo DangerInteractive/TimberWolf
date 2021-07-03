@@ -72,7 +72,7 @@ impl<'a> Entity<'a> {
     }
 
     pub fn has_component<T: 'static>(&mut self) -> bool {
-        self.storage.contains_key(&TypeId::of::<T>())
+        matches!(self.get_component::<T>(), Some(_))
     }
 
     pub fn get_component<T: 'static>(&mut self) -> &'a Option<T> {
