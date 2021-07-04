@@ -1,8 +1,11 @@
 [package]
 name = "timberwolf-demo-triangle"
-version = "0.4.0"
+version = "0.5.0"
 authors = ["Alexander Barber <alex@dangerzonegames.com>"]
 edition = "2018"
+description = "a demo using timberwolf that renders a triangle"
+license = "MIT"
+repository = "https://github.com/DangerInteractive/TimberWolf"
 
 [dependencies]
 timberwolf = { version="*", path="../../" }
