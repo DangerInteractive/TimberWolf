@@ -43,7 +43,7 @@ impl Wyrd {
 
 #[derive(Default)]
 pub struct EntityBuilder {
-    pub(crate) components: HashMap<TypeId, Box<dyn Any>>,
+    components: HashMap<TypeId, Box<dyn Any>>,
 }
 
 impl EntityBuilder {
@@ -52,13 +52,13 @@ impl EntityBuilder {
         self
     }
 
-    pub fn build(self) -> BuiltEntity {
-        BuiltEntity { builder: self }
+    pub fn build(self) -> EntityConfig {
+        EntityConfig { builder: self }
     }
 }
 
-pub struct BuiltEntity {
-    pub(crate) builder: EntityBuilder,
+pub struct EntityConfig {
+    builder: EntityBuilder,
 }
 
 pub struct Entity<'a> {
