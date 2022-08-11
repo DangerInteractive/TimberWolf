@@ -1,25 +1,27 @@
 //! An Entity Component System Library
 
 use std::any::{Any, TypeId};
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
+
+pub type VecComponentStorage<T: Sized> = Vec<Option<T>>;
+pub type HashMapComponentStorage<T: Sized> = HashMap<usize, T>;
+pub type BTreeMapComponentStorage<T: Sized> = BTreeMap<usize, T>;
+
+pub enum ComponentStorage<T: Sized> {
+    Table(VecComponentStorage<T>),
+    HashMap(HashMapComponentStorage<T>),
+    BTreeMap(BTreeMapComponentStorage<T>),
+}
 
 #[derive(Default)]
 pub struct Wyrd {
-    component_storages: ComponentStorageMap,
-    entity_meta: Vec<EntityMeta>,
+    component_storages: HashMap<TypeId, *mut ()>,
+    entity_table: Vec<bool>,
 }
-
-pub enum EntityMeta {
-    Empty,
-    Active,
-}
-
-pub type ComponentStorageMap = HashMap<TypeId, *mut ()>;
-pub type ComponentStorage<T> = Vec<Option<T>>;
 
 impl Wyrd {
     pub fn register_component_type<T: 'static>(&mut self) {
-        let mut data: ComponentStorage<T> = ComponentStorage::default();
+        let mut data: VecComponentStorage<T> = VecComponentStorage::default();
         self.component_storages
             .insert(TypeId::of::<T>(), data.as_mut_ptr().cast::<()>());
     }
@@ -32,12 +34,19 @@ impl Wyrd {
     //     }
     // }
 
-    pub fn run_system(&self, system: fn(Entity)) {
-        for (i, meta) in self.entity_meta.iter().enumerate() {
-            if let EntityMeta::Active = meta {
-                system(Entity::new(&self.component_storages, i))
+    pub fn run_system(&self, component_types: &[TypeId], system: fn(Entity)) {
+        for (i, meta) in self.entity_table.iter().enumerate() {
+            if let true = meta {
+                system(Entity::new(self, i))
             };
         }
+    }
+
+    fn get_component_storage<T: 'static + Sized>(&self) -> Option<&ComponentStorage<T>> {
+        if let Some(pointer) = self.component_storages.get(&TypeId::of::<T>()) {
+            unsafe { return pointer.cast::<ComponentStorage<T>>().as_ref() }
+        }
+        None
     }
 }
 
@@ -62,21 +71,21 @@ pub struct EntityConfig {
 }
 
 pub struct Entity<'a> {
-    storage: &'a ComponentStorageMap,
+    wyrd: &'a Wyrd,
     index: usize,
 }
 
 impl<'a> Entity<'a> {
-    fn new(storage: &'a ComponentStorageMap, index: usize) -> Self {
-        Self { storage, index }
+    fn new(wyrd: &'a Wyrd, index: usize) -> Self {
+        Self { wyrd, index }
     }
 
-    pub fn has_component<T: 'static>(&mut self) -> bool {
+    pub fn has_component<T: 'static>(&self) -> bool {
         matches!(self.get_component::<T>(), Some(_))
     }
 
-    pub fn get_component<T: 'static>(&mut self) -> &'a Option<T> {
-        if let Some(pointer) = self.storage.get(&TypeId::of::<T>()) {
+    pub fn get_component<T: 'static>(&self) -> &'a Option<T> {
+        if let Some(pointer) = self.wyrd.component_storages.get(&TypeId::of::<T>()) {
             unsafe {
                 if let Some(storage) = pointer.cast::<Vec<Option<T>>>().as_ref() {
                     if let Some(component) = storage.get(self.index) {

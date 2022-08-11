@@ -1,6 +1,5 @@
 //! event emitters based on timing
 
-use crate::event::{Observable, ObserverStorage, VecObserverStorage};
 use std::cell::Cell;
 use std::time::{Duration, Instant};
 
@@ -8,20 +7,14 @@ use std::time::{Duration, Instant};
 pub struct Clock {
     reset_time: Cell<Instant>,
 }
-impl Default for Clock {
-    fn default() -> Self {
-        Self {
-            reset_time: Cell::new(Instant::now()),
-        }
-    }
-}
+
 impl Clock {
     /// create a new clock (starting from the moment it's created)
     pub fn new() -> Self {
         Default::default()
     }
 
-    /// reset the clock back to its 0-state (no elapsed time)
+    /// reset the clock back to its default state (no elapsed time)
     pub fn reset(&self) {
         self.reset_time.set(Instant::now());
     }
@@ -37,30 +30,25 @@ impl Clock {
     }
 }
 
+impl Default for Clock {
+    fn default() -> Self {
+        Self {
+            reset_time: Cell::new(Instant::now()),
+        }
+    }
+}
+
 /// an object that provides a means of controlling the rate at which a loop is run
 pub struct RevLimiter {
     /// whether or not each iteration advances by the same interval despite jitter (deterministic loops)
-    pub lockstep_enabled: bool,
+    pub fixed_time_stepping_enabled: bool,
     /// whether or not the loop should attempt to catch up after incurring lag
-    pub catchup_enabled: bool,
+    pub lag_catch_up_enabled: bool,
     /// the target duration between each iteration of the loop
     pub interval: Duration,
-    /// a clock for keeping track of time elapsed since the last iteration
-    pub clock: Clock,
-    /// the duration of lag incurred behind the real-world elapsed time
-    pub lag: Duration,
-    /// the ratio of passing time in the loop to passing real time
-    pub speed: f64,
 }
-impl RevLimiter {
-    /// call the callback, automatically calculating delta time
-    fn get_delta(&self, current_elapsed: Duration) -> f64 {
-        if self.lockstep_enabled {
-            return self.interval.as_secs_f64() * self.speed;
-        }
-        current_elapsed.as_secs_f64() * self.speed
-    }
 
+impl RevLimiter {
     /// calculate a sleep duration after a loop iteration
     fn calculate_wait(
         current_elapsed: Duration,
@@ -80,25 +68,25 @@ impl RevLimiter {
     }
 
     /// get the time to wait until the next loop iteration should run
-    fn get_wait(&self, current_elapsed: Duration) -> Duration {
-        Self::calculate_wait(current_elapsed, self.interval, self.lag)
+    fn get_wait(&self, elapsed: Duration, lag: Duration) -> Duration {
+        Self::calculate_wait(elapsed, self.interval, lag)
     }
 
     /// calculate the remaining lag after a loop iteration
     fn calculate_lag(
         last_wait: Duration,
         target_interval: Duration,
-        current_lag: Duration,
+        accumulated_lag: Duration,
         catchup_enabled: bool,
     ) -> Duration {
         if catchup_enabled {
             if last_wait >= target_interval {
                 let lost_time = last_wait - target_interval;
-                current_lag + lost_time
+                accumulated_lag + lost_time
             } else {
                 let gained_time = target_interval - last_wait;
-                if current_lag > gained_time {
-                    current_lag - gained_time
+                if accumulated_lag > gained_time {
+                    accumulated_lag - gained_time
                 } else {
                     Duration::new(0, 0)
                 }
@@ -108,24 +96,13 @@ impl RevLimiter {
         }
     }
 
-    /// calculate and store the current lag of this loop
-    fn update_lag(&mut self, current_wait: Duration) {
-        self.lag = Self::calculate_lag(current_wait, self.interval, self.lag, self.catchup_enabled);
-    }
-
-    /// signal that execution for this iteration of the loop has started, mainly for the purpose of starting a timer
-    pub fn begin(&mut self) -> f64 {
-        let delta = self.get_delta(self.clock.elapsed());
-        self.clock.reset();
-        delta
-    }
-
     /// signal that execution for this iteration of the loop has completed, and prepare for the next iteration
-    pub fn end(&mut self) -> Duration {
-        let wait = self.get_wait(self.clock.elapsed());
-        self.clock.reset();
-        self.update_lag(wait);
-        wait
+    pub fn end(&mut self, clock: &Clock, lag: Duration) -> (Duration, Duration) {
+        let wait = self.get_wait(clock.elapsed(), lag);
+        (
+            Self::calculate_lag(wait, self.interval, lag, self.lag_catch_up_enabled),
+            wait,
+        )
     }
 
     /// set the interval in seconds
@@ -144,17 +121,15 @@ impl RevLimiter {
 pub struct RevLimiterBuilder {
     wrapped: RevLimiter,
 }
+
 impl RevLimiterBuilder {
     /// begin building a RevLimiter based off of an interval (time between iterations) in seconds
     pub fn new_from_interval_secs(interval_secs: f64) -> Self {
         Self {
             wrapped: RevLimiter {
-                lockstep_enabled: false,
-                catchup_enabled: false,
+                fixed_time_stepping_enabled: false,
+                lag_catch_up_enabled: false,
                 interval: Duration::from_secs_f64(interval_secs),
-                clock: Clock::new(),
-                lag: Duration::new(0, 0),
-                speed: 1.0,
             },
         }
     }
@@ -163,49 +138,34 @@ impl RevLimiterBuilder {
     pub fn new_from_frequency(cycles_per_sec: f64) -> Self {
         Self {
             wrapped: RevLimiter {
-                lockstep_enabled: false,
-                catchup_enabled: false,
+                fixed_time_stepping_enabled: false,
+                lag_catch_up_enabled: false,
                 interval: Duration::from_secs_f64(1.0 / cycles_per_sec),
-                clock: Clock::new(),
-                lag: Duration::new(0, 0),
-                speed: 1.0,
             },
         }
     }
 
     /// enable lockstep functionality: each iteration advances by the same interval despite jitter (deterministic loops)
     pub fn enable_lockstep(mut self) -> Self {
-        self.wrapped.lockstep_enabled = true;
+        self.wrapped.fixed_time_stepping_enabled = true;
         self
     }
 
     /// disable lockstep functionality: each iteration may advance by a different amount of time depending on conditions (non-deterministic loops)
     pub fn disable_lockstep(mut self) -> Self {
-        self.wrapped.lockstep_enabled = false;
+        self.wrapped.fixed_time_stepping_enabled = false;
         self
     }
 
     /// enable catchup functionality: the loop attempts to catch up after incurring lag
     pub fn enable_catchup(mut self) -> Self {
-        self.wrapped.catchup_enabled = true;
+        self.wrapped.lag_catch_up_enabled = true;
         self
     }
 
     /// disable catchup functionality: the loop does not attempt to catch up after incurring lag
     pub fn disable_catchup(mut self) -> Self {
-        self.wrapped.catchup_enabled = false;
-        self
-    }
-
-    /// set the initial lag in seconds
-    pub fn with_lag_secs(mut self, secs: f64) -> Self {
-        self.wrapped.lag = Duration::from_secs_f64(secs);
-        self
-    }
-
-    /// set the relative speed of time in the loop, where 1.0 is real-time
-    pub fn with_speed(mut self, speed: f64) -> Self {
-        self.wrapped.speed = speed;
+        self.wrapped.lag_catch_up_enabled = false;
         self
     }
 
@@ -215,26 +175,13 @@ impl RevLimiterBuilder {
     }
 }
 
-/// a timer that generates continuous timing events which can be observed
-#[derive(Default)]
-pub struct F64Timer {
-    observer_storage: VecObserverStorage<f64>,
-}
-impl Observable for F64Timer {
-    type NotificationType = f64;
-
-    fn notify_observers(&self, notification: Self::NotificationType) {
-        self.observer_storage.notify_observers(notification)
-    }
-}
-
 #[test]
 fn revlimiter_waits_when_ahead() {
     assert_eq!(
         RevLimiter::calculate_wait(
             Duration::from_millis(1),
             Duration::from_millis(15),
-            Duration::from_millis(0)
+            Duration::from_millis(0),
         ),
         Duration::from_millis(14)
     );
@@ -246,7 +193,7 @@ fn revlimiter_continues_when_on_time() {
         RevLimiter::calculate_wait(
             Duration::from_millis(15),
             Duration::from_millis(15),
-            Duration::from_millis(0)
+            Duration::from_millis(0),
         ),
         Duration::from_millis(0)
     );
@@ -258,7 +205,7 @@ fn revlimiter_continues_when_behind() {
         RevLimiter::calculate_wait(
             Duration::from_millis(19),
             Duration::from_millis(15),
-            Duration::from_millis(0)
+            Duration::from_millis(0),
         ),
         Duration::from_millis(0)
     );
@@ -271,7 +218,7 @@ fn revlimiter_decreases_lag_when_ahead() {
             Duration::from_millis(1),
             Duration::from_millis(15),
             Duration::from_millis(100),
-            true
+            true,
         ),
         Duration::from_millis(86)
     );
@@ -284,7 +231,7 @@ fn revlimiter_keeps_lag_when_on_time() {
             Duration::from_millis(15),
             Duration::from_millis(15),
             Duration::from_millis(100),
-            true
+            true,
         ),
         Duration::from_millis(100)
     );
@@ -297,7 +244,7 @@ fn revlimiter_increases_lag_when_behind() {
             Duration::from_millis(27),
             Duration::from_millis(15),
             Duration::from_millis(100),
-            true
+            true,
         ),
         Duration::from_millis(112)
     );
@@ -310,7 +257,7 @@ fn revlimiter_has_no_lag_without_catchup() {
             Duration::from_millis(27),
             Duration::from_millis(15),
             Duration::from_millis(100),
-            false
+            false,
         ),
         Duration::from_millis(0)
     );

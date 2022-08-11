@@ -8,7 +8,7 @@ license = "MIT"
 repository = "https://github.com/DangerInteractive/TimberWolf"
 
 [dependencies]
-chrono = "0.4.10"
-cgmath = "0.17.0"
-winit = "0.19.5"
-rendy = "0.5.1"
+crossbeam = "0.8.2"
+futures = "0.3.21"
+log = "0.4.17"
+rayon = "1.5.3"

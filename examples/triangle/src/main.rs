@@ -1,5 +1,5 @@
 use timberwolf::{
-    lifecycle::{Command, Context},
+    lifecycle::{Command, ContextSwitcher},
     log::event::ConsoleReceiver,
     App, GlobalState, ServiceLocator,
 };
@@ -21,7 +21,7 @@ impl LoadingContext {
         Default::default()
     }
 }
-impl Context for LoadingContext {
+impl ContextSwitcher for LoadingContext {
     fn render(&self, delta: f64, services: &ServiceLocator) -> Command {
         let message = format!("render delta: {}", delta);
         services.log.verbose("demo", &message);
