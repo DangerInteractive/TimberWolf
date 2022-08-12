@@ -3,7 +3,6 @@
 #![deny(dead_code)]
 #![deny(missing_docs)]
 
-pub mod color;
 pub mod event;
 pub mod input;
 pub mod lifecycle;
