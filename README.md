@@ -24,10 +24,12 @@ cargo add timberwolf
 ```
 
 ## Running the Demo
-As of now, there is only a single demo app, which shows the game loop timing and
-logging subsystems.
+As of now, there is only a single demo app, which is intended to demonstrate the
+bare minimum subsystems necessary to render a triangle to the screen.
+
+This example can be run by the following commands:
 ```bash
-cd triangle
+cd examples/triangle
 cargo run
 ```
 
