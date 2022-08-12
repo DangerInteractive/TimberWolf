@@ -23,11 +23,6 @@ impl Clock {
     pub fn elapsed(&self) -> Duration {
         Instant::now() - self.reset_time.get()
     }
-
-    /// get the number of elapsed seconds as a 64-bit float
-    pub fn elapsed_seconds(&self) -> f64 {
-        self.elapsed().as_secs_f64()
-    }
 }
 
 impl Default for Clock {
