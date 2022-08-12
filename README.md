@@ -1,5 +1,5 @@
 # TimberWolf
-**a high-performance, cross-platform, modern, pure-rust game engine**
+**a declarative, data-driven, cross-platform game engine written in Rust**
 
 ## The Core Objectives
 TimberWolf is a game engine that strives to be:

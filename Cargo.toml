@@ -3,9 +3,9 @@ name = "timberwolf"
 version = "0.5.0"
 authors = ["Alexander Barber <alex@dangerzonegames.com>"]
 edition = "2018"
-description = "a high-performance 3D-focused game engine"
+description = "a declarative, data-driven, cross-platform game engine written in Rust"
 license = "MIT"
-repository = "https://github.com/DangerInteractive/TimberWolf"
+repository = "https://gitlab.com/DangerInteractive/TimberWolf"
 
 [dependencies]
 crossbeam = "0.8.2"
