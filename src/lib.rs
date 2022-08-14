@@ -3,11 +3,11 @@
 #![deny(dead_code)]
 #![deny(missing_docs)]
 
+pub mod context;
 pub mod event;
 pub mod input;
-pub mod lifecycle;
 
-use crate::lifecycle::{Context, ContextSwitcher};
+use crate::context::{Context, ContextSwitcher};
 
 /// represents a game as collection of subsystems
 pub struct App<ContextType: Context<ContextType> + Clone + Send + Sync> {

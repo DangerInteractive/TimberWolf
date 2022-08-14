@@ -1,4 +1,4 @@
-//! lifecycle and execution subsystem
+//! subsystem for switching between different contexts in the game
 
 use std::mem::swap;
 use std::sync::RwLock;
