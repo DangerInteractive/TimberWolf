@@ -1,3 +1,5 @@
 /target
-**/*.rs.bk
+/crates/*/target
+/examples/*/target
+*.rs.bk
 Cargo.lock
