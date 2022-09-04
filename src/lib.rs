@@ -1,4 +1,4 @@
-//! TimberWolf -  A high-performance 3D focused cross-platform game engine based on Rust
+//! TimberWolf -  a declarative, data-driven, cross-platform game engine written in Rust
 
 #![deny(dead_code)]
 #![deny(missing_docs)]
